@@ -12,15 +12,15 @@
 
 | Account | GitHub Profile | Official API Endpoint | Type | Account Created (UTC) | Public Repos | Pages Sites | Status & Review Notes |
 |---|---|---|---|---|---|---|---|
-| `buffedlizard55-lab` | [github.com/buffedlizard55-lab](https://github.com/buffedlizard55-lab) | [`/users/buffedlizard55-lab`](https://api.github.com/users/buffedlizard55-lab) | User | 2026-07-27T01:05:09Z | 33 | 33 | ✅ Verified: All 33 repositories have GitHub Pages enabled and built. |
+| `buffedlizard55-lab` | [github.com/buffedlizard55-lab](https://github.com/buffedlizard55-lab) | [`/users/buffedlizard55-lab`](https://api.github.com/users/buffedlizard55-lab) | User | 2026-07-27T01:05:09Z | 33 | 33 | ✅ Verified: All 33 repositories have GitHub Pages enabled and built. This directory publishes 32 of them — see [Section 2a. Repository Exclusions](#2a-repository-exclusions-deliberately-omitted). |
 | `kanlerxz87-cyber` | [github.com/kanlerxz87-cyber](https://github.com/kanlerxz87-cyber) | [`/users/kanlerxz87-cyber`](https://api.github.com/users/kanlerxz87-cyber) | User | 2026-08-03T20:56:16Z | 0 | 0 | ✅ Verified: Account exists but contains 0 public repositories and 0 Pages sites. Flagged as `IRR-01`. |
 
 ---
 
-## 2. Master Repository & GitHub Pages Audit Ledger (33 / 33 Repositories Verified)
+## 2. Master Repository & GitHub Pages Audit Ledger (32 / 32 Directory Entries Verified)
 
 Every line below was queried directly via GitHub REST API endpoints:
-- `GET https://api.github.com/users/buffedlizard55-lab/repos?per_page=100`
+- `GET https://api.github.com/users/buffedlizard55-lab/repos?per_page=100` (33 repositories returned; 1 is excluded from this directory, see Section 2a)
 - `GET https://api.github.com/repos/buffedlizard55-lab/{repo}`
 - `GET https://api.github.com/repos/buffedlizard55-lab/{repo}/pages`
 - `GET https://api.github.com/repos/buffedlizard55-lab/{repo}/commits?per_page=100` (paginated)
@@ -54,32 +54,42 @@ Every line below was queried directly via GitHub REST API endpoints:
 | 24 | `PFFNFL` | Sports Data & Scoreboards | Doc Stub | built | `main /` | 2026-08-17 16:29:40 | `7a913c7` | 2026-08-17 21:12:44 | `0f00b26` | 3 | [Live Site](https://buffedlizard55-lab.github.io/PFFNFL/) · [Repo](https://github.com/buffedlizard55-lab/PFFNFL) · [API](https://api.github.com/repos/buffedlizard55-lab/PFFNFL/pages) |
 | 25 | `PlumbingSF` | SF Local Guides | Live App | built | `main /` | 2026-09-03 23:18:30 | `35e2994` | 2026-09-04 20:12:24 | `bae59fe` | 19 | [Live Site](https://buffedlizard55-lab.github.io/PlumbingSF/) · [Repo](https://github.com/buffedlizard55-lab/PlumbingSF) · [API](https://api.github.com/repos/buffedlizard55-lab/PlumbingSF/pages) |
 | 26 | `PriceKalshiHistorical` | Markets & Trading Research | Live App | built | `main /` | 2026-08-17 21:27:55 | `542ddd8` | 2026-08-19 17:06:23 | `96ff13c` | 5 | [Live Site](https://buffedlizard55-lab.github.io/PriceKalshiHistorical/) · [Repo](https://github.com/buffedlizard55-lab/PriceKalshiHistorical) · [API](https://api.github.com/repos/buffedlizard55-lab/PriceKalshiHistorical/pages) |
-| 27 | `ProjX` | Directory & Meta | Live App | built | `main /` | 2026-09-06 00:31:14 | `b789bac` | 2026-09-07 17:31:35 | `05ef874` | 127 | [Live Site](https://buffedlizard55-lab.github.io/ProjX/) · [Repo](https://github.com/buffedlizard55-lab/ProjX) · [API](https://api.github.com/repos/buffedlizard55-lab/ProjX/pages) |
-| 28 | `ScheduleFreeTime` | Sports Data & Scoreboards | Live App | built | `main /` | 2026-08-27 20:17:13 | `f941565` | 2026-09-12 00:05:34 | `e18dc2c` | 12 | [Live Site](https://buffedlizard55-lab.github.io/ScheduleFreeTime/) · [Repo](https://github.com/buffedlizard55-lab/ScheduleFreeTime) · [API](https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime/pages) |
-| 29 | `SFLateNight` | SF Local Guides | Live App | built | `main /` | 2026-09-05 20:58:20 | `5b1933c` | 2026-09-06 04:26:17 | `509a1ad` | 30 | [Live Site](https://buffedlizard55-lab.github.io/SFLateNight/) · [Repo](https://github.com/buffedlizard55-lab/SFLateNight) · [API](https://api.github.com/repos/buffedlizard55-lab/SFLateNight/pages) |
-| 30 | `SportsPred` | Sports Data & Scoreboards | Live App | built | `main /` | 2026-08-31 00:01:45 | `66eb2bb` | 2026-09-05 08:23:55 | `aa3b1fe` | 189 | [Live Site](https://buffedlizard55-lab.github.io/SportsPred/) · [Repo](https://github.com/buffedlizard55-lab/SportsPred) · [API](https://api.github.com/repos/buffedlizard55-lab/SportsPred/pages) |
-| 31 | `StanfordStay` | Travel & Korea Trip | Live App | built | `main /` | 2026-08-20 05:35:20 | `5bc9062` | 2026-08-22 08:46:46 | `499fb0a` | 18 | [Live Site](https://buffedlizard55-lab.github.io/StanfordStay/) · [Repo](https://github.com/buffedlizard55-lab/StanfordStay) · [API](https://api.github.com/repos/buffedlizard55-lab/StanfordStay/pages) |
-| 32 | `TinoLunchSpecial` | SF Local Guides | Live App | built | `main /` | 2026-09-07 19:05:24 | `c7bd9eb` | 2026-09-12 00:28:59 | `822317b` | 41 | [Live Site](https://buffedlizard55-lab.github.io/TinoLunchSpecial/) · [Repo](https://github.com/buffedlizard55-lab/TinoLunchSpecial) · [API](https://api.github.com/repos/buffedlizard55-lab/TinoLunchSpecial/pages) |
-| 33 | `Tradingview-pinescript-editor` | Markets & Trading Research | Live App | built | `main /` | 2026-08-08 18:27:58 | `351fa6f` | 2026-08-10 01:43:17 | `834312c` | 13 | [Live Site](https://buffedlizard55-lab.github.io/Tradingview-pinescript-editor/) · [Repo](https://github.com/buffedlizard55-lab/Tradingview-pinescript-editor) · [API](https://api.github.com/repos/buffedlizard55-lab/Tradingview-pinescript-editor/pages) |
+| 27 | `ScheduleFreeTime` | Sports Data & Scoreboards | Live App | built | `main /` | 2026-08-27 20:17:13 | `f941565` | 2026-09-12 00:05:34 | `e18dc2c` | 12 | [Live Site](https://buffedlizard55-lab.github.io/ScheduleFreeTime/) · [Repo](https://github.com/buffedlizard55-lab/ScheduleFreeTime) · [API](https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime/pages) |
+| 28 | `SFLateNight` | SF Local Guides | Live App | built | `main /` | 2026-09-05 20:58:20 | `5b1933c` | 2026-09-06 04:26:17 | `509a1ad` | 30 | [Live Site](https://buffedlizard55-lab.github.io/SFLateNight/) · [Repo](https://github.com/buffedlizard55-lab/SFLateNight) · [API](https://api.github.com/repos/buffedlizard55-lab/SFLateNight/pages) |
+| 29 | `SportsPred` | Sports Data & Scoreboards | Live App | built | `main /` | 2026-08-31 00:01:45 | `66eb2bb` | 2026-09-05 08:23:55 | `aa3b1fe` | 189 | [Live Site](https://buffedlizard55-lab.github.io/SportsPred/) · [Repo](https://github.com/buffedlizard55-lab/SportsPred) · [API](https://api.github.com/repos/buffedlizard55-lab/SportsPred/pages) |
+| 30 | `StanfordStay` | Travel & Korea Trip | Live App | built | `main /` | 2026-08-20 05:35:20 | `5bc9062` | 2026-08-22 08:46:46 | `499fb0a` | 18 | [Live Site](https://buffedlizard55-lab.github.io/StanfordStay/) · [Repo](https://github.com/buffedlizard55-lab/StanfordStay) · [API](https://api.github.com/repos/buffedlizard55-lab/StanfordStay/pages) |
+| 31 | `TinoLunchSpecial` | SF Local Guides | Live App | built | `main /` | 2026-09-07 19:05:24 | `c7bd9eb` | 2026-09-12 00:28:59 | `822317b` | 41 | [Live Site](https://buffedlizard55-lab.github.io/TinoLunchSpecial/) · [Repo](https://github.com/buffedlizard55-lab/TinoLunchSpecial) · [API](https://api.github.com/repos/buffedlizard55-lab/TinoLunchSpecial/pages) |
+| 32 | `Tradingview-pinescript-editor` | Markets & Trading Research | Live App | built | `main /` | 2026-08-08 18:27:58 | `351fa6f` | 2026-08-10 01:43:17 | `834312c` | 13 | [Live Site](https://buffedlizard55-lab.github.io/Tradingview-pinescript-editor/) · [Repo](https://github.com/buffedlizard55-lab/Tradingview-pinescript-editor) · [API](https://api.github.com/repos/buffedlizard55-lab/Tradingview-pinescript-editor/pages) |
+
+## 2a. Repository Exclusions (Deliberately Omitted)
+
+The audited account holds **33** public GitHub Pages repositories, while this directory and `data/sites.js` publish **32** entries. That difference is intentional and permanent — it is not a data gap to repair.
+
+| Repository | Pages Status (API) | Reason for Exclusion | Excluded Since | Rule |
+|---|---|---|---|---|
+| `ProjX` | `built` — repository remains live and untouched on GitHub | Owner directive: this project must not be advertised, linked, or indexed by MasterSite | 2026-09-12 | **Do not re-add.** Omit from `data/sites.js`, from the Section 2 ledger table, from README counts, and from every regenerated export. |
+
+**Verification note:** the repository was audited and its Pages build was confirmed healthy on 2026-09-12; only its publication in this directory is suppressed. Account-wide totals (33 public repos / 33 Pages sites in `accountsChecked`) stay at their verified API values on purpose so the exclusion stays auditable. Regenerators must therefore filter excluded names *after* the API read instead of lowering the account totals. See [`AGENTS.md`](AGENTS.md) → *Repository Exclusions* for the standing instruction to future sessions.
 
 ---
 
-## 3. Flagged Irregularities Register
+## 3. Flagged Irregularities Register (12 entries: IRR-01 … IRR-12)
 
 | ID | Severity | Title | Verifiable Finding & Resolution |
 |---|---|---|---|
-| **IRR-01** | `Info` | Second account `kanlerxz87-cyber` has 0 public repositories | Official GitHub API query `GET /users/kanlerxz87-cyber/repos` returns `[]` (empty list). Account exists but contains 0 repositories and therefore 0 GitHub Pages sites. All 33 sites in this directory belong to `buffedlizard55-lab`. |
+| **IRR-01** | `Info` | Second account `kanlerxz87-cyber` has 0 public repositories | Official GitHub API query `GET /users/kanlerxz87-cyber/repos` returns `[]` (empty list). Account exists but contains 0 repositories and therefore 0 GitHub Pages sites. All 32 sites listed in this directory belong to `buffedlizard55-lab`. |
 | **IRR-02** | `Warning` | Two repositories are single-commit README-only stubs | `Leg3SeoulTrip` and `NFLPRED` each contain only a single initial commit containing `README.md` and no web app assets (`index.html`). GitHub Pages API reports `status: built` because Jekyll builds the markdown, but only the raw title is rendered. |
 | **IRR-03** | `Warning` | Two repositories serve README documentation via Pages | `MLB-Prediction-model-backtest` and `PFFNFL` are Python machine-learning and data scraping research repositories. GitHub Pages is configured to publish from `/`, which serves their documentation READMEs rather than interactive client web apps. |
 | **IRR-04** | `Info` | `MasterSite` upgraded from stub to directory app | Prior to this deployment, `MasterSite` contained only a single placeholder `README.md`. It has now been transformed into the static master directory for the organization. |
 | **IRR-05** | `Info` | `DrugAnalysis` transient build state during push | During the automated audit at ~00:20 UTC, `DrugAnalysis` was being actively pushed to, momentarily returning `status: building` from `/pages` before settling into `built`. Live site served correctly throughout. |
-| **IRR-06** | `Info` | `GOLD` publishes from `/docs` folder | 32 repositories publish Pages from root (`main /`), whereas `GOLD` publishes from `main /docs`. The repository root `index.html` contains an automatic redirect to `/docs/`. |
+| **IRR-06** | `Info` | `GOLD` publishes from `/docs` folder | 31 of the 32 directory repositories publish Pages from root (`main /`), whereas `GOLD` publishes from `main /docs`. The repository root `index.html` contains an automatic redirect to `/docs/`. |
 | **IRR-07** | `Info` | `HotelSeoulRoughdraft1` duplicates `Itinerary-Korea` | `HotelSeoulRoughdraft1` is an earlier rough draft of the Korea Compass planner. Its own `README.md` explicitly designates `Itinerary-Korea` as the production release. |
 | **IRR-08** | `Info` | `StanfordStay` geographic scope vs. name | Despite the name `StanfordStay`, the site contains zero content about Stanford, California. It is a dedicated travel itinerary system for the Stanford Hotel Myeongdong in Seoul, South Korea. |
 | **IRR-09** | `Info` | `PriceKalshiHistorical` browser simulation vs. backend collector | The automated market data collector and backtester is a Python CLI/daemon tool; GitHub Pages hosts the static in-browser exchange orderbook simulation UI from `/docs`. |
 | **IRR-10** | `Info` | Multi-branch `pushed_at` timestamps | In repositories with recent branch merges (such as `TinoLunchSpecial` and `BathTubOverflowSF`), `pushed_at` reflects the latest branch activity, while `lastCommit` strictly records the latest committer date on branch `main`. |
-| **IRR-11** | `Info` | No GitHub Actions deployment records (standard Pages behavior) | `GET /repos/{owner}/{repo}/pages/deployments` returns HTTP 404 for all 33 repositories. This is expected: all sites use standard branch-based Pages publishing (`deploy from a branch`), which does not generate Actions deployment objects. |
+| **IRR-11** | `Info` | No GitHub Actions deployment records (standard Pages behavior) | `GET /repos/{owner}/{repo}/pages/deployments` returns HTTP 404 for all 32 repositories listed in this directory. This is expected: all sites use standard branch-based Pages publishing (`deploy from a branch`), which does not generate Actions deployment objects. |
 
+| **IRR-12** | `Info` | 1 account repository is intentionally omitted from this directory | The account has 33 Pages-enabled repositories while the directory publishes 32. The missing entry was removed by owner request on 2026-09-12 and is permanently excluded (Section 2a). The count difference is expected; do not re-add the repository to reconcile it. |
 ---
 
 ## 4. Line-by-Line Description Verification
@@ -105,4 +115,10 @@ gh api /repos/buffedlizard55-lab/AirPremia/pages
 
 # Verify exact commit history and dates
 gh api "/repos/buffedlizard55-lab/AirPremia/commits?per_page=100"
+
+# Confirm the directory entry count (expected: 32, not 33 — see Section 2a)
+grep -c '"repo":' data/sites.js
+
+# The excluded repository is still live on GitHub; only its directory listing is suppressed
+gh api /repos/buffedlizard55-lab/ProjX/pages
 ```
