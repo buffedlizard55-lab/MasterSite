@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MasterSite — GitHub Pages Directory · buffedlizard55-lab</title>
+<meta name="description" content="Verified master list and directory of every GitHub Pages site hosted under buffedlizard55-lab, with descriptions, creation and update dates, and official source links.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🗂️</text></svg>">
+</head>
+<body>
+<a class="skip-link" href="#sites">Skip to directory</a>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Master list &amp; directory · verified 2026-09-12</p>
+    <h1>MasterSite</h1>
+    <p class="tagline">Every GitHub Pages site hosted under
+      <a href="https://github.com/buffedlizard55-lab" target="_blank" rel="noopener">buffedlizard55-lab</a>,
+      verified line by line against the official GitHub API — with descriptions, dates, and source links for manual review.</p>
+    <div class="stats" id="stats" role="group" aria-label="Directory statistics"></div>
+  </div>
+</header>
+
+<nav class="controls wrap" aria-label="Directory controls">
+  <input id="search" type="search" placeholder="Search sites, descriptions, categories…" aria-label="Search sites" autocomplete="off">
+  <div class="chip-row" id="categoryChips" role="group" aria-label="Filter by category"></div>
+  <div class="row2">
+    <div class="chip-row" id="kindChips" role="group" aria-label="Filter by site type"></div>
+    <label class="sort">Sort
+      <select id="sort" aria-label="Sort sites">
+        <option value="updated-desc">Last updated (newest)</option>
+        <option value="created-desc">Created (newest)</option>
+        <option value="created-asc">Created (oldest)</option>
+        <option value="name-asc">Name A–Z</option>
+      </select>
+    </label>
+  </div>
+</nav>
+
+<main class="wrap">
+  <p id="resultCount" class="result-count" aria-live="polite"></p>
+  <section id="sites" class="grid" aria-label="Site directory"></section>
+
+  <section id="irregularities" class="panel">
+    <h2>⚑ Flagged irregularities</h2>
+    <p class="muted">Discrepancies found during verification. Listed openly rather than smoothed over.</p>
+    <ul class="irr-list" id="irrList"></ul>
+  </section>
+
+  <section id="method" class="panel">
+    <h2>How this list was verified</h2>
+    <ol class="method-list" id="methodSteps"></ol>
+    <h3>Caveats</h3>
+    <ul class="method-list caveats" id="methodCaveats"></ul>
+    <h3>Official sources for manual review</h3>
+    <ul class="src-list">
+      <li><a href="https://github.com/buffedlizard55-lab?tab=repositories" target="_blank" rel="noopener">All repositories on github.com (buffedlizard55-lab)</a></li>
+      <li><a href="https://api.github.com/users/buffedlizard55-lab/repos" target="_blank" rel="noopener">GitHub API — repository list (JSON)</a></li>
+      <li><a href="https://github.com/kanlerxz87-cyber" target="_blank" rel="noopener">Second account checked: kanlerxz87-cyber (0 public repos)</a></li>
+      <li><a href="https://api.github.com/users/kanlerxz87-cyber/repos" target="_blank" rel="noopener">GitHub API — kanlerxz87-cyber repos (JSON, empty)</a></li>
+      <li>Per site: the <em>Repo</em>, <em>API</em> and <em>Pages settings</em> links on each card above. The full audit log lives in <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">VERIFICATION.md</a>.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Generated <span id="genStamp"></span> · Data source: official GitHub REST API reads + direct reads of all 33 live sites ·
+  <a href="https://github.com/buffedlizard55-lab/MasterSite" target="_blank" rel="noopener">View this repository</a></p>
+</footer>
+
+<script src="data/sites.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
