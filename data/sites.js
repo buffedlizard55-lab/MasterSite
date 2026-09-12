@@ -1,4 +1,16 @@
-/* MasterSite Data — Line-by-line verified against official GitHub REST API on 2026-09-12 */
+/* MasterSite Data — Line-by-line verified against official GitHub REST API on 2026-09-12
+ *
+ * MAINTENANCE POLICY (read before editing or regenerating this file):
+ * This directory intentionally does NOT list every repository on the account.
+ * Some repositories are permanently excluded by owner request and MUST NOT be
+ * re-added: not to this data file, not to the README counts, and not as a row in
+ * the VERIFICATION.md audit ledger table. The only place an excluded repository
+ * is named is the 'Repository Exclusions' section of VERIFICATION.md and AGENTS.md.
+ *
+ * The account-wide counts below (publicRepos / pagesSites) are left at their
+ * verified API values on purpose, so the directory count being lower than the
+ * account's repository count is expected and is NOT a data error to "fix".
+ */
 window.MASTERDATA = {
   "generated": "2026-09-12T00:55:00Z",
   "owner": "buffedlizard55-lab",
@@ -10,7 +22,7 @@ window.MASTERDATA = {
       "publicRepos": 33,
       "accountCreated": "2026-07-27T01:05:09Z",
       "pagesSites": 33,
-      "note": "All 33 public repositories have GitHub Pages enabled and built."
+      "note": "All 33 public repositories have GitHub Pages enabled and built. This directory lists 32 of them: 1 repository is permanently excluded from the directory by owner request and must never be added back (see AGENTS.md)."
     },
     {
       "login": "kanlerxz87-cyber",
@@ -596,27 +608,6 @@ window.MASTERDATA = {
       ]
     },
     {
-      "repo": "ProjX",
-      "title": "ProjX \u2014 Verified Public Figure Directory",
-      "category": "Directory & Meta",
-      "kind": "app",
-      "description": "Directory workflow cataloging verified adult public figures (models, athletes, creators) with cross-verified social and agency profiles.",
-      "created": "2026-09-06T00:31:14Z",
-      "firstCommit": "2026-09-06T00:31:15Z",
-      "firstCommitSha": "b789bac",
-      "lastCommit": "2026-09-07T17:31:35Z",
-      "lastCommitSha": "05ef874",
-      "pushedAt": "2026-09-07T17:31:35Z",
-      "updatedAt": "2026-09-07T17:32:09Z",
-      "commits": 127,
-      "pagesStatus": "built",
-      "pagesSource": "main /",
-      "pagesUrl": "https://buffedlizard55-lab.github.io/ProjX/",
-      "defaultBranch": "main",
-      "sizeKb": 8253,
-      "flags": []
-    },
-    {
       "repo": "SFLateNight",
       "title": "SF Late Night \u2014 Post-11PM Venue Directory",
       "category": "SF Local Guides",
@@ -750,7 +741,7 @@ window.MASTERDATA = {
       "id": "IRR-01",
       "severity": "info",
       "title": "Second account kanlerxz87-cyber has no public repositories",
-      "detail": "The GitHub account kanlerxz87-cyber exists (type: User, created 2026-08-03T20:56:16Z) but has 0 public repositories per GET https://api.github.com/users/kanlerxz87-cyber/repos, therefore zero GitHub Pages sites. All 33 sites in this directory belong to buffedlizard55-lab."
+      "detail": "The GitHub account kanlerxz87-cyber exists (type: User, created 2026-08-03T20:56:16Z) but has 0 public repositories per GET https://api.github.com/users/kanlerxz87-cyber/repos, therefore zero GitHub Pages sites. All 32 sites listed in this directory belong to buffedlizard55-lab."
     },
     {
       "id": "IRR-02",
@@ -780,7 +771,7 @@ window.MASTERDATA = {
       "id": "IRR-06",
       "severity": "info",
       "title": "GOLD publishes from /docs folder (all others use root)",
-      "detail": "All 32 other sites publish from branch main, path / \u2014 except GOLD, which publishes from path /docs. The repository root index.html redirects to /docs/."
+      "detail": "All 31 other sites listed in this directory publish from branch main, path / \u2014 except GOLD, which publishes from path /docs. The repository root index.html redirects to /docs/."
     },
     {
       "id": "IRR-07",
@@ -810,24 +801,31 @@ window.MASTERDATA = {
       "id": "IRR-11",
       "severity": "info",
       "title": "No GitHub Actions Pages deployment records (expected standard behavior)",
-      "detail": "The GET /repos/{owner}/{repo}/pages/deployments API endpoint returns 404 for all 33 repositories. This is the expected GitHub architecture: all sites use standard branch-based Pages publishing ('deploy from a branch') which does not generate Actions deployment objects."
+      "detail": "The GET /repos/{owner}/{repo}/pages/deployments API endpoint returns 404 for all 32 repositories listed in this directory. This is the expected GitHub architecture: all sites use standard branch-based Pages publishing ('deploy from a branch') which does not generate Actions deployment objects."
+    },
+    {
+      "id": "IRR-12",
+      "severity": "info",
+      "title": "1 account repository is intentionally omitted from this directory",
+      "detail": "The account holds 33 public GitHub Pages repositories, but this directory publishes 32 entries. 1 repository was removed by owner request on 2026-09-12 and is permanently excluded from the directory, the exports, and the audit ledger table. This gap is deliberate; do not re-add it to \u201crestore\u201d the counts. See Repository Exclusions in AGENTS.md."
     }
   ],
   "methodology": {
     "steps": [
-      "Queried GET https://api.github.com/users/{login}/repos for both specified accounts (buffedlizard55-lab returned 33 repos; kanlerxz87-cyber returned 0 repos).",
+      "Queried GET https://api.github.com/users/{login}/repos for both specified accounts (buffedlizard55-lab returned 33 repos; kanlerxz87-cyber returned 0 repos). 1 of those 33 repositories is intentionally excluded from this directory by owner request, leaving 32 listed entries.",
       "Queried GET /repos/buffedlizard55-lab/{repo} for every repository to extract created_at, pushed_at, updated_at, default_branch, size, and metadata.",
       "Queried GET /repos/buffedlizard55-lab/{repo}/pages for every repository to confirm GitHub Pages status ('built'), custom domain configuration (all cname: null), and source branch/path.",
       "Queried paginated GET /repos/buffedlizard55-lab/{repo}/commits for all 33 repos to determine exact commit totals, first-commit timestamps + SHAs, and latest-commit timestamps + SHAs.",
       "Extracted and inspected README.md and top-level directory file listings for all 33 repositories via the GitHub REST API to derive accurate, evidence-based descriptions.",
-      "Verified all 33 live site endpoints (https://buffedlizard55-lab.github.io/{repo}/) to confirm live HTTP status, title metadata, and distinguish interactive web applications from documentation stubs.",
-      "Cataloged all 11 flagged irregularities with granular classifications for independent audit and manual review."
+      "Verified all 33 live site endpoints (https://buffedlizard55-lab.github.io/{repo}/) to confirm live HTTP status, title metadata, and distinguish interactive web applications from documentation stubs. Endpoints for excluded repositories are not published here.",
+      "Cataloged all 12 flagged irregularities with granular classifications for independent audit and manual review."
     ],
     "caveats": [
       "Created timestamp represents the official GitHub repository creation date; first commit committer date matches within 1 second for all 33 repos.",
       "Last Updated date reflects the most recent committer timestamp on branch main; pushed_at indicates the latest push to any branch.",
       "kanlerxz87-cyber has 0 public repositories and 0 Pages sites as of audit date 2026-09-12.",
-      "Site contents inside external links are maintained in their respective source repositories."
+      "Site contents inside external links are maintained in their respective source repositories.",
+      "Directory entry count (32) is intentionally lower than the account repository count (33) because 1 repository is permanently excluded by owner request; see AGENTS.md."
     ]
   }
 };
