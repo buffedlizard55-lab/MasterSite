@@ -1,4 +1,4 @@
-/* MasterSite Data — Line-by-line verified against official GitHub REST API on 2026-09-12
+/* MasterSite Data — Line-by-line verified against official GitHub REST API on 2026-09-15 (refresh; prior baseline 2026-09-12)
  *
  * MAINTENANCE POLICY (read before editing or regenerating this file):
  * This directory intentionally does NOT list every repository on the account.
@@ -12,17 +12,17 @@
  * account's repository count is expected and is NOT a data error to "fix".
  */
 window.MASTERDATA = {
-  "generated": "2026-09-12T00:55:00Z",
+  "generated": "2026-09-15T22:57:24Z",
   "owner": "buffedlizard55-lab",
   "accountsChecked": [
     {
       "login": "buffedlizard55-lab",
       "profile": "https://github.com/buffedlizard55-lab",
       "apiRepos": "https://api.github.com/users/buffedlizard55-lab/repos",
-      "publicRepos": 33,
+      "publicRepos": 35,
       "accountCreated": "2026-07-27T01:05:09Z",
-      "pagesSites": 33,
-      "note": "All 33 public repositories have GitHub Pages enabled and built. This directory lists 32 of them: 1 repository is permanently excluded from the directory by owner request and must never be added back (see AGENTS.md)."
+      "pagesSites": 35,
+      "note": "All 35 public repositories have GitHub Pages enabled and built. This directory lists 34 of them: 1 repository is permanently excluded from the directory by owner request and must never be added back (see AGENTS.md)."
     },
     {
       "login": "kanlerxz87-cyber",
@@ -61,20 +61,20 @@ window.MASTERDATA = {
       "title": "Sunset Repair \u2014 Bathtub Overflow SF",
       "category": "SF Local Guides",
       "kind": "app",
-      "description": "Repair-first plumbing research workspace for a seized bathtub overflow in SF's Outer Sunset: 301 discovery records across 6 waves, 59 CSLB license pages verified directly (40 active), SF DBI permit cross-checks, and 68 provenance-labeled review excerpts.",
+      "description": "Repair-first plumbing research workspace for a seized bathtub overflow in SF's Outer Sunset: 601 discovery records across 12 waves, 218 direct CSLB license reads (147 active), SF DBI permit cross-checks, and 147 retained review excerpts.",
       "created": "2026-09-10T21:23:42Z",
       "firstCommit": "2026-09-10T21:23:43Z",
       "firstCommitSha": "822af8c",
-      "lastCommit": "2026-09-11T23:08:41Z",
-      "lastCommitSha": "6d2dbff",
-      "pushedAt": "2026-09-12T00:40:01Z",
-      "updatedAt": "2026-09-11T23:08:46Z",
-      "commits": 27,
+      "lastCommit": "2026-09-15T04:39:32Z",
+      "lastCommitSha": "45854a5",
+      "pushedAt": "2026-09-15T04:39:32Z",
+      "updatedAt": "2026-09-15T04:39:37Z",
+      "commits": 41,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/BathTubOverflowSF/",
       "defaultBranch": "main",
-      "sizeKb": 549,
+      "sizeKb": 1742,
       "flags": []
     },
     {
@@ -126,22 +126,47 @@ window.MASTERDATA = {
       "title": "DrugAnalysis \u2014 FDA Decisions & Biotech Reactions",
       "category": "Markets & Trading Research",
       "kind": "app",
-      "description": "Biopharma tracker linking FDA approval/CRL decisions directly to Accessdata documentation, historical stock price reactions, and clinical pipeline success rates loaded directly from repository CSV datasets.",
+      "description": "Biopharma tracker linking 624 verified FDA novel-drug approvals (2011\u20132026) plus CRL rejections to per-company scorecards, Yahoo Finance price reactions, and clinical pipeline success rates, rendered from repository CSV datasets.",
       "created": "2026-09-10T21:10:50Z",
       "firstCommit": "2026-09-10T21:10:51Z",
       "firstCommitSha": "3c4c4c8",
-      "lastCommit": "2026-09-12T00:20:34Z",
-      "lastCommitSha": "11124c6",
-      "pushedAt": "2026-09-12T00:20:34Z",
-      "updatedAt": "2026-09-12T00:20:39Z",
-      "commits": 8,
+      "lastCommit": "2026-09-13T03:47:09Z",
+      "lastCommitSha": "6714ac6",
+      "pushedAt": "2026-09-13T03:48:27Z",
+      "updatedAt": "2026-09-13T03:47:16Z",
+      "commits": 46,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/DrugAnalysis/",
       "defaultBranch": "main",
-      "sizeKb": 50,
+      "sizeKb": 9527,
       "flags": [
-        "Pages status was observed as 'building' at initial 00:21 check, then 'built' after 00:20:34Z push."
+        "Pages status was observed as 'building' during the 2026-09-12 audit push, then 'built'; re-verified 'built' on 2026-09-15.",
+        "pushed_at (2026-09-13T03:48:27Z) is later than both the latest main commit (03:47:09Z) and updated_at (03:47:16Z): push activity on arena/* session branches."
+      ]
+    },
+    {
+      "repo": "GEMSDOE",
+      "title": "GEMSDOE \u2014 Geologic Mapping Prize Challenge",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "Working-notes site for the DOE GEMS Prize Challenge ($300k, DrivenData): predicting geothermal faults from GeoDAWN geophysical data under a distance-weighted Tversky metric; the root URL redirects to the generated evidence-backed docs/ site (Overview, Data, Metric, Method, Results, Sources, Reproduce).",
+      "created": "2026-09-12T18:46:56Z",
+      "firstCommit": "2026-09-12T18:46:57Z",
+      "firstCommitSha": "10585e5",
+      "lastCommit": "2026-09-15T04:43:14Z",
+      "lastCommitSha": "fa40c51",
+      "pushedAt": "2026-09-15T04:50:28Z",
+      "updatedAt": "2026-09-15T04:43:19Z",
+      "commits": 47,
+      "pagesStatus": "built",
+      "pagesSource": "main /",
+      "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE/",
+      "defaultBranch": "main",
+      "sizeKb": 5970,
+      "flags": [
+        "Root index.html redirects to ./docs/index.html; the canonical generated site lives in docs/ (merge fa40c51, PR #8).",
+        "pushed_at (2026-09-15T04:50:28Z) is ~7 min later than the latest main commit (04:43:14Z): activity on arena/* session branches."
       ]
     },
     {
@@ -257,23 +282,23 @@ window.MASTERDATA = {
     },
     {
       "repo": "JobSearchSF",
-      "title": "JobSearchSF \u2014 120 Verified SF Lab & Science Jobs",
+      "title": "JobSearchSF \u2014 140 Verified SF Lab & Science Jobs",
       "category": "SF Local Guides",
       "kind": "app",
-      "description": "Curated directory of 120 verified San Francisco chemistry/biology/lab science career listings, sorted by Muni N Judah transit commute from 21st & Judah, with official direct-apply links.",
+      "description": "Evidence-first application-readiness site for SF chemistry/lab roles: 140 openings (20 added in the Sept 14 pass 9) with official direct-apply links, N Judah transit rankings from 21st & Judah, rewritten resumes/cover letters, and a 40-test verification suite.",
       "created": "2026-09-09T19:11:20Z",
       "firstCommit": "2026-09-09T19:11:21Z",
       "firstCommitSha": "2f69a19",
-      "lastCommit": "2026-09-10T18:27:43Z",
-      "lastCommitSha": "6310285",
-      "pushedAt": "2026-09-10T18:27:43Z",
-      "updatedAt": "2026-09-10T18:27:52Z",
-      "commits": 16,
+      "lastCommit": "2026-09-15T04:13:42Z",
+      "lastCommitSha": "2ebfa37",
+      "pushedAt": "2026-09-15T04:13:42Z",
+      "updatedAt": "2026-09-15T04:13:48Z",
+      "commits": 23,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/JobSearchSF/",
       "defaultBranch": "main",
-      "sizeKb": 2962,
+      "sizeKb": 36108,
       "flags": []
     },
     {
@@ -438,16 +463,16 @@ window.MASTERDATA = {
       "created": "2026-09-12T00:16:13Z",
       "firstCommit": "2026-09-12T00:16:14Z",
       "firstCommitSha": "f724b59",
-      "lastCommit": "2026-09-12T00:31:57Z",
-      "lastCommitSha": "1556e62",
-      "pushedAt": "2026-09-12T00:31:57Z",
-      "updatedAt": "2026-09-12T00:32:01Z",
-      "commits": 4,
+      "lastCommit": "2026-09-12T01:20:59Z",
+      "lastCommitSha": "6da28b0",
+      "pushedAt": "2026-09-12T01:20:59Z",
+      "updatedAt": "2026-09-12T01:21:03Z",
+      "commits": 8,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/MasterSite/",
       "defaultBranch": "main",
-      "sizeKb": 0,
+      "sizeKb": 59,
       "flags": [
         "Directory site itself."
       ]
@@ -482,16 +507,16 @@ window.MASTERDATA = {
       "created": "2026-09-10T21:59:35Z",
       "firstCommit": "2026-09-10T21:59:36Z",
       "firstCommitSha": "5d8a07f",
-      "lastCommit": "2026-09-12T00:36:04Z",
-      "lastCommitSha": "1842f02",
-      "pushedAt": "2026-09-12T00:36:06Z",
-      "updatedAt": "2026-09-12T00:36:10Z",
-      "commits": 31,
+      "lastCommit": "2026-09-15T22:10:28Z",
+      "lastCommitSha": "e5ba704",
+      "pushedAt": "2026-09-15T22:10:30Z",
+      "updatedAt": "2026-09-15T22:10:34Z",
+      "commits": 57,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/NFLInjuryReport/",
       "defaultBranch": "main",
-      "sizeKb": 2100,
+      "sizeKb": 5495,
       "flags": []
     },
     {
@@ -633,20 +658,20 @@ window.MASTERDATA = {
       "title": "ScheduleFreeTime \u2014 Sports Conflict Calendar",
       "category": "Sports Data & Scoreboards",
       "kind": "app",
-      "description": "Conflict calendar (Aug 2026 \u2013 Feb 2027) marking busy hours when MLB, NFL, SJ Earthquakes, Stanford, or Cal games air, built from official broadcast schedules.",
+      "description": "Conflict calendar (Aug 2026 \u2013 Feb 2027) marking busy hours when MLB, NFL, SJ Earthquakes, Stanford/Cal, Warriors, Sharks, or Westwood One showcase games air, built from official broadcast schedules.",
       "created": "2026-08-27T20:17:13Z",
       "firstCommit": "2026-08-27T20:17:14Z",
       "firstCommitSha": "f941565",
-      "lastCommit": "2026-09-12T00:05:34Z",
-      "lastCommitSha": "e18dc2c",
-      "pushedAt": "2026-09-12T00:05:34Z",
-      "updatedAt": "2026-09-12T00:05:39Z",
-      "commits": 12,
+      "lastCommit": "2026-09-15T04:39:31Z",
+      "lastCommitSha": "2446f62",
+      "pushedAt": "2026-09-15T04:39:31Z",
+      "updatedAt": "2026-09-15T04:39:36Z",
+      "commits": 14,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/ScheduleFreeTime/",
       "defaultBranch": "main",
-      "sizeKb": 192,
+      "sizeKb": 312,
       "flags": []
     },
     {
@@ -698,20 +723,20 @@ window.MASTERDATA = {
       "title": "Tino Lunch Special \u2014 Cupertino & South Bay Lunch Deals",
       "category": "SF Local Guides",
       "kind": "app",
-      "description": "596 verified midday dining specials across Cupertino and the 10\u201315 mile South Bay ring, plus a step-by-step Muni-Caltrain-VTA transit schedule with evidence tiers.",
+      "description": "850 verified midday dining specials across Cupertino and the 10\u201315 mile South Bay ring, plus a step-by-step Muni-Caltrain-VTA transit schedule with evidence tiers.",
       "created": "2026-09-07T19:05:24Z",
       "firstCommit": "2026-09-07T19:05:24Z",
       "firstCommitSha": "c7bd9eb",
-      "lastCommit": "2026-09-12T00:28:59Z",
-      "lastCommitSha": "822317b",
-      "pushedAt": "2026-09-12T00:28:59Z",
-      "updatedAt": "2026-09-12T00:29:04Z",
-      "commits": 41,
+      "lastCommit": "2026-09-15T22:40:52Z",
+      "lastCommitSha": "ea33795",
+      "pushedAt": "2026-09-15T22:40:52Z",
+      "updatedAt": "2026-09-15T22:40:57Z",
+      "commits": 47,
       "pagesStatus": "built",
       "pagesSource": "main /",
       "pagesUrl": "https://buffedlizard55-lab.github.io/TinoLunchSpecial/",
       "defaultBranch": "main",
-      "sizeKb": 2851,
+      "sizeKb": 4607,
       "flags": []
     },
     {
@@ -734,6 +759,27 @@ window.MASTERDATA = {
       "defaultBranch": "main",
       "sizeKb": 112,
       "flags": []
+    },
+    {
+      "repo": "VapePods",
+      "title": "VapePods \u2014 STIIIZY Pod Prices & Deals (SF 94122)",
+      "category": "SF Local Guides",
+      "kind": "app",
+      "description": "Verified price list (178 lines across 7 stores as of 2026-09-15) for STIIIZY-format pods near Stonestown/94122: base price, tax status, deal, official source link, and read date per line; data rebuilt from build/build.py with CI reproducibility checks.",
+      "created": "2026-09-14T17:26:14Z",
+      "firstCommit": "2026-09-14T17:26:14Z",
+      "firstCommitSha": "4c2867d",
+      "lastCommit": "2026-09-15T22:43:19Z",
+      "lastCommitSha": "b545ce7",
+      "pushedAt": "2026-09-15T22:43:19Z",
+      "updatedAt": "2026-09-15T22:43:23Z",
+      "commits": 12,
+      "pagesStatus": "built",
+      "pagesSource": "main /",
+      "pagesUrl": "https://buffedlizard55-lab.github.io/VapePods/",
+      "defaultBranch": "main",
+      "sizeKb": 71,
+      "flags": []
     }
   ],
   "irregularities": [
@@ -741,7 +787,7 @@ window.MASTERDATA = {
       "id": "IRR-01",
       "severity": "info",
       "title": "Second account kanlerxz87-cyber has no public repositories",
-      "detail": "The GitHub account kanlerxz87-cyber exists (type: User, created 2026-08-03T20:56:16Z) but has 0 public repositories per GET https://api.github.com/users/kanlerxz87-cyber/repos, therefore zero GitHub Pages sites. All 32 sites listed in this directory belong to buffedlizard55-lab."
+      "detail": "The GitHub account kanlerxz87-cyber exists (type: User, created 2026-08-03T20:56:16Z) but has 0 public repositories per GET https://api.github.com/users/kanlerxz87-cyber/repos, therefore zero GitHub Pages sites. All 34 sites listed in this directory belong to buffedlizard55-lab."
     },
     {
       "id": "IRR-02",
@@ -765,13 +811,13 @@ window.MASTERDATA = {
       "id": "IRR-05",
       "severity": "info",
       "title": "DrugAnalysis transient build state observed during audit",
-      "detail": "The GitHub Pages API returned status 'building' for DrugAnalysis during an active commit/push at ~00:20 UTC and transitioned to 'built' moments later. Live site content was verified in both states."
+      "detail": "The GitHub Pages API returned status 'building' for DrugAnalysis during an active commit/push in the 2026-09-12 audit at ~00:20 UTC and transitioned to 'built' moments later. Live site content was verified in both states; re-verified 'built' on 2026-09-15."
     },
     {
       "id": "IRR-06",
       "severity": "info",
       "title": "GOLD publishes from /docs folder (all others use root)",
-      "detail": "All 31 other sites listed in this directory publish from branch main, path / \u2014 except GOLD, which publishes from path /docs. The repository root index.html redirects to /docs/."
+      "detail": "All 33 other sites listed in this directory publish from branch main, path / \u2014 except GOLD, which publishes from path /docs. The repository root index.html redirects to /docs/."
     },
     {
       "id": "IRR-07",
@@ -795,37 +841,49 @@ window.MASTERDATA = {
       "id": "IRR-10",
       "severity": "info",
       "title": "Multi-branch pushed_at timestamps",
-      "detail": "In repositories with active feature branches (such as TinoLunchSpecial and BathTubOverflowSF), repository pushed_at can reflect branch updates while lastCommit strictly tracks the latest commit on branch main."
+      "detail": "In repositories with active feature branches (such as TinoLunchSpecial, BathTubOverflowSF, GEMSDOE, and DrugAnalysis), repository pushed_at can reflect branch updates while lastCommit strictly tracks the latest commit on branch main. GEMSDOE pushed_at (2026-09-15T04:50:28Z) is ~7 min later than its latest main commit (fa40c51, 04:43:14Z); DrugAnalysis pushed_at (2026-09-13T03:48:27Z) is later than both its latest main commit (03:47:09Z) and its updated_at (03:47:16Z)."
     },
     {
       "id": "IRR-11",
       "severity": "info",
       "title": "No GitHub Actions Pages deployment records (expected standard behavior)",
-      "detail": "The GET /repos/{owner}/{repo}/pages/deployments API endpoint returns 404 for all 32 repositories listed in this directory. This is the expected GitHub architecture: all sites use standard branch-based Pages publishing ('deploy from a branch') which does not generate Actions deployment objects."
+      "detail": "The GET /repos/{owner}/{repo}/pages/deployments API endpoint returns 404 for all 34 repositories listed in this directory. This is the expected GitHub architecture: all sites use standard branch-based Pages publishing ('deploy from a branch') which does not generate Actions deployment objects."
     },
     {
       "id": "IRR-12",
       "severity": "info",
       "title": "1 account repository is intentionally omitted from this directory",
-      "detail": "The account holds 33 public GitHub Pages repositories, but this directory publishes 32 entries. 1 repository was removed by owner request on 2026-09-12 and is permanently excluded from the directory, the exports, and the audit ledger table. This gap is deliberate; do not re-add it to \u201crestore\u201d the counts. See Repository Exclusions in AGENTS.md."
+      "detail": "The account holds 35 public GitHub Pages repositories, but this directory publishes 34 entries. 1 repository was removed by owner request on 2026-09-12 and is permanently excluded from the directory, the exports, and the audit ledger table. This gap is deliberate; do not re-add it to \u201crestore\u201d the counts. See Repository Exclusions in AGENTS.md."
+    },
+    {
+      "id": "IRR-13",
+      "severity": "info",
+      "title": "GEMSDOE canonical site lives in docs/ behind a root redirect",
+      "detail": "GEMSDOE publishes from branch main, path / (like 33 of the 34 listed sites), but its root index.html is a meta-refresh + JS redirect to ./docs/index.html (added via merge fa40c51, PR #8, 2026-09-15T04:43:14Z) because legacy Jekyll publishing serves the repo root. The generated multi-page evidence site (Overview, Data, Metric, Method, Results, Sources, Reproduce) lives in docs/."
+    },
+    {
+      "id": "IRR-14",
+      "severity": "info",
+      "title": "2026-09-15 refresh: 2 new repositories, 7 updated entries",
+      "detail": "Since the 2026-09-12 audit the account grew from 33 to 35 public Pages repositories (GEMSDOE created 2026-09-12, VapePods created 2026-09-14; both verified 'built'). 7 entries gained new main-branch commits (DrugAnalysis 8\u219246, NFLInjuryReport 31\u219257, BathTubOverflowSF 27\u219241, TinoLunchSpecial 41\u219247, JobSearchSF 16\u219223, ScheduleFreeTime 12\u219214, MasterSite 4\u21928). The other 25 listed repositories re-verified identical (same latest SHA, same commit count)."
     }
   ],
   "methodology": {
     "steps": [
-      "Queried GET https://api.github.com/users/{login}/repos for both specified accounts (buffedlizard55-lab returned 33 repos; kanlerxz87-cyber returned 0 repos). 1 of those 33 repositories is intentionally excluded from this directory by owner request, leaving 32 listed entries.",
+      "Queried GET https://api.github.com/users/{login}/repos for both specified accounts (buffedlizard55-lab returned 35 repos; kanlerxz87-cyber returned 0 repos). 1 of those 35 repositories is intentionally excluded from this directory by owner request, leaving 34 listed entries.",
       "Queried GET /repos/buffedlizard55-lab/{repo} for every repository to extract created_at, pushed_at, updated_at, default_branch, size, and metadata.",
       "Queried GET /repos/buffedlizard55-lab/{repo}/pages for every repository to confirm GitHub Pages status ('built'), custom domain configuration (all cname: null), and source branch/path.",
-      "Queried paginated GET /repos/buffedlizard55-lab/{repo}/commits for all 33 repos to determine exact commit totals, first-commit timestamps + SHAs, and latest-commit timestamps + SHAs.",
-      "Extracted and inspected README.md and top-level directory file listings for all 33 repositories via the GitHub REST API to derive accurate, evidence-based descriptions.",
-      "Verified all 33 live site endpoints (https://buffedlizard55-lab.github.io/{repo}/) to confirm live HTTP status, title metadata, and distinguish interactive web applications from documentation stubs. Endpoints for excluded repositories are not published here.",
-      "Cataloged all 12 flagged irregularities with granular classifications for independent audit and manual review."
+      "Queried paginated GET /repos/buffedlizard55-lab/{repo}/commits for all 35 repos to determine exact commit totals, first-commit timestamps + SHAs, and latest-commit timestamps + SHAs.",
+      "Extracted and inspected README.md and top-level directory file listings for all 35 repositories via the GitHub REST API to derive accurate, evidence-based descriptions.",
+      "Confirmed every repository serves a live site via the Pages API (status 'built' + html_url) and verified an index.html entry point exists via the contents API to distinguish interactive web applications from documentation stubs. Direct HTTP fetches of the live sites were blocked by the audit sandbox's network egress policy, so HTTP status codes were not re-probed in this pass \u2014 Pages 'built' status plus entry-point presence are the verified signals. Endpoints for excluded repositories are not published here.",
+      "Cataloged all 14 flagged irregularities with granular classifications for independent audit and manual review."
     ],
     "caveats": [
-      "Created timestamp represents the official GitHub repository creation date; first commit committer date matches within 1 second for all 33 repos.",
+      "Created timestamp represents the official GitHub repository creation date; first commit committer date matches within 1 second for all 35 repos.",
       "Last Updated date reflects the most recent committer timestamp on branch main; pushed_at indicates the latest push to any branch.",
-      "kanlerxz87-cyber has 0 public repositories and 0 Pages sites as of audit date 2026-09-12.",
+      "kanlerxz87-cyber has 0 public repositories and 0 Pages sites as of audit date 2026-09-15.",
       "Site contents inside external links are maintained in their respective source repositories.",
-      "Directory entry count (32) is intentionally lower than the account repository count (33) because 1 repository is permanently excluded by owner request; see AGENTS.md."
+      "Directory entry count (34) is intentionally lower than the account repository count (35) because 1 repository is permanently excluded by owner request; see AGENTS.md."
     ]
   }
 };
