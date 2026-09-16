@@ -15,9 +15,9 @@ For each of the **35 GitHub Pages sites published in this directory** (audited a
 - **Created Date** (`created_at` timestamp + first-commit SHA verified within 1 second for every repository)
 - **Last Updated Date** (newest committer timestamp on branch `main` + latest commit SHA + `pushed_at` tracking)
 - **GitHub Pages Status & Build Source** (all 35 reporting `built`; 34 deploying from `main /` and 1 from `main /docs`)
-- **Total Commits on Main** (exact commit count across the 35 listed repositories: 1217 total commits audited)
+- **Total Commits on Main** (exact commit count across the 35 listed repositories: 1259 total commits audited)
 - **Official Source Links for Manual Review**: Live URL, GitHub Repo, Pages API JSON record, and Pages Settings
-- **Detailed Flagged Irregularities Register**: 15 flagged discrepancies (`IRR-01` through `IRR-15`) documented transparently
+- **Detailed Flagged Irregularities Register**: 16 flagged discrepancies (`IRR-01` through `IRR-16`) documented transparently
 
 ---
 
@@ -39,7 +39,7 @@ For each of the **35 GitHub Pages sites published in this directory** (audited a
 | [`index.html`](index.html) | Semantic, accessible directory markup (Grid view, Table view, Modals, Panels) |
 | [`styles.css`](styles.css) | Responsive design system (CSS custom properties, cards, tables, badges, animations) |
 | [`app.js`](app.js) | Zero-dependency application logic (search, filter, sort, export, inspector modal, toast) |
-| [`data/sites.js`](data/sites.js) | Complete verified data model (35 sites, 15 irregularities, 2 audited accounts, methodology) |
+| [`data/sites.js`](data/sites.js) | Complete verified data model (35 sites, 16 irregularities, 2 audited accounts, methodology) |
 | [`AGENTS.md`](AGENTS.md) | Standing maintenance instructions for future sessions, including the permanent repository exclusion list |
 | [`VERIFICATION.md`](VERIFICATION.md) | Exhaustive line-by-line audit ledger with official endpoints, commit SHAs, and reproduction commands |
 
@@ -74,5 +74,5 @@ Because of this exclusion, the directory shows **35** sites while the GitHub API
 | Sites published in directory | 35 |
 | Interactive apps / doc stubs | 31 / 4 |
 | Pages sites `built` | 35 / 35 (100%) |
-| Commits audited across listed repos | 1217 |
+| Commits audited across listed repos | 1259 |
 | Public Pages repos on account (API, unchanged) | 36 |

@@ -44,8 +44,8 @@ After the exclusion, the site lists **35** sites while the account has **36** pu
 | `sites[]` entries in `data/sites.js` | 35 |
 | `grep -c '"repo":' data/sites.js` | 35 |
 | Ledger rows in `VERIFICATION.md` § 2 | 35, numbered 1–35 |
-| Irregularities | 15 (`IRR-01` … `IRR-15`) |
-| Commits summed across listed sites | 1217 |
+| Irregularities | 16 (`IRR-01` … `IRR-16`) |
+| Commits summed across listed sites | 1259 |
 | Pages sites `built` | 35 / 35 |
 | Categories | 6 — *Travel & Korea Trip* (11), *Sports Data & Scoreboards* (10), *SF Local Guides* (6), *Markets & Trading Research* (6), *Science & ML Research* (1: `GEMSDOE`), *Directory & Meta* (1: `MasterSite`) |
 
