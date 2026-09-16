@@ -31,23 +31,23 @@ sites = apiRepos.filter((r) => !EXCLUDED.includes(r.name));
 
 ## 2. Do not "fix" the 35 vs 34 count mismatch
 
-After the exclusion, the site lists **34** sites while the account has **35** public GitHub Pages repositories. **Both numbers are correct.**
+After the exclusion, the site lists **35** sites while the account has **36** public GitHub Pages repositories. **Both numbers are correct.**
 
-- Keep `accountsChecked[].publicRepos: 35` and `pagesSites: 35` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
-- Never lower those to 34, and never raise the directory back to 35.
+- Keep `accountsChecked[].publicRepos: 36` and `pagesSites: 36` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
+- Never lower those to 35, and never raise the directory back to 36.
 - The gap is documented on purpose in three places so nobody "repairs" it: `data/sites.js` header comment, `VERIFICATION.md` § 2a, and `IRR-12` in the irregularities register.
 
 ## 3. Expected state of the directory
 
 | Metric | Expected |
 |---|---|
-| `sites[]` entries in `data/sites.js` | 34 |
-| `grep -c '"repo":' data/sites.js` | 34 |
-| Ledger rows in `VERIFICATION.md` § 2 | 34, numbered 1–34 |
-| Irregularities | 14 (`IRR-01` … `IRR-14`) |
-| Commits summed across listed sites | 1143 |
-| Pages sites `built` | 34 / 34 |
-| Categories | 6 — *Travel & Korea Trip* (11), *Sports Data & Scoreboards* (10), *SF Local Guides* (6), *Markets & Trading Research* (5), *Science & ML Research* (1: `GEMSDOE`), *Directory & Meta* (1: `MasterSite`) |
+| `sites[]` entries in `data/sites.js` | 35 |
+| `grep -c '"repo":' data/sites.js` | 35 |
+| Ledger rows in `VERIFICATION.md` § 2 | 35, numbered 1–35 |
+| Irregularities | 15 (`IRR-01` … `IRR-15`) |
+| Commits summed across listed sites | 1217 |
+| Pages sites `built` | 35 / 35 |
+| Categories | 6 — *Travel & Korea Trip* (11), *Sports Data & Scoreboards* (10), *SF Local Guides* (6), *Markets & Trading Research* (6), *Science & ML Research* (1: `GEMSDOE`), *Directory & Meta* (1: `MasterSite`) |
 
 `Directory & Meta` is down to a single entry (`MasterSite` itself) after the exclusion; that is expected, keep the category.
 
@@ -59,4 +59,4 @@ After the exclusion, the site lists **34** sites while the account has **35** pu
 
 ## 5. If the owner later reverses this decision
 
-Only re-list `ProjX` on an explicit, current instruction from the owner in-session. Then: re-add the `data/sites.js` entry with API-verified values, restore the § 2 ledger row and renumber, bump the counts back (35 sites / 1,270 commits audited — 1,143 listed + 127 on `ProjX/main`, verified 2026-09-15), and delete this exclusion section.
+Only re-list `ProjX` on an explicit, current instruction from the owner in-session. Then: re-add the `data/sites.js` entry with API-verified values, restore the § 2 ledger row and renumber, bump the counts back (36 sites / 1,344 commits audited — 1,217 listed + 127 on `ProjX/main`, verified 2026-09-16), and delete this exclusion section.
