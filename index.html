@@ -16,7 +16,7 @@
     <div class="wrap">
       <div class="hero-eyebrow">
         <span class="badge-pill verified">✓ Line-by-Line Verified</span>
-        <span class="badge-pill date">Audit Date: 2026-09-16 (UTC)</span>
+        <span class="badge-pill date">Audit Date: <span id="auditDatePill">—</span> (UTC)</span>
         <span class="badge-pill guarantee">Zero Hallucinations</span>
       </div>
       
@@ -107,10 +107,11 @@
 
   <!-- Main Directory Content -->
   <main class="wrap" id="main-directory">
-    <div class="results-meta">
+      <div class="results-meta">
       <p id="resultCount" class="result-count" aria-live="polite"></p>
       <div class="quick-links">
         <a href="#accounts-section">Audited Accounts</a> · 
+        <a href="#unreachable-section">Unreachable</a> · 
         <a href="#irregularities-section">Flagged Irregularities</a> · 
         <a href="#verification-section">Audit Ledger</a>
       </div>
@@ -140,13 +141,29 @@
       </table>
     </section>
 
+    <!-- Unreachable / Retired Section -->
+    <section id="unreachable-section" class="panel panel-alert" hidden>
+      <div class="panel-header">
+        <div class="panel-icon">⚠️</div>
+        <div>
+          <h2>Unreachable Entries — Needs Owner Review</h2>
+          <p class="panel-subtitle">
+            Previously published sites whose repository no longer answers on the official GitHub API.
+            They are frozen here with their last independently verified values instead of being silently deleted:
+            their live links are expected to be dead until the repository is restored.
+          </p>
+        </div>
+      </div>
+      <div id="unreachableList" class="unreachable-list"></div>
+    </section>
+
     <!-- Audited Accounts Section -->
     <section id="accounts-section" class="panel">
       <div class="panel-header">
         <div class="panel-icon">👥</div>
         <div>
           <h2>Audited GitHub Accounts</h2>
-          <p class="panel-subtitle">Official account status verified via GitHub REST API on 2026-09-16.</p>
+          <p class="panel-subtitle">Official account status verified via GitHub REST API on <span id="accountsAuditDate">—</span>.</p>
         </div>
       </div>
       
