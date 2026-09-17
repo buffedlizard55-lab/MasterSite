@@ -67,17 +67,26 @@
     var apps = sites.filter(function (s) { return s.kind === "app"; }).length;
     var stubs = sites.filter(function (s) { return s.kind === "stub"; }).length;
     var built = sites.filter(function (s) { return s.pagesStatus === "built"; }).length;
+    var other = sites.length - built;
     var totalCommits = sites.reduce(function (sum, s) { return sum + (s.commits || 0); }, 0);
-    var categoriesCount = new Set(sites.map(function (s) { return s.category; })).size;
+
+    var health = (other === 0)
+      ? built + "/" + sites.length + " built"
+      : built + "/" + sites.length + " built · " + other + " other";
 
     var statsData = [
       { label: "Total Pages Sites", value: sites.length },
-      { label: "Build Health", value: built + "/" + sites.length + " (100%)" },
+      { label: "Build Health", value: health },
       { label: "Interactive Web Apps", value: apps },
       { label: "Documentation Stubs", value: stubs },
       { label: "Total Commits Audited", value: totalCommits.toLocaleString() },
       { label: "Accounts Audited", value: D.accountsChecked.length }
     ];
+
+    var unreachable = D.unreachable || [];
+    if (unreachable.length) {
+      statsData.push({ label: "Unreachable (Retired)", value: unreachable.length });
+    }
 
     $("statsGrid").innerHTML = statsData.map(function (st) {
       return '<div class="stat-card">' +
@@ -300,13 +309,65 @@
     }).join("");
   }
 
+  // ---------------- Unreachable / Retired Entries ----------------
+  function renderUnreachable() {
+    var list = D.unreachable || [];
+    var section = $("unreachable-section");
+    if (!list.length || !section) return;
+    section.hidden = false;
+
+    $("unreachableList").innerHTML = list.map(function (u) {
+      var repoUrl = "https://github.com/" + OWNER + "/" + u.repo;
+      var apiUrl = "https://api.github.com/repos/" + OWNER + "/" + u.repo;
+      var evidence = (u.retiredEvidence || []).map(function (e) {
+        var isUrl = /^https?:\/\//.test(e);
+        var label = esc(e.split(" — ")[0]);
+        return isUrl
+          ? '<li><a href="' + esc(e.split(" — ")[0]) + '" target="_blank" rel="noopener">' + label + '</a>' +
+            '<span class="ev-note">' + esc(e.split(" — ").slice(1).join(" — ")) + '</span></li>'
+          : '<li>' + esc(e) + '</li>';
+      }).join("");
+
+      return '<article class="unreachable-card">' +
+        '<div class="unreachable-head">' +
+          '<h3>' + esc(u.title || u.repo) + '</h3>' +
+          '<span class="tag-badge unreachable">HTTP 404 — Removed Upstream</span>' +
+        '</div>' +
+        '<p class="unreachable-reason">' + esc(u.retiredReason || "") + '</p>' +
+        '<dl class="unreachable-metrics">' +
+          '<div><dt>Last verified commit</dt><dd>' + esc(u.lastCommitSha) + ' · ' + fmtDateTime(u.lastCommit) + '</dd></div>' +
+          '<div><dt>Created (UTC)</dt><dd>' + fmtDateTime(u.created) + '</dd></div>' +
+          '<div><dt>Commits at retirement</dt><dd>' + (u.commits || 0) + '</dd></div>' +
+          '<div><dt>Retired on</dt><dd>' + esc(u.retiredAt || "—") + '</dd></div>' +
+        '</dl>' +
+        '<div class="unreachable-desc">' + esc(u.description || "") + '</div>' +
+        '<div class="unreachable-evidence"><strong>Reproduce the 404:</strong><ul>' + evidence + '</ul></div>' +
+        '<div class="card-actions">' +
+          '<a class="action-btn" href="' + esc(apiUrl) + '" target="_blank" rel="noopener">Repo API (404) ↗</a>' +
+          '<a class="action-btn" href="' + esc(repoUrl) + '" target="_blank" rel="noopener">Repo Page ↗</a>' +
+        '</div>' +
+      '</article>';
+    }).join("");
+  }
+
   // ---------------- Flagged Irregularities ----------------
   function renderIrregularities() {
-    $("irregularitiesList").innerHTML = D.irregularities.map(function (irr) {
-      var severityClass = (irr.severity === "warn") ? "warn" : "info";
+    var sevOrder = { critical: 0, warn: 1, info: 2 };
+    function sevRank(sev) {
+      var r = sevOrder[sev];
+      return (r === undefined) ? 9 : r;
+    }
+    var items = (D.irregularities || []).slice().sort(function (a, b) {
+      return sevRank(a.severity) - sevRank(b.severity);
+    });
+
+    $("irregularitiesList").innerHTML = items.map(function (irr) {
+      var severityClass = (irr.severity === "warn" || irr.severity === "critical") ? irr.severity : "info";
+      var sevLabel = irr.severity === "critical" ? "CRITICAL" : (irr.severity === "warn" ? "WARN" : "INFO");
       return '<li class="irregularity-item ' + severityClass + '">' +
         '<div class="irr-header">' +
           '<span class="irr-id">' + esc(irr.id) + '</span>' +
+          '<span class="irr-sev ' + severityClass + '">' + sevLabel + '</span>' +
           '<span class="irr-title">' + esc(irr.title) + '</span>' +
         '</div>' +
         '<p class="irr-detail">' + esc(irr.detail) + '</p>' +
@@ -325,6 +386,11 @@
     }).join("");
 
     $("genStamp").textContent = fmtDateTime(D.generated);
+
+    // Audit date is data-driven so it can never drift from the generated dataset.
+    var audit = (D.auditDate || (D.generated || "").slice(0, 10) || "—");
+    if ($("auditDatePill")) $("auditDatePill").textContent = audit;
+    if ($("accountsAuditDate")) $("accountsAuditDate").textContent = audit;
   }
 
   // ---------------- Site Inspector Modal ----------------
@@ -397,8 +463,36 @@
     showToast("Downloaded MasterData JSON!");
   }
 
+  function csvCell(val) {
+    var str = String(val === null || val === undefined ? "" : val);
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+
+  function csvRow(s, status) {
+    var repoUrl = "https://github.com/" + OWNER + "/" + s.repo;
+    var liveUrl = s.pagesUrl || ("https://" + OWNER + ".github.io/" + s.repo + "/");
+    return [
+      status,
+      s.repo,
+      s.title,
+      s.category,
+      s.kind,
+      s.pagesStatus,
+      s.pagesSource,
+      liveUrl,
+      repoUrl,
+      s.created,
+      s.lastCommit,
+      s.lastCommitSha,
+      s.commits,
+      s.description,
+      (s.flags || []).join(" | ")
+    ].map(csvCell).join(",");
+  }
+
   function exportCSV() {
     var headers = [
+      "Status",
       "Repository",
       "Title",
       "Category",
@@ -415,30 +509,12 @@
       "Flags"
     ];
 
-    var rows = D.sites.map(function (s) {
-      var repoUrl = "https://github.com/" + OWNER + "/" + s.repo;
-      var liveUrl = s.pagesUrl || ("https://" + OWNER + ".github.io/" + s.repo + "/");
-      var flagsStr = (s.flags || []).join(" | ");
+    var rows = D.sites.map(function (s) { return csvRow(s, "listed"); });
 
-      return [
-        s.repo,
-        s.title,
-        s.category,
-        s.kind,
-        s.pagesStatus,
-        s.pagesSource,
-        liveUrl,
-        repoUrl,
-        s.created,
-        s.lastCommit,
-        s.lastCommitSha,
-        s.commits,
-        s.description,
-        flagsStr
-      ].map(function (val) {
-        var str = String(val === null || val === undefined ? "" : val);
-        return '"' + str.replace(/"/g, '""') + '"';
-      }).join(",");
+    // Retired / unreachable entries are exported too, clearly marked, so the CSV
+    // stays a complete ledger rather than a silently pruned list.
+    (D.unreachable || []).forEach(function (u) {
+      rows.push(csvRow(u, "unreachable-404 (" + (u.retiredAt || "") + ")"));
     });
 
     var csvContent = headers.join(",") + "\n" + rows.join("\n");
@@ -571,6 +647,7 @@
   renderStats();
   renderChips();
   renderDirectory();
+  renderUnreachable();
   renderAccounts();
   renderIrregularities();
   renderMethodology();
