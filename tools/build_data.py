@@ -139,9 +139,11 @@ def main():
         print("  %-22s public_repos=%s pages_enabled=%s" % (login, profile.get("public_repos"), pages_enabled))
 
     sites, warnings = [], []
+    unlisted = []  # every public repo with Pages that is deliberately NOT in sites[]
     for name in sorted(api_names):
         if name in excluded:
             print("  skip %-38s (permanently excluded — see AGENTS.md)" % name)
+            unlisted.append({"repo": name, "reason": "permanently excluded by owner request"})
             continue
 
         status, repo = api_get("/repos/%s/%s" % (OWNER, name))
@@ -169,6 +171,9 @@ def main():
             warnings.append(
                 "%s: no curated entry in tools/overlay.json — skipped from the directory "
                 "(add a sourced title/category/description to publish it)" % name
+            )
+            unlisted.append(
+                {"repo": name, "reason": "no curated entry in tools/overlay.json yet"}
             )
             continue
 
@@ -216,9 +221,13 @@ def main():
 
     now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     excluded_note = (
-        "%d public repositories carry a GitHub Pages site; this directory publishes %d of them. "
-        "%d repo(s) are permanently excluded by owner request and must never be added back "
-        "(see AGENTS.md)." % (owner_account.get("pagesSites", 0), len(sites), len(excluded))
+        "%d public repositories carry a GitHub Pages site; this directory publishes %d of them, and "
+        "every other repository is named with the reason it is withheld (%s). %d repo(s) are permanently "
+        "excluded by owner request and must never be added back (see AGENTS.md); any other unlisted "
+        "repository is one that has no curated, sourced entry yet and is therefore never described."
+        % (owner_account.get("pagesSites", 0), len(sites),
+           "; ".join("%s: %s" % (u["repo"], u["reason"]) for u in unlisted) or "none",
+           len(excluded))
     )
 
     methodology = {
@@ -277,6 +286,7 @@ def main():
             "publicRepos": owner_account.get("publicRepos"),
             "pagesSites": owner_account.get("pagesSites"),
             "excluded": sorted(excluded),
+            "unlisted": unlisted,
             "unreachable": len(overlay.get("retired", [])),
         },
         "sites": sites,
@@ -308,6 +318,12 @@ def main():
     print("  sites=%d (apps=%d stubs=%d) built=%d commits=%d" % (len(sites), apps, stubs, built, total_commits))
     print("  categories=%s" % json.dumps(categories))
     print("  unreachable=%d excluded=%s" % (len(data["unreachable"]), sorted(excluded)))
+    for u in unlisted:
+        print("  unlisted=%s (%s)" % (u["repo"], u["reason"]))
+    assert len(sites) + len(unlisted) == owner_account.get("pagesSites", 0), (
+        "accounting error: %d listed + %d unlisted != %d Pages sites on the account"
+        % (len(sites), len(unlisted), owner_account.get("pagesSites", 0))
+    )
     for w in warnings:
         print("  WARNING: %s" % w, file=sys.stderr)
 

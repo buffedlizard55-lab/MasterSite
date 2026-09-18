@@ -4,56 +4,56 @@
       "title": "Air Premia Refund Playbook",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Sourced refund playbook and escalation toolkit for an Air Premia SFO–ICN round trip (Oct 31 – Nov 22, 2026): verified fare rules and contract clauses, fee tables by cabin, official customer service contacts, and ready-to-send draft templates.",
+      "description": "Sourced refund playbook and escalation toolkit for an Air Premia SFO\u2013ICN round trip (Oct 31 \u2013 Nov 22, 2026): verified fare rules and contract clauses, fee tables by cabin, official customer service contacts, and ready-to-send draft templates.",
       "flags": []
     },
     "BathTubOverflowSF": {
-      "title": "Sunset Repair — Bathtub Overflow SF",
+      "title": "Sunset Repair \u2014 Bathtub Overflow SF",
       "category": "SF Local Guides",
       "kind": "app",
-      "description": "Repair-first plumbing research workspace for a bathtub overflow problem in SF's Outer Sunset. Current snapshot: 793 unique business research records across 16 corpus waves (waves 17–19 are held in separate discovery queues, the latest adding 50 source-linked leads on 2026-09-17), 311 direct CSLB license-detail reads, 207 records with an active license at check time, 172 retained review excerpts, 673 evidence references, and 0 fully qualified master entries.",
+      "description": "Repair-first plumbing research workspace for a bathtub overflow problem in SF's Outer Sunset. Current snapshot: 793 unique business research records across 16 corpus waves (waves 17\u201319 are held in separate discovery queues, the latest adding 50 source-linked leads on 2026-09-17), 311 direct CSLB license-detail reads, 207 records with an active license at check time, 172 retained review excerpts, 673 evidence references, and 0 fully qualified master entries.",
       "flags": [
         "Corpus is discovery and verification records, not approved contractors: the qualified master list is deliberately empty because no business yet carries every required piece of evidence."
       ]
     },
     "BusanL7HaeundaeLotteHotelStay": {
-      "title": "Busan L7 Haeundae Stay — Verified Planner",
+      "title": "Busan L7 Haeundae Stay \u2014 Verified Planner",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Interactive travel planner and vlog guide for a 7-night stay at L7 HAEUNDAE by LOTTE HOTELS (Nov 9–16, 2026): 12 daily itineraries, 5 curated 7-day route presets, 6 dated in-window events, 39 place links, 150 restaurants, and custom trip builder.",
+      "description": "Interactive travel planner and vlog guide for a 7-night stay at L7 HAEUNDAE by LOTTE HOTELS (Nov 9\u201316, 2026): 12 daily itineraries, 5 curated 7-day route presets, 6 dated in-window events, 39 place links, 150 restaurants, and custom trip builder.",
       "flags": []
     },
     "CruiseDeals": {
-      "title": "CruiseDeals — U.S. Departure Ports (Feb–Mar 2027)",
+      "title": "CruiseDeals \u2014 U.S. Departure Ports (Feb\u2013Mar 2027)",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Research table of 441 verified in-window sailings (Feb 15 – Mar 31, 2027) from 14 U.S. departure ports across 12 cruise lines, with 2-adult price snapshots, SFO-based flight planning, and total trip cost models.",
+      "description": "Research table of 441 verified in-window sailings (Feb 15 \u2013 Mar 31, 2027) from 14 U.S. departure ports across 12 cruise lines, with 2-adult price snapshots, SFO-based flight planning, and total trip cost models.",
       "flags": [
         "Root URL redirects into /docs/, where the interactive table app is published."
       ]
     },
     "DrugAnalysis": {
-      "title": "DrugAnalysis — FDA Decisions & Biotech Reactions",
+      "title": "DrugAnalysis \u2014 FDA Decisions & Biotech Reactions",
       "category": "Markets & Trading Research",
       "kind": "app",
-      "description": "Biopharma decision engine built on 980 FDA novel-drug approvals (2000–2026) plus 58 deep-verified CRLs — 1,038 core rows, 83 with verified price data — alongside a 458-row CRL table, a 34-company pipeline tracker, 32 upcoming PDUFA dates with countdown, 8 upcoming Phase 3 trial endpoints, 93 verified stock-price snapshots and 2,000 ClinicalTrials.gov Phase 3 studies, rendered as a dependency-free static site with Pipeline, PDUFA and Trials tabs.",
+      "description": "Biopharma decision engine tracking publicly traded companies against FDA drug decisions, verified stock-price reactions and clinical-pipeline success rates, rendered as a dependency-free static site that reads its CSVs straight from /data with no build step. Latest state read from the repository (v14, 2026-09-18): the decision universe is 5,520 verified FDA decisions built from a 1,427-row approval master plus the 458-row CRL master (1,885 core rows), alongside a dedicated pre-1985 table of 91 verified 1980-1984 rows, a 2,000-row ClinicalTrials.gov Phase 3 registry, a 34-entry deep-dive pipeline tracker, 32 PDUFA dates, 8 upcoming Phase 3 trial endpoints and 93 verified stock-price snapshots. The 980-row NME master covering 2000-2026 is unchanged.",
       "flags": [
         "Secondary-compilation rows (aggregated PDUFA calendars, pipeline counts) are explicitly flagged on the site for manual verification against primary press releases."
       ]
     },
     "GEMSDOE": {
-      "title": "GEMSDOE — Geologic Mapping Prize Challenge",
+      "title": "GEMSDOE \u2014 Geologic Mapping Prize Challenge",
       "category": "Science & ML Research",
       "kind": "app",
-      "description": "Evidence-backed site for the DOE GEMS Prize Challenge on DrivenData ($300,000 prize): predicting geothermal faults from GeoDAWN geophysical data under a distance-weighted Tversky metric, with a 19-band feature stack. Session-9 status (2026-09-17): the data-placement blocker is resolved — the three official rasters are committed as sha256-pinned git parts, reassembled with every hash re-verified, prepare_data.py passes on the real bytes, and the full train → inference → validate → score pipeline has run on a runner and inside the 3.9 GB dev sandbox.",
+      "description": "Evidence-backed site for the DOE GEMS Prize Challenge on DrivenData ($300,000 prize): predicting geothermal faults from GeoDAWN geophysical data under a distance-weighted Tversky metric, with a 19-band feature stack. Session-9 status (2026-09-17): the data-placement blocker is resolved \u2014 the three official rasters are committed as sha256-pinned git parts, reassembled with every hash re-verified, prepare_data.py passes on the real bytes, and the full train \u2192 inference \u2192 validate \u2192 score pipeline has run on a runner and inside the 3.9 GB dev sandbox.",
       "flags": [
-        "Repository size grew from 6,695 KB to 394,791 KB (~386 MB) between 2026-09-16 and 2026-09-17 after the competition rasters were committed as git parts.",
+        "Repository size grew from 6,695 KB to 394,791 KB between 2026-09-16 and 2026-09-17 after the competition rasters were committed as git parts, and was measured at 395,958 KB on the 2026-09-18 audit.",
         "The README warns that its own earlier text is partly superseded (the feature stack is 19 bands, not ~10) and that STATUS.md and the generated site take precedence.",
         "Canonical generated site lives in docs/ behind a root redirect; both prize phases score a new fault dataset that is disjoint from the training labels."
       ]
     },
     "GOLD": {
-      "title": "GOLD — Solid Gold Ring Buyer's Directory",
+      "title": "GOLD \u2014 Solid Gold Ring Buyer's Directory",
       "category": "Markets & Trading Research",
       "kind": "app",
       "description": "Evidence-based buyer's reference directory of 482 verified solid gold ring listings across ~44 online jewelers, ranked by price per pure-gold gram/ounce with source verification.",
@@ -62,10 +62,10 @@
       ]
     },
     "HongdaeStay": {
-      "title": "HongdaeStay — Mercure Ambassador Seoul Guide",
+      "title": "HongdaeStay \u2014 Mercure Ambassador Seoul Guide",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Verified itinerary hub for a 6-night stay at Mercure Ambassador Seoul Hongdae (Nov 16–22, 2026): 12 themed itinerary styles, 52 venue records checked against official sources, 6 verified in-window events, and an audit flags ledger.",
+      "description": "Verified itinerary hub for a 6-night stay at Mercure Ambassador Seoul Hongdae (Nov 16\u201322, 2026): 12 themed itinerary styles, 52 venue records checked against official sources, 6 verified in-window events, and an audit flags ledger.",
       "flags": []
     },
     "HotelSeoulRoughdraft1": {
@@ -78,7 +78,7 @@
       ]
     },
     "Insider-trades": {
-      "title": "Insider Trades — SEC Form 4 Dashboard",
+      "title": "Insider Trades \u2014 SEC Form 4 Dashboard",
       "category": "Markets & Trading Research",
       "kind": "app",
       "description": "SEC EDGAR Form 4 insider transaction dashboard and Python analysis toolkit (MIT); static page displays verified local filing data and backtests insider signal rules.",
@@ -87,14 +87,14 @@
       ]
     },
     "Itinerary-Korea": {
-      "title": "Korea Compass — Master Trip Planner",
+      "title": "Korea Compass \u2014 Master Trip Planner",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Production release of Korea Compass for Nov 1–22, 2026: 30 verified 21-night itineraries across Seoul–Daejeon–Busan and Seoul–Cheonan–Busan corridors with source citations.",
+      "description": "Production release of Korea Compass for Nov 1\u201322, 2026: 30 verified 21-night itineraries across Seoul\u2013Daejeon\u2013Busan and Seoul\u2013Cheonan\u2013Busan corridors with source citations.",
       "flags": []
     },
     "Korea": {
-      "title": "Korea Trip — Deals, Freebies & Pass Discounts",
+      "title": "Korea Trip \u2014 Deals, Freebies & Pass Discounts",
       "category": "Travel & Korea Trip",
       "kind": "app",
       "description": "Fact-checked registry of South Korea travel deals, birthday freebies, app sign-up coupons, transit cards, and tourist pass discounts verified against official terms of service.",
@@ -104,7 +104,7 @@
       "title": "South Korea Emergency Preparedness Kit",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Emergency preparedness hub for US travelers in South Korea (Oct 31 – Nov 22, 2026): embassy emergency contacts, English-speaking hospitals, medical phrases, and embassy checklists.",
+      "description": "Emergency preparedness hub for US travelers in South Korea (Oct 31 \u2013 Nov 22, 2026): embassy emergency contacts, English-speaking hospitals, medical phrases, and embassy checklists.",
       "flags": []
     },
     "KoreaHotels": {
@@ -124,7 +124,7 @@
       ]
     },
     "MLB-Live-PBP": {
-      "title": "MLB Live PBP — Scoreboard & Play-by-Play",
+      "title": "MLB Live PBP \u2014 Scoreboard & Play-by-Play",
       "category": "Sports Data & Scoreboards",
       "kind": "app",
       "description": "Live baseball scoreboard and real-time play-by-play visualizer powered by official MLB Gameday feed data with game-state tracking.",
@@ -149,7 +149,7 @@
       ]
     },
     "MasterSite": {
-      "title": "MasterSite — Master GitHub Pages Directory",
+      "title": "MasterSite \u2014 Master GitHub Pages Directory",
       "category": "Directory & Meta",
       "kind": "app",
       "description": "This site: the master directory and line-by-line verification ledger for every GitHub Pages site published under buffedlizard55-lab, plus a verified check of kanlerxz87-cyber. Each entry carries a sourced description, creation date, last-updated date, commit telemetry, Pages build source and official API links for independent manual review.",
@@ -165,12 +165,13 @@
       "flags": []
     },
     "NFLInjuryReport": {
-      "title": "NFL Injury Report — 32 Team Tracker",
+      "title": "NFL Injury Report \u2014 32 Team Tracker",
       "category": "Sports Data & Scoreboards",
       "kind": "app",
-      "description": "Live injury-alert system for all 32 NFL teams built only from free, public, verifiable sources: every designation shown is the official nfl.com value whenever nfl.com publishes one, with ESPN's keyless injuries JSON supplying timestamps and beat-writer attribution, plus a reporter-accuracy scorecard and a chat-style live feed. A GitHub Actions workflow refreshes data/latest/*.json every 10 minutes and commits it to the branch; the Pages site is the repository root with no build step.",
+      "description": "Live injury-alert system for all 32 NFL teams built only from free, public, verifiable sources: every designation shown is the official nfl.com value whenever nfl.com publishes one, with ESPN's keyless injuries JSON supplying timestamps and beat-writer attribution, plus a reporter-accuracy scorecard and a chat-style live feed. A GitHub Actions workflow refreshes data/latest/*.json every 10 minutes and commits it to the branch; the Pages site is the repository root with no build step. The repository also documents the limits of the scorecard honestly: a historical backfill is not achievable from free sources because no keyless archive of historical social posts with trustworthy timestamps exists, so scoring is forward-collected from the moment the collector is enabled.",
       "flags": [
-        "Ten-minute scheduled collection is best-effort, not a low-latency guarantee; scheduled workflows can be delayed or disabled by GitHub."
+        "Ten-minute scheduled collection is best-effort, not a low-latency guarantee; scheduled workflows can be delayed or disabled by GitHub.",
+        "The repository documents a 2026-09-17 missed-alert incident: two in-game injuries produced no alert, and the post-mortem measured a median gap of 188 minutes between published snapshots in the eight days to 2026-09-18 against the 10-minute schedule."
       ]
     },
     "NFLPRED": {
@@ -190,7 +191,7 @@
       "flags": []
     },
     "PFFNFL": {
-      "title": "PFFNFL — Pro Football Focus Reverse Engineering",
+      "title": "PFFNFL \u2014 Pro Football Focus Reverse Engineering",
       "category": "Sports Data & Scoreboards",
       "kind": "stub",
       "description": "Research repository analyzing Pro Football Focus (PFF.com) public data schemas; GitHub Pages renders the repository documentation README.",
@@ -199,7 +200,7 @@
       ]
     },
     "PlumbingSF": {
-      "title": "Verified SF Plumbers — Drain & Trap Service",
+      "title": "Verified SF Plumbers \u2014 Drain & Trap Service",
       "category": "SF Local Guides",
       "kind": "app",
       "description": "Research system and directory evaluating verified licensed San Francisco plumbers for slow shower/bathtub drain and trap clearing with CSLB license audits.",
@@ -208,7 +209,7 @@
       ]
     },
     "PriceKalshiHistorical": {
-      "title": "PriceKalshiHistorical — Market Simulator",
+      "title": "PriceKalshiHistorical \u2014 Market Simulator",
       "category": "Markets & Trading Research",
       "kind": "app",
       "description": "Autonomous Kalshi event-contract historical collector and Python backtester; Pages hosts the interactive in-browser market orderbook simulation interface.",
@@ -217,109 +218,135 @@
       ]
     },
     "SFLateNight": {
-      "title": "SF Late Night — Post-11PM Venue Directory",
+      "title": "SF Late Night \u2014 Post-11PM Venue Directory",
       "category": "SF Local Guides",
       "kind": "app",
       "description": "Directory of 207 San Francisco restaurants, diners, and bars open past 11 PM on weekends, with verified operating hours and transit lines from 21st Ave & Judah.",
       "flags": []
     },
     "ScheduleFreeTime": {
-      "title": "ScheduleFreeTime — Sports Conflict Calendar",
+      "title": "ScheduleFreeTime \u2014 Sports Conflict Calendar",
       "category": "Sports Data & Scoreboards",
       "kind": "app",
-      "description": "Scoreboard-style calendar for Aug 1, 2026 – Feb 28, 2027 (America/Los_Angeles) that answers one question: when am I free? A moment is busy if any MLB game (all 30 clubs), NFL game (all 32 clubs, through Super Bowl LXI), San Jose Earthquakes, Stanford or Cal football, Warriors (95.7 The Game), Valkyries, Sharks (98.5 KFOX) or a Westwood One national radio broadcast is on air. Bay Area radio research added 2026-09-17: Earthquakes KSFO 810 / KZSF 1370, Stanford KNBR/KTCT 1050, Cal KSFO 810, and Westwood One NFL + NCAAF with 65/65 dated NFL broadcasts matched against the league table.",
+      "description": "Scoreboard-style calendar for Aug 1, 2026 \u2013 Feb 28, 2027 (America/Los_Angeles) that answers one question: when am I free? A moment is busy if any MLB game (all 30 clubs), NFL game (all 32 clubs, through Super Bowl LXI), San Jose Earthquakes, Stanford or Cal football, Warriors (95.7 The Game), Valkyries, Sharks (98.5 KFOX) or a Westwood One national radio broadcast is on air. Bay Area radio research added 2026-09-17: Earthquakes KSFO 810 / KZSF 1370, Stanford KNBR/KTCT 1050, Cal KSFO 810, and Westwood One NFL + NCAAF with 65/65 dated NFL broadcasts matched against the league table.",
       "flags": []
     },
     "SportsPred": {
-      "title": "SportsPred — 22-Sport Scoreboard & Prediction Hub",
+      "title": "SportsPred \u2014 22-Sport Scoreboard & Prediction Hub",
       "category": "Sports Data & Scoreboards",
       "kind": "app",
       "description": "Multi-sport prediction engine and scoreboard covering 22 international sports (football, snooker, golf, greyhounds, GAA, darts, volleyball) with 95 verified league registries.",
       "flags": []
     },
     "StanfordStay": {
-      "title": "Stanford Stay — Stanford Hotel Myeongdong Planner",
+      "title": "Stanford Stay \u2014 Stanford Hotel Myeongdong Planner",
       "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Seoul district itinerary planner for Nov 1–9, 2026 based at Stanford Hotel Myeongdong in Seoul: 47 day itineraries and 26 8-night master routes with source links.",
+      "description": "Seoul district itinerary planner for Nov 1\u20139, 2026 based at Stanford Hotel Myeongdong in Seoul: 47 day itineraries and 26 8-night master routes with source links.",
       "flags": [
         "'Stanford' refers to the Stanford Hotel Myeongdong in Seoul, South Korea, not Stanford University / Stanford CA."
       ]
     },
     "TinoLunchSpecial": {
-      "title": "Tino Lunch Special — Cupertino & South Bay Lunch Deals",
+      "title": "Tino Lunch Special \u2014 Cupertino & South Bay Lunch Deals",
       "category": "SF Local Guides",
       "kind": "app",
-      "description": "Source-backed lunch research directory for Cupertino and nearby cities; the front page has led with lunch deals since 2026-09-11. Pass 25 (2026-09-17) states plainly that 873 research rows are not 873 verified deals: 11 rows carry field-level evidence (five complete, six partial) and the other 862 remain research, backed by a 35-row evidence CSV, a 20-query discovery log and a 100-source failed-attempt log. The 100-new-restaurant goal remains unmet. The September 8, 2026 SF Muni N Judah → Caltrain → VTA transit plan is preserved unchanged on transit.html.",
+      "description": "Source-backed lunch research directory for Cupertino and nearby cities; the front page has led with lunch deals since 2026-09-11. Pass 25 (2026-09-17) states plainly that 873 research rows are not 873 verified deals: 11 rows carry field-level evidence (five complete, six partial) and the other 862 remain research, backed by a 35-row evidence CSV, a 20-query discovery log and a 100-source failed-attempt log. The 100-new-restaurant goal remains unmet. The September 8, 2026 SF Muni N Judah \u2192 Caltrain \u2192 VTA transit plan is preserved unchanged on transit.html.",
       "flags": [
-        "Repository size fell from 4,864 KB to 2,076 KB across 12 new commits while the first commit SHA stayed identical (c7bd9eb) — file removal in ordinary commits, not a history rewrite."
+        "Repository size fell from 4,864 KB to 2,076 KB across 12 new commits while the first commit SHA stayed identical (c7bd9eb) \u2014 file removal in ordinary commits, not a history rewrite."
       ]
     },
     "TradingViewTheLeap": {
-      "title": "The Leap — Verified Research & Instrument Intelligence",
+      "title": "The Leap \u2014 Verified Research & Instrument Intelligence",
       "category": "Markets & Trading Research",
       "kind": "app",
-      "description": "Reproducible research layer for TradingView's The Leap paper-trading competition (AMP Futures, Sep 2026) that separates official contest facts, historical champion outcomes, vendor-sourced market moves, capacity arithmetic and independently simulated strategy verdicts — and never presents a backtest as a platform result. Fifth pass (2026-09-17) re-fetched and line-by-line verified all three official pages: 94/94 symbols with identical caps and listing order, 0 equity instruments, unchanged $50,000 cash ARV prize ladder, and 15 completed-edition champion records unchanged (maximum 53.2072x). A placement-arithmetic lab shows the last cash rank (50) at 5.9773x.",
+      "description": "Reproducible research layer for TradingView's The Leap paper-trading competition (AMP Futures, Sep 2026) that separates official contest facts, historical champion outcomes, vendor-sourced market moves, capacity arithmetic and independently simulated strategy verdicts \u2014 and never presents a backtest as a platform result. Contest pages are captured to dated, tiered evidence files and verified line by line: 94/94 symbols with identical caps and listing order, 0 equity instruments, an unchanged $50,000 cash ARV prize ladder, and 15 completed-edition champion records (maximum 53.2072x), with a placement-arithmetic lab showing the last cash rank (50) at 5.9773x. The eleventh pass (2026-09-18) built the intraday to study to stock-division to executive-summary chain, and the audit trail runs through PASS9-PASS12 with official captures dated 2026-09-17 (R3-R7) and 2026-09-18 (R8-R9); the R9 capture recorded 96,707 participants and exposed the top 250.",
       "flags": [
-        "Hypotheses now run to H23 and irregularities to IR-24; no tested strategy in the repository has produced even a positive daily compounding rate, and the stated daily targets are arithmetic requirements, not forecasts."
+        "Hypotheses now run to H32 and irregularities to IR-27; H32 is deliberately left untested because the number it needs does not exist until real intraday bars are committed.",
+        "No tested strategy in the repository has produced even a positive daily compounding rate, and the stated daily targets are arithmetic requirements, not forecasts.",
+        "The README's own pointer to the latest capture lagged the repository: it names R8 while research/evidence/ already contained the later R9 capture, so the description was sourced from the evidence file rather than the README line."
       ]
     },
     "Tradingview-pinescript-editor": {
-      "title": "PinePilot — TradingView Pine Script Strategy Lab",
+      "title": "PinePilot \u2014 TradingView Pine Script Strategy Lab",
       "category": "Markets & Trading Research",
       "kind": "app",
       "description": "Copy-paste Pine Script v6 trading strategy laboratory (18 customizable modes), beginner tutorial walkthrough, and interactive simulation backtest calculator.",
       "flags": []
     },
     "VapePods": {
-      "title": "VapePods — STIIIZY Pod Prices & Deals (SF 94122)",
+      "title": "VapePods \u2014 STIIIZY Pod Prices & Deals (SF 94122)",
       "category": "SF Local Guides",
       "kind": "app",
       "description": "Verified price list (178 lines across 7 stores as of 2026-09-15) for STIIIZY-format pods near Stonestown/94122: base price, tax status, deal, official source link, and read date per line; data rebuilt from build/build.py with CI reproducibility checks.",
       "flags": []
     },
+    "WoWForever": {
+      "title": "WoW Forever Hub \u2014 Source-Verified World of Warcraft Guide",
+      "category": "Gaming & Guides",
+      "kind": "app",
+      "description": "Source-verified information site for World of Warcraft: Forever (the repository dates Blizzard's launch to 4 November 2026 with raids unlocking 9 December 2026), published as nine static pages \u2014 index, roadmap, pvp, classes, gear, gold, sources, method and work-plan. Every published statement is carried in a claims ledger (data/claims.js, IDs C001-C110) with an evidence class of official, press, datamine, guide, ours, unknown or community, backed by a source registry in data/sources.js, and checked in CI by tools/check-ledger.mjs and tools/check-sources.mjs. Class tier lists, Best-in-Slot item lists and gold-per-hour figures are deliberately omitted because the beta is capped at level 20 and items are hidden until they drop.",
+      "flags": [
+        "The repository records its own irregularity log I-1 through I-7 on method.html, and states plainly what it refuses to publish rather than filling gaps with estimates.",
+        "This site was created 2026-09-18 and was still receiving merged pull requests while the audit ran, so its commit total is a point-in-time read."
+      ]
+    },
     "KalshiPaperSim": {
-      "title": "KalshiPaperSim — Paper-Trading Competition Lab",
+      "title": "KalshiPaperSim \u2014 Paper-Trading Competition Lab",
       "category": "Markets & Trading Research",
       "kind": "app",
-      "description": "Paper-trading competition platform for Kalshi prediction markets built on real captured Kalshi data: real markets, quotes, order-book depth, candlesticks, the real quadratic fee formula and the real reciprocal YES/NO pricing rule. Ten aggressive algorithmic strategies compete over a one-year calendar, scored by a deterministic replay engine. README auto-counts: 53 verified facts, 19 flagged irregularities, 10 strategies, 9 real markets, 61 daily candlesticks, 50 automated tests.",
+      "description": "Paper-trading competition platform for Kalshi prediction markets built on real captured Kalshi data: real markets, quotes, order-book depth, candlesticks, the real quadratic fee formula and the real reciprocal YES/NO pricing rule, scored by a deterministic replay engine. Quoted from the repository's own AUTO:COUNTS block (regenerated by scripts/render-docs.js): 99 verified facts (34 documented, 39 captured from production, 1 negative/404 evidence, 20 derived by arithmetic, 5 unexplained observations), 45 flagged irregularities, 41 strategies, 9 real markets, 10,905 captured daily candlesticks across 53 replayable markets (2025-08-15 to 2026-09-18), 112 automated tests, and 13 Live Desk entrants on 62 real open contracts with captured ladders.",
       "flags": [
-        "Rebuilt after an audit found its predecessor invented data; the honesty contract (no invented price, quote, fee or result) is enforced by code and tests, not by intention."
+        "Rebuilt after an audit found its predecessor invented data; the honesty contract (no invented price, quote, fee or result) is enforced by code and tests, not by intention.",
+        "The AUTO:COUNTS block is regenerated on every documentation build, so every figure in this description moved between the 2026-09-17 and 2026-09-18 audits (53->99 facts, 19->45 irregularities, 10->41 strategies, 61->10,905 candlesticks, 50->112 tests)."
       ]
     },
     "NBAInjuryReport": {
-      "title": "NBA Injury Watch — 30-Team Injury Monitor",
+      "title": "NBA Injury Watch \u2014 30-Team Injury Monitor",
       "category": "Sports Data & Scoreboards",
       "kind": "app",
-      "description": "NBA-only injury monitoring for all 30 teams: injury board from the public ESPN structured injuries endpoint with source timestamps, status, reason, estimated return and review links (explicitly not official NBA confirmation), a live-style wire polling ESPN news/Bluesky/game summaries every 60 seconds by default (configurable 30–300s), severity colour-coding, WebAudio alert bell, and an official-NBA PDF adapter with a 229-row historical regression fixture. Test suite: 188-check smoke test, 52-check integration, 24-check poller, 26 regression groups and 26 Python tests.",
+      "description": "NBA-only injury monitoring for all 30 teams: injury board from the public ESPN structured injuries endpoint with source timestamps, status, reason, estimated return and review links (explicitly not official NBA confirmation), a live-style wire polling ESPN news, injuries, allow-listed Bluesky author feeds and game summaries every 60 seconds by default (configurable 30-300 seconds), severity colour-coding, a WebAudio alert bell with a separate high-impact voice, and an official-NBA PDF adapter carrying a 229-row historical regression fixture. Test suite read from the repository's run/test block: 212-check smoke test, 80-check impact test, 71-check integration test, 25-check and 24-check poller fixtures, 47-check reporter verifier, 26 regression groups and 26 Python tests.",
       "flags": [
         "No live official NBA injury report was discovered in the audit; automatic official confirmation remains blocked, so ESPN data is used and labelled as not official NBA confirmation.",
-        "2026-09-17 snapshot covers 27 of 30 team blocks (CLE, DET and LAL absent); missing coverage is named on the site rather than reported as healthy rosters."
+        "2026-09-17 snapshot covers 27 of 30 team blocks (CLE, DET and LAL absent); missing coverage is named on the site rather than reported as healthy rosters, and a full 30/30 snapshot still would not be clearance.",
+        "Measured 2026-09-18: all 30 official club channels (nba.com/<slug>/news) answered HTTP 403 to the CI runner, so they are published as manual-review links rather than a machine-read feed.",
+        "Measured 2026-09-18: 10 of 30 teams have a Bluesky-verified in-arena writer whose feed is polled automatically, 7 more have a bio-verified pollable writer, and 13 have no writer account at all - those 13 are named as gaps on the page."
       ]
     },
     "SFWeather": {
-      "title": "SFWeather — 94122 Rainy-Season Outlook",
+      "title": "SFWeather \u2014 94122 Rainy-Season Outlook",
       "category": "SF Local Guides",
       "kind": "app",
-      "description": "Source-verified rainy-season outlook for San Francisco ZIP 94122 (Sunset / Inner Sunset), 1 Oct 2026 – 31 Jan 2027, built by an automated nightly pipeline from free official sources (NOAA / National Weather Service, NCEI, Climate Prediction Center, U.S. Census Bureau). Each of the 123 days carries an NWS FORECAST badge (real gridded NWS forecast, ~7-day horizon) or a CLIMATOLOGY badge (observed 1991–2020 record for that calendar date at NOAA station USW00023272) — no invented daily numbers beyond the horizon. Landlord summary: mean 12.79 in seasonal rainfall, mean 34.5 wet days, 96.7% of seasons had a run of ≥3 consecutive wet days.",
+      "description": "Source-verified rainy-season outlook for San Francisco ZIP 94122 (Sunset / Inner Sunset), 1 Oct 2026 \u2013 31 Jan 2027, built by an automated nightly pipeline from free official sources (NOAA / National Weather Service, NCEI, Climate Prediction Center, U.S. Census Bureau). Each of the 123 days carries an NWS FORECAST badge (real gridded NWS forecast, ~7-day horizon) or a CLIMATOLOGY badge (observed 1991\u20132020 record for that calendar date at NOAA station USW00023272) \u2014 no invented daily numbers beyond the horizon. Landlord summary: mean 12.79 in seasonal rainfall, mean 34.5 wet days, 96.7% of seasons had a run of \u22653 consecutive wet days.",
       "flags": [
         "CPC outlooks are attached only as probabilities for a period and are never converted into daily numbers."
       ]
     },
     "StockPaperSim": {
-      "title": "StockPaperSim (README-only placeholder)",
+      "title": "StockPaperSim \u2014 Persona Paper-Trading Competition (Replay + Live Book)",
       "category": "Markets & Trading Research",
-      "kind": "stub",
-      "description": "Placeholder repository: a single initial commit containing only a 15-byte README.md with the project title and no site code. GitHub Pages reports 'built'; the served page is the default Jekyll markdown render of that README.",
+      "kind": "app",
+      "description": "One-year paper-trading competition between return-seeking strategy personas, with a real venue model (depth, spreads, market making, dated tick sizes and fees), a full audit trail and a dependency-free static site. The repository documents three runs: Season 1 with 20 personas replaying the real S&P 500 and VIX path, The Live Book with 19 personas trading forward from official free series (Nasdaq Composite, Dow Jones, S&P 500, VIX, SOFR and four macro series), and Season 2 with 14 personas in a reproducible research replay on collected daily bars. It states plainly that the executable bars are collected Yahoo Finance files marked SECONDARY, that two of seventeen price series in Season 1 are real observations while the other fifteen are labelled simulations, and that the committed-price run is not eligible as an official-price competition.",
       "flags": [
-        "README-only placeholder created 2026-09-17 — no application or research content published yet."
+        "GitHub Pages is configured to publish the repository root, not /docs, so a root index.html redirects to docs/index.html; the repository notes that changing the Pages source needs admin rights (the API returns 403 for its automation).",
+        "This repository was a single-commit README-only placeholder in the 2026-09-17 audit and had grown to a full multi-page site by the 2026-09-18 audit, so its published description and app/stub classification were both rewritten."
+      ]
+    },
+    "Elections": {
+      "title": "Elections (placeholder)",
+      "category": "Directory & Meta",
+      "kind": "stub",
+      "description": "Single-commit placeholder repository created 2026-09-18T22:42:36Z. Its entire contents are one README.md of 11 bytes whose full text is the heading '# Elections'; there is no index.html, no application code and no research content, so GitHub Pages serves the default Jekyll markdown render of that README.",
+      "flags": [
+        "Created and first pushed while this audit was running; it has no content to describe beyond its own file listing.",
+        "This entry is API-sourced only. It carries no description of what the site is intended to become, because nothing in the repository states that yet."
       ]
     }
   },
   "retired": [
     {
       "repo": "JobSearchSF",
-      "title": "JobSearchSF — Evidence-First SF Job Discovery (REMOVED UPSTREAM)",
+      "title": "JobSearchSF \u2014 Evidence-First SF Job Discovery (REMOVED UPSTREAM)",
       "category": "SF Local Guides",
       "kind": "app",
       "description": "Read-only evidence-first job discovery for SF B.S. Chemistry profile: 230 openings through Pass 12 (job-181 to job-230, 39 unique new source URLs), privacy-safe evidence board with contact details redacted, and safe automation gates.",
@@ -341,11 +368,11 @@
         "Pipeline submission engine intentionally disabled with 0 applications sent (read-only discovery)"
       ],
       "retiredAt": "2026-09-17",
-      "retiredReason": "Listed in the 2026-09-16 directory with 68 main-branch commits, but GET /repos/buffedlizard55-lab/JobSearchSF returned HTTP 404 Not Found on 2026-09-17 and the GitHub repository search API returns 0 results for user:buffedlizard55-lab JobSearchSF. The repository no longer exists publicly (deleted or made private), so its Pages site is no longer served. Frozen here with its last independently verified values for owner review; excluded from the live directory, the counts and the exports.",
+      "retiredReason": "Listed in the 2026-09-16 directory with 68 main-branch commits, but GET /repos/buffedlizard55-lab/JobSearchSF returned HTTP 404 Not Found on 2026-09-17 and the GitHub repository search API returns 0 results for user:buffedlizard55-lab JobSearchSF (re-confirmed 2026-09-18; the account now lists 40 public repositories and JobSearchSF is in none of them). The repository no longer exists publicly (deleted or made private), so its Pages site is no longer served. Frozen here with its last independently verified values for owner review; excluded from the live directory, the counts and the exports.",
       "retiredEvidence": [
-        "https://api.github.com/repos/buffedlizard55-lab/JobSearchSF — HTTP 404 Not Found (2026-09-17)",
-        "https://api.github.com/search/repositories?q=JobSearchSF+user:buffedlizard55-lab — total_count 0 (2026-09-17)",
-        "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 — JobSearchSF absent from the 39-repo public list (2026-09-17)"
+        "https://api.github.com/repos/buffedlizard55-lab/JobSearchSF \u2014 HTTP 404 Not Found (re-confirmed 2026-09-18)",
+        "https://api.github.com/search/repositories?q=JobSearchSF+user:buffedlizard55-lab \u2014 total_count 0 (re-confirmed 2026-09-18)",
+        "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 \u2014 JobSearchSF absent from the 40-repo public list (re-confirmed 2026-09-18)"
       ]
     }
   ],
@@ -354,19 +381,19 @@
       "id": "IRR-01",
       "severity": "critical",
       "title": "JobSearchSF was listed on 2026-09-16 and no longer exists (HTTP 404)",
-      "detail": "The 2026-09-16 directory published JobSearchSF with 68 main-branch commits. On 2026-09-17 GET https://api.github.com/repos/buffedlizard55-lab/JobSearchSF returns HTTP 404 Not Found, GET https://api.github.com/search/repositories?q=JobSearchSF+user:buffedlizard55-lab returns total_count 0, and the name is absent from the 39-repository public list at https://api.github.com/users/buffedlizard55-lab/repos?per_page=100. The repository was deleted or made private, so its Pages site is no longer served. It has been moved to the 'Unreachable' panel with its last independently verified values (last main commit f68c452, 2026-09-16T19:37:41Z) and removed from the live directory, the counts and the exports. Owner review needed: restore it, or confirm it should stay retired."
+      "detail": "The 2026-09-16 directory published JobSearchSF with 68 main-branch commits. On 2026-09-17 GET https://api.github.com/repos/buffedlizard55-lab/JobSearchSF returns HTTP 404 Not Found, GET https://api.github.com/search/repositories?q=JobSearchSF+user:buffedlizard55-lab returns total_count 0, and the name is absent from the public list (39 repositories on 2026-09-17, 40 on 2026-09-18; it appears in neither) at https://api.github.com/users/buffedlizard55-lab/repos?per_page=100. The repository was deleted or made private, so its Pages site is no longer served. It has been moved to the 'Unreachable' panel with its last independently verified values (last main commit f68c452, 2026-09-16T19:37:41Z) and removed from the live directory, the counts and the exports. Owner review needed: restore it, or confirm it should stay retired."
     },
     {
       "id": "IRR-02",
       "severity": "warn",
-      "title": "Four new GitHub Pages sites appeared since the 2026-09-16 audit",
-      "detail": "The account grew from 36 to 39 public repositories, all 39 with Pages 'built'. New: KalshiPaperSim (created 2026-09-17T18:39:16Z, 5 commits), NBAInjuryReport (created 2026-09-17T02:22:32Z, 81 commits), SFWeather (created 2026-09-17T04:26:19Z, 58 commits) and StockPaperSim (created 2026-09-17T18:39:45Z, 1 commit, README-only). Three of the four were still receiving pushes during the audit window, so their commit counts are point-in-time."
+      "title": "Five new GitHub Pages sites appeared across the two audit days (four on 2026-09-17, one on 2026-09-18)",
+      "detail": "The account grew from 36 to 39 public repositories between 2026-09-16 and 2026-09-17, then to 40 by 2026-09-18, with all 40 reporting Pages 'built' (verified per repository via GET /repos/buffedlizard55-lab/{repo}/pages). New on 2026-09-17: KalshiPaperSim (created 2026-09-17T18:39:16Z), NBAInjuryReport (2026-09-17T02:22:32Z), SFWeather (2026-09-17T04:26:19Z) and StockPaperSim (2026-09-17T18:39:45Z). New on 2026-09-18: WoWForever (created 2026-09-18T20:11:30Z), which the 2026-09-17 audit could not have listed because it did not exist yet, and which was still receiving merged pull requests during this audit. Four of the five were still receiving pushes during the audit window, so every commit count here is a point-in-time read."
     },
     {
       "id": "IRR-03",
       "severity": "info",
-      "title": "Eight existing entries gained new default-branch commits (+167 commits)",
-      "detail": "Re-verified against the 2026-09-16 ledger: GEMSDOE 77->141 (+64), TradingViewTheLeap 10->51 (+41), DrugAnalysis 52->77 (+25), BathTubOverflowSF 46->58 (+12), TinoLunchSpecial 52->64 (+12), NFLInjuryReport 62->69 (+7), ScheduleFreeTime 20->24 (+4), MasterSite 12->14 (+2) — 167 new commits in total. The other 26 previously listed repositories re-verified byte-identical: same latest SHA and same commit count. The listed commit total moved 1,259 -> 1,503 after JobSearchSF (68 commits) was retired and the four new repositories (145 commits) were added."
+      "title": "Ten existing entries gained new default-branch commits between the 2026-09-17 and 2026-09-18 audits",
+      "detail": "Re-verified field by field against the 2026-09-17 ledger (commits 2026-09-17 -> 2026-09-18): NBAInjuryReport 81->149, SFWeather 58->112, DrugAnalysis 77->101, TradingViewTheLeap 51->84, KalshiPaperSim 5->70, StockPaperSim 1->67, GEMSDOE 141->162, NFLInjuryReport 69->75, ScheduleFreeTime 24->31, MasterSite 14->16 - 467 new commits in total. The remaining 29 listed repositories re-verified byte-identical: same latest commit SHA and same commit count. StockPaperSim's change is not incremental - it went from a single-commit README placeholder to a 67-commit multi-page site, which forced both its description and its app/stub classification to be rewritten (see IRR-25)."
     },
     {
       "id": "IRR-04",
@@ -390,19 +417,19 @@
       "id": "IRR-07",
       "severity": "warn",
       "title": "GitHub's three timestamp fields do not always agree with each other",
-      "detail": "Observed at the 2026-09-17 snapshot, measured from GitHub's own fields: GEMSDOE pushed_at (2026-09-17T21:42:44Z) is ~2.4 h later than its newest main commit (8f7fc51, 19:21:20Z) because of arena/* session branch activity, while its updated_at (19:21:26Z) sits ~2.4 h BEFORE pushed_at. ScheduleFreeTime pushed_at (21:42:58Z) is 215 s later than its newest main commit (cdef1db, 21:39:23Z) and its updated_at (21:39:28Z) is 210 s before pushed_at. Tradingview-pinescript-editor updated_at (2026-08-19T04:53:13Z) is ~9.1 days later than its pushed_at (2026-08-10T01:43:17Z); Itinerary-Korea is ~7.8 h later and HotelSeoulRoughdraft1 ~6.2 h. Note that NBAInjuryReport showed pushed_at 97 s EARLIER than its newest main commit earlier in the same audit and had resolved to +6 s by the final read — these fields are eventually consistent, not transactionally consistent. This directory publishes created / firstCommit / lastCommit / pushedAt / updatedAt separately rather than picking one, because each answers a different question."
+      "detail": "Observed at the 2026-09-17 snapshot, measured from GitHub's own fields: GEMSDOE pushed_at (2026-09-17T21:42:44Z) is ~2.4 h later than its newest main commit (8f7fc51, 19:21:20Z) because of arena/* session branch activity, while its updated_at (19:21:26Z) sits ~2.4 h BEFORE pushed_at. ScheduleFreeTime pushed_at (21:42:58Z) is 215 s later than its newest main commit (cdef1db, 21:39:23Z) and its updated_at (21:39:28Z) is 210 s before pushed_at. Tradingview-pinescript-editor updated_at (2026-08-19T04:53:13Z) is ~9.1 days later than its pushed_at (2026-08-10T01:43:17Z); Itinerary-Korea is ~7.8 h later and HotelSeoulRoughdraft1 ~6.2 h. Note that NBAInjuryReport showed pushed_at 97 s EARLIER than its newest main commit earlier in the same audit and had resolved to +6 s by the final read \u2014 these fields are eventually consistent, not transactionally consistent. This directory publishes created / firstCommit / lastCommit / pushedAt / updatedAt separately rather than picking one, because each answers a different question."
     },
     {
       "id": "IRR-08",
       "severity": "info",
       "title": "One repository is intentionally and permanently omitted from this directory",
-      "detail": "The account holds 39 public GitHub Pages repositories; this directory publishes 38 entries. One repository was removed by owner request on 2026-09-12 and is suppressed from data/sites.js, the README counts, the audit ledger and the JSON/CSV exports. This gap is deliberate — do not re-add it to 'restore' the counts. See AGENTS.md."
+      "detail": "The account holds 39 public GitHub Pages repositories; this directory publishes 38 entries. One repository was removed by owner request on 2026-09-12 and is suppressed from data/sites.js, the README counts, the audit ledger and the JSON/CSV exports. This gap is deliberate \u2014 do not re-add it to 'restore' the counts. See AGENTS.md."
     },
     {
       "id": "IRR-09",
       "severity": "warn",
       "title": "Live *.github.io pages could not be re-fetched over HTTP from the audit sandbox",
-      "detail": "Network egress from the audit environment reaches github.com / api.github.com but not buffedlizard55-lab.github.io (DNS resolves, connection fails; the same restriction blocks example.com). Site liveness is therefore evidenced by two API facts — Pages status 'built' from GET /repos/{owner}/{repo}/pages, and a real index.html at the published path from the contents API — not by an HTTP 200 on the rendered page. Every entry still links to its live site for manual review."
+      "detail": "Network egress from the audit environment reaches github.com / api.github.com but not buffedlizard55-lab.github.io (DNS resolves, connection fails; the same restriction blocks example.com). Site liveness is therefore evidenced by two API facts \u2014 Pages status 'built' from GET /repos/{owner}/{repo}/pages, and a real index.html at the published path from the contents API \u2014 not by an HTTP 200 on the rendered page. Every entry still links to its live site for manual review."
     },
     {
       "id": "IRR-10",
@@ -420,7 +447,7 @@
       "id": "IRR-12",
       "severity": "info",
       "title": "GEMSDOE's canonical site lives in docs/ behind a root redirect, and its README warns it is partly superseded",
-      "detail": "GEMSDOE publishes from main /, but the root index.html redirects to ./docs/index.html, where scripts/build_site.py generates the evidence pages (Overview, Data, Metric, Method, Results, Sources, Reproduce). The README itself carries a warning that parts of it are superseded — including that the feature stack is 19 bands, not the ~10 stated lower down — and directs readers to STATUS.md and the generated site."
+      "detail": "GEMSDOE publishes from main /, but the root index.html redirects to ./docs/index.html, where scripts/build_site.py generates the evidence pages (Overview, Data, Metric, Method, Results, Sources, Reproduce). The README itself carries a warning that parts of it are superseded \u2014 including that the feature stack is 19 bands, not the ~10 stated lower down \u2014 and directs readers to STATUS.md and the generated site."
     },
     {
       "id": "IRR-13",
@@ -462,19 +489,19 @@
       "id": "IRR-19",
       "severity": "info",
       "title": "MasterSite indexes itself",
-      "detail": "This repository is listed as one of its own 38 entries, so its commit count, size and last-updated timestamp move with every audit refresh — including the refresh that publishes this sentence."
+      "detail": "This repository is listed as one of its own 39 entries, so its commit count, size and last-updated timestamp move with every audit refresh \u2014 including the refresh that publishes this sentence."
     },
     {
       "id": "IRR-20",
       "severity": "warn",
       "title": "Descriptions are README-sourced and can go stale between refreshes",
-      "detail": "Every description is extracted from the repository's own README.md or generated site, which means a push that changes a README without changing the facts this directory records leaves the wording behind. Concrete example found on 2026-09-17: BathTubOverflowSF's 'Current research snapshot' header still reads 'Checked through September 16, 2026 / sixteen waves' while the same README documents waves 17, 18 and 19. The generator re-reads every README whose commit count moved, but prose still needs a human check."
+      "detail": "Every description is extracted from the repository's own README.md or generated site, which means a push that changes a README without changing the facts this directory records leaves the wording behind. Concrete example found on 2026-09-17: BathTubOverflowSF's 'Current research snapshot' header still reads 'Checked through September 16, 2026 / sixteen waves' while the same README documents waves 17, 18 and 19. The generator re-reads every README whose commit count moved, but prose still needs a human check. The 2026-09-18 audit found the same failure again, in four places, and it is the single largest risk to this directory: StockPaperSim was still described as a README-only placeholder after it had become a full site, KalshiPaperSim's quoted AUTO:COUNTS totals had all moved, NBAInjuryReport's test counts (188/52) no longer matched its README (212/71), and TradingViewTheLeap's README pointer named a capture file that a later capture had superseded. A numeric token still being present somewhere in a long README is not proof that a claim is current, so tools/audit_descriptions.py only narrows the search - a human or model pass has to read each one."
     },
     {
       "id": "IRR-21",
       "severity": "info",
       "title": "NBAInjuryReport uses ESPN data and says so; no official NBA report was available",
-      "detail": "The site's own README states the injury board comes from ESPN's public structured injuries endpoint and is 'not official NBA confirmation', that missing listings do not mean healthy players, and that no live official NBA injury report could be discovered during the audit — automatic official confirmation stays blocked until an official page exposes report links. The 2026-09-17 snapshot names 27 of 30 team blocks (CLE, DET, LAL absent)."
+      "detail": "The site's own README states the injury board comes from ESPN's public structured injuries endpoint and is 'not official NBA confirmation', that missing listings do not mean healthy players, and that no live official NBA injury report could be discovered during the audit \u2014 automatic official confirmation stays blocked until an official page exposes report links. The 2026-09-17 snapshot names 27 of 30 team blocks (CLE, DET, LAL absent)."
     },
     {
       "id": "IRR-22",
@@ -486,23 +513,76 @@
       "id": "IRR-23",
       "severity": "info",
       "title": "Several repositories were still changing while the audit ran",
-      "detail": "SFWeather, ScheduleFreeTime, TradingViewTheLeap, NBAInjuryReport, KalshiPaperSim and GEMSDOE all received pushes during the audit window on 2026-09-17 — three of the four new repositories were created the same day. Commit counts and SHAs here are a point-in-time read taken at the 'generated' timestamp shown in the directory header; re-run tools/build_data.py for a fresh read. IRR-07 records how much the timestamp fields moved between two reads taken minutes apart."
+      "detail": "SFWeather, ScheduleFreeTime, TradingViewTheLeap, NBAInjuryReport, KalshiPaperSim and GEMSDOE all received pushes during the audit window on 2026-09-17 \u2014 three of the four new repositories were created the same day. Commit counts and SHAs here are a point-in-time read taken at the 'generated' timestamp shown in the directory header; re-run tools/build_data.py for a fresh read. IRR-07 records how much the timestamp fields moved between two reads taken minutes apart."
+    },
+    {
+      "id": "IRR-24",
+      "severity": "warn",
+      "title": "WoWForever existed for less than three hours when this audit read it",
+      "detail": "GET /repos/buffedlizard55-lab/WoWForever returned created_at 2026-09-18T20:11:30Z and the repository was still merging pull requests at 2026-09-18T22:29:32Z, so its commit total, size and last-updated fields were moving while the audit ran. It is listed here because it already satisfies every inclusion rule - public, Pages status 'built', publishing from main /, and a real index.html at the published path - but the next refresh will almost certainly show different numbers. The repository's own README dates Blizzard's launch to 4 November 2026 and deliberately publishes no class tier list, no Best-in-Slot item list and no gold-per-hour figure because the beta is capped at level 20; those omissions are the repository's stated policy, not gaps in this directory."
+    },
+    {
+      "id": "IRR-25",
+      "severity": "critical",
+      "title": "StockPaperSim was published with a description that had become false",
+      "detail": "The 2026-09-17 audit listed StockPaperSim as 'README-only placeholder ... a single initial commit containing only a 15-byte README.md' and classified it as a stub. On 2026-09-18 GET /repos/buffedlizard55-lab/StockPaperSim reports 67 commits on main and size 11,956 KB, the root listing contains index.html, README.md (34 KB), data/, docs/ (16 entries), memory/, research/, scripts/, sim/ and tests/, and the README documents three separate competition runs. The entry was rewritten and its classification changed from stub to app. This is exactly the class of error the directory exists to prevent - a description that was true when it was written and is now false - and it was caught only because commit counts are re-read from the API on every audit."
+    },
+    {
+      "id": "IRR-26",
+      "severity": "warn",
+      "title": "KalshiPaperSim's quoted AUTO:COUNTS block had moved on every figure",
+      "detail": "The 2026-09-17 entry quoted 53 verified facts, 19 flagged irregularities, 10 strategies, 9 real markets, 61 daily candlesticks and 50 automated tests. The AUTO:COUNTS block in the repository's README (regenerated by scripts/render-docs.js) now reads 99 verified facts (34 documented, 39 captured from production, 1 negative/404 evidence, 20 derived by arithmetic, 5 unexplained observations), 45 flagged irregularities, 41 strategies, 9 real markets, 10,905 captured daily candlesticks across 53 replayable markets (2025-08-15 to 2026-09-18), 112 automated tests and 13 Live Desk entrants on 62 real open contracts with captured ladders. Nine real markets and the one-year scoring calendar are the only quoted values that did not move. Because the block is machine-regenerated, any entry that quotes it will be stale on the next commit - quote it with an audit date, as this entry now does."
+    },
+    {
+      "id": "IRR-27",
+      "severity": "warn",
+      "title": "NBAInjuryReport's published test counts no longer matched its README",
+      "detail": "The 2026-09-17 entry stated a 188-check smoke test and a 52-check integration suite. The repository's run/test block now documents 212 checks (tools/smoke_test.js), 80 checks (tools/impact_test.js), 71 checks (tools/integration_test.js), 25 and 24 checks (tools/poll_fixture_test.js, two different transports), 47 checks (tools/verify_reporters_test.js), 26 regression groups (tools/regression_test.js) and 26 Python tests. The old figures survive nowhere in the repository. Two new facts were also added to the entry because they change what the site can honestly claim: all 30 official club channels answered HTTP 403 to the CI runner on 2026-09-18, and 10 of 30 teams have a Bluesky-verified in-arena writer whose feed is polled automatically while 13 have no writer account at all."
+    },
+    {
+      "id": "IRR-28",
+      "severity": "warn",
+      "title": "NFLInjuryReport documents a missed-alert incident, not just an abstract latency caveat",
+      "detail": "The repository's README section 4 records that on 2026-09-17 two in-game injuries produced no alert, and that the post-mortem measured a median gap of 188 minutes between published snapshots over the eight days to 2026-09-18 against a nominal 10-minute schedule. The source ledger (re-probed 2026-09-18) shows the ESPN scoreboard endpoint answering HTTP 200 keylessly and being used to decide which clubs are in a game window. This is recorded here because 'refreshed every 10 minutes' is a schedule, not a latency guarantee, and readers of this directory should not treat any of these feeds as time-critical. The entry now says so."
+    },
+    {
+      "id": "IRR-29",
+      "severity": "info",
+      "title": "TradingViewTheLeap's README pointed at an older capture file than the one in its repository",
+      "detail": "The README names research/evidence/TV-CONTEST-AMP-SEP2026-2026-09-18-R8.md as the latest official contest capture, but GET /repos/buffedlizard55-lab/TradingViewTheLeap/contents/research/evidence also returns TV-CONTEST-AMP-SEP2026-2026-09-18-R9.md, a later same-day capture (accessed approximately 17:00 UTC) that recorded 96,707 participants and the top 250 rows. The description was therefore sourced from the evidence file, not the README line, and says which. The repository's own pass history also reads twelfth-pass audit (PASS12) alongside an 'eleventh pass' section, so its internal pass numbering should not be treated as a reliable version counter."
+    },
+    {
+      "id": "IRR-30",
+      "severity": "warn",
+      "title": "Stale narrative, not missing repositories, is the dominant error mode",
+      "detail": "This audit re-read every API-derived field for all 39 entries and found drift in ten, but only one was structurally wrong (WoWForever, a site the previous audit could not see). The rest were descriptions that had quietly stopped being true: one false classification (StockPaperSim), one set of entirely superseded counters (KalshiPaperSim), one set of stale test counts (NBAInjuryReport), one omitted incident (NFLInjuryReport) and one lagging evidence pointer (TradingViewTheLeap). The generator keeps the numbers honest; nothing currently forces the prose to be re-read, so every future refresh should assume the prose is the stale part and check it against the repository rather than against the previous audit."
+    },
+    {
+      "id": "IRR-31",
+      "severity": "warn",
+      "title": "A repository was created in the middle of the audit and had to be listed from its file listing alone",
+      "detail": "GET /users/buffedlizard55-lab/repos returned 40 public repositories when the audit started and 41 by the end: Elections was created at 2026-09-18T22:42:36Z, roughly two minutes after data/sites.js was generated, and its first and only commit is 18e1243 'Initial commit' at 22:42:37Z. It already has Pages enabled (status 'built', source main /). It is listed in this directory because it satisfies every inclusion rule and the brief asks for all Pages sites, but its description is deliberately nothing more than its own file listing - a single 11-byte README.md reading '# Elections' - because no content exists to source a real description from, and inventing one would break the one rule this project keeps. Anyone reading this entry should treat it as a placeholder whose purpose is unknown to the audit. Expect it to look completely different at the next refresh."
     }
   ],
   "excluded": [
     "ProjX"
   ],
   "descriptionNotes": [
-    "New entries KalshiPaperSim, NBAInjuryReport, SFWeather and StockPaperSim were described line by line from their own README.md files fetched through the official contents API on 2026-09-17, plus their root file listings and Pages configuration. Every number in those descriptions is quoted from the repository's own AUTO:COUNTS block or README prose.",
-    "BathTubOverflowSF description rewritten to the repository's current 'Current research snapshot' table (793 records, 311 direct CSLB license-detail reads, 207 active licences, 172 retained review excerpts, 673 evidence references, 0 fully qualified entries) instead of the 2026-09-16 figures (693 records / 14 waves / 286 reads / 189 active / 159 excerpts), which no longer appear anywhere in the README.",
-    "DrugAnalysis description updated from the 2026-09-17 README: 458-row CRL table, 34-company pipeline tracker, 32 upcoming PDUFA dates (was 16), 8 upcoming Phase 3 endpoints and 2,000 ClinicalTrials.gov Phase 3 studies, while the 1,038 core rows (980 approvals + 58 deep-verified CRLs, 83 priced) are unchanged.",
-    "GEMSDOE description rewritten from the session-9 (2026-09-17) README status: the data-placement blocker is resolved, the three official rasters are sha256-pinned git parts, and the pipeline has run on a runner and in the 3.9 GB sandbox. The earlier '19/19 verbatim rules verified in CI' claim was dropped because it no longer appears in the repository's README and could not be re-verified from any file.",
-    "NFLInjuryReport description corrected: the previous wording ('exclusively from official NFL.com team injury reports') overstated the sourcing. The repository's README states designations are the official nfl.com value whenever nfl.com publishes one, with ESPN's keyless injuries JSON supplying timestamps and beat-writer attribution.",
-    "TinoLunchSpecial description updated to pass 25 (2026-09-17): 873 research rows, of which 11 carry field-level evidence and 862 remain research; the previous '863 entries, Pass 19' figures are superseded.",
-    "TradingViewTheLeap description rewritten from the fifth-pass (2026-09-17) README: 94/94 symbols re-verified, 15 champion records, placement arithmetic showing the last cash rank at 5.9773x, hypotheses to H23 and irregularities to IR-24. The previous '203-check verifier' claim was dropped: no check-count figure appears in the current README.",
-    "ScheduleFreeTime description extended with the 2026-09-17 Bay Area radio research (Earthquakes KSFO 810 / KZSF 1370, Stanford KNBR/KTCT 1050, Cal KSFO 810, Westwood One 65/65 NFL broadcasts) and its Aug 1 2026 - Feb 28 2027 window confirmed against the README.",
-    "MasterSite description rewritten to describe this repository rather than quoting a count that changes on every refresh.",
-    "The remaining 29 entries were re-verified unchanged: their repositories produced byte-identical latest commit SHAs and commit counts against the 2026-09-16 ledger, and an automated pass confirmed every numeric claim in their descriptions still appears in their README.md.",
-    "JobSearchSF is retained in the 'Unreachable' section with its last verified description (230 openings through Pass 12, job-181 to job-230) so the entry can be restored or confirmed retired by the owner without losing the audit trail."
-  ]
+    "Audit date 2026-09-18: every entry's description was re-read against its repository's own README.md, fetched through the official contents API, plus its root file listing and Pages configuration. Where a description could not be re-verified it was rewritten or deleted, never softened.",
+    "WoWForever is new in this audit and is described wholly from its own README.md (fetched 2026-09-18) and its root tree listing: the 4 November 2026 launch and 9 December 2026 raid dates, the nine published pages, the C001-C110 claims ledger in data/claims.js, the source registry in data/sources.js, the seven evidence classes, the ledger and source checkers in tools/, and the stated refusal to publish class tier lists, Best-in-Slot lists or gold-per-hour figures.",
+    "StockPaperSim was rewritten from a 15-byte README placeholder into the full site its README now describes (67 commits): Season 1 with 20 personas on the real S&P 500 and VIX path, The Live Book with 19 forward-trading personas on official free series, and Season 2 with 14 personas on collected daily bars - including the repository's own statement that only two of seventeen Season 1 price series are real observations and that the committed-price run is not eligible as an official-price competition.",
+    "KalshiPaperSim now quotes the repository's own AUTO:COUNTS block verbatim with its audit date, because that block is machine-regenerated on every documentation build and every figure in the previous quotation had moved.",
+    "NBAInjuryReport's test counts were corrected from the repository's current run/test block (188->212 smoke, 52->71 integration, and the impact, reporter-verifier and poller fixtures added), and the entry now records the 2026-09-18 measurement that all 30 official club channels returned HTTP 403 to the CI runner and that 13 of 30 teams have no writer account at all.",
+    "TradingViewTheLeap was rewritten to the repository's eleventh pass (2026-09-18) and hypotheses H32 / irregularities IR-27, and its evidence pointer follows the newest capture file in research/evidence (R9) rather than the older R8 named in the README.",
+    "DrugAnalysis was rewritten to the v14 (2026-09-18) state: 5,520 verified FDA decisions, a 1,427-row approval master plus the 458-row CRL master (1,885 core rows), the 91-row dedicated pre-1985 table covering 1980-1984, the 2,000-row ClinicalTrials.gov Phase 3 registry and the unchanged 980-row NME master. The superseded '1,038 core rows' figure was removed.",
+    "NFLInjuryReport keeps the README's own headline wording (official nfl.com value whenever nfl.com publishes one, plus a reporter-accuracy scorecard) and adds the repository's own limitation: a historical scorecard backfill is not achievable from free sources, so scoring is forward-collected.",
+    "GEMSDOE's size flag was refreshed to the 2026-09-18 measurement (395,958 KB) after re-verifying the 2026-09-16 and 2026-09-17 values against the API.",
+    "The remaining 30 entries re-verified unchanged: their repositories returned byte-identical latest commit SHAs and commit counts, and an automated pass confirmed every numeric token in their descriptions still appears in their own README.md. That automated pass is a filter, not a proof - see the limitations section of README.md.",
+    "JobSearchSF stays frozen in the Unreachable panel with its last verified values. Its disappearance was re-confirmed on 2026-09-18: GET /repos/buffedlizard55-lab/JobSearchSF is still HTTP 404, the search API still returns total_count 0, and the name is absent from the account's 40-repository public list."
+  ],
+  "acceptedDescriptionExceptions": {
+    "__doc__": "Numeric tokens that tools/audit_descriptions.py will not find in the repository's README, with the reason each one is nevertheless verified. Anything NOT listed here is an unresolved flag and must be confirmed or deleted before publishing.",
+    "Elections": "Every number in this description is API-derived by design, not README-derived: the repository's only file is an 11-byte README.md reading '# Elections', so its creation timestamp (2026-09-18T22:42:36Z) and byte count cannot appear in it. Verified against GET /repos/buffedlizard55-lab/Elections and its root tree listing.",
+    "TradingViewTheLeap": "The figure 96,707 is read from the repository's own evidence file research/evidence/TV-CONTEST-AMP-SEP2026-2026-09-18-R9.md, which the official contents API returns. It is deliberately NOT taken from the README: the README's pointer still named the older R8 capture (registered as IRR-29)."
+  }
 }

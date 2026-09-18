@@ -1,0 +1,23 @@
+{
+  "generatedOffsetVsLive": "2026-09-18T22:49:24Z",
+  "checks": 530,
+  "mismatches": [
+    {
+      "entry": "sites[]/WoWForever",
+      "field": "pushedAt",
+      "committed": "2026-09-18T22:48:19Z",
+      "live": "2026-09-18T22:49:44Z"
+    }
+  ],
+  "unlistedInApi": [],
+  "listedNotInApi": [],
+  "volatileDrift": [
+    {
+      "entry": "sites[]/WoWForever",
+      "field": "pushedAt",
+      "committed": "2026-09-18T22:48:19Z",
+      "live": "2026-09-18T22:49:44Z"
+    }
+  ],
+  "hardMismatches": []
+}

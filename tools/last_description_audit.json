@@ -1,0 +1,7 @@
+{
+  "unresolved": [],
+  "accepted": {
+    "Elections": "Every number in this description is API-derived by design, not README-derived: the repository's only file is an 11-byte README.md reading '# Elections', so its creation timestamp (2026-09-18T22:42:36Z) and byte count cannot appear in it. Verified against GET /repos/buffedlizard55-lab/Elections and its root tree listing.",
+    "TradingViewTheLeap": "The figure 96,707 is read from the repository's own evidence file research/evidence/TV-CONTEST-AMP-SEP2026-2026-09-18-R9.md, which the official contents API returns. It is deliberately NOT taken from the README: the README's pointer still named the older R8 capture (registered as IRR-29)."
+  }
+}
