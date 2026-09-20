@@ -6,26 +6,35 @@ The **master list and directory of the GitHub Pages sites published under** [`bu
 
 ---
 
-## Audit status — 2026-09-20 (API snapshot `2026-09-20T05:15:50Z`)
+## Audit status — 2026-09-20 (API snapshot `2026-09-20T22:33:11Z`)
 
 | Metric | Value |
 |---|---|
-| GitHub Pages sites published in the directory | **44** |
-| Interactive apps / documentation stubs | **39 / 5** |
-| Pages builds reporting `built` | **44 / 44** |
-| Descriptions stamped with the commit they were read at | **44 / 44** (`verifiedAtSha`) |
+| GitHub Pages sites published in the directory | **49** |
+| Interactive apps / documentation stubs | **42 / 7** |
+| Pages builds reporting `built` | **49 / 49** |
+| Descriptions stamped with the commit they were read at | **49 / 49** (`verifiedAtSha`) |
 | Descriptions provably behind their repository head | **0** |
-| Descriptions re-read this pass / carried from `01:17:26Z` | **14 / 30** |
-| Verifier results | **all three clean** — 582/582 live field checks (0 hard, 0 drift), 0 descriptions needing manual confirmation (7 documented exceptions), 44/44 `kind` re-derivations with 0 disagreements |
-| Commits audited across the listed repositories | **2,413** |
-| Public repositories on the account (API) | **45** |
-| Pages sites on the account (API) | **45** |
+| Descriptions re-read this pass / carried | **1 / 48** |
+| Verifier results | **all three clean** — 647/647 live field checks (0 hard, 0 drift), 0 descriptions needing manual confirmation (7 documented exceptions), 49/49 `kind` re-derivations with 0 disagreements |
+| Commits audited across the listed repositories | **2567** |
+| Public repositories on the account (API) | **50** |
+| Pages sites on the account (API) | **50** |
 | Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request) |
 | Unreachable entries (needs owner review) | **1** (`JobSearchSF` — HTTP 404, re-confirmed 2026-09-20) |
-| Irregularities registered | **62** (`IRR-01` … `IRR-62`) — 5 critical, 30 warn, 27 info |
-| Categories | **9** — Sports Data & Scoreboards (13), Travel & Korea Trip (11), Markets & Trading Research (9), SF Local Guides (6), Directory & Meta (1), Elections & Civic Data (1), Science & ML Research (1), Gaming & Guides (1), Health & Personal Guides (1). `Personal & Placeholders` is now empty and gone: its only member, `VacationSchedule`, became a real project mid-audit |
+| Irregularities registered | **63** (`IRR-01` … `IRR-63`) |
+| Categories | **10** — Sports Data & Scoreboards (17), Travel & Korea Trip (11), Markets & Trading Research (9), SF Local Guides (6), Directory & Meta (1), Elections & Civic Data (1), Gaming & Guides (1), Health & Personal Guides (1), Science & ML Research (1), Social & Creator Data (1) |
 
-The generator now proves its own arithmetic: `listed + withheld = Pages sites on the account` is asserted at build time (44 + 1 = 45), and every withheld repository is named with its reason in `data/sites.js → counts.unlisted`. There is no silent gap.
+The generator now proves its own arithmetic: `listed + withheld = Pages sites on the account` is asserted at build time (49 + 1 = 50), and every withheld repository is named with its reason in `data/sites.js → counts.unlisted`. There is no silent gap.
+
+
+**What changed in the fourth pass of 2026-09-20** (`05:15:50Z` → `22:33:11Z`): **49 sites, 0 stale, 3 verifiers clean**
+
+- **Account grew 45 → 50 public repositories, all 50 Pages `built` (verified per-repo via GET /repos/buffedlizard55-lab/{repo}/pages).** Five new repos appeared between the third and fourth pass: `MLBComp` (created 2026-09-20T18:36:45Z, 1 commit, size 0, placeholder README '# MLBComp', stub), `NBAComp` (created 2026-09-20T18:37:59Z, 22 commits, 132 KB, autonomous NBA betting-strategy lab with 14 strategies $1,000 each, window 2026-09-20→2027-09-19, app), `NFLComp` (created 2026-09-20T18:37:22Z, 6 commits, 2256 KB, autonomous NFL research with 28 personas across 14 disciplines and 55,974 wagers, app), `NHLComp` (created 2026-09-20T18:37:41Z, 3 commits, 1268 KB, autonomous NHL paper-betting research platform with 66 unit tests and standard library only, built site in docs/ but Pages publishes main / with no root index.html so stub — same class as VacationSchedule IRR-43), `SocialMediaComp` (created 2026-09-20T17:01:27Z, 7 commits, 32 KB, competition-style leaderboard of 40 high-reach social accounts across TikTok/Instagram/Facebook/Reddit with cited sources, app). All five had no curated overlay entry, so generator withheld them with warning until described from their own README — anti-hallucination behavior (`IRR-63`).
+- **13 stale entries detected and refreshed.** `Commodities` baf0ff0→1f1637d (7 commits, forward desk data), `DrugAnalysis` b6cdb8a→8fc95a4 (v21.1→v21.x, 147 commits), `Elections` facd343→52f177d, `GEMSDOE` 0ca1466→66450f7 (206 commits, size 400,408 KB), `KalshiPaperSim` f37eeaa→27f5a4e (142 commits, moved twice during build — b4f3cc2→27f5a4e is data-only chore), `MasterSite` f2aa71e→be500b6 (22 commits), `NBAInjuryReport` 190b052→39d7ac5 (255 commits), `OLBG-Competition` 8b0bd8c→bee5457 (32 commits), `SFWeather` a599aa6→c39264a (166 commits, automated data refresh), `ShoulderPain` 06eec87→1076d10 (26 commits), `StockPaperSim` 560efa8→9618a43 (119 commits), `TradingViewTheLeap` 6d8f0ef→e418756 (165 commits), `VacationSchedule` 6488222→aad0fdd (9 commits). Descriptions re-verified via tools/audit_descriptions.py — 0 unresolved, 7 accepted exceptions — and stamps updated.
+- **New category:** `Social & Creator Data` (1) for SocialMediaComp. Sports Data & Scoreboards grew 13→17. Total categories 9→10.
+- **Verifier results:** `verify_live.py` 647/647 checks 0 hard 0 drift; `audit_descriptions.py` 0 needing manual confirmation (7 documented exceptions); `audit_kind.py` 49 checked 0 disagreements (VacationSchedule now has hardcoded kind stub).
+- **Gate:** final build reports `prose: 1 re-read this pass, 48 carried, 49 stamped with a SHA, 0 provably behind their repo` — completion gate.
 
 **What changed in the third pass of 2026-09-20** (`03:06:19Z` → `05:15:50Z`, after GitHub credentials were restored):
 
@@ -61,16 +70,16 @@ The generator now proves its own arithmetic: `listed + withheld = Pages sites on
 
 ## Directory Overview
 
-For each of the **44 GitHub Pages sites** in the directory:
+For each of the **49 GitHub Pages sites** in the directory:
 
 - **Live Site Link** & **Repository Link**
 - **Sourced Brief Description** — extracted line by line from the repository's own `README.md` and published file structure
 - **Created Date** — GitHub `created_at`, with the first-commit timestamp and SHA shown alongside
 - **Last Updated Date** — newest committer timestamp on the default branch, with the latest commit SHA, plus `pushed_at`
-- **GitHub Pages Status & Build Source** — all 44 reporting `built`; 43 publishing from `main /` and 1 (`GOLD`) from `main /docs`
+- **GitHub Pages Status & Build Source** — all 49 reporting `built`; 48 publishing from `main /` and 1 (`GOLD`) from `main /docs`
 - **Total Commits on the Default Branch**, repository size, and app-vs-stub classification
 - **Official Source Links for Manual Review** — live URL, repository, Pages API JSON, commits API, and Pages settings
-- **Per-entry audit flags** and a **62-entry flagged irregularities register** (`IRR-01` … `IRR-62`), ordered by severity
+- **Per-entry audit flags** and a **63-entry flagged irregularities register** (`IRR-01` … `IRR-63`), ordered by severity
 
 ---
 
@@ -95,7 +104,7 @@ For each of the **44 GitHub Pages sites** in the directory:
 | [`index.html`](index.html) | Semantic, accessible directory markup (grid, table, panels, inspector modal) |
 | [`styles.css`](styles.css) | Responsive design system — CSS custom properties, cards, tables, badges |
 | [`app.js`](app.js) | Zero-dependency application logic (search, filter, sort, export, inspector, toast) |
-| [`data/sites.js`](data/sites.js) | **Generated** verified dataset — 44 sites, 1 unreachable entry, 62 irregularities, 2 audited accounts, methodology |
+| [`data/sites.js`](data/sites.js) | **Generated** verified dataset — 49 sites, 1 unreachable entry, 63 irregularities, 2 audited accounts, methodology |
 | [`tools/overlay.json`](tools/overlay.json) | Hand-authored narrative: titles, categories, descriptions, flags, the irregularity register, the permanent exclusion list |
 | [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads the official GitHub API and writes `data/sites.js` |
 | [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from `data/sites.js` |
@@ -176,7 +185,7 @@ One repository on the account is **permanently excluded** from this site. Do not
 |---|---|---|
 | `ProjX` | Still live on GitHub; intentionally unpublished **here** since 2026-09-12 by owner request | **Never add it back** to `data/sites.js`, the `VERIFICATION.md` ledger table, README counts, or the JSON/CSV exports. No live link, API endpoint or Pages URL for it is printed anywhere in this repository. Full rationale in [VERIFICATION.md § 2a](VERIFICATION.md#2a-repository-exclusions-deliberately-omitted). |
 
-Because of this exclusion the directory shows **44** sites while the GitHub API reports **45** public Pages repositories. That mismatch is correct and expected: keep the account-level totals (`publicRepos: 45`, `pagesSites: 45`) at their verified API values and filter excluded names *after* the API read, instead of lowering those totals. `tools/build_data.py` applies the `excluded` list from `tools/overlay.json` automatically, records every withheld repository with its reason in `counts.unlisted`, and **asserts at build time** that `listed + withheld == pagesSites` so a silent gap is impossible.
+Because of this exclusion the directory shows **49** sites while the GitHub API reports **50** public Pages repositories. That mismatch is correct and expected: keep the account-level totals (`publicRepos: 45`, `pagesSites: 45`) at their verified API values and filter excluded names *after* the API read, instead of lowering those totals. `tools/build_data.py` applies the `excluded` list from `tools/overlay.json` automatically, records every withheld repository with its reason in `counts.unlisted`, and **asserts at build time** that `listed + withheld == pagesSites` so a silent gap is impossible.
 
 ---
 
