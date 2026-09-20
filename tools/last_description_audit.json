@@ -1,7 +1,7 @@
 {
   "unresolved": [],
   "accepted": {
-    "Elections": "Every number in this description is API-derived by design, not README-derived: the repository's only file is an 11-byte README.md reading '# Elections', so its creation timestamp (2026-09-18T22:42:36Z) and byte count cannot appear in it. Verified against GET /repos/buffedlizard55-lab/Elections and its root tree listing.",
-    "TradingViewTheLeap": "The figure 96,707 is read from the repository's own evidence file research/evidence/TV-CONTEST-AMP-SEP2026-2026-09-18-R9.md, which the official contents API returns. It is deliberately NOT taken from the README: the README's pointer still named the older R8 capture (registered as IRR-29)."
+    "GEMSDOE": "The figures 0.0114, 0.0806 and 0.0920 (the block-holdout fold-0 memorisation-vs-transfer gap and its two CI-quoted scores) live in STATUS.md, not README.md \u2014 the description says so ('Session-18 status read from STATUS.md'), and the README itself directs readers to STATUS.md where they disagree. Verified 2026-09-20 against GET /repos/buffedlizard55-lab/GEMSDOE/contents/STATUS.md: fold 0 scores 0.0806 [0.0586, 0.1021] on held-out blocks vs 0.0920 [0.0747, 0.1100] on trained blocks, a +0.0114 gap.",
+    "VacationSchedule": "Every number in this description is API-derived by design, not README-derived: the repository's only file is an 18-byte README.md reading '# VacationSchedule', so its creation timestamp (2026-09-20T00:48:59Z) and byte count cannot appear in it. Verified against GET /repos/buffedlizard55-lab/VacationSchedule and its root tree listing."
   }
 }
