@@ -39,6 +39,55 @@
     return d.toISOString().replace("T", " ").replace("Z", " UTC");
   }
 
+  // ---- Description-prose verification helpers -------------------------------
+  // Two independent signals, because one is not enough (IRR-50):
+  //   lastVerified  — WHEN the prose was last re-read against the repository.
+  //   verifiedAtSha — WHICH COMMIT it was read against, compared with the live
+  //                   head SHA so staleness is computed rather than guessed.
+  function proseIsFresh(s) {
+    var latest = (D.counts && D.counts.proseLatestPass) || null;
+    return !!(latest && s.lastVerified === latest);
+  }
+
+  function proseState(s) {
+    if (!s.lastVerified || !s.verifiedAtSha) return "unstamped";
+    return s.proseStale ? "stale" : (proseIsFresh(s) ? "fresh" : "carried");
+  }
+
+  function proseFreshClass(s) {
+    return "prose-" + proseState(s);
+  }
+
+  function proseBasis(s) {
+    var sha = s.verifiedAtSha
+      ? " Prose read against commit " + s.verifiedAtSha +
+        (s.proseStale
+          ? "; the repository's default branch is now at " + (s.headSha || "?") +
+            ", so this description is provably behind it and must be re-read."
+          : "; that is still the repository's latest commit, so the prose matches the bytes it was read from.")
+      : "";
+    if (!s.lastVerified) {
+      return "No prose-verification stamp: this description has never been re-read against the repository's own files." + sha;
+    }
+    return (proseIsFresh(s) ? "Re-read in the latest pass. " : "Carried forward from an earlier pass. ") +
+           (s.verifiedBasis || "") + sha;
+  }
+
+  var PROSE_LABEL = {
+    fresh:   "Prose re-read",
+    carried: "Prose carried",
+    stale:   "Prose behind repo",
+    unstamped: "Prose unstamped"
+  };
+
+  function proseBadge(s) {
+    var st = proseState(s);
+    var when = s.lastVerified ? " " + esc(fmtDate(s.lastVerified)) : "";
+    return '<span class="tag-badge ' + (st === "fresh" ? "prose-fresh" : st) +
+           '" title="' + esc(proseBasis(s)) + '">' +
+           (st === "stale" ? "⚠ " : "") + PROSE_LABEL[st] + when + '</span>';
+  }
+
   function showToast(msg) {
     var toast = $("toast");
     toast.textContent = msg;
@@ -74,6 +123,13 @@
       ? built + "/" + sites.length + " built"
       : built + "/" + sites.length + " built · " + other + " other";
 
+    // Descriptions re-read against the repository's own files in the latest pass.
+    // Computed from the data so it can never disagree with the per-entry stamps.
+    var latestPass = (D.counts && D.counts.proseLatestPass) || null;
+    var reRead = latestPass
+      ? sites.filter(function (s) { return s.lastVerified === latestPass; }).length
+      : 0;
+
     var statsData = [
       { label: "Total Pages Sites", value: sites.length },
       { label: "Build Health", value: health },
@@ -83,17 +139,73 @@
       { label: "Accounts Audited", value: D.accountsChecked.length }
     ];
 
+    if (latestPass) {
+      statsData.push({
+        label: "Descriptions Re-Read This Pass",
+        value: reRead + " / " + sites.length
+      });
+    }
+
+    // Mechanically detected: the commit the prose was read against is no
+    // longer the repository's head. Computed, never asserted by hand.
+    var staleProse = sites.filter(function (s) { return s.proseStale; }).length;
+    statsData.push({
+      label: "Prose Behind Its Repo",
+      value: staleProse + " / " + sites.length,
+      warn: staleProse > 0
+    });
+
     var unreachable = D.unreachable || [];
     if (unreachable.length) {
       statsData.push({ label: "Unreachable (Retired)", value: unreachable.length });
     }
 
     $("statsGrid").innerHTML = statsData.map(function (st) {
-      return '<div class="stat-card">' +
+      return '<div class="stat-card' + (st.warn ? ' stat-warn' : '') + '">' +
         '<div class="stat-value">' + esc(st.value) + '</div>' +
         '<div class="stat-label">' + esc(st.label) + '</div>' +
         '</div>';
     }).join("");
+  }
+
+  // ---------------- Verification Legend ----------------
+  // "Verified" means two different things on this site, and conflating them is how a
+  // description goes stale while every number still checks out. This states both, from
+  // the dataset, so a reader always knows which one they are looking at.
+  function renderVerifyLegend() {
+    var el = $("verifyLegend");
+    if (!el) return;
+    var c = D.counts || {};
+    var latestPass = c.proseLatestPass || null;
+    if (!latestPass) { el.style.display = "none"; return; }
+
+    var total = D.sites.length;
+    var reRead = D.sites.filter(function (s) { return s.lastVerified === latestPass; }).length;
+    var carried = total - reRead;
+    var unstamped = c.proseUnstamped || 0;
+    var stale = D.sites.filter(function (s) { return s.proseStale; }).length;
+
+    el.innerHTML =
+      '<strong>Two kinds of “verified”.</strong> ' +
+      '<em>API fields</em> — every timestamp, commit SHA, commit count, Pages status, build source and ' +
+      'size on all ' + total + ' entries — are re-read from <code>api.github.com</code> on every build ' +
+      '(this dataset: <strong>' + esc(fmtDateTime(D.generated)) + '</strong>). ' +
+      '<em>Description prose</em> is a separate question: it is re-read against each repository’s own ' +
+      'files, and each entry carries a <code>lastVerified</code> stamp, a <code>verifiedBasis</code> ' +
+      'string saying what was read, and a <code>verifiedAtSha</code> — the commit the prose was read ' +
+      'against. In the latest pass <strong>' + reRead + '</strong> of ' + total + ' descriptions were ' +
+      're-read; <strong>' + carried + '</strong> were carried forward and say why that is safe' +
+      (unstamped ? '; <span class="legend-warn">' + unstamped + ' are unstamped</span>' : '') + '. ' +
+      'Because each stamp names a commit, staleness is <em>computed</em> rather than assumed: ' +
+      (stale
+        ? '<span class="legend-warn">' + stale + ' entr' + (stale === 1 ? 'y is' : 'ies are') +
+          ' provably behind ' + (stale === 1 ? 'its' : 'their') + ' repository right now</span> — the ' +
+          'prose was read against a commit that is no longer the default branch’s head, so ' +
+          (stale === 1 ? 'it needs' : 'they need') + ' re-reading. '
+        : '<strong>0</strong> entries are behind their repository — every description was read against ' +
+          'the commit its repository still points at. ') +
+      'A timestamp alone cannot show this: one repository in this audit moved 60 seconds after being ' +
+      'stamped (IRR-50). Sort by “Description Verified (Stalest first)” to review the oldest prose first.';
   }
 
   // ---------------- Filter Chips ----------------
@@ -149,6 +261,10 @@
       if (by === "name-asc") return (a.title || a.repo).toLowerCase().localeCompare((b.title || b.repo).toLowerCase());
       if (by === "name-desc") return (b.title || b.repo).toLowerCase().localeCompare((a.title || a.repo).toLowerCase());
       if (by === "commits-desc") return (b.commits || 0) - (a.commits || 0);
+      // A null stamp sorts as the stalest possible value, so "stalest first" puts
+      // never-re-read prose at the top of the review queue.
+      if (by === "verified-asc") return (a.lastVerified || "").localeCompare(b.lastVerified || "");
+      if (by === "verified-desc") return (b.lastVerified || "").localeCompare(a.lastVerified || "");
       return 0;
     });
   }
@@ -189,6 +305,7 @@
         '<div class="card-badges">' +
           builtBadge +
           typeBadge +
+          proseBadge(s) +
           flagBadge +
         '</div>' +
       '</div>' +
@@ -211,6 +328,12 @@
         '<div class="metric-item">' +
           '<span class="metric-label">Deployment Path</span>' +
           '<span class="metric-value">' + esc(s.pagesSource) + '</span>' +
+        '</div>' +
+        '<div class="metric-item">' +
+          '<span class="metric-label">Description Verified</span>' +
+          '<span class="metric-value ' + proseFreshClass(s) + '" title="' + esc(proseBasis(s)) + '">' +
+            (s.lastVerified ? fmtDate(s.lastVerified) : 'never stamped') +
+          '</span>' +
         '</div>' +
       '</div>' +
       '<div class="card-actions">' +
@@ -245,6 +368,9 @@
       '</td>' +
       '<td title="' + esc(s.created) + '">' + fmtDate(s.created) + '</td>' +
       '<td title="' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + ')">' + fmtDate(s.lastCommit) + '</td>' +
+      '<td class="' + proseFreshClass(s) + '" title="' + esc(proseBasis(s)) + '">' +
+        (s.lastVerified ? fmtDate(s.lastVerified) : '—') +
+      '</td>' +
       '<td><strong>' + (s.commits || 0) + '</strong></td>' +
       '<td>' +
         '<div class="table-actions-cell">' +
@@ -423,6 +549,19 @@
           '<tr><td>First Commit (UTC)</td><td>' + fmtDateTime(site.firstCommit) + ' (SHA: ' + esc(site.firstCommitSha) + ')</td></tr>' +
           '<tr><td>Latest Commit (UTC)</td><td>' + fmtDateTime(site.lastCommit) + ' (SHA: ' + esc(site.lastCommitSha) + ')</td></tr>' +
           '<tr><td>Last Push to Repo (UTC)</td><td>' + fmtDateTime(site.pushedAt) + '</td></tr>' +
+          '<tr><td>Description Last Verified (UTC)</td><td><span class="' + proseFreshClass(site) + '">' +
+            (site.lastVerified ? fmtDateTime(site.lastVerified) : 'never stamped') + '</span>' +
+            (proseIsFresh(site) ? ' — re-read in the latest pass' : ' — carried forward') + '</td></tr>' +
+          '<tr><td>Prose read against commit</td><td>' +
+            (site.verifiedAtSha
+              ? '<code>' + esc(site.verifiedAtSha) + '</code> · repository default branch is now ' +
+                '<code>' + esc(site.headSha || '?') + '</code> · ' +
+                (site.proseStale
+                  ? '<span class="prose-stale"><strong>behind the repository — description must be re-read</strong></span>'
+                  : '<span class="prose-fresh">matches — prose describes the current bytes</span>')
+              : 'not stamped') + '</td></tr>' +
+          '<tr><td>What “verified” means here</td><td>' + esc(site.verifiedBasis ||
+            'No basis recorded. This entry’s description prose has not been re-read against the repository’s own files; only its API-derived fields were re-checked.') + '</td></tr>' +
           '<tr><td>Total Main Commits</td><td>' + (site.commits || 0) + '</td></tr>' +
           '<tr><td>Default Branch</td><td>' + esc(site.defaultBranch) + '</td></tr>' +
           '<tr><td>Repository Size</td><td>' + (site.sizeKb || 0) + ' KB</td></tr>' +
@@ -486,7 +625,13 @@
       s.lastCommitSha,
       s.commits,
       s.description,
-      (s.flags || []).join(" | ")
+      (s.flags || []).join(" | "),
+      s.lastVerified,
+      proseState(s),
+      s.verifiedAtSha,
+      s.headSha,
+      s.proseStale ? "yes" : "no",
+      s.verifiedBasis
     ].map(csvCell).join(",");
   }
 
@@ -506,7 +651,13 @@
       "Last_Commit_SHA",
       "Total_Commits",
       "Description",
-      "Flags"
+      "Flags",
+      "Description_Last_Verified_UTC",
+      "Description_Verification_State",
+      "Prose_Read_At_SHA",
+      "Repo_Head_SHA",
+      "Prose_Behind_Repo",
+      "Description_Verification_Basis"
     ];
 
     var rows = D.sites.map(function (s) { return csvRow(s, "listed"); });
@@ -645,6 +796,7 @@
 
   // ---------------- Initialization ----------------
   renderStats();
+  renderVerifyLegend();
   renderChips();
   renderDirectory();
   renderUnreachable();
