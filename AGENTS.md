@@ -24,42 +24,42 @@ This exclusion is **permanent and unconditional**. It survives future audits, re
 
 `tools/build_data.py` enforces this automatically: it filters the `excluded` list from `tools/overlay.json` **after** reading the GitHub API. Do not add the name to `tools/overlay.json → entries` either.
 
-## 2. Do not "fix" the 40 vs 41 count mismatch
+## 2. Do not "fix" the 44 vs 45 count mismatch
 
-The directory lists **40** sites while the account has **41** public GitHub Pages repositories. **Both numbers are correct.**
+The directory lists **44** sites while the account has **45** public GitHub Pages repositories. **Both numbers are correct.**
 
-- Keep `accountsChecked[].publicRepos: 41` and `pagesSites: 41` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
-- Never lower those to 40, and never raise the directory back to 41.
+- Keep `accountsChecked[].publicRepos: 45` and `pagesSites: 45` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
+- Never lower those to 44, and never raise the directory back to 45.
 - `tools/build_data.py` asserts `len(sites) + len(unlisted) == pagesSites` at build time and records every withheld repository in `counts.unlisted` with a reason. If that assertion ever fires, the accounting is wrong — fix the accounting, do not loosen the assertion.
-- These totals move every time the owner publishes a repository. Always re-read them from the API rather than trusting this file.
+- These totals move every time the owner publishes a repository (45 as of 2026-09-20, up from 41 on 2026-09-18). Always re-read them from the API rather than trusting this file.
 - The gap is documented on purpose in three places so nobody "repairs" it: the `data/sites.js` header comment, `VERIFICATION.md` § 2a, and `IRR-08` in the irregularities register.
 
 ## 3. Unreachable entries: freeze, never silently delete
 
 Repositories that were published in a previous audit but return **HTTP 404** (or any non-200) from the API today go into the `unreachable` array — **not** into `sites[]`, and **not** into the bin.
 
-- `JobSearchSF` was listed on 2026-09-16 (68 commits, last main commit `f68c452`) and returned 404 on 2026-09-17. **Re-confirmed 2026-09-18:** still HTTP 404, still `total_count 0` in the search API, still absent from the account's public list. It is frozen in `tools/overlay.json → retired[]` with its last verified values plus the endpoints that reproduce the 404.
+- `JobSearchSF` was listed on 2026-09-16 (68 commits, last main commit `f68c452`) and returned 404 on 2026-09-17. **Re-confirmed 2026-09-18 and 2026-09-20:** still HTTP 404, still `total_count 0` in the search API, still absent from the account's public list (now 45 repositories). It is frozen in `tools/overlay.json → retired[]` with its last verified values plus the endpoints that reproduce the 404.
 - It renders on the site in the *Unreachable — Needs Owner Review* panel and in `VERIFICATION.md` § 2b.
 - It is excluded from the live directory counts and from the `sites[]` array, but it **is** included in the CSV export with `Status = unreachable-404`.
 - Only remove a frozen entry after the owner explicitly confirms it, or after the repository reappears (in which case move it back into `sites[]` with fresh API values).
 
 ## 4. Expected state of the directory
 
-As of the **2026-09-18** audit (`generated: 2026-09-18T22:49:24Z`):
+As of the **2026-09-20** audit (`generated: 2026-09-20T01:17:26Z`):
 
 | Metric | Expected |
 |---|---|
-| `sites[]` entries in `data/sites.js` | 40 |
+| `sites[]` entries in `data/sites.js` | 44 |
 | `unreachable[]` entries | 1 (`JobSearchSF`) |
 | `counts.unlisted[]` entries | 1 (`ProjX` — permanently excluded by owner request) |
-| `grep -c '"repo":' data/sites.js` | 41 (40 sites + the 1 unreachable entry) |
-| Ledger rows in `VERIFICATION.md` § 2 | 40, numbered 1–40 |
-| Irregularities | 31 (`IRR-01` … `IRR-31`) |
-| Commits summed across listed sites | 1,902 |
-| Pages sites `built` | 40 / 40 |
-| Apps / doc stubs | 35 / 5 |
-| Public repos on account (API) | 41 |
-| Categories | 7 — *Travel & Korea Trip* (11), *Sports Data & Scoreboards* (11), *Markets & Trading Research* (8), *SF Local Guides* (6), *Directory & Meta* (2: `MasterSite`, `Elections`), *Science & ML Research* (1: `GEMSDOE`), *Gaming & Guides* (1: `WoWForever`) |
+| `grep -c '"repo":' data/sites.js` | 45 (44 sites + the 1 unreachable entry) |
+| Ledger rows in `VERIFICATION.md` § 2 | 44, numbered 1–44 |
+| Irregularities | 41 (`IRR-01` … `IRR-41`) |
+| Commits summed across listed sites | 2,309 |
+| Pages sites `built` | 44 / 44 |
+| Apps / doc stubs | 39 / 5 |
+| Public repos on account (API) | 45 |
+| Categories | 10 — *Sports Data & Scoreboards* (12), *Travel & Korea Trip* (11), *Markets & Trading Research* (9), *SF Local Guides* (6), *Directory & Meta* (1: `MasterSite`), *Elections & Civic Data* (1: `Elections`), *Science & ML Research* (1: `GEMSDOE`), *Gaming & Guides* (1: `WoWForever`), *Health & Personal Guides* (1: `ShoulderPain`), *Personal & Placeholders* (1: `VacationSchedule`) |
 
 Counts drift every time a repository is pushed to — always re-read them from `data/sites.js → counts` after a refresh rather than trusting this table.
 
@@ -72,11 +72,11 @@ python3 tools/verify_live.py           # re-reads every API-derived field of eve
 python3 tools/audit_descriptions.py    # every numeric claim in a description vs its own README
 ```
 
-`verify_live.py` distinguishes a **hard mismatch** (committed value disagrees with the live value, unexplained — a defect, re-run the generator) from **drift** (a field GitHub recomputes asynchronously, or a repository pushed to *after* the snapshot was taken). A run is clean when there are **0 hard mismatches**; the 2026-09-18 audit finished with 0 hard mismatches across 530 checks. Do not chase drift by re-running the generator in a loop — 41 actively-developed repositories will never hold still, and one was created *while* the 2026-09-18 audit was running.
+`verify_live.py` distinguishes a **hard mismatch** (committed value disagrees with the live value, unexplained — a defect, re-run the generator) from **drift** (a field GitHub recomputes asynchronously, or a repository pushed to *after* the snapshot was taken). A run is clean when there are **0 hard mismatches**; the 2026-09-20 audit finished with 0 hard mismatches across 582 checks. Do not chase drift by re-running the generator in a loop — 45 actively-developed repositories will never hold still; one was created *while* the 2026-09-18 audit was running and another ten minutes before the 2026-09-20 audit generated its data.
 
 ### The prose is the fragile part
 
-Every audit so far has found the same thing: the API-derived numbers are right and one or more *descriptions* have quietly stopped being true. The 2026-09-18 audit found five, including one that had become flatly false (`StockPaperSim` — see `IRR-25`). `audit_descriptions.py` only narrows the search by flagging numeric tokens that no longer appear in the README; a figure that survives in an old changelog section will slip past it. **Re-read the descriptions by hand each cycle.** That is the single highest-value task in this repository.
+Every audit so far has found the same thing: the API-derived numbers are right and one or more *descriptions* have quietly stopped being true. The 2026-09-18 audit found five, including one that had become flatly false (`StockPaperSim` — see `IRR-25`); the 2026-09-20 audit found six more, including a second false placeholder (`Elections` — see `IRR-33`). Both critical errors came from repositories less than 48 hours old — **re-read the youngest entries first.** `audit_descriptions.py` only narrows the search by flagging numeric tokens that no longer appear in the README; a figure that survives in an old changelog section will slip past it. **Re-read the descriptions by hand each cycle.** That is the single highest-value task in this repository.
 
 ## 5. Repo conventions
 

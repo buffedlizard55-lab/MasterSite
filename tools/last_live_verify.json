@@ -1,22 +1,22 @@
 {
-  "generatedOffsetVsLive": "2026-09-18T22:49:24Z",
-  "checks": 530,
+  "generatedOffsetVsLive": "2026-09-20T01:17:26Z",
+  "checks": 582,
   "mismatches": [
     {
-      "entry": "sites[]/WoWForever",
-      "field": "pushedAt",
-      "committed": "2026-09-18T22:48:19Z",
-      "live": "2026-09-18T22:49:44Z"
+      "entry": "sites[]/Commodities",
+      "field": "sizeKb",
+      "committed": 42,
+      "live": 89
     }
   ],
   "unlistedInApi": [],
   "listedNotInApi": [],
   "volatileDrift": [
     {
-      "entry": "sites[]/WoWForever",
-      "field": "pushedAt",
-      "committed": "2026-09-18T22:48:19Z",
-      "live": "2026-09-18T22:49:44Z"
+      "entry": "sites[]/Commodities",
+      "field": "sizeKb",
+      "committed": 42,
+      "live": 89
     }
   ],
   "hardMismatches": []
