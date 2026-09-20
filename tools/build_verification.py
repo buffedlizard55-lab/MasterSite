@@ -84,8 +84,9 @@ def main():
     A("- `GET https://api.github.com/repos/%s/{repo}/contents/{published path}/index.html` (app vs. doc-stub classification)" % owner)
     A("- `GET https://api.github.com/repos/%s/{repo}/readme` (description sourcing)\n" % owner)
 
-    A("| # | Repository | Category | Type | Pages Status | Source | Created (UTC) | First Commit (SHA) | Last Commit on Main (UTC) | Latest SHA | Total Commits | Size (KB) | Live Site & Official Sources |")
-    A("|---|---|---|---|---|---|---|---|---|---|---|---|")
+    A("| # | Repository | Category | Type | Pages Status | Source | Created (UTC) | First Commit (SHA) | Last Commit on Main (UTC) | Latest SHA | Total Commits | Size (KB) | Description Last Verified | Live Site & Official Sources |")
+    A("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    latest_pass = counts.get("proseLatestPass")
     for i, s in enumerate(sites, 1):
         live = s.get("pagesUrl") or ("https://%s.github.io/%s/" % (owner, s["repo"]))
         links = " · ".join([
@@ -95,7 +96,14 @@ def main():
             "[Commits API](https://api.github.com/repos/%s/%s/commits)" % (owner, s["repo"]),
             "[Settings](https://github.com/%s/%s/settings/pages)" % (owner, s["repo"]),
         ])
-        A("| %d | `%s` | %s | %s | %s | `%s` | %s | `%s` | %s | `%s` | %s | %s | %s |" % (
+        lv = s.get("lastVerified")
+        if not lv:
+            verified = "⚠️ never stamped"
+        elif latest_pass and lv == latest_pass:
+            verified = "✅ re-read %s" % ts(lv)
+        else:
+            verified = "↪️ carried %s" % ts(lv)
+        A("| %d | `%s` | %s | %s | %s | `%s` | %s | `%s` | %s | `%s` | %s | %s | %s | %s |" % (
             i,
             s["repo"],
             s["category"],
@@ -108,6 +116,7 @@ def main():
             s["lastCommitSha"],
             s["commits"],
             s.get("sizeKb", 0),
+            verified,
             links,
         ))
     A("")
@@ -195,6 +204,52 @@ def main():
       "`GEMSDOE` \"19/19 rules\" figure and the `BathTubOverflowSF` wave/record counts were caught.\n" % len(sites))
     A("---\n")
 
+    # ---------------- 4a. Prose verification ledger ----------------
+    A("## 4a. Description-Prose Verification Ledger (per entry)\n")
+    A("`generated` (`%s`) records when the **API-derived fields** were read. It says nothing about the "
+      "**description prose**, which is the part that has actually gone stale in every audit so far "
+      "(IRR-25, IRR-33, IRR-42). Each entry therefore carries its own `lastVerified` stamp and a "
+      "`verifiedBasis` string stating what was read and why carrying it forward is safe. This table is "
+      "the audit trail for that distinction.\n" % gen)
+    A("State key: **re-read** = the prose was checked against the repository's own files in the latest "
+      "pass and the repository has not moved since · **carried** = the prose is from an earlier pass, the "
+      "basis says why that is safe, and the repository has not moved since · **behind repo** = the commit "
+      "the prose was read against is no longer the default branch's head, so the description is provably "
+      "out of date and must be re-read · **unstamped** = the prose has never been re-read (a defect; there "
+      "are currently %s).\n"
+      "\nRows are ordered stale-first, because this table is the work queue for the next session: "
+      "`verifiedAtSha` compared with the live head SHA makes that ordering a computation rather than a "
+      "judgement call (IRR-50).\n"
+      % counts.get("proseUnstamped", 0))
+    A("| Repository | State | `lastVerified` (UTC) | Prose read at | Repo head now | Behind repo? | Basis |")
+    A("|---|---|---|---|---|---|---|")
+    # Stale entries first: they are the work queue, so they belong at the top.
+    for s in sorted(sites, key=lambda x: (not x.get("proseStale"), x.get("lastVerified") or "",
+                                          x["repo"].lower()), reverse=False):
+        lv = s.get("lastVerified")
+        if not lv or not s.get("verifiedAtSha"):
+            state = "⚠️ unstamped"
+        elif s.get("proseStale"):
+            state = "🔴 behind repo"
+        elif latest_pass and lv == latest_pass:
+            state = "✅ re-read"
+        else:
+            state = "↪️ carried"
+        basis = (s.get("verifiedBasis") or "—").replace("|", "\\|").replace("\n", " ")
+        A("| `%s` | %s | %s | `%s` | `%s` | %s | %s |" % (
+            s["repo"], state, ts(lv) if lv else "—",
+            s.get("verifiedAtSha") or "—", s.get("headSha") or s.get("lastCommitSha") or "—",
+            "**YES**" if s.get("proseStale") else "no", basis))
+    A("")
+    stale_list = counts.get("proseStaleRepos", [])
+    A("Totals: **%s of %d** entries were re-read in the latest pass (`%s`); **%d** were carried forward "
+      "with a stated reason; **%s** are unstamped; and **%s** are provably behind their repository%s.\n"
+      % (counts.get("proseReReadLatestPass", 0), len(sites), ts(latest_pass),
+         len(sites) - counts.get("proseReReadLatestPass", 0), counts.get("proseUnstamped", 0),
+         counts.get("proseStale", 0),
+         (" — " + ", ".join("`%s`" % r for r in stale_list)) if stale_list else ""))
+    A("---\n")
+
     # ---------------- 5. Reproduction ----------------
     A("## 5. Reproduction Commands for Independent Manual Review\n")
     A("Any reviewer with the GitHub CLI (`gh`) or `curl` can re-derive every row above:\n")
@@ -222,6 +277,10 @@ def main():
     A("# 6. Re-derive the directory from scratch, with zero manual entry")
     A("python3 tools/build_data.py && python3 tools/build_verification.py")
     A("")
+    A("# 6b. Independently re-check every entry's app-vs-stub classification against the")
+    A("#     published path (read-only; reports disagreements, writes nothing)")
+    A("python3 tools/audit_kind.py")
+    A("")
     A("# 7. Confirm the published totals against the data file")
     A('grep -c \'"repo":\' data/sites.js                      # expected %d' % len(sites))
     A("python3 -c \"import json,subprocess;d=json.loads(subprocess.run(['node','-e','global.window={};require(\\\"data/sites.js\\\");process.stdout.write(JSON.stringify(window.MASTERDATA))'],capture_output=True,text=True).stdout);print(d['counts'])\"")
@@ -241,6 +300,19 @@ def main():
     A("| Unreachable entries | %s |" % counts.get("unreachable"))
     A("| Categories | %s |" % ", ".join("%s (%d)" % (k, v) for k, v in sorted(counts.get("categories", {}).items())))
     A("| Irregularities registered | %d |" % len(irr))
+    A("| Entries carrying a description-verification stamp (`lastVerified`) | %s of %d |"
+      % (counts.get("proseStamped", 0), len(sites)))
+    A("| Entries whose prose was re-read in the latest pass (`%s`) | %s |"
+      % (ts(counts.get("proseLatestPass")), counts.get("proseReReadLatestPass", 0)))
+    A("| Entries whose prose was carried forward (with a stated reason) | %d |"
+      % (len(sites) - counts.get("proseReReadLatestPass", 0)))
+    A("| Entries with no prose stamp at all | %s |" % counts.get("proseUnstamped", 0))
+    A("| Entries carrying a `verifiedAtSha` commit stamp | %s of %d |"
+      % (counts.get("proseShaStamped", 0), len(sites)))
+    A("| Entries whose prose is provably behind their repository | %s%s |"
+      % (counts.get("proseStale", 0),
+         (" (" + ", ".join("`%s`" % r for r in counts.get("proseStaleRepos", [])) + ")")
+         if counts.get("proseStaleRepos") else ""))
     A("")
     A("---\n")
     A("## 6. Known Limitations of This Audit\n")
