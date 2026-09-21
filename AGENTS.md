@@ -24,49 +24,54 @@ This exclusion is **permanent and unconditional**. It survives future audits, re
 
 `tools/build_data.py` enforces this automatically: it filters the `excluded` list from `tools/overlay.json` **after** reading the GitHub API. Do not add the name to `tools/overlay.json → entries` either.
 
-## 2. Do not "fix" the 44 vs 45 count mismatch
+## 2. Do not "fix" the 52 vs 53 count mismatch
 
-The directory lists **44** sites while the account has **45** public GitHub Pages repositories. **Both numbers are correct.**
+The directory lists **52** sites while the account has **53** public GitHub Pages repositories. **Both numbers are correct.**
 
-- Keep `accountsChecked[].publicRepos: 45` and `pagesSites: 45` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
-- Never lower those to 44, and never raise the directory back to 45.
+- Keep `accountsChecked[].publicRepos: 53` and `pagesSites: 53` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
+- Never lower those to 52, and never raise the directory back to 53.
 - `tools/build_data.py` asserts `len(sites) + len(unlisted) == pagesSites` at build time and records every withheld repository in `counts.unlisted` with a reason. If that assertion ever fires, the accounting is wrong — fix the accounting, do not loosen the assertion.
-- These totals move every time the owner publishes a repository (45 as of 2026-09-20, up from 41 on 2026-09-18). Always re-read them from the API rather than trusting this file.
+- These totals move every time the owner publishes a repository (53 as of 2026-09-21, up from 50 on 2026-09-20 and 41 on 2026-09-18 — two of the three new ones were created *while the audit was running*). Always re-read them from the API rather than trusting this file.
 - The gap is documented on purpose in three places so nobody "repairs" it: the `data/sites.js` header comment, `VERIFICATION.md` § 2a, and `IRR-08` in the irregularities register.
 
 ## 3. Unreachable entries: freeze, never silently delete
 
 Repositories that were published in a previous audit but return **HTTP 404** (or any non-200) from the API today go into the `unreachable` array — **not** into `sites[]`, and **not** into the bin.
 
-- `JobSearchSF` was listed on 2026-09-16 (68 commits, last main commit `f68c452`) and returned 404 on 2026-09-17. **Re-confirmed 2026-09-18 and 2026-09-20:** still HTTP 404, still `total_count 0` in the search API, still absent from the account's public list (now 45 repositories). It is frozen in `tools/overlay.json → retired[]` with its last verified values plus the endpoints that reproduce the 404.
+- `JobSearchSF` was listed on 2026-09-16 (68 commits, last main commit `f68c452`) and returned 404 on 2026-09-17. **Re-confirmed 2026-09-18, 2026-09-20 and 2026-09-21:** still HTTP 404, still `total_count 0` in the search API, still absent from the account's public list (now 53 repositories). It is frozen in `tools/overlay.json → retired[]` with its last verified values plus the endpoints that reproduce the 404.
 - It renders on the site in the *Unreachable — Needs Owner Review* panel and in `VERIFICATION.md` § 2b.
 - It is excluded from the live directory counts and from the `sites[]` array, but it **is** included in the CSV export with `Status = unreachable-404`.
 - Only remove a frozen entry after the owner explicitly confirms it, or after the repository reappears (in which case move it back into `sites[]` with fresh API values).
 
 ## 4. Expected state of the directory
 
-As of the **2026-09-20** third-pass audit (`generated: 2026-09-20T05:15:50Z`):
+As of the **2026-09-21** fourth-pass audit (`generated: 2026-09-21T23:07:59Z`):
 
 | Metric | Expected |
 |---|---|
-| `sites[]` entries in `data/sites.js` | 44 |
+| `sites[]` entries in `data/sites.js` | 52 |
 | `unreachable[]` entries | 1 (`JobSearchSF`) |
 | `counts.unlisted[]` entries | 1 (`ProjX` — permanently excluded by owner request) |
-| `grep -c '"repo":' data/sites.js` | 45 (44 sites + the 1 unreachable entry) |
-| Ledger rows in `VERIFICATION.md` § 2 | 44, numbered 1–44 |
-| Irregularities | 62 (`IRR-01` … `IRR-62`) — 5 critical, 30 warn, 27 info |
-| Commits summed across listed sites | 2,413 |
-| Pages sites `built` | 44 / 44 |
-| Apps / doc stubs | 39 / 5 |
-| Public repos on account (API) | 45 |
-| Categories | 9 — *Sports Data & Scoreboards* (13), *Travel & Korea Trip* (11), *Markets & Trading Research* (9), *SF Local Guides* (6), *Directory & Meta* (1: `MasterSite`), *Elections & Civic Data* (1: `Elections`), *Science & ML Research* (1: `GEMSDOE`), *Gaming & Guides* (1: `WoWForever`), *Health & Personal Guides* (1: `ShoulderPain`) |
-| `counts.proseShaStamped` | 44 / 44 |
+| `grep -c '"repo":' data/sites.js` | 53 (52 sites + the 1 unreachable entry) |
+| Ledger rows in `VERIFICATION.md` § 2 | 52, numbered 1–52 |
+| Irregularities | 72 (`IRR-01` … `IRR-72`) — 7 critical, 36 warn, 29 info |
+| Commits summed across listed sites | 2,909 |
+| Pages sites `built` | 52 / 52 |
+| Apps / doc stubs | 46 / 6 |
+| Public repos on account (API) | 53 |
+| Pages sites on account (API) | 53 |
+| Categories | 10 — *Sports Data & Scoreboards* (18), *Travel & Korea Trip* (11), *Markets & Trading Research* (9), *SF Local Guides* (6), *Directory & Meta* (3), *Elections & Civic Data* (1), *Gaming & Guides* (1), *Health & Personal Guides* (1), *Science & ML Research* (1), *Social & Creator Data* (1) |
+| `counts.proseShaStamped` | 52 / 52 |
 | `counts.proseStale` | **0** — must be 0 before publishing; see below |
-| `counts.proseReReadLatestPass` / carried | 14 / 30 |
-| `descriptionNotes` / `acceptedDescriptionExceptions` | 16 / 7 real entries (plus a `__doc__` key the tools filter out) |
-| Verifier results | all three clean: 582/582 live checks (0 hard, 0 drift) · 0 descriptions needing manual confirmation · 44/44 `kind` re-derivations, 0 disagreements |
+| `counts.proseReReadLatestPass` / carried | 1 / 51 |
+| `descriptionNotes` / `acceptedDescriptionExceptions` | 16 / 16 real entries (plus a `__doc__` key the tools filter out) |
+| Verifier results | all three clean: 686/686 live checks (0 hard; volatile `pushedAt` drift is expected) · 0 descriptions needing manual confirmation · 52 / 52 `kind` re-derivations, 0 disagreements |
 
-*Personal & Placeholders* disappeared this pass: its only member, `VacationSchedule`, went from an 18-byte placeholder to a full project and moved to *Sports Data & Scoreboards*. Categories are derived from the data, so an empty one drops out on its own and the UI's filter chips follow — never hardcode a category count.
+**`acceptedDescriptionExceptions` is a dict keyed by repository name; `descriptionNotes` is a flat array.** They are not the same shape — check before indexing either one.
+
+**After any scripted edit to `tools/overlay.json`, assert every `entries[*].description` is a `str`.** A stray trailing comma in a Python edit silently writes a 1-element *list*; `build_data.py` will happily build it, and `tools/audit_descriptions.py` then dies with `TypeError: expected string or bytes-like object, got 'list'`. This happened to `DrugAnalysis` and `MLBComp` in the 2026-09-21 pass.
+
+Categories are derived from the data, so an empty one drops out on its own and the UI's filter chips follow — **never hardcode a category count.** (*Personal & Placeholders* vanished this way when `VacationSchedule` grew into a real project; *Social & Creator Data* appeared the same way.)
 
 GitHub credentials expired mid-audit at ~`2026-09-20T03:07Z` and were restored by the owner about two hours later (`IRR-55`). The snapshot above is the post-reconnect rebuild; the second-pass snapshot at `03:06:19Z` was 2 hours stale and had to be rebuilt rather than pushed, which exposed 8 further repository moves (`IRR-61`).
 
@@ -86,11 +91,11 @@ python3 tools/audit_kind.py            # re-derives app-vs-stub `kind` from the 
 
 **Three ways a verifier run lies to you.** Check these before acting on any output:
 
-1. **Uniform HTTP 401 means dead credentials, not broken data.** `verify_live.py` will report every entry as `MISMATCH ... committed=200 live=401`. Run `gh auth status` first and *discard* such a run — do not commit it. The second pass did exactly that and restored `tools/last_live_verify.json` from git rather than shipping 44 false mismatches (`IRR-55`).
-2. **`pagesStatus: 'building'` is a live deployment state, not a defect.** A repository pushed to seconds ago reports `building` until the deploy finishes, so a snapshot can read 43/44 built when all 44 are healthy. The generator now re-reads a non-`built` status up to four times at six-second intervals and still records a genuinely broken build (`IRR-53`). Re-read the endpoint before treating a low `pagesBuilt` as a finding.
+1. **Uniform HTTP 401 means dead credentials, not broken data.** `verify_live.py` will report every entry as `MISMATCH ... committed=200 live=401`. Run `gh auth status` first and *discard* such a run — do not commit it. The second pass did exactly that and restored `tools/last_live_verify.json` from git rather than shipping 52 false mismatches (`IRR-55`).
+2. **`pagesStatus: 'building'` is a live deployment state, not a defect.** A repository pushed to seconds ago reports `building` until the deploy finishes, so a snapshot can read 51/52 built when all 52 are healthy. The generator now re-reads a non-`built` status up to four times at six-second intervals and still records a genuinely broken build (`IRR-53`). Re-read the endpoint before treating a low `pagesBuilt` as a finding.
 3. **A count quoted from a README may not match the file it describes.** `VacationSchedule`'s README says "16 flagged irregularities" while `docs/IRREGULARITIES.md` holds 21, because `IR-17`…`IR-21` were appended as `###` headings under a different section (`IRR-51`). Count headings at *both* levels, and prefer counting over quoting wherever a number can be counted.
 
-`verify_live.py` distinguishes a **hard mismatch** (committed value disagrees with the live value, unexplained — a defect, re-run the generator) from **drift** (a field GitHub recomputes asynchronously, or a repository pushed to *after* the snapshot was taken). A run is clean when there are **0 hard mismatches**; the 2026-09-20 *first* pass finished with 0 hard mismatches across 582 checks. The second pass could not re-run it at all (`IRR-55`) — that is recorded as **blocked, not passed**, and no artifact in this repository claims otherwise. Do not chase drift by re-running the generator in a loop — 45 actively-developed repositories will never hold still; one was created *while* the 2026-09-18 audit was running and another ten minutes before the 2026-09-20 audit generated its data.
+`verify_live.py` distinguishes a **hard mismatch** (committed value disagrees with the live value, unexplained — a defect, re-run the generator) from **drift** (a field GitHub recomputes asynchronously, or a repository pushed to *after* the snapshot was taken). A run is clean when there are **0 hard mismatches**; the 2026-09-20 *first* pass finished with 0 hard mismatches across 582 checks. The second pass could not re-run it at all (`IRR-55`) — that is recorded as **blocked, not passed**, and no artifact in this repository claims otherwise. Do not chase drift by re-running the generator in a loop — 53 actively-developed repositories will never hold still; one was created *while* the 2026-09-18 audit was running and another ten minutes before the 2026-09-20 audit generated its data.
 
 ### The prose is the fragile part
 
@@ -101,7 +106,7 @@ Every audit so far has found the same thing: the API-derived numbers are right a
 The second pass of 2026-09-20 added the missing half (`IRR-50`). Each entry records **`verifiedAtSha`** — the default-branch commit its description was actually read at — alongside `lastVerified` (when) and `verifiedBasis` (what was read, and why carrying it forward is safe). `build_data.py` compares `verifiedAtSha` with the live head SHA on every build and prints the result as its final line:
 
 ```
-prose: 12 re-read this pass, 32 carried, 44 stamped with a SHA, 0 provably behind their repo
+prose: 1 re-read this pass, 51 carried, 52 stamped with a SHA, 0 provably behind their repo
 PROSE-STALE <repo>   description read at <sha>, repository is now at <sha>
 ```
 
@@ -111,13 +116,21 @@ It earned its keep immediately, catching **five** repositories that moved *durin
 
 **The gate is necessary but not sufficient — read what the prose quotes.** `GEMSDOE` moved via a `[skip ci]` commit touching 6 evidence files at +1/−1 each, with `README.md` and `STATUS.md` both byte-identical, so no SHA comparison could ever have flagged the resulting problem: the published description quoted one replicate of a measurement that had fired twice, and `STATUS.md` says in terms that "quoting either one alone would overstate the precision" (`IRR-62`). Only opening the evidence files found it. Two rules follow. An evidence-only commit is **not** automatically benign — evidence is what a research description quotes, unlike a `data: refresh` commit, so open it. And a matching SHA proves the prose was read against those bytes, never that the prose is *true*.
 
-**Rebuild and re-read are one loop, not two steps.** The third pass needed four successive builds before the gate reached zero, catching seventeen gate reports across ten repositories; one entry (`SFWeather`) was re-read against five successive heads, and `ShoulderPain` moved again nine minutes after being rewritten. Any claim of the form "repository X is unchanged" has a shelf life of minutes (`IRR-61`). When a repository's churn is provably automated and data-only, record a durable rule in its `verifiedBasis` — `SFWeather`'s now states that a `data: refresh … [skip ci]` commit with `README_changed=false` warrants a re-stamp, while a session commit warrants a re-read — so the next session triages instead of re-deriving.
+**A README-unchanged compare justifies triage, never a silent re-stamp — this is the sharpest lesson of the 2026-09-21 pass.** Of the 20 stale ranges that pass, the README changed in only 13; yet **four of the five best findings came from ranges that touched no README at all** (`IRR-70`). Open the artifact the description actually quotes.
+
+**Prefer the generated data file over the README when they disagree, and flag the disagreement.** Three upstream repositories contradict themselves: `Elections` (209 / 189 in prose vs **229** in the file; 63 vs **58** irregularities, `IRR-67`), `NBAInjuryReport` (prose two days behind its own regenerated `reporter_verify.json`, `IRR-68`), `OLBG-Competition` (262 in prose vs 258 `def test_`). Publish the counted file value, and register the mismatch as an `IRR` rather than quietly picking one.
+
+**Rebuild and re-read are one loop, not two steps.** The third pass needed four successive builds before the gate reached zero, and the fourth (2026-09-21) needed **eight**, opening at 20 stale entries and catching six repositories that moved mid-audit, catching seventeen gate reports across ten repositories; one entry (`SFWeather`) was re-read against five successive heads, and `ShoulderPain` moved again nine minutes after being rewritten. Any claim of the form "repository X is unchanged" has a shelf life of minutes (`IRR-61`). When a repository's churn is provably automated and data-only, record a durable rule in its `verifiedBasis` — `SFWeather`'s now states that a `data: refresh … [skip ci]` commit with `README_changed=false` warrants a re-stamp, while a session commit warrants a re-read — so the next session triages instead of re-deriving.
 
 When you re-read an entry, update all three fields together, and record *why* a carried entry is still safe. Where the intervening commit is provably benign — an automated data refresh that does not touch `README.md`, confirmed via `GET /repos/{owner}/{repo}/compare/{base}...{head}` — say so in `verifiedBasis` and re-stamp the SHA; that is a verification, not a shortcut. Where the prose changed, rewrite the description and log an `IRR` entry with the compare endpoint that reproduces the finding.
 
 **Two traps this pass hit, so you do not have to:**
 
 - Never build overlay text with Python `%`-formatting. A literal `%` in the prose (`"96.7%"`) breaks the format string and the write fails silently-ish with a `TypeError`. Use concatenation or `.replace()`.
+- After any scripted overlay edit, assert `isinstance(entry["description"], str)` for all entries. A stray trailing comma writes a 1-element *list*; the build succeeds and `audit_descriptions.py` then crashes with `TypeError: expected string or bytes-like object, got 'list'`.
+- `rm -rf tools/.readme-cache` before re-running `audit_descriptions.py`, or it re-reads stale README text.
+- `curl https://<owner>.github.io/...` returns HTTP `000` (`SSL_ERROR_SYSCALL`) from this sandbox. That is an **egress restriction, never evidence a site is down.** Use `GET /repos/{owner}/{repo}/pages` → `status: built`, or `tools/audit_kind.py`, which reaches published paths through the API.
+- Use `git clone` for anything you intend to *execute*; `gh api .../contents/{path}` with `Accept: raw` yields files the runtime refuses to parse. Raw fetch is fine for merely *reading* a README.
 - Never estimate diff statistics. A drafted irregularity claimed `+955/-884`; the API reported `+758/−977`. Pull additions/deletions from `gh api repos/{owner}/{repo}/compare/{base}...{head}`.
 
 ### `--overlay-only`: landing narrative work without network access
