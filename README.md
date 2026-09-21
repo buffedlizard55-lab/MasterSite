@@ -6,27 +6,45 @@ The **master list and directory of the GitHub Pages sites published under** [`bu
 
 ---
 
-## Audit status — 2026-09-20 (API snapshot `2026-09-20T22:33:11Z`)
+## Audit status — 2026-09-21 (API snapshot `2026-09-21T23:07:59Z`)
 
 | Metric | Value |
 |---|---|
-| GitHub Pages sites published in the directory | **49** |
-| Interactive apps / documentation stubs | **42 / 7** |
-| Pages builds reporting `built` | **49 / 49** |
-| Descriptions stamped with the commit they were read at | **49 / 49** (`verifiedAtSha`) |
+| GitHub Pages sites published in the directory | **52** |
+| Interactive apps / documentation stubs | **46 / 6** |
+| Pages builds reporting `built` | **52 / 52** |
+| Descriptions stamped with the commit they were read at | **52 / 52** (`verifiedAtSha`) |
 | Descriptions provably behind their repository head | **0** |
-| Descriptions re-read this pass / carried | **1 / 48** |
-| Verifier results | **all three clean** — 647/647 live field checks (0 hard, 0 drift), 0 descriptions needing manual confirmation (7 documented exceptions), 49/49 `kind` re-derivations with 0 disagreements |
-| Commits audited across the listed repositories | **2567** |
-| Public repositories on the account (API) | **50** |
-| Pages sites on the account (API) | **50** |
+| Descriptions re-read in this pass / carried forward | **23 / 29** (the generator's `proseReReadLatestPass: 1` counts only entries sharing the single newest `lastVerified` timestamp, so it understates a multi-hour pass — the honest figure is the count of entries with a 2026-09-21 or later stamp) |
+| Verifier results | **all three clean** — 686/686 live field checks (0 hard mismatches), 0 descriptions needing manual confirmation (16 documented exceptions), 52/52 `kind` re-derivations with 0 disagreements |
+| Commits audited across the listed repositories | **2909** |
+| Public repositories on the account (API) | **53** |
+| Pages sites on the account (API) | **53** |
 | Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request) |
-| Unreachable entries (needs owner review) | **1** (`JobSearchSF` — HTTP 404, re-confirmed 2026-09-20) |
-| Irregularities registered | **63** (`IRR-01` … `IRR-63`) |
-| Categories | **10** — Sports Data & Scoreboards (17), Travel & Korea Trip (11), Markets & Trading Research (9), SF Local Guides (6), Directory & Meta (1), Elections & Civic Data (1), Gaming & Guides (1), Health & Personal Guides (1), Science & ML Research (1), Social & Creator Data (1) |
+| Unreachable entries (needs owner review) | **1** (`JobSearchSF` — HTTP 404, re-confirmed 2026-09-21) |
+| Irregularities registered | **72** (`IRR-01` … `IRR-72`) |
+| Categories | **10** — Sports Data & Scoreboards (18), Travel & Korea Trip (11), Markets & Trading Research (9), SF Local Guides (6), Directory & Meta (3), Elections & Civic Data (1), Gaming & Guides (1), Health & Personal Guides (1), Science & ML Research (1), Social & Creator Data (1) |
 
-The generator now proves its own arithmetic: `listed + withheld = Pages sites on the account` is asserted at build time (49 + 1 = 50), and every withheld repository is named with its reason in `data/sites.js → counts.unlisted`. There is no silent gap.
+The generator proves its own arithmetic: `listed + withheld = Pages sites on the account` is asserted at build time (52 + 1 = 53), and every withheld repository is named with its reason in `data/sites.js → counts.unlisted`. There is no silent gap.
 
+### What changed in the 2026-09-21 pass — **52 sites, 0 stale, 3 verifiers clean**
+
+This pass opened with **20 of 50 entries reporting `PROSE-STALE`** and closed at zero. It found **two false published descriptions**, both critical, and **three upstream repositories whose own README disagrees with their own data files**.
+
+- **`IRR-64` (critical) — `MLBComp` was published as a "placeholder repository".** True at `8191096`; by `179c599` the repository had 11 commits, a root `index.html`, a 68-strategy catalog and a full site. Worse, the repository had *withdrawn its own fabricated data* in between (`d069579` "Withdraw fabricated competition data", `5d3c73e` "Remove fabricated claims left in the site's static HTML"), reverting an interim state that advertised 58 strategies across 17 categories. Rewritten from its own files.
+- **`IRR-65` (critical) — `NFLComp`'s published PnL had changed sign.** The directory claimed **+$2,434,194.80** profit, 28 personas and 55,974 wagers. `data/summary.json` reports **−$353,618.85**, 60 personas and 134,255 wagers, with a different top strategy. A sign error on a headline financial figure is the worst class of stale prose this directory can carry.
+- **`IRR-72` — `MLBComp` then changed again *during* the audit,** from `data_mode: NO_SOURCE_SNAPSHOT` to `SOURCE_SNAPSHOT` (0 → 144,098 ledger records), forcing a second rewrite of a description written an hour earlier. Its honesty property survived: `settled_bets` is still 0 and PnL still `null`, because the quote gate resolves all 144,098 records to 118,214 `EVAL` and 25,884 `PROPOSED`.
+- **`IRR-67`, `IRR-68` — two repositories whose README is older than their own data.** `Elections` says "209 sources" in one place and "189 verified entries" in another; the file holds **229**. It says 63 irregularities; the file holds **58**. `NBAInjuryReport`'s README quotes a reporter sweep "re-measured 2026-09-19" at 65/21/47/18, while `data/live/reporter_verify.json`, regenerated 2026-09-21T15:53Z, reports **94 handles checked, 70 ok, 24 dormant**. In both cases this directory publishes the **counted file values** and flags the prose.
+- **`IRR-66` — three entries moved `stub` → `app`** (`MLBComp`, `NHLComp`, `VacationSchedule`), each having added a root `index.html`. The long-standing `IRR-43`-class finding ("built site lives in `docs/` but Pages publishes `main /`") is now **resolved for every affected repository**. `VacationSchedule` was rebuilt so completely that its description was replaced wholesale and three unverifiable numeric claims were **withdrawn rather than softened**.
+- **`IRR-69`, `IRR-71` — three new repositories, one of them substantial.** `MLBRainDelay` (created 2026-09-21T02:00Z) was verified by **executing its test suites**, not quoting them: 26 + 24 + 6 = 56 assertions passed on Node v22.22.3, and its captured `gameStatus` registry was parsed to count exactly **210** rows. `SelfLearn` and `MasterSelfLearn` were created **22:41Z, while this audit was running**, and are genuine one-line stubs — described from their contents, with the obvious inference from their names deliberately **not** published.
+- **`IRR-70` — the methodological finding of this pass: the README changed in only 13 of the 20 stale ranges, yet four of the five sharpest findings came from ranges that touched no README at all.** `GEMSDOE` had a whole session in `STATUS.md`; `NBAInjuryReport` produced `IRR-68`; `SFWeather` added an entirely new published tier; `TradingViewTheLeap` moved its audit banner past our prose. **A README-unchanged compare justifies triage, never a silent re-stamp.**
+
+Six repositories changed state *during* this audit (`MLBComp` twice, `DrugAnalysis` v26 → v27, `NFLComp`, `NFLInjuryReport`, `Commodities`, `VacationSchedule` twice), requiring six successive builds before the gate reached zero.
+
+---
+
+<details>
+<summary>Earlier audit passes (2026-09-20 and before)</summary>
 
 **What changed in the fourth pass of 2026-09-20** (`05:15:50Z` → `22:33:11Z`): **49 sites, 0 stale, 3 verifiers clean**
 
@@ -66,20 +84,23 @@ The generator now proves its own arithmetic: `listed + withheld = Pages sites on
 - **Verifier results (first pass, `01:17:26Z`):** `tools/verify_live.py` — 582 field checks, **0 hard mismatches** (1 asynchronous `size` drift, folded in on the next refresh); `tools/audit_descriptions.py` — 44/44 entries pass, 0 unresolved claims. See [Verification & Integrity Policy](#verification--integrity-policy).
 - **Verifier results (second pass): NOT RUN — blocked, not passed; superseded by the third pass below.** The `03:06:19Z` build completed and its internal prose-staleness gate reported 0/44 behind, but GitHub auth failed at ~`03:07Z` before either read-only verifier could be re-run. `tools/last_live_verify.json` is the **`01:17:26Z`** result restored from git: a run attempted after the expiry returned 51 checks that were all `committed=200 live=401`, which is an artifact of dead credentials and **not** a finding about the data, so it was discarded rather than committed. `tools/last_description_audit.json` is a labelled **PARTIAL** artifact — its `accepted` block is regenerated deterministically from `overlay.json` (a local filter needing no network) while its `unresolved` list is the `02:42Z` run, preserved verbatim and not recomputed. `tools/audit_kind.py` likewise returned HTTP 401 for all 44. See `IRR-55`.
 
+</details>
+
 ---
 
 ## Directory Overview
 
-For each of the **49 GitHub Pages sites** in the directory:
+For each of the **52 GitHub Pages sites** in the directory:
 
 - **Live Site Link** & **Repository Link**
 - **Sourced Brief Description** — extracted line by line from the repository's own `README.md` and published file structure
 - **Created Date** — GitHub `created_at`, with the first-commit timestamp and SHA shown alongside
 - **Last Updated Date** — newest committer timestamp on the default branch, with the latest commit SHA, plus `pushed_at`
-- **GitHub Pages Status & Build Source** — all 49 reporting `built`; 48 publishing from `main /` and 1 (`GOLD`) from `main /docs`
+- **GitHub Pages Status & Build Source** — all 52 reporting `built`; 51 publishing from `main /` and 1 (`GOLD`) from `main /docs`
 - **Total Commits on the Default Branch**, repository size, and app-vs-stub classification
 - **Official Source Links for Manual Review** — live URL, repository, Pages API JSON, commits API, and Pages settings
-- **Per-entry audit flags** and a **63-entry flagged irregularities register** (`IRR-01` … `IRR-63`), ordered by severity
+- **Verification provenance per entry** — `lastVerified` (when the prose was read), `verifiedBasis` (what was read, and the exact command or endpoint that reproduces it) and `verifiedAtSha` (the commit it was read against, compared against the live head on every build)
+- **Per-entry audit flags** and a **72-entry flagged irregularities register** (`IRR-01` … `IRR-72`), ordered by severity
 
 ---
 
@@ -104,7 +125,7 @@ For each of the **49 GitHub Pages sites** in the directory:
 | [`index.html`](index.html) | Semantic, accessible directory markup (grid, table, panels, inspector modal) |
 | [`styles.css`](styles.css) | Responsive design system — CSS custom properties, cards, tables, badges |
 | [`app.js`](app.js) | Zero-dependency application logic (search, filter, sort, export, inspector, toast) |
-| [`data/sites.js`](data/sites.js) | **Generated** verified dataset — 49 sites, 1 unreachable entry, 63 irregularities, 2 audited accounts, methodology |
+| [`data/sites.js`](data/sites.js) | **Generated** verified dataset — 52 sites, 1 unreachable entry, 72 irregularities, 2 audited accounts, methodology |
 | [`tools/overlay.json`](tools/overlay.json) | Hand-authored narrative: titles, categories, descriptions, flags, the irregularity register, the permanent exclusion list |
 | [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads the official GitHub API and writes `data/sites.js` |
 | [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from `data/sites.js` |
@@ -123,7 +144,7 @@ python3 tools/build_data.py              # reads api.github.com, rewrites data/s
 python3 tools/build_verification.py      # rewrites VERIFICATION.md from the new data
 
 # then verify what you just generated, independently of the generator:
-python3 tools/verify_live.py             # 582 field checks — expect 0 hard mismatches
+python3 tools/verify_live.py             # 686 field checks — expect 0 hard mismatches
 python3 tools/audit_descriptions.py      # every numeric claim vs the repo's own README
 python3 tools/audit_kind.py              # re-derives app-vs-stub from the API — expect 0 disagreements
 ```
@@ -131,14 +152,17 @@ python3 tools/audit_kind.py              # re-derives app-vs-stub from the API �
 **Read the generator's last line before you trust the build.** It prints a prose-staleness gate:
 
 ```
-prose: 12 re-read this pass, 32 carried, 44 stamped with a SHA, 0 provably behind their repo
+prose: 1 re-read this pass, 51 carried, 52 stamped with a SHA, 0 provably behind their repo
 ```
 
 Any `PROSE-STALE <repo> description read at <sha>, repository is now at <sha>` line means that
 entry's description was read at a commit that is no longer the default branch's head, so it is
 *provably* out of date and must be re-read before publishing. Repositories in this account commit
-continuously — five moved during the 2026-09-20 second pass alone — so this line, not the timestamp,
-is the pass's completion gate (`IRR-50`).
+continuously — **six repositories moved during the 2026-09-21 pass, forcing six successive builds
+before the gate reached zero** — so this line, not the timestamp, is the pass's completion gate
+(`IRR-50`, `IRR-61`, `IRR-72`). Treat re-reading and rebuilding as one loop that repeats until it
+prints `0 provably behind their repo`; a `PROSE-STALE` range whose README did not change still
+requires triage, never a silent re-stamp (`IRR-70`).
 
 If `api.github.com` is unreachable or the credentials have expired, `--overlay-only` re-renders the
 narrative fields (descriptions, categories, flags, the irregularity register) into the **existing**
@@ -156,9 +180,9 @@ snapshot produced **0 differences across 44 sites × 16 API-derived fields**.
 
 Every timestamp, SHA, commit count, Pages status, build source and size in the output comes from an API read at that moment — nothing is carried over from memory. Repositories that vanish are moved into the `unreachable` list instead of disappearing.
 
-`verify_live.py` separates two kinds of difference. A **hard mismatch** means the committed value and the live value disagree with no explanation, and is a defect: re-run the generator. **Drift** means the field is one GitHub recomputes asynchronously (`size`, `pushed_at`, `updated_at`) or the repository was pushed to *after* the snapshot was taken — expected, and folded in by the next refresh. The 2026-09-20 first pass finished at 0 hard mismatches across 582 checks; the second pass could not re-run it at all (`IRR-55`).
+`verify_live.py` separates two kinds of difference. A **hard mismatch** means the committed value and the live value disagree with no explanation, and is a defect: re-run the generator. **Drift** means the field is one GitHub recomputes asynchronously (`size`, `pushed_at`, `updated_at`) or the repository was pushed to *after* the snapshot was taken — expected, and folded in by the next refresh. The 2026-09-21 pass finished at **0 hard mismatches across 686 checks**, with 3 volatile-field drifts (all `pushedAt`, pushed after the snapshot read).
 
-A third failure mode is worth naming because it looks like a data defect and is not: **dead credentials**. When the token expires, `verify_live.py` reports every entry as `MISMATCH ... committed=200 live=401`. That is an authentication failure, not 44 broken records. Check `gh auth status` before reading any verifier output, and discard a run whose mismatches are uniformly 401 — the second pass did exactly that and restored the last valid artifact from git rather than committing a false result.
+A third failure mode is worth naming because it looks like a data defect and is not: **dead credentials**. When the token expires, `verify_live.py` reports every entry as `MISMATCH ... committed=200 live=401`. That is an authentication failure, not 52 broken records. Check `gh auth status` before reading any verifier output, and discard a run whose mismatches are uniformly 401 — the second pass did exactly that and restored the last valid artifact from git rather than committing a false result.
 
 ---
 
@@ -168,10 +192,10 @@ A third failure mode is worth naming because it looks like a data defect and is 
 2. **Autonomous Execution.** No manual data entry, no owner prompts during the audit. The only hand-authored content is narrative prose in `tools/overlay.json`.
 3. **Independent Re-Verification, Not Restatement.** `tools/verify_live.py` re-reads every API-derived field of every entry straight from GitHub and prints each one as ok, mismatch or drift. It is deliberately read-only — it reports, it never repairs. `tools/audit_descriptions.py` checks each description's numeric claims against the repository's own README. Run both after any refresh:
    ```bash
-   python3 tools/verify_live.py           # 582 field checks across 44 entries + both accounts
+   python3 tools/verify_live.py           # 686 field checks across 52 entries + both accounts
    python3 tools/audit_descriptions.py    # every numeric claim vs the repo's own README
    ```
-4. **Transparent Irregularity Reporting.** Every anomaly is catalogued with the endpoint needed to reproduce it, ordered by severity (`critical` → `warn` → `info`). This audit added seven and revised five.
+4. **Transparent Irregularity Reporting.** Every anomaly is catalogued with the endpoint needed to reproduce it, ordered by severity (`critical` → `warn` → `info`). This audit added nine (`IRR-64` … `IRR-72`), two of them `critical`.
 5. **Nothing Is Silently Deleted.** Excluded and unreachable repositories are named, explained and preserved with their last verified values.
 6. **Corrections Are Recorded, Not Hidden.** When a published description turns out to have been wrong, the entry is fixed *and* the mistake is registered with what it said, what it should have said, and how it was caught — see `IRR-25` through `IRR-29`.
 
@@ -185,7 +209,7 @@ One repository on the account is **permanently excluded** from this site. Do not
 |---|---|---|
 | `ProjX` | Still live on GitHub; intentionally unpublished **here** since 2026-09-12 by owner request | **Never add it back** to `data/sites.js`, the `VERIFICATION.md` ledger table, README counts, or the JSON/CSV exports. No live link, API endpoint or Pages URL for it is printed anywhere in this repository. Full rationale in [VERIFICATION.md § 2a](VERIFICATION.md#2a-repository-exclusions-deliberately-omitted). |
 
-Because of this exclusion the directory shows **49** sites while the GitHub API reports **50** public Pages repositories. That mismatch is correct and expected: keep the account-level totals (`publicRepos: 45`, `pagesSites: 45`) at their verified API values and filter excluded names *after* the API read, instead of lowering those totals. `tools/build_data.py` applies the `excluded` list from `tools/overlay.json` automatically, records every withheld repository with its reason in `counts.unlisted`, and **asserts at build time** that `listed + withheld == pagesSites` so a silent gap is impossible.
+Because of this exclusion the directory shows **52** sites while the GitHub API reports **53** public Pages repositories. That mismatch is correct and expected: keep the account-level totals (`publicRepos: 53`, `pagesSites: 53`) at their verified API values and filter excluded names *after* the API read, instead of lowering those totals. `tools/build_data.py` applies the `excluded` list from `tools/overlay.json` automatically, records every withheld repository with its reason in `counts.unlisted`, and **asserts at build time** that `listed + withheld == pagesSites` so a silent gap is impossible.
 
 ---
 
@@ -193,7 +217,7 @@ Because of this exclusion the directory shows **49** sites while the GitHub API 
 
 | Repository | Last verified | What happened | Owner action |
 |---|---|---|---|
-| `JobSearchSF` | `f68c452`, 2026-09-16T19:37:41Z, 68 commits | Re-confirmed 2026-09-20 (third consecutive audit): `GET /repos/buffedlizard55-lab/JobSearchSF` returns **HTTP 404** and the repository is absent from the account's 45-repository public list, so it was deleted or made private. Its Pages site is therefore no longer served. | **Restore it** (undelete / make public) so it can be re-listed, **or confirm it should stay retired** and the frozen entry can be dropped. Flagged as `IRR-01` (critical). |
+| `JobSearchSF` | `f68c452`, 2026-09-16T19:37:41Z, 68 commits | Re-confirmed 2026-09-21 (fourth consecutive audit): `GET /repos/buffedlizard55-lab/JobSearchSF` returns **HTTP 404** and the repository is absent from the account's 53-repository public list, so it was deleted or made private. Its Pages site is therefore no longer served. | **Restore it** (undelete / make public) so it can be re-listed, **or confirm it should stay retired** and the frozen entry can be dropped. Flagged as `IRR-01` (critical). |
 
 The entry stays visible in the site's *Unreachable — Needs Owner Review* panel and in `VERIFICATION.md` § 2b with every value it last verified, plus the three commands that reproduce the 404.
 
@@ -201,37 +225,36 @@ The entry stays visible in the site's *Unreachable — Needs Owner Review* panel
 
 ## Known Limitations
 
-These are the real obstacles, stated plainly. Several of them are the reason a claim can be "verified" and still be wrong tomorrow.
+These are the real obstacles, stated plainly. Several are the reason a claim can be "verified" today and wrong tomorrow.
 
-1. **The prose is the fragile part, not the numbers — and it is now the only part still fragile by construction.** Every timestamp, SHA, commit count and Pages status is read from `api.github.com` at generation time and re-checked by `tools/verify_live.py`. Descriptions are written prose, and the first three audits found six that had gone stale or false, including a placeholder that had become a full 46-commit project (`IRR-25`, `IRR-33`). The 2026-09-20 second pass closed the *detection* half of this: each entry now records `verifiedAtSha`, the commit its prose was read at, and the generator compares it with the live head SHA, so a description that has gone stale is reported mechanically instead of hoped for (`IRR-50`). It caught five moves in one pass. What it does **not** do is rewrite anything — a `PROSE-STALE` line is a work item for a reader, and the re-read itself is still human or model judgement. Treat any entry whose `verifiedAtSha` differs from its `headSha` as unverified; the site's §4a ledger and the generator's output both list them.
-2. **A number appearing in a README is not proof it is current.** `tools/audit_descriptions.py` narrows the search to descriptions containing tokens that no longer appear anywhere in the README. It caught `NBAInjuryReport`'s stale test counts but cannot catch a superseded figure that still sits in an old changelog section — which is exactly how `KalshiPaperSim`'s counters survived a refresh (`IRR-26`, and again `IRR-34`). Human or model re-reading is still required.
-3. **Live page bodies are not fetched over HTTP.** Pages liveness rests on two API facts — status `built` and a real `index.html` at the published path — not an HTTP 200 on the rendered page (re-tested 2026-09-20: this sandbox still cannot reach `*.github.io`, HTTP code `000`). A site can be `built` and still render a blank page or a broken redirect. Every entry links to its live URL for one-click manual review.
-4. **Repositories move faster than the audit — measurably, within a single pass.** Ten repositories gained ~400 commits *between the 2026-09-18 and 2026-09-20 audits* and `TradingViewTheLeap` advanced five research passes in one day (`IRR-23`, `IRR-24`). The second pass of 2026-09-20 is a sharper example: between its own two generator runs, roughly 50 minutes apart, five repositories moved — `OLBG-Competition` added an entire ice-hockey pipeline and 18 tests, `VacationSchedule` changed every window it recommends, and `SFWeather`'s own automation landed a data refresh 20 seconds before it was read. Timestamps and commit counts here are a point-in-time read of `2026-09-20T03:06:19Z`, and are stale by the time you read this.
-5. **Five of the 44 sites are under two days old, and they are where every error so far has come from.** `VacationSchedule` was created `2026-09-20T00:48:59Z` — ten minutes before the first snapshot — as an 18-byte placeholder whose purpose was genuinely unknown (`IRR-41`); by the second pass it was a full project that had already revised its own headline numbers twice (`IRR-52`). `OLBG-Competition`, `Commodities` and `ShoulderPain` are one day old, `Elections` and `WoWForever` two. Every stale-description defect found across four audits traces to a repository under 48 hours old, so re-read the youngest entries first: they are the cheapest insurance in the pipeline and the most likely to be wrong.
-6. **Repository size is GitHub's own asynchronously-recomputed field**, so size moves that do not line up with commit deltas are normal GitHub behaviour, not a data error (`IRR-04`–`IRR-06`; one such `size` drift appeared in this audit's own verifier run). `GEMSDOE` alone is ~389 MB because competition rasters are committed as git parts, which will make clones slow and is close to the kind of growth GitHub's own guidance warns about.
-7. **`kanlerxz87-cyber` contributes nothing to audit.** The account was verified to exist (`type: User`, created `2026-08-03T20:56:16Z`) but holds **0** public repositories (re-verified 2026-09-20), so there is nothing to list. If it ever publishes a Pages site, the generator picks it up automatically — the account list is hardcoded in `tools/build_data.py`, the per-account reads are not.
-8. **One repository is permanently excluded by owner request** (`ProjX`), so the directory will always show one fewer site than the account-level API totals. That gap is deliberate; see [Repository Exclusions](#repository-exclusions--standing-instructions-for-future-sessions).
-9. **`JobSearchSF` cannot be resolved from here.** It is HTTP 404 and absent from the account (three consecutive audits now). Only the owner can say whether it should be restored or the frozen entry dropped (`IRR-01`).
-10. **Credentials can die mid-audit, and when they do the verifiers lie.** They expired at ~`2026-09-20T03:07Z`, one minute after a successful snapshot: `gh auth status` reported the token invalid, every API read returned HTTP 401 *including unauthenticated ones* (so it was the sandbox's egress credential, not a per-request token), and `git push` failed with `could not read Username for 'https://github.com'`. The danger is that `verify_live.py` still produces output — 51 checks, every one `committed=200 live=401` — which reads as 44 broken records and is not. That run was discarded and the last valid artifact restored from git rather than committed (`IRR-55`). **Resolved** when the owner reconnected GitHub; all three verifiers then ran clean. Check `gh auth status` before reading any verifier output.
-11. **Reconnecting is not sufficient — the snapshot must be rebuilt first, and the rebuild is a loop.** The `03:06:19Z` snapshot was 2 hours stale when credentials returned, and rebuilding it exposed **8 further repository moves** before the gate reached zero (`IRR-61`). Re-reading and rebuilding must be treated as one loop that repeats until it reports `0 provably behind their repo`, not as two steps; any claim of the form "repository X is unchanged" has a shelf life of minutes. One entry was re-read against five successive heads inside this audit.
+1. **The prose is the fragile part, not the numbers — and 2026-09-21 proved it twice more.** Every timestamp, SHA, commit count and Pages status is read from `api.github.com` and re-checked by `tools/verify_live.py` (686/686 clean this pass). Descriptions are written prose, and this audit found **two published descriptions that were flatly false**: `MLBComp` described as a placeholder when it had become a full application (`IRR-64`), and `NFLComp` publishing a **+$2.43M profit that is actually a −$353K loss** (`IRR-65`). `verifiedAtSha` reliably told us *which* entries to re-read; it cannot tell us what they now say.
+2. **A matching SHA proves the prose was read against those bytes, never that the prose is true — and a README-unchanged diff proves even less.** This pass, the README changed in only 13 of the 20 stale ranges, yet **four of the five sharpest findings came from ranges that touched no README at all** (`IRR-70`). A SHA-only re-stamp would have missed `IRR-68` entirely.
+3. **Three upstream repositories contradict themselves, so "read the README" is not sufficient either.** `Elections` states 209 sources in one place and 189 in another while its file holds **229**, and claims 63 irregularities against a file holding **58** (`IRR-67`); `NBAInjuryReport`'s prose is two days behind its own regenerated data (`IRR-68`); `OLBG-Competition` says 262 tests where the test functions count 258. Where prose and file disagree, this directory now **publishes the counted file value and flags the prose** — but that policy has to be applied by hand, every time.
+4. **Live page bodies are still not fetched over HTTP.** Pages liveness rests on two API facts — status `built` and a real `index.html` at the published path — not an HTTP 200 on the rendered page. Re-tested 2026-09-21: this sandbox still cannot reach `*.github.io` (`curl` returns `000`, an `SSL_ERROR_SYSCALL` on connect, while `api.github.com` returns 200), so the block is network egress, not configuration. A site can be `built` and still render a blank page. Every entry links its live URL for one-click manual review.
+5. **Repositories move faster than the audit can snapshot — six changed state *during this pass*.** `MLBComp` changed twice (placeholder → app → source snapshot loaded, `IRR-72`), `DrugAnalysis` went v26 → v27 within the hour, and `Commodities`, `NFLComp`, `NFLInjuryReport` and `VacationSchedule` all moved mid-audit. **Six successive builds** were needed before the gate reached zero. Two repositories (`SelfLearn`, `MasterSelfLearn`) were created at 22:41Z while the audit was running (`IRR-71`).
+6. **The youngest entries remain where every error comes from.** `MLBComp` and `NFLComp`, both critical findings this pass, were **under 48 hours old**. Four audits running, every stale-description defect has traced to a repository under two days old. Re-read the youngest entries first.
+7. **Some upstream test suites cannot be executed here, so a few counts are of test *functions* rather than *assertions*.** `NHLComp`'s suite runs only with `PYTHONPATH=src` (231 tests, verified); `MLBComp`'s Python suite needs `pandas`, which is absent, so only its Node contract test was executed; `OLBG-Competition` has no `pytest` available, so its 258 is a `def test_` count that may differ from collected parametrised cases. Each of these is disclosed in the entry's own `verifiedBasis` rather than presented as a measured pass.
+8. **Repository size is GitHub's asynchronously-recomputed field**, so size moves that do not line up with commit deltas are normal (`IRR-04`–`IRR-06`). `GEMSDOE` alone is ~400 MB because competition rasters are committed as git parts.
+9. **`kanlerxz87-cyber` contributes nothing.** Verified to exist (`type: User`, created `2026-08-03T20:56:16Z`) with **0** public repositories (re-verified 2026-09-21). If it ever publishes, the generator picks it up automatically.
+10. **One repository is permanently excluded by owner request** (`ProjX`), so the directory will always show one fewer site than the account totals. Deliberate; see [Repository Exclusions](#repository-exclusions--standing-instructions-for-future-sessions).
+11. **`JobSearchSF` cannot be resolved from here** — HTTP 404 for a fourth consecutive audit. Owner decision only (`IRR-01`).
+12. **Credentials can die mid-audit, and when they do the verifiers lie.** A uniform HTTP 401 across every entry means dead credentials, not 52 broken records (`IRR-55`). Check `gh auth status` before acting on any verifier output, and discard such a run rather than committing it.
 
 ---
 
 ## What Still Needs To Be Done
 
-Ordered by what actually threatens the project's core promise. Item 1 is closed; **item 2 is now the highest-value recurring task.**
+Ordered by what actually threatens the project's core promise. **Items 1 and 2 are the work for the next session.**
 
 | # | Task | Why it matters | Effort |
 |---|---|---|---|
-| 1 | ~~**Reconnect GitHub, then rebuild and re-verify before pushing.**~~ **Done 2026-09-20.** Credentials restored; the rebuild loop ran until the gate reported `0 provably behind their repo` (17 reports, 10 repositories), all three verifiers ran clean, and this branch is pushed with a pull request open. | The sequence is now documented in *Refreshing the directory* and `AGENTS.md` so the next session repeats it rather than improvising (`IRR-55`, `IRR-61`). | Closed |
-| 2 | **Re-read every description against its repository, by hand, once per audit.** Not a token grep — an actual read of each README's current status section against the published wording. | Still the only error class that has materially misled a reader, across four consecutive audits. `verifiedAtSha` now tells you *which* entries to re-read (`IRR-50`), which turns an unbounded job into a work queue, but it cannot do the reading. 44 entries is bounded and tractable. | Medium |
-| 3 | **Resolve `JobSearchSF` (`IRR-01`).** Owner decision: restore the repository, or confirm it is retired so the frozen entry can be dropped. | One of five `critical` irregularities and the oldest still open (2026-09-17). It has no resolution path a machine can take. | Owner only |
-| 4 | **Fetch live pages over HTTP** to confirm each published URL really serves the expected page (not a blank, a 404 page or a redirect loop). Currently out of reach from the audit sandbox — see Limitation 3. | It is the difference between "GitHub says it built" and "it works". `IRR-53` showed the API's own `status` field is a live deployment state that can read `building` for a perfectly healthy site, which is one more reason to check the rendered page. | Medium |
-| 5 | **Fix the five repositories whose own READMEs contradict their own contents.** `VacationSchedule` claims 16 flagged irregularities and holds 21 (`IRR-51`); `Elections` states both `npm test (70 tests)` and "45 Node tests"; `OLBG-Competition` still called hockey "next" after shipping it. Each is flagged on its entry here. | A directory that grades other people's verification should not quote an internally inconsistent figure without a note — and the notes are only a workaround for defects worth reporting upstream. | Owner only |
-| 6 | **Move `GEMSDOE`'s ~389 MB of rasters out of git** (Git LFS or a release asset) and record the change. | Repository size is a real operational cost and the growth pattern is documented in `IRR-04`. | Medium |
-| 7 | **Settle the `StockPaperSim` Pages source** with an owner action: switch Settings → Pages to `main`, `/docs`, then delete the root `index.html` redirect. | The repository documents that its own automation cannot do this (the API returns 403). It is a two-click fix that removes a redirect from every visitor's path. | Owner only |
-| 8 | **Publish the five stub-classified sites properly.** `VacationSchedule`, `StockPaperSim` and three others serve only a README or a redirect because Pages publishes `main /` while the app lives in `site/` or `docs/` (`IRR-43`). | Each is a real, working app that a visitor cannot reach from the link this directory gives them. Two clicks each in Settings → Pages. | Owner only |
-| 9 | **Decide whether `HotelSeoulRoughdraft1` and `MLB-PBP`/`MLB-Live-PBP` should stay listed.** The draft duplicates `Itinerary-Korea` (`IRR-14`), and the two MLB viewers overlap. `ScheduleFreeTime` and `VacationSchedule` now overlap too, and neither names the other (`IRR-48`). | A *directory* is more useful when it does not send readers to a superseded draft. This is a curation decision, not a data one. | Owner only |
-| 10 | **Consider a weekly rather than daily refresh cadence**, or accept that each snapshot is a point-in-time read and label it as such in the UI (it already is, in the header). | 45 repositories, hundreds of commits a day, one repo created ten minutes before a snapshot and five moving inside a single pass. Daily is achievable but the numbers are only ever briefly true. | Low |
+| 1 | **Re-read every description against its repository, by hand, once per audit — and open the *data files*, not just the README.** The new rule this pass: where a repository generates its own counts into a JSON/CSV artifact, read that artifact and publish its value. | Still the only error class that has materially misled a reader, now across five consecutive audits, and this pass produced the worst instance yet — a headline PnL published with the wrong sign (`IRR-65`). `verifiedAtSha` turns an unbounded job into a work queue but cannot do the reading, and `IRR-70` shows a README-unchanged diff is not a safe shortcut. | **High — start here** |
+| 2 | **Report the three self-contradiction defects upstream** (`Elections` 209/189/229 and 63/58, `NBAInjuryReport` 65/21 vs 94/70, `OLBG-Competition` 262/258) so the repositories fix their own prose instead of this directory carrying a permanent footnote. | A directory that grades other projects' verification should not need a standing workaround for their arithmetic. Each is a one-line fix at the source. | Owner / upstream |
+| 3 | **Resolve `JobSearchSF` (`IRR-01`).** Restore the repository, or confirm it is retired so the frozen entry can be dropped. | The oldest open `critical` irregularity (2026-09-17), now in its fourth audit. No machine can resolve it. | Owner only |
+| 4 | **Fetch live pages over HTTP from an environment with egress to `*.github.io`.** A GitHub Actions job in this repository would have that access even though the audit sandbox does not. | It is the difference between "GitHub says it built" and "it works". This is the single biggest *verifiable* gap left in the methodology, and it is now clearly solvable — the blocker is the sandbox, not the design. | **Medium — highest-value new capability** |
+| 5 | **Describe `SelfLearn` and `MasterSelfLearn` properly once they contain something.** Both are one-line stubs created 2026-09-21T22:41Z; their descriptions deliberately say nothing about intent because the repositories say nothing (`IRR-71`). | Two of the six stub entries exist only to keep the accounting honest. The moment either gains content, its entry must be rewritten from that content. | Low |
+| 6 | **Move `GEMSDOE`'s ~400 MB of rasters out of git** (Git LFS or a release asset). | Real operational cost; growth pattern documented in `IRR-04`. | Medium |
+| 7 | **Decide whether overlapping entries should stay listed.** `HotelSeoulRoughdraft1` duplicates `Itinerary-Korea` (`IRR-14`); `MLB-PBP`/`MLB-Live-PBP` overlap, and `MLBRainDelay` is now explicitly built on `MLB-Live-PBP`'s design; `ScheduleFreeTime` and `VacationSchedule` overlap without naming each other (`IRR-48`). | A directory is more useful when it does not send readers to a superseded draft. Curation, not data. | Owner only |
+| 8 | **Automate the audit on a schedule** (GitHub Actions running `build_data.py` + all three verifiers, opening a PR when the gate is non-zero). | Six repositories changed state *during* this one audit and two were created mid-run. A scheduled job would keep the window between snapshot and reality to hours instead of days — and combined with item 4, would run from an environment that can reach the live sites. | Medium |
 
-**Closed since the last audit:** ~~add a `lastVerified` date per entry, distinct from `generated`~~ — done, and extended: every entry now carries `lastVerified`, a `verifiedBasis` string stating what was read and why carrying it forward is safe, and `verifiedAtSha`, rendered as the §4a prose-verification ledger in `VERIFICATION.md` with rows ordered stale-first so the table *is* the next session's work queue.
+**Closed this pass:** ~~the `IRR-43` class of finding ("built site lives in `docs/` but Pages publishes `main /`, so the live URL serves a Jekyll README render")~~ — **resolved for every affected repository.** `MLBComp`, `NHLComp` and `VacationSchedule` all now commit a root `index.html`, `audit_kind.py` reports **0 disagreements across 52 sites**, and the standing owner-action items asking for a Settings → Pages change are withdrawn.
