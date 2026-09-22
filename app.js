@@ -12,6 +12,7 @@
     q: "",
     category: "All",
     kind: "all",
+    prose: "all",
     sort: "updated-desc",
     view: "grid" // "grid" or "table"
   };
@@ -39,10 +40,74 @@
     return d.toISOString().replace("T", " ").replace("Z", " UTC");
   }
 
+  // URL state uses only known values; unknown query parameters and anchors survive.
+  // Search replaces the current entry (not one Back step per keystroke); discrete
+  // filter/sort/view changes push an entry so Back/Forward can restore the view.
+  function readURLState() {
+    var params = new URL(window.location.href).searchParams;
+    var category = params.get("category");
+    state.q = params.get("q") || "";
+    state.category = D.sites.some(function (s) { return s.category === category; }) ? category : "All";
+    state.kind = ["app", "stub"].indexOf(params.get("kind")) !== -1 ? params.get("kind") : "all";
+    state.prose = Object.keys(PROSE_LABEL).indexOf(params.get("prose")) !== -1 ? params.get("prose") : "all";
+    state.sort = Array.from($("sortSelect").options).some(function (o) { return o.value === params.get("sort"); })
+      ? params.get("sort") : "updated-desc";
+    state.view = params.get("view") === "table" ? "table" : "grid";
+  }
+
+  function directoryURL() {
+    var url = new URL(window.location.href);
+    var defaults = { q: "", category: "All", kind: "all", prose: "all", sort: "updated-desc", view: "grid" };
+    Object.keys(defaults).forEach(function (key) {
+      if (state[key] === defaults[key]) url.searchParams.delete(key);
+      else url.searchParams.set(key, state[key]);
+    });
+    return url;
+  }
+
+  function saveURLState(replace) {
+    var url = directoryURL();
+    if (url.href === window.location.href) return;
+    try {
+      window.history[replace ? "replaceState" : "pushState"](null, "", url.href);
+    } catch (error) {
+      // Filtering also works when opened as a local file or History is restricted.
+      console.warn("MasterSite: could not save directory URL.", error);
+    }
+  }
+
+  function syncControls() {
+    $("searchInput").value = state.q;
+    $("clearSearchBtn").style.display = state.q ? "block" : "none";
+    $("sortSelect").value = state.sort;
+    $("proseSelect").value = state.prose;
+    // Updating existing chips, instead of replacing them, preserves keyboard focus.
+    document.querySelectorAll("[data-cat]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-cat") === state.category);
+    });
+    document.querySelectorAll("[data-kind]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-kind") === state.kind);
+    });
+    ["grid", "table"].forEach(function (view) {
+      var btn = $(view === "grid" ? "viewGridBtn" : "viewTableBtn");
+      btn.classList.toggle("active", state.view === view);
+      btn.setAttribute("aria-pressed", state.view === view);
+    });
+    $("sitesGrid").style.display = state.view === "grid" ? "grid" : "none";
+    $("sitesTableContainer").style.display = state.view === "table" ? "block" : "none";
+    $("resetFiltersBtn").disabled = !state.q && state.category === "All" && state.kind === "all" && state.prose === "all";
+  }
+
+  function updateDirectory(replace) {
+    syncControls();
+    renderDirectory();
+    saveURLState(replace);
+  }
+
   // ---- Description-prose verification helpers -------------------------------
   // Two independent signals, because one is not enough (IRR-50):
   //   lastVerified  — WHEN the prose was last re-read against the repository.
-  //   verifiedAtSha — WHICH COMMIT it was read against, compared with the live
+  //   verifiedAtSha — WHICH COMMIT it was read against, compared with the recorded
   //                   head SHA so staleness is computed rather than guessed.
   function proseIsFresh(s) {
     var latest = (D.counts && D.counts.proseLatestPass) || null;
@@ -62,14 +127,14 @@
     var sha = s.verifiedAtSha
       ? " Prose read against commit " + s.verifiedAtSha +
         (s.proseStale
-          ? "; the repository's default branch is now at " + (s.headSha || "?") +
-            ", so this description is provably behind it and must be re-read."
-          : "; that is still the repository's latest commit, so the prose matches the bytes it was read from.")
+          ? "; the snapshot records the default branch at " + (s.headSha || "?") +
+            ", so this description was behind it at the snapshot and must be re-read."
+          : "; this matches the recorded head at the snapshot, not a live check or proof that the prose is true.")
       : "";
     if (!s.lastVerified) {
-      return "No prose-verification stamp: this description has never been re-read against the repository's own files." + sha;
+      return "No prose-verification stamp: this snapshot does not record when the description was re-read." + sha;
     }
-    return (proseIsFresh(s) ? "Re-read in the latest pass. " : "Carried forward from an earlier pass. ") +
+    return (proseIsFresh(s) ? "Stamped at the latest recorded prose-verification timestamp. " : "Stamped at an earlier prose-verification timestamp. ") +
            (s.verifiedBasis || "") + sha;
   }
 
@@ -141,7 +206,7 @@
 
     if (latestPass) {
       statsData.push({
-        label: "Descriptions Re-Read This Pass",
+        label: "Descriptions at Latest Prose Stamp",
         value: reRead + " / " + sites.length
       });
     }
@@ -182,7 +247,7 @@
     var total = D.sites.length;
     var reRead = D.sites.filter(function (s) { return s.lastVerified === latestPass; }).length;
     var carried = total - reRead;
-    var unstamped = c.proseUnstamped || 0;
+    var unstamped = D.sites.filter(function (s) { return proseState(s) === "unstamped"; }).length;
     var stale = D.sites.filter(function (s) { return s.proseStale; }).length;
 
     el.innerHTML =
@@ -193,17 +258,19 @@
       '<em>Description prose</em> is a separate question: it is re-read against each repository’s own ' +
       'files, and each entry carries a <code>lastVerified</code> stamp, a <code>verifiedBasis</code> ' +
       'string saying what was read, and a <code>verifiedAtSha</code> — the commit the prose was read ' +
-      'against. In the latest pass <strong>' + reRead + '</strong> of ' + total + ' descriptions were ' +
-      're-read; <strong>' + carried + '</strong> were carried forward and say why that is safe' +
+      'against. At the latest recorded prose timestamp (<strong>' + esc(fmtDateTime(latestPass)) +
+      '</strong>), <strong>' + reRead + '</strong> of ' + total + ' descriptions are stamped; ' +
+      '<strong>' + carried + '</strong> do not share that timestamp. This is not a count of all ' +
+      'descriptions re-read during a multi-hour audit' +
       (unstamped ? '; <span class="legend-warn">' + unstamped + ' are unstamped</span>' : '') + '. ' +
       'Because each stamp names a commit, staleness is <em>computed</em> rather than assumed: ' +
       (stale
         ? '<span class="legend-warn">' + stale + ' entr' + (stale === 1 ? 'y is' : 'ies are') +
-          ' provably behind ' + (stale === 1 ? 'its' : 'their') + ' repository right now</span> — the ' +
-          'prose was read against a commit that is no longer the default branch’s head, so ' +
+          ' provably behind ' + (stale === 1 ? 'its' : 'their') + ' repository at the snapshot</span> — the ' +
+          'prose was read against a commit different from the recorded default-branch head, so ' +
           (stale === 1 ? 'it needs' : 'they need') + ' re-reading. '
-        : '<strong>0</strong> entries are behind their repository — every description was read against ' +
-          'the commit its repository still points at. ') +
+        : '<strong>0</strong> entries are flagged behind their recorded repository head at the snapshot. ') +
+      'This page does not check live repository heads; a matching SHA does not prove a description is true. ' +
       'A timestamp alone cannot show this: one repository in this audit moved 60 seconds after being ' +
       'stamped (IRR-50). Sort by “Description Verified (Stalest first)” to review the oldest prose first.';
   }
@@ -242,6 +309,7 @@
     return D.sites.filter(function (s) {
       if (state.category !== "All" && s.category !== state.category) return false;
       if (state.kind !== "all" && s.kind !== state.kind) return false;
+      if (state.prose !== "all" && proseState(s) !== state.prose) return false;
       if (q) {
         var flagsText = (s.flags || []).join(" ");
         var hay = [s.title, s.repo, s.description, s.category, s.kind, flagsText].join(" ").toLowerCase();
@@ -269,6 +337,14 @@
     });
   }
 
+  function pagesBadge(s, includeSource) {
+    var status = s.pagesStatus || "unknown";
+    return '<span class="tag-badge ' + (status === "built" ? 'built' : 'flagged') +
+      '" title="Recorded GitHub Pages status at snapshot: ' + esc(status) +
+      ' · Source: ' + esc(s.pagesSource) + '">' + esc(status) +
+      (includeSource ? ' (' + esc(s.pagesSource) + ')' : '') + '</span>';
+  }
+
   // ---------------- Site Card (Grid View) ----------------
   function renderCard(s) {
     var repoUrl = "https://github.com/" + OWNER + "/" + s.repo;
@@ -281,7 +357,7 @@
       ? '<span class="tag-badge app">Interactive App</span>'
       : '<span class="tag-badge stub">Doc Stub</span>';
 
-    var builtBadge = '<span class="tag-badge built" title="GitHub Pages build status: ' + esc(s.pagesStatus) + ' · Source: ' + esc(s.pagesSource) + '">Built (' + esc(s.pagesSource) + ')</span>';
+    var builtBadge = pagesBadge(s, true);
 
     var flagBadge = (s.flags && s.flags.length > 0)
       ? '<span class="tag-badge flagged" title="' + esc(s.flags.join(" | ")) + '">⚑ Notice</span>'
@@ -323,7 +399,7 @@
         '</div>' +
         '<div class="metric-item">' +
           '<span class="metric-label">Activity Total</span>' +
-          '<span class="metric-value">' + (s.commits || 0) + ' commits on main</span>' +
+          '<span class="metric-value">' + (s.commits || 0) + ' commits on ' + esc(s.defaultBranch || 'default branch') + '</span>' +
         '</div>' +
         '<div class="metric-item">' +
           '<span class="metric-label">Deployment Path</span>' +
@@ -364,7 +440,7 @@
       '<td><span class="category-tag">' + esc(s.category) + '</span></td>' +
       '<td>' +
         '<span class="tag-badge ' + typeClass + '">' + typeText + '</span> ' +
-        '<span class="tag-badge built">' + esc(s.pagesStatus) + '</span>' +
+        pagesBadge(s, false) +
       '</td>' +
       '<td title="' + esc(s.created) + '">' + fmtDate(s.created) + '</td>' +
       '<td title="' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + ')">' + fmtDate(s.lastCommit) + '</td>' +
@@ -399,13 +475,14 @@
     if (state.kind !== "all") {
       countText += " (" + (state.kind === "app" ? "Interactive Apps only" : "Doc Stubs only") + ")";
     }
+    if (state.prose !== "all") countText += " · " + PROSE_LABEL[state.prose];
     $("resultCount").innerHTML = countText + ".";
 
     // Render Grid
     if (list.length === 0) {
       $("sitesGrid").innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--radius-lg);">' +
-        '<h3>No matching sites found</h3><p>Try resetting the search query or selecting "All" categories.</p></div>';
-      $("sitesTableBody").innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--muted);">No matching sites found.</td></tr>';
+        '<h3>No matching sites found</h3><p>Use “Reset filters” to clear the search and all filters.</p></div>';
+      $("sitesTableBody").innerHTML = '<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--muted);">No matching sites found.</td></tr>';
       return;
     }
 
@@ -457,7 +534,7 @@
       return '<article class="unreachable-card">' +
         '<div class="unreachable-head">' +
           '<h3>' + esc(u.title || u.repo) + '</h3>' +
-          '<span class="tag-badge unreachable">HTTP 404 — Removed Upstream</span>' +
+          '<span class="tag-badge unreachable">HTTP 404 at last check</span>' +
         '</div>' +
         '<p class="unreachable-reason">' + esc(u.retiredReason || "") + '</p>' +
         '<dl class="unreachable-metrics">' +
@@ -551,18 +628,18 @@
           '<tr><td>Last Push to Repo (UTC)</td><td>' + fmtDateTime(site.pushedAt) + '</td></tr>' +
           '<tr><td>Description Last Verified (UTC)</td><td><span class="' + proseFreshClass(site) + '">' +
             (site.lastVerified ? fmtDateTime(site.lastVerified) : 'never stamped') + '</span>' +
-            (proseIsFresh(site) ? ' — re-read in the latest pass' : ' — carried forward') + '</td></tr>' +
+            (site.lastVerified ? (proseIsFresh(site) ? ' — latest recorded stamp' : ' — earlier stamp') : '') + '</td></tr>' +
           '<tr><td>Prose read against commit</td><td>' +
             (site.verifiedAtSha
-              ? '<code>' + esc(site.verifiedAtSha) + '</code> · repository default branch is now ' +
+              ? '<code>' + esc(site.verifiedAtSha) + '</code> · recorded default-branch head is ' +
                 '<code>' + esc(site.headSha || '?') + '</code> · ' +
                 (site.proseStale
                   ? '<span class="prose-stale"><strong>behind the repository — description must be re-read</strong></span>'
-                  : '<span class="prose-fresh">matches — prose describes the current bytes</span>')
+                  : '<span class="prose-fresh">matches recorded head — not proof of accuracy</span>')
               : 'not stamped') + '</td></tr>' +
           '<tr><td>What “verified” means here</td><td>' + esc(site.verifiedBasis ||
             'No basis recorded. This entry’s description prose has not been re-read against the repository’s own files; only its API-derived fields were re-checked.') + '</td></tr>' +
-          '<tr><td>Total Main Commits</td><td>' + (site.commits || 0) + '</td></tr>' +
+          '<tr><td>Total Default-Branch Commits</td><td>' + (site.commits || 0) + '</td></tr>' +
           '<tr><td>Default Branch</td><td>' + esc(site.defaultBranch) + '</td></tr>' +
           '<tr><td>Repository Size</td><td>' + (site.sizeKb || 0) + ' KB</td></tr>' +
           '<tr><td>Live URL</td><td><a href="' + esc(liveUrl) + '" target="_blank" rel="noopener">' + esc(liveUrl) + '</a></td></tr>' +
@@ -576,11 +653,12 @@
         '<pre class="raw-json-block" id="modalRawJson">' + esc(JSON.stringify(site, null, 2)) + '</pre>' +
       '</div>';
 
-    $("inspectorModal").style.display = "flex";
+    $("inspectorModal").showModal();
+    document.body.classList.add("inspector-open");
   }
 
   function closeInspector() {
-    $("inspectorModal").style.display = "none";
+    $("inspectorModal").close();
   }
 
   // ---------------- Export Data ----------------
@@ -675,63 +753,65 @@
 
   // ---------------- Event Listeners ----------------
   function initEventListeners() {
-    // Search input
     $("searchInput").addEventListener("input", function (e) {
       state.q = e.target.value;
-      $("clearSearchBtn").style.display = state.q ? "block" : "none";
-      renderDirectory();
+      updateDirectory(true);
     });
 
     $("clearSearchBtn").addEventListener("click", function () {
-      $("searchInput").value = "";
       state.q = "";
-      $("clearSearchBtn").style.display = "none";
+      updateDirectory(true);
       $("searchInput").focus();
-      renderDirectory();
     });
 
-    // Sort select
     $("sortSelect").addEventListener("change", function (e) {
       state.sort = e.target.value;
-      renderDirectory();
+      updateDirectory();
     });
 
-    // View toggles
-    $("viewGridBtn").addEventListener("click", function () {
-      state.view = "grid";
-      $("viewGridBtn").classList.add("active");
-      $("viewGridBtn").setAttribute("aria-pressed", "true");
-      $("viewTableBtn").classList.remove("active");
-      $("viewTableBtn").setAttribute("aria-pressed", "false");
-      $("sitesGrid").style.display = "grid";
-      $("sitesTableContainer").style.display = "none";
+    $("proseSelect").addEventListener("change", function (e) {
+      state.prose = e.target.value;
+      updateDirectory();
     });
 
-    $("viewTableBtn").addEventListener("click", function () {
-      state.view = "table";
-      $("viewTableBtn").classList.add("active");
-      $("viewTableBtn").setAttribute("aria-pressed", "true");
-      $("viewGridBtn").classList.remove("active");
-      $("viewGridBtn").setAttribute("aria-pressed", "false");
-      $("sitesGrid").style.display = "none";
-      $("sitesTableContainer").style.display = "block";
+    $("resetFiltersBtn").addEventListener("click", function () {
+      state.q = "";
+      state.category = "All";
+      state.kind = "all";
+      state.prose = "all";
+      updateDirectory();
+      $("searchInput").focus();
     });
 
-    // Category chips
+    $("shareViewBtn").addEventListener("click", function () {
+      copyText(directoryURL().href, "Copied link to this directory view!");
+    });
+
+    ["grid", "table"].forEach(function (view) {
+      $(view === "grid" ? "viewGridBtn" : "viewTableBtn").addEventListener("click", function () {
+        state.view = view;
+        updateDirectory();
+      });
+    });
+
     $("categoryChips").addEventListener("click", function (e) {
       var btn = e.target.closest("[data-cat]");
       if (!btn) return;
       state.category = btn.getAttribute("data-cat");
-      renderChips();
-      renderDirectory();
+      updateDirectory();
     });
 
-    // Kind chips
     $("kindChips").addEventListener("click", function (e) {
       var btn = e.target.closest("[data-kind]");
       if (!btn) return;
       state.kind = btn.getAttribute("data-kind");
-      renderChips();
+      updateDirectory();
+    });
+
+    window.addEventListener("popstate", function () {
+      if ($("inspectorModal").open) closeInspector();
+      readURLState();
+      syncControls();
       renderDirectory();
     });
 
@@ -782,9 +862,30 @@
       }
     });
 
+    // Native dialog makes the background inert and handles Escape/return focus.
+    // Explicit boundary wrapping also keeps Tab out of browser chrome.
+    $("inspectorModal").addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var first = $("closeModalBtn");
+      var last = $("modalLiveLink");
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    $("inspectorModal").addEventListener("close", function () {
+      document.body.classList.remove("inspector-open");
+    });
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && $("inspectorModal").style.display === "flex") {
-        closeInspector();
+      if (e.key === "Escape" && $("exportMenu").style.display === "flex") {
+        $("exportMenu").style.display = "none";
+        $("exportMenuBtn").setAttribute("aria-expanded", "false");
+        $("exportMenuBtn").focus();
       }
     });
 
@@ -798,6 +899,8 @@
   renderStats();
   renderVerifyLegend();
   renderChips();
+  readURLState();
+  syncControls();
   renderDirectory();
   renderUnreachable();
   renderAccounts();

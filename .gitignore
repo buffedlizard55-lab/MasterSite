@@ -2,3 +2,8 @@
 # Derived cache of repository READMEs fetched for verification — re-created by
 # tools/audit_descriptions.py on demand, never a source of truth.
 tools/.readme-cache/
+
+# Development-only browser tests; the published site has no runtime dependencies.
+node_modules/
+test-results/
+playwright-report/

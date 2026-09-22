@@ -107,14 +107,17 @@ For each of the **52 GitHub Pages sites** in the directory:
 ## User Interface Features
 
 - **Instant Search & Multi-Filter** — search by title, repository, description, category or flags, combined with category and type filter chips showing live counts.
+- **Shareable Directory Views** — search, category, type, prose state, sort and layout are encoded in the URL. Copy a view link, reload it, or use Back/Forward to revisit filter changes. Invalid filter values fall back to defaults; unrelated query parameters and anchors are preserved. Search edits replace the current history entry rather than adding one per keystroke.
+- **Prose Review Filter** — narrow the directory to behind-recorded-head, missing-stamp, latest-stamp or carried entries, using the same state as each card’s badge. “Latest” means the exact newest `lastVerified` timestamp in the snapshot, not all work in a multi-hour audit. **Reset filters** clears search/category/type/prose while retaining sort and layout.
+- **Snapshot-Aware Status** — both layouts display the recorded Pages status (including building, errors or unknown) rather than assuming every deployment is built. Matching prose/head SHAs describe the recorded snapshot, not a live check or proof of description accuracy.
 - **Dual View Modes** — responsive **card grid** and a dense **table view**.
 - **Sort** by last updated, date created, name or commit count.
 - **Site Inspector Modal** — full telemetry, timestamps, commit SHAs, size, branch, Pages source and the raw verified JSON record for any entry.
 - **Unreachable Panel** — retired entries kept visible with their last verified state and the exact commands that reproduce the 404.
 - **Severity-Ordered Irregularities** — critical → warn → info, each with a reproduction endpoint.
 - **Client-Side Export** — download the verified master list as JSON or CSV in one click (CSV marks retired rows instead of dropping them).
-- **Accessibility** — skip link, ARIA live regions, `aria-pressed` on toggles, full keyboard support, Esc to close the modal.
-- **No build step, no dependencies, no framework** — plain `index.html` + `styles.css` + `app.js` plus one data file.
+- **Accessibility** — skip link, ARIA live regions, focus-preserving filter chips, visible keyboard focus and a native inspector dialog with inert background, Tab/Shift+Tab containment, Escape to close and focus return to the opener. Narrow-screen cards wrap long content; the controls stop sticking on mobile so they do not cover the directory.
+- **No build step, no runtime dependencies, no framework** — plain `index.html` + `styles.css` + `app.js` plus one data file.
 
 ---
 
@@ -134,6 +137,37 @@ For each of the **52 GitHub Pages sites** in the directory:
 | [`tools/verify_live.py`](tools/verify_live.py) | **Read-only verifier** — re-reads every API-derived field of every entry and reports ok / mismatch / drift. Never writes the dataset |
 | [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only verifier** — checks every numeric claim in a description against the repository's own README |
 | [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — re-derives each entry's app-vs-stub `kind` from the API and reports any disagreement with the committed value |
+
+### Testing the interface (no API access)
+
+The site still runs directly from its static files. Node.js 22 and Python 3 are
+needed only for development tests; Playwright is a pinned **dev dependency**, not
+part of the deployed application.
+
+```bash
+npm ci
+npm run check
+npx playwright install --with-deps chromium firefox webkit
+npm test                          # Chromium, Firefox, WebKit and mobile Chromium
+npm run test:chromium             # desktop Chromium only
+```
+
+Tests read the committed snapshot without rewriting it. Synthetic browser-only
+fixtures exercise non-built statuses, all four prose states, URL validation and
+escaping, combined filters, history, reset, copying, keyboard focus and the
+inspector. Other tests check the actual snapshot's listing/accounting/exclusion
+invariants, complete JSON/CSV exports (including frozen unreachable rows), and
+narrow-screen layout. `.github/workflows/test.yml` runs these on PRs and pushes
+to `main`. Failure traces are uploaded for diagnosis; caches/results are ignored.
+
+For an already running static server, set `TEST_BASE_URL`; for an installed
+Chromium executable, set `CHROMIUM_PATH` and run the Chromium projects. These
+are test-runner settings only, never browser-facing service URLs.
+
+**Scope of the 2026-09-22 interface update:** no API refresh or repository prose
+re-audit was performed. The audit snapshot, overlay and ledger below remain at
+their recorded timestamps. UI regression tests do not replace the independent
+live/prose/kind verifiers required for a data refresh.
 
 ### Refreshing the directory
 

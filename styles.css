@@ -66,6 +66,7 @@ body {
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 24px;
+  overflow-wrap: anywhere;
 }
 
 /* Accessibility Skip Link */
@@ -495,6 +496,7 @@ a:hover {
 }
 .card-title-group {
   flex: 1;
+  min-width: 0;
 }
 .card-title-group h3 {
   margin: 0 0 4px;
@@ -1093,14 +1095,26 @@ a:hover {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 100;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 20px;
+}
+.modal-backdrop[open] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
+.modal-backdrop::backdrop {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+}
+body.inspector-open { overflow: hidden; }
 
 .modal-card {
   background: var(--card);
@@ -1290,9 +1304,13 @@ a:hover {
   .sort-view-actions {
     justify-content: space-between;
   }
-  .sites-grid {
-    grid-template-columns: 1fr;
+  .controls-bar { position: static; }
+  .sites-grid, .accounts-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
+  .card-header { flex-direction: column; }
+  .card-badges { flex-direction: row; flex-wrap: wrap; }
+  .custom-select { max-width: 100%; }
   .card-metrics {
     grid-template-columns: 1fr;
   }
@@ -1302,4 +1320,17 @@ a:hover {
   .unreachable-metrics {
     grid-template-columns: 1fr;
   }
+}
+
+/* Review controls remain usable on narrow screens and from the keyboard. */
+.review-controls { flex-wrap: wrap; }
+#proseFilterHelp { font-size: 12px; color: var(--muted); }
+.action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+:where(a, button, select, input):focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .modal-card { animation: none; }
 }
