@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Summary — All Websites · MasterSite</title>
+  <meta name="description" content="Executive summary of every GitHub Pages site: name, live link, last updated, category, type, build status, activity and health. Easy to read on desktop and mobile.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="executive-summary.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+  <a class="skip-link" href="#exec-table-section">Skip to summary table</a>
+
+  <header class="hero hero-slim">
+    <div class="wrap">
+      <nav class="exec-nav" aria-label="Breadcrumb">
+        <a href="index.html" class="back-link">← Full directory</a>
+        <span class="exec-nav-sep" aria-hidden="true">·</span>
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">Audit ledger</a>
+      </nav>
+      <div class="hero-eyebrow">
+        <span class="badge-pill verified">✓ Line-by-Line Verified</span>
+        <span class="badge-pill date">Audit Date: <span id="execAuditDate">—</span> (UTC)</span>
+        <span class="badge-pill guarantee">Zero Hallucinations</span>
+      </div>
+      <h1>Executive Summary — All Websites</h1>
+      <p class="tagline">
+        One row per site. <strong>Name → Live link → Last updated</strong> come first,
+        followed by the stats that matter for an owner review: what it is, whether it is
+        a real app or a stub, build health, activity, age, and whether anything needs attention.
+        Snapshot taken <span id="execGenerated">—</span>.
+      </p>
+      <div class="stats-grid" id="execKpis" role="group" aria-label="Portfolio summary statistics"></div>
+    </div>
+  </header>
+
+  <section class="exec-controls-bar" id="execControlsBar">
+    <div class="wrap">
+      <div class="exec-controls-row">
+        <div class="search-box exec-search">
+          <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+          </svg>
+          <input id="execSearch" type="search" placeholder="Search name, repository, category…" aria-label="Search sites" autocomplete="off">
+          <button id="execClearSearch" class="clear-btn" aria-label="Clear search" title="Clear search" style="display:none;">&times;</button>
+        </div>
+        <div class="exec-filters">
+          <div class="control-group">
+            <label for="execCategory" class="control-label">Category:</label>
+            <select id="execCategory" class="custom-select" aria-label="Filter by category"></select>
+          </div>
+          <div class="control-group">
+            <label for="execHealth" class="control-label">Health:</label>
+            <select id="execHealth" class="custom-select" aria-label="Filter by health">
+              <option value="all">All</option>
+              <option value="healthy">✓ Healthy</option>
+              <option value="review">⚠ Needs review</option>
+              <option value="stub">📝 Stub</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="execSort" class="control-label">Sort:</label>
+            <select id="execSort" class="custom-select" aria-label="Sort rows">
+              <option value="updated-desc">Last updated (newest first)</option>
+              <option value="updated-asc">Last updated (oldest first)</option>
+              <option value="name-asc">Name (A → Z)</option>
+              <option value="name-desc">Name (Z → A)</option>
+              <option value="commits-desc">Commits (high → low)</option>
+              <option value="commits-asc">Commits (low → high)</option>
+              <option value="created-desc">Created (newest first)</option>
+              <option value="created-asc">Created (oldest first)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <p id="execResultCount" class="result-count" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <main class="wrap" id="exec-table-section">
+    <div class="exec-table-scroll">
+      <table class="exec-table" id="execTable">
+        <thead>
+          <tr>
+            <th scope="col" class="col-site">Website</th>
+            <th scope="col" class="col-link">Live link</th>
+            <th scope="col" class="col-updated">Last updated</th>
+            <th scope="col">Category</th>
+            <th scope="col">Type</th>
+            <th scope="col">Build</th>
+            <th scope="col" class="col-num">Commits</th>
+            <th scope="col">Created</th>
+            <th scope="col">Health</th>
+          </tr>
+        </thead>
+        <tbody id="execTableBody"></tbody>
+      </table>
+    </div>
+
+    <section class="panel exec-note-panel" aria-label="How to read this summary">
+      <div class="panel-header">
+        <div class="panel-icon">📖</div>
+        <div>
+          <h2>How to read this summary</h2>
+          <p class="panel-subtitle">The first three columns answer “what, where, how fresh” — the rest answer “should I worry?”</p>
+        </div>
+      </div>
+      <div class="exec-legend-grid">
+        <div>
+          <h3>First 3 columns</h3>
+          <ul>
+            <li><strong>Website</strong> — display name, repository id, and a one-line description.</li>
+            <li><strong>Live link</strong> — direct link to the published site (tap <em>Visit ↗</em>). The small <em>Repo</em> link goes to the source.</li>
+            <li><strong>Last updated</strong> — newest commit on the default branch, with a plain-English age (“2 days ago”). Newest first by default.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Stats &amp; flags after that</h3>
+          <ul>
+            <li><strong>Category / Type / Build</strong> — what it is, real app vs. doc stub, and recorded Pages status.</li>
+            <li><strong>Commits</strong> — total default-branch commits: a quick proxy for how actively built it is.</li>
+            <li><strong>Created</strong> — repository age.</li>
+            <li><strong>Health</strong> — <span class="health health-healthy">✓ Healthy</span> means no flags and a real app;
+              <span class="health health-review">⚠ Review</span> means an auditor flagged something (hover/tap for the reason);
+              <span class="health health-stub">📝 Stub</span> means a placeholder awaiting real content.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="exec-note-foot">
+        Data source: the same verified snapshot as the full directory (<code>data/sites.js</code>, generated <span id="execGenerated2">—</span>).
+        Timestamps are UTC. Build status is the recorded snapshot value, not a live uptime check.
+        For full telemetry, per-entry audit flags and the irregularity register, see the
+        <a href="index.html">full directory</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-content">
+      <p><strong>MasterSite Executive Summary</strong> · Generated on <span id="execGenStamp"></span></p>
+      <p class="footer-sub">
+        <a href="index.html">Full directory</a> ·
+        Repository: <a href="https://github.com/buffedlizard55-lab/MasterSite" target="_blank" rel="noopener">buffedlizard55-lab/MasterSite</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="data/sites.js"></script>
+  <script src="executive-summary.js"></script>
+</body>
+</html>
