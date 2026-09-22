@@ -79,7 +79,7 @@
           </div>
 
           <div class="export-dropdown">
-            <button id="exportMenuBtn" class="export-btn" title="Export directory data" aria-haspopup="true" aria-expanded="false">
+            <button id="exportMenuBtn" class="export-btn" title="Export directory data" aria-controls="exportMenu" aria-expanded="false">
               <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M.5 9.9a.75.75 0 01.75.75v2.6a.75.75 0 00.75.75h12a.75.75 0 00.75-.75v-2.6a.75.75 0 011.5 0v2.6A2.25 2.25 0 0114 16H2A2.25 2.25 0 01-.25 13.75v-2.6A.75.75 0 01.5 9.9z"/><path d="M7.47 10.53a.75.75 0 001.06 0l3-3a.75.75 0 00-1.06-1.06L8.75 8.19V1.75a.75.75 0 00-1.5 0v6.44L5.53 6.47a.75.75 0 00-1.06 1.06l3 3z"/></svg>
               <span>Export</span>
             </button>
@@ -105,6 +105,19 @@
           <div class="chip-group" id="kindChips" role="group" aria-label="Filter by site type">
             <!-- Injected dynamically via JS -->
           </div>
+        </div>
+        <div class="filter-row review-controls">
+          <label for="proseSelect" class="filter-label">Prose:</label>
+          <select id="proseSelect" class="custom-select" aria-describedby="proseFilterHelp">
+            <option value="all">All verification states</option>
+            <option value="stale">Behind recorded head</option>
+            <option value="unstamped">Missing verification stamp</option>
+            <option value="fresh">Re-read at latest stamp</option>
+            <option value="carried">Carried from earlier stamp</option>
+          </select>
+          <button id="resetFiltersBtn" class="action-btn" disabled>Reset filters</button>
+          <button id="shareViewBtn" class="action-btn">Copy view link</button>
+          <span id="proseFilterHelp">States are from the recorded snapshot, not a live check.</span>
         </div>
       </div>
     </div>
@@ -254,7 +267,7 @@
   </main>
 
   <!-- Site Inspector Modal -->
-  <div id="inspectorModal" class="modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <dialog id="inspectorModal" class="modal-backdrop" aria-labelledby="modalTitle">
     <div class="modal-card">
       <div class="modal-header">
         <div>
@@ -262,7 +275,7 @@
           <h2 id="modalTitle">Site Details</h2>
           <div class="modal-repo-id" id="modalRepoId">repo-name</div>
         </div>
-        <button id="closeModalBtn" class="modal-close-btn" aria-label="Close modal">&times;</button>
+        <button id="closeModalBtn" class="modal-close-btn" aria-label="Close modal" autofocus>&times;</button>
       </div>
 
       <div class="modal-body" id="modalBody">
@@ -274,7 +287,7 @@
         <a id="modalLiveLink" class="btn-primary" href="#" target="_blank" rel="noopener">Visit Live Site ↗</a>
       </div>
     </div>
-  </div>
+  </dialog>
 
   <!-- Toast Notification Container -->
   <div id="toast" class="toast-notification" style="display: none;" role="status" aria-live="polite"></div>
@@ -284,7 +297,7 @@
     <div class="wrap footer-content">
       <p>
         <strong>MasterSite Directory</strong> · Generated on <span id="genStamp"></span> · 
-        Built exclusively from official GitHub REST API telemetry &amp; live site reads.
+        Recorded GitHub API telemetry &amp; repository-sourced descriptions; not a live status monitor.
       </p>
       <p class="footer-sub">
         Repository: <a href="https://github.com/buffedlizard55-lab/MasterSite" target="_blank" rel="noopener">buffedlizard55-lab/MasterSite</a> · 
