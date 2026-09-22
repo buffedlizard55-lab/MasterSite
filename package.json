@@ -4,7 +4,7 @@
   "scripts": {
     "test": "playwright test",
     "test:chromium": "playwright test --project=chromium",
-    "check": "node --check app.js && node --check data/sites.js"
+    "check": "node --check app.js && node --check executive-summary.js && node --check data/sites.js"
   },
   "devDependencies": {
     "@playwright/test": "1.63.0"
