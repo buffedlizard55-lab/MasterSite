@@ -47,7 +47,7 @@ Repositories that were published in a previous audit but return **HTTP 404** (or
 
 ## 4. Expected state of the directory
 
-As of the **2026-09-23** sixth-pass audit (API snapshot `generated: 2026-09-23T02:50:57Z`, with all three verifiers run against that exact snapshot):
+As of the **2026-09-23** seventh-pass audit (API snapshot `generated: 2026-09-23T09:25:16Z`, with all four read-only tools run against that exact snapshot):
 
 | Metric | Expected |
 |---|---|
@@ -56,18 +56,18 @@ As of the **2026-09-23** sixth-pass audit (API snapshot `generated: 2026-09-23T0
 | `counts.unlisted[]` entries | 1 (`ProjX` — permanently excluded by owner request) |
 | `grep -c '"repo":' data/sites.js` | 65 (63 sites + 1 unreachable + 1 unlisted) |
 | Ledger rows in `VERIFICATION.md` § 2 | 63, numbered 1–63 |
-| Irregularities | 94 (`IRR-01` … `IRR-94`) — 15 critical, 47 warn, 32 info |
-| Commits summed across listed sites | 3,599 |
+| Irregularities | 104 (`IRR-01` … `IRR-104`) — 15 critical, 47 warn, 32 info, plus ten registered in the second half of this pass (`IRR-95` … `IRR-104`): 5 critical (`IRR-95` this directory's own source-count mis-read, `IRR-97` `Commodities`' README-vs-artifact backtest divergence, `IRR-99` `NHLComp`'s forward-test contradiction, `IRR-100` `StokEngineer`'s failing suite beside a green gate, `IRR-102` `GEMSDOE`'s non-reproducing site pages) and 5 warn (`IRR-96`, `IRR-98`, `IRR-101`, `IRR-103`, `IRR-104`) |
+| Commits summed across listed sites | 3,629 |
 | Pages sites `built` | **63 / 63** — `Elections` recovered on its own push at `c41cc79` (`IRR-83` closed, and recorded rather than deleted because it is the first Pages failure this directory watched recover) |
 | Apps / doc stubs | 56 / 7 — `LSTARENGY` (`IRR-90`) and `PRICINGEXPERT` (`IRR-94`) both flipped stub → app this pass, both caught by `audit_kind.py`, both rewritten from executed evidence |
 | Public repos on account (API) | 64 |
 | Pages sites on account (API) | 64 |
 | Categories | 10 — *Sports Data & Scoreboards* (25), *Travel & Korea Trip* (11), *Markets & Trading Research* (11), *SF Local Guides* (7), *Science & ML Research* (3), *Directory & Meta* (2), *Elections & Civic Data* (1), *Gaming & Guides* (1), *Health & Personal Guides* (1), *Social & Creator Data* (1) |
 | `counts.proseShaStamped` | 63 / 63 |
-| `counts.proseStale` | **27 — NOT zero, and not publishable as complete.** Published anyway on the owner's explicit instruction to create and merge a PR, which deploys through Pages; `IRR-92` records the deviation rather than letting "published" imply "gate clean". Nine full builds in this pass reported 21 / 21 / 21 / 21 / 22 / 24 / 26 / 27 / 27 as repositories kept pushing, so the queue cannot be drained while 64 repositories are written to faster than they can be audited. All 24 are listed in `counts.proseStaleRepos` and rendered stale-first in `VERIFICATION.md` § 4a |
-| `counts.proseReReadLatestPass` / carried | 8 / 55 (see `IRR-87` for why this figure is what it claims to be) |
-| `descriptionNotes` / `acceptedDescriptionExceptions` | 17 / 28 real entries (plus a `__doc__` key the tools filter out) |
-| Verifier results | **RUN against this snapshot.** `verify_live.py`: 829 checks, 829 ok, **0 mismatched — 0 hard, 0 drift**. `audit_kind.py`: 63 checked, 0 derived, **0 disagreements**. `audit_descriptions.py` after `rm -rf tools/.readme-cache`: **28** accepted exceptions, **1 entry needing manual confirmation** (`TradingViewTheLeap` — two figures verbatim in the README at its stamped commit and superseded at head; left open on purpose, `IRR-91`). The Playwright contract runs in CI only; **no local browser run is claimed** (`npx playwright install chromium` fails on the blocked CDN) |
+| `counts.proseStale` | **18 — NOT zero, and not publishable as complete.** All 28 stale entries were re-read at head in the second half of this pass and the queue fell 27 → 18; it then climbed back to 18 because the rewrites took about two hours and the repositories pushed 18 times inside that window. That is the measurement, not an excuse: the queue cannot be drained while 64 repositories are written to faster than they can be audited. All 18 are listed in `counts.proseStaleRepos` and rendered stale-first in `VERIFICATION.md` § 4a |
+| `counts.proseReReadLatestPass` / carried | 28 / 35 (see `IRR-87` for why this figure is what it claims to be) |
+| `descriptionNotes` / `acceptedDescriptionExceptions` | 17 / 34 real entries (plus a `__doc__` key the tools filter out). All 34 name the *generated file* each numeric token comes from, because `audit_descriptions.py` can only read a repository's `README.md` while these descriptions are sourced from artifacts the READMEs quote inconsistently or not at all |
+| Verifier results | **RUN against this snapshot.** `verify_live.py`: 829 checks, 829 ok, **0 mismatched — 0 hard, 0 drift**. `audit_kind.py`: 63 checked, 0 derived, **0 disagreements**. `audit_descriptions.py` after `rm -rf tools/.readme-cache`: **34** accepted exceptions, **0 entries needing manual confirmation** — `IRR-91` is **closed**, because the `TradingViewTheLeap` `$20.56` figure is not re-verifiable at head `d09a594` and was withdrawn rather than softened. The Playwright contract runs in CI only; **no local browser run is claimed** (`npx playwright install chromium` fails on the blocked CDN) |
 
 **`acceptedDescriptionExceptions` is a dict keyed by repository name; `descriptionNotes` is a flat array.** They are not the same shape — check before indexing either one.
 
@@ -78,6 +78,63 @@ Categories are derived from the data, so an empty one drops out on its own and t
 GitHub credentials have now expired mid-audit **twice**, and both outages ended the same way — the owner restored them and the pass was finished rather than restarted. The first (~`2026-09-20T03:07Z`) came back about two hours later and the pass was rebuilt (`IRR-55`). The second (`~2026-09-22T23:55Z`) left a **hybrid** snapshot behind: its API-derived half was the full refresh that completed at `23:32:49Z`, and its narrative half was landed with `--overlay-only`, which is why that snapshot reported `counts.proseStale` 21 and no verifier results (`IRR-85`). Credentials returned at ~`2026-09-23T00:50Z` and the 2026-09-23 pass completed the blocked work: full `build_data.py` runs, all three verifiers, and the two repositories that `--overlay-only` could curate but not list. Then they died a **third** time at ~`2026-09-23T01:44Z`, roughly one minute after the last verifier succeeded and *after* the pass was committed, so the owner's requested PR and merge could not be executed and that snapshot became a hybrid (`IRR-93`). They came back at ~`02:24Z`, and the resume procedure — **re-run the full build and all three verifiers before publishing, never push an old snapshot** — caught a seventh stub→app reversal (`PRICINGEXPERT`, `IRR-94`) that the pre-outage snapshot would have published as an empty stub. The snapshot above is a single clean read again. The rules that survive all three outages are unchanged: **a blocked verifier is recorded as blocked, never as passed**; a full `build_data.py` plus all three verifiers is required before any state is called a completed pass; and **before publishing a snapshot that is more than minutes old, re-run everything**, because 64 actively-pushed repositories will have moved. Diagnosing the outage takes one call — `curl -s -o /dev/null -w '%{http_code}' https://api.github.com/rate_limit` returning **401 with no credentials offered** means the egress path is injecting a dead token, not that the endpoint is broken.
 
 Counts drift every time a repository is pushed to — always re-read them from `data/sites.js → counts` after a refresh rather than trusting this table.
+
+### What the second half of the 2026-09-23 pass established (28 re-reads, executed not quoted)
+
+The second half of this pass re-read **all 28** `PROSE-STALE` entries at head and rewrote them from
+**executed** evidence rather than quoted prose. For each repository a shallow clone at head was read file
+by file — generated JSON, markdown and ledger artifacts loaded with `json.load` and counted, never
+estimated — and the repository's own gates were run in the sandbox. Five durable lessons came out of it.
+
+1. **A count quoted from a repository's own file must be counted, not measured by `len()` on the wrong
+   container.** `Elections`' `master_sources.json` and `flagged_sources.json` are dicts holding a
+   `sources` array plus metadata; `len(d['sources'])` gives **20** and **7**, while `len(d)` gives **6**
+   and **4** — which is what the previous entry published, understating the directory by 17 sources
+   (`IRR-95`). The repository's README was correct the whole time. Prefer counting over quoting wherever
+   a number can be counted, and when counting, count the array.
+2. **A repository's README banner is not its number of record — its generated artifacts are.** Five
+   repositories this pass had a README figure that disagreed with a committed generated file at the same
+   head: `Commodities` (`IRR-97`, 63/2,455/291 in prose against 74/2,736/337 in the artifacts),
+   `Elections` (`IRR-96`, one universe count printed four different ways), `MLBComp` (`IRR-98`, `18`
+   controls against an exported 22), `TradingViewTheLeap` (`IRR-101`, `29 of 60` intraday series against
+   an index recording 60/60 equity), and `MLBRainDelay` (`IRR-103`, `67 assertions` and `100+ passing`
+   against 109 executed). Publish both figures and register the divergence; never resolve it by picking
+   the smaller number.
+3. **Run the repository's own test suite, not just its verifier.** Two repositories had a green gate and
+   a red suite at the same head: `StokEngineer` (`IRR-100`, `pytest` 84 passed / 3 skipped / **1 FAILED**
+   beside `cli verify` printing `OK`) and `GEMSDOE` (`IRR-102`, **1 FAILED** on
+   `test_the_build_reproduces_the_committed_pages` — the committed site pages are not the pages the
+   generator produces — while `STATUS.md` claims 445 passed / 1 skipped against an executed 467 / 32).
+   Executing the suite is the only reason either is visible. Conversely, executing also produced the
+   passes that let an entry state a number at all: `MasterSelfLearn` 350, `SelfLearn` 189,
+   `StockPaperSim` 697 plus 5,513 audit checks with a 327-file byte-identical custody note,
+   `NFLInjuryReport` 222, `VacationSchedule` 125, `PRICINGEXPERT` 1,198 verify checks and 39 tests,
+   `TradingViewTheLeap` 444 checks.
+4. **Withdraw a figure that cannot be re-derived; do not soften it.** Eleven figures the previous entries
+   published were withdrawn this pass on exactly that basis — `StokEngineer`'s `38 sources` / `71,004
+   bytes` / `155 badges` / `24-line claim log` / `7 flagged irregularities`, `TradingViewTheLeap`'s
+   `$20.56` refutation margin and its `401 passed / 459-check / 94-unit-test` figures, `DrugAnalysis`'s
+   v27 row counts, `VacationSchedule`'s 42 tests / 53 review items / 21 irregularities, `Coupons`'
+   185/18/517, `SocialMediaComp`'s 60 entries, and `SelfLearn`'s 89 documents / 141 questions / 22
+   failures / 35 irregularities / 156 tests. Each replacement was counted or executed in the same pass,
+   and each `verifiedBasis` names the file it came from and the commit it was read at.
+5. **`PROSE-STALE` is a treadmill, and the honest number is the one measured at the snapshot.** The
+   rewrites took about two hours; the repositories pushed 18 times inside that window. The queue fell
+   27 → 18 and then sat at 18. `AGENTS.md` already records the triage for repositories that commit their
+   own output on a cron (`MasterSelfLearn`, `KalshiPaperSim`, `Elections`, `NFLInjuryReport`): a
+   `PROSE-STALE` report against them is *expected*, and the check is to compare their own generated
+   counters rather than to re-read every time.
+
+**Environment limits recorded as limits, not as passes.** `MLB-Live-PBP`'s `smoke-test.mjs` fails here
+only because it fetches live `statsapi.mlb.com`, which this sandbox cannot reach — 14 of its 15 offline
+suites pass, and the failure is published as an environment limit rather than as a repository defect.
+`GEMSDOE`'s suite would not even collect until `rasterio`, `scikit-image`, `torch`, `pyyaml` and `tqdm`
+were installed. `OLBG-Competition`'s `pytest --collect-only -q | grep -c '::'` returns 0 because its
+collection output uses a different format; the repo's own `tests/test_facts.py` pins **441 test
+functions**, which pytest's parametrisation expands to **499 collected cases**. Two of the 28 entries
+(`NFL-PLAYER-PROP-SIM`, `MasterSite`) are stubs or self-referential and were verified against exactly
+that and nothing more.
+
 
 ### Verify, then trust
 
