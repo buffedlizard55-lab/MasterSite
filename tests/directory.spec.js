@@ -295,6 +295,11 @@ test('density defaults to compact, toggles to roomy, and is remembered across a 
   await expect(page.locator('#densityLabel')).toHaveText('Density: Compact');
   const rowsBefore = await rows(page).count();
   const urlBefore = page.url();
+  // history.length is not portable as an absolute: the first navigation away from
+  // about:blank leaves it at 1 in firefox and at 2 in chromium and webkit, which is
+  // what CI measured (Expected 1, Received 2, three projects). The guarantee this test
+  // owns is that toggling the density adds no entry, and that is a delta.
+  const historyBefore = await page.evaluate(() => window.history.length);
 
   await page.locator('#densityToggleBtn').click();
   await expect(page.locator('html')).toHaveAttribute('data-density', 'roomy');
@@ -303,7 +308,7 @@ test('density defaults to compact, toggles to roomy, and is remembered across a 
 
   // Not directory state: same URL, no new history entry, same rows.
   expect(page.url()).toBe(urlBefore);
-  expect(await page.evaluate(() => window.history.length)).toBe(1);
+  expect(await page.evaluate(() => window.history.length)).toBe(historyBefore);
   await expect(rows(page)).toHaveCount(rowsBefore);
 
   await page.reload();
