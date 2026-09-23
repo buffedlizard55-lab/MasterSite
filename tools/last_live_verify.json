@@ -1,47 +1,9 @@
 {
-  "generatedOffsetVsLive": "2026-09-21T23:07:59Z",
-  "checks": 686,
-  "mismatches": [
-    {
-      "entry": "sites[]/MLBRainDelay",
-      "field": "pushedAt",
-      "committed": "2026-09-21T19:21:43Z",
-      "live": "2026-09-21T23:08:19Z"
-    },
-    {
-      "entry": "sites[]/SFWeather",
-      "field": "pushedAt",
-      "committed": "2026-09-21T14:26:31Z",
-      "live": "2026-09-21T23:08:40Z"
-    },
-    {
-      "entry": "sites[]/VacationSchedule",
-      "field": "pushedAt",
-      "committed": "2026-09-21T22:59:58Z",
-      "live": "2026-09-21T23:08:26Z"
-    }
-  ],
+  "generatedOffsetVsLive": "2026-09-23T02:50:57Z",
+  "checks": 829,
+  "mismatches": [],
   "unlistedInApi": [],
   "listedNotInApi": [],
-  "volatileDrift": [
-    {
-      "entry": "sites[]/MLBRainDelay",
-      "field": "pushedAt",
-      "committed": "2026-09-21T19:21:43Z",
-      "live": "2026-09-21T23:08:19Z"
-    },
-    {
-      "entry": "sites[]/SFWeather",
-      "field": "pushedAt",
-      "committed": "2026-09-21T14:26:31Z",
-      "live": "2026-09-21T23:08:40Z"
-    },
-    {
-      "entry": "sites[]/VacationSchedule",
-      "field": "pushedAt",
-      "committed": "2026-09-21T22:59:58Z",
-      "live": "2026-09-21T23:08:26Z"
-    }
-  ],
+  "volatileDrift": [],
   "hardMismatches": []
 }

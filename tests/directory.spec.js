@@ -280,3 +280,96 @@ test('review controls and cards fit narrow screens', async ({ page }) => {
   await page.locator('#proseSelect').selectOption('stale');
   await expect(cards(page)).toHaveCount(snapshot.sites.filter(s => s.proseStale && s.lastVerified && s.verifiedAtSha).length);
 });
+
+// ---- Row density and the narrow-screen table ----------------------------------
+// Density is a reading preference, so the guarantees that matter are negative ones:
+// it must not enter the URL, must not push history, must not survive as a filter, and
+// must not change what the exports contain. The stacked narrow-screen layout is
+// CSS-only, so the DOM guarantees the rest of this file relies on have to hold there
+// too — nine cells, in order, on a 375px phone.
+
+test('density defaults to compact, toggles to roomy, and is remembered across a reload', async ({ page }) => {
+  await page.goto('/?view=table');
+  await expect(page.locator('html')).not.toHaveAttribute('data-density');
+  await expect(page.locator('#densityToggleBtn')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#densityLabel')).toHaveText('Density: Compact');
+  const rowsBefore = await rows(page).count();
+  const urlBefore = page.url();
+
+  await page.locator('#densityToggleBtn').click();
+  await expect(page.locator('html')).toHaveAttribute('data-density', 'roomy');
+  await expect(page.locator('#densityToggleBtn')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#densityLabel')).toHaveText('Density: Roomy');
+
+  // Not directory state: same URL, no new history entry, same rows.
+  expect(page.url()).toBe(urlBefore);
+  expect(await page.evaluate(() => window.history.length)).toBe(1);
+  await expect(rows(page)).toHaveCount(rowsBefore);
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-density', 'roomy');
+  await expect(page.locator('#densityLabel')).toHaveText('Density: Roomy');
+
+  await page.locator('#densityToggleBtn').click();
+  await expect(page.locator('html')).not.toHaveAttribute('data-density');
+  await page.reload();
+  await expect(page.locator('html')).not.toHaveAttribute('data-density');
+});
+
+test('reset filters clears the query but preserves the density preference', async ({ page }) => {
+  await useFixture(page);
+  await page.goto('/?view=table');
+  await page.locator('#densityToggleBtn').click();
+  await page.locator('#searchInput').fill('Alpha');
+  await expect(rows(page)).toHaveCount(1);
+  await page.locator('#resetFiltersBtn').click();
+  await expect(rows(page)).toHaveCount(4);
+  await expect(page.locator('html')).toHaveAttribute('data-density', 'roomy');
+  expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({ view: 'table' });
+});
+
+test('the density preference does not change either export', async ({ page }) => {
+  await page.goto('/?view=table');
+  await page.locator('#densityToggleBtn').click();
+  for (const format of ['Json', 'Csv']) {
+    await page.locator('#exportMenuBtn').click();
+    const downloadPromise = page.waitForEvent('download');
+    await page.locator('#export' + format + 'Btn').click();
+    const content = fs.readFileSync(await (await downloadPromise).path(), 'utf8');
+    if (format === 'Json') {
+      expect(JSON.parse(content)).toEqual(snapshot);
+    } else {
+      expect(content).toContain('Description_Verification_State');
+      for (const site of snapshot.sites) expect(content).toContain('"listed","' + site.repo + '"');
+    }
+  }
+});
+
+test('table rows keep nine labelled cells and do not overflow a 375px screen', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/?view=table');
+  await expect(rows(page)).toHaveCount(snapshot.sites.length);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+
+  const shape = await page.evaluate(() => Array.from(document.querySelectorAll('#sitesTableBody tr')).map(tr => {
+    const tds = Array.from(tr.querySelectorAll('td'));
+    return {
+      cells: tds.length,
+      labels: tds.map(td => td.getAttribute('data-label')),
+      repo: (tds[1].querySelector('.table-repo') || {}).textContent || null,
+      status: tds[3].textContent
+    };
+  }));
+  expect(shape).toHaveLength(snapshot.sites.length);
+  for (const row of shape) {
+    expect(row.cells).toBe(9);
+    expect(row.labels.every(label => label && label.length > 0)).toBe(true);
+    expect(snapshot.sites.some(s => s.repo === row.repo)).toBe(true);
+    // The recorded Pages status still reads in the fourth cell, stacked or not.
+    expect(['built', 'building', 'errored', 'unknown'].some(s => row.status.includes(s))).toBe(true);
+  }
+
+  // Thumb-sized targets on a phone, whatever the density variable says.
+  const box = await page.locator('#sitesTableBody .row-action-btn').first().boundingBox();
+  expect(box.height).toBeGreaterThanOrEqual(28);
+});

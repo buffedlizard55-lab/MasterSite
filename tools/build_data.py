@@ -118,7 +118,15 @@ def render_overlay_only():
 
     # Fields that come from overlay.json. Everything else in the record is an API read
     # and is left exactly as it was written.
-    OVERLAY_FIELDS = ("title", "category", "description", "flags",
+    #
+    # "kind" belongs here because main() sources it from the overlay too (`kind =
+    # ov.get("kind")`, falling back to an API index.html probe only when the overlay is
+    # silent), so it is a curated field rather than an API read for every entry that
+    # supplies it. Omitting it made this mode unable to land a corrected app-vs-stub
+    # classification, which meant republishing a value the auditor had already proved
+    # false — exactly what this mode exists to prevent. The API-derived fields it must
+    # never touch (created, commits, headSha, pagesStatus, sizeKb, …) are untouched.
+    OVERLAY_FIELDS = ("title", "category", "description", "flags", "kind",
                       "lastVerified", "verifiedBasis", "verifiedAtSha")
     changed = []
     for site in data["sites"]:
@@ -150,6 +158,12 @@ def render_overlay_only():
         categories[s["category"]] = categories.get(s["category"], 0) + 1
     c = data["counts"]
     c["categories"] = dict(sorted(categories.items(), key=lambda kv: (-kv[1], kv[0])))
+    # Derived from sites[] exactly like the category tally, so they must be recomputed
+    # here now that this mode renders "kind": leaving them at the snapshot's values would
+    # publish an apps/stubs split that disagrees with the entries beside it, and
+    # build_verification.py quotes these two numbers into VERIFICATION.md.
+    c["apps"] = sum(1 for s in sites if s.get("kind") == "app")
+    c["stubs"] = len(sites) - c["apps"]
     c["excluded"] = sorted(excluded)
     c["unreachable"] = len(data["unreachable"])
     latest = max((s.get("lastVerified") for s in sites if s.get("lastVerified")), default=None)
