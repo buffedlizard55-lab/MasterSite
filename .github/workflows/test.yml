@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   browser-tests:
@@ -24,10 +25,57 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm test
+      # tee keeps the full reporter output for the failure steps below; pipefail makes
+      # sure the step still fails on a test failure rather than on tee's exit code.
+      - name: Run npm test
+        shell: bash
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee test-output.txt
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: failure()
         with:
           name: browser-test-results
           path: test-results/
           retention-days: 7
+      # Actions logs and artifacts sit on hosts that are unreachable from some audit
+      # sandboxes (results-receiver.actions.githubusercontent.com and blob.core.windows.net
+      # both return EOF here), so a red run was previously undiagnosable from the very
+      # environment that has to fix it. Publishing the reporter output into the job
+      # summary -- readable through the check-runs API -- and onto the pull request keeps
+      # failures reproducible for whoever is debugging, without weakening the gate: the
+      # test step above still fails the job.
+      - name: Publish failure output to the job summary
+        if: failure()
+        shell: bash
+        run: |
+          {
+            echo '### `npm test` failed'
+            echo
+            echo '```'
+            grep -nE "^\s+[0-9]+\)|Error:|expect\(|Received|Expected|✓|✘|passed|failed|flaky|did not run" test-output.txt | tail -n 200 || true
+            echo '```'
+            echo
+            echo '<details><summary>last 400 lines</summary>'
+            echo
+            echo '```'
+            tail -n 400 test-output.txt
+            echo '```'
+            echo
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Comment the failure output on the pull request
+        if: failure() && github.event_name == 'pull_request'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          {
+            echo 'CI `browser-tests` failed on '"$GITHUB_SHA"'. Reporter output (this comment is written by the workflow because the Actions log host is unreachable from some audit environments):'
+            echo
+            echo '```'
+            tail -n 220 test-output.txt
+            echo '```'
+          } > pr-failure.md
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file pr-failure.md

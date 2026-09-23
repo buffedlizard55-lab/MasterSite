@@ -7,6 +7,23 @@
   <meta name="description" content="Verified master list and directory of all GitHub Pages sites hosted under buffedlizard55-lab and kanlerxz87-cyber, with descriptions, creation dates, last updated timestamps, and official source links for manual review.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🗂️</text></svg>">
+  <script>
+    // Row density is a per-browser reading preference, not directory state, so it is
+    // stored in localStorage and never in the URL: a shared link and "Reset filters"
+    // must keep producing exactly the {q, category, kind, prose, sort, view}
+    // parameters they always did. Applied before first paint so the table does not
+    // flash the other density while app.js loads. Compact is the default, so the only
+    // case that needs writing is an explicit "roomy" choice.
+    (function () {
+      try {
+        if (window.localStorage.getItem("masterSite.density") === "roomy") {
+          document.documentElement.setAttribute("data-density", "roomy");
+        }
+      } catch (error) {
+        // Storage can be blocked (file://, strict private mode): keep the default.
+      }
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main-directory">Skip to directory</a>
@@ -82,6 +99,12 @@
               <span>Table</span>
             </button>
           </div>
+
+          <button id="densityToggleBtn" class="density-btn" type="button" aria-pressed="true"
+                  title="Row density. Compact (the default) fits more sites on one screen; Roomy restores the padded rows. Saved in this browser only — it is not part of the shareable URL, so Reset filters leaves it alone.">
+            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M1 3.5A1.5 1.5 0 012.5 2h11A1.5 1.5 0 0115 3.5v9a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 011 12.5v-9zM2.5 3a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h11a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5h-11z"/><path d="M3 5.25h10v1.1H3V5.25zm0 2.2h10v1.1H3v-1.1zm0 2.2h10v1.1H3V9.65z"/></svg>
+            <span id="densityLabel">Density: Compact</span>
+          </button>
 
           <div class="export-dropdown">
             <button id="exportMenuBtn" class="export-btn" title="Export directory data" aria-controls="exportMenu" aria-expanded="false">

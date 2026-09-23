@@ -76,6 +76,54 @@
     }
   }
 
+  // ---- Row density -------------------------------------------------------------
+  // A reading preference, not directory state, so it deliberately lives outside
+  // `state` and outside directoryURL(): a shared link must still carry only
+  // {q, category, kind, prose, sort, view}, and "Reset filters" must not undo how
+  // somebody likes to read a table. Remembered per browser; the inline script in
+  // index.html applies the stored choice before first paint, so this code only has
+  // to keep the button, its label and the <html> attribute in step with it.
+  var DENSITY_KEY = "masterSite.density";
+
+  function readDensity() {
+    try {
+      return window.localStorage.getItem(DENSITY_KEY) === "roomy" ? "roomy" : "compact";
+    } catch (error) {
+      // Storage blocked (file://, strict private mode): the compact default stands.
+      return "compact";
+    }
+  }
+
+  var density = readDensity();
+
+  function applyDensity() {
+    var root = document.documentElement;
+    // Compact is the default, so it is expressed by the attribute being absent and
+    // the stylesheet's own :root values — one source of truth either way.
+    if (density === "roomy") root.setAttribute("data-density", "roomy");
+    else root.removeAttribute("data-density");
+    var btn = $("densityToggleBtn");
+    if (btn) {
+      btn.setAttribute("aria-pressed", String(density === "compact"));
+      btn.title = density === "compact"
+        ? "Row density: Compact (the default) — fits more sites on one screen. Click for Roomy rows. Remembered in this browser only; not part of the shareable URL."
+        : "Row density: Roomy — padded rows. Click to return to Compact. Remembered in this browser only; not part of the shareable URL.";
+    }
+    var label = $("densityLabel");
+    if (label) label.textContent = density === "compact" ? "Density: Compact" : "Density: Roomy";
+  }
+
+  function toggleDensity() {
+    density = density === "compact" ? "roomy" : "compact";
+    try {
+      window.localStorage.setItem(DENSITY_KEY, density);
+    } catch (error) {
+      // Apply it for this page view even when it cannot be remembered.
+      console.warn("MasterSite: could not remember the density preference.", error);
+    }
+    applyDensity();
+  }
+
   function syncControls() {
     $("searchInput").value = state.q;
     $("clearSearchBtn").style.display = state.q ? "block" : "none";
@@ -423,6 +471,11 @@
   }
 
   // ---------------- Table Row (Table View) ----------------
+  // Nine cells, in this order, on every screen size. Narrow screens re-stack them
+  // with CSS alone (see the max-width: 900px block in styles.css), which is why each
+  // cell carries a data-label: the stacked layout has no visible <th> to lean on, and
+  // a label printed from the DOM beats one duplicated in a media query. The row number
+  // is marked .table-rownum so the stacked layout can drop it without removing a cell.
   function renderTableRow(s, index) {
     var repoUrl = "https://github.com/" + OWNER + "/" + s.repo;
     var liveUrl = s.pagesUrl || ("https://" + OWNER + ".github.io/" + s.repo + "/");
@@ -432,28 +485,32 @@
     var typeText = (s.kind === "app") ? "Live App" : "README Stub";
 
     return '<tr>' +
-      '<td>' + (index + 1) + '</td>' +
-      '<td class="table-name-cell">' +
-        '<strong><a href="' + esc(liveUrl) + '" target="_blank" rel="noopener">' + esc(s.title) + '</a></strong>' +
+      '<td class="table-rownum" data-label="#">' + (index + 1) + '</td>' +
+      '<td class="table-name-cell" data-label="Site">' +
+        // The title attribute carries the full curated title, because compact mode
+        // clips it to one line rather than dropping it.
+        '<strong><a href="' + esc(liveUrl) + '" target="_blank" rel="noopener" title="' + esc(s.title) + '">' + esc(s.title) + '</a></strong>' +
         '<span class="table-repo">' + esc(s.repo) + '</span>' +
       '</td>' +
-      '<td><span class="category-tag">' + esc(s.category) + '</span></td>' +
-      '<td>' +
+      // The title attribute carries the full category, because compact mode clips the
+      // pill to its column rather than letting it widen the whole table.
+      '<td data-label="Category"><span class="category-tag" title="' + esc(s.category) + '">' + esc(s.category) + '</span></td>' +
+      '<td data-label="Type &amp; Status">' +
         '<span class="tag-badge ' + typeClass + '">' + typeText + '</span> ' +
         pagesBadge(s, false) +
       '</td>' +
-      '<td title="' + esc(s.created) + '">' + fmtDate(s.created) + '</td>' +
-      '<td title="' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + ')">' + fmtDate(s.lastCommit) + '</td>' +
-      '<td class="' + proseFreshClass(s) + '" title="' + esc(proseBasis(s)) + '">' +
+      '<td class="date" data-label="Created" title="' + esc(s.created) + '">' + fmtDate(s.created) + '</td>' +
+      '<td class="date" data-label="Updated" title="' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + ')">' + fmtDate(s.lastCommit) + '</td>' +
+      '<td class="' + proseFreshClass(s) + ' date" data-label="Description Verified" title="' + esc(proseBasis(s)) + '">' +
         (s.lastVerified ? fmtDate(s.lastVerified) : '—') +
       '</td>' +
-      '<td><strong>' + (s.commits || 0) + '</strong></td>' +
-      '<td>' +
+      '<td class="num" data-label="Commits"><strong>' + (s.commits || 0) + '</strong></td>' +
+      '<td data-label="Review Links">' +
         '<div class="table-actions-cell">' +
-          '<a class="action-btn primary" href="' + esc(liveUrl) + '" target="_blank" rel="noopener" style="padding:4px 8px;font-size:11.5px;">Live ↗</a>' +
-          '<a class="action-btn" href="' + esc(repoUrl) + '" target="_blank" rel="noopener" style="padding:4px 8px;font-size:11.5px;">Repo</a>' +
-          '<a class="action-btn" href="' + esc(apiUrl) + '" target="_blank" rel="noopener" style="padding:4px 8px;font-size:11.5px;">API</a>' +
-          '<button class="action-btn inspect-btn" data-inspect="' + esc(s.repo) + '" style="padding:4px 8px;font-size:11.5px;">Inspect</button>' +
+          '<a class="action-btn primary row-action-btn" href="' + esc(liveUrl) + '" target="_blank" rel="noopener">Live ↗</a>' +
+          '<a class="action-btn row-action-btn" href="' + esc(repoUrl) + '" target="_blank" rel="noopener">Repo</a>' +
+          '<a class="action-btn row-action-btn" href="' + esc(apiUrl) + '" target="_blank" rel="noopener">API</a>' +
+          '<button class="action-btn inspect-btn row-action-btn" data-inspect="' + esc(s.repo) + '">Inspect</button>' +
         '</div>' +
       '</td>' +
     '</tr>';
@@ -794,6 +851,10 @@
       });
     });
 
+    // Not updateDirectory(): density changes no data, no filter and no URL, so it must
+    // not push a history entry either — Back should still undo filters, not padding.
+    $("densityToggleBtn").addEventListener("click", toggleDensity);
+
     $("categoryChips").addEventListener("click", function (e) {
       var btn = e.target.closest("[data-cat]");
       if (!btn) return;
@@ -896,6 +957,7 @@
   }
 
   // ---------------- Initialization ----------------
+  applyDensity();
   renderStats();
   renderVerifyLegend();
   renderChips();
