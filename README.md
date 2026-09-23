@@ -6,7 +6,7 @@ The **master list and directory of the GitHub Pages sites published under** [`bu
 
 ---
 
-## Audit status — 2026-09-23 (API snapshot `2026-09-23T02:50:57Z`; **all three verifiers run against that exact snapshot**)
+## Audit status — 2026-09-23 (API snapshot `2026-09-23T09:25:16Z`; **all four read-only tools run against that exact snapshot**)
 
 | Metric | Value |
 |---|---|
@@ -14,24 +14,24 @@ The **master list and directory of the GitHub Pages sites published under** [`bu
 | Interactive apps / documentation stubs | **56 / 7** — `LSTARENGY` (`IRR-90`) and `PRICINGEXPERT` (`IRR-94`) both flipped stub → app this pass, each caught by `audit_kind.py` and each rewritten from executed evidence |
 | Pages builds reporting `built` | **63 / 63** — `Elections` recovered on its own push at `c41cc79`, closing `IRR-83`; two transient `building` states (`SelfLearn`, `NFLInjuryReport`) were folded in by re-running the generator, as `AGENTS.md` prescribes |
 | Descriptions stamped with the commit they were read at | **63 / 63** (`verifiedAtSha`) |
-| Descriptions provably behind their repository head *at the snapshot* | **27** — **not cleared**, and it grew the whole way: nine full builds reported 21 / 21 / 21 / 21 / 22 / 24 / 26 / 27 / 27 as repositories kept pushing. Published on the owner's explicit merge instruction, recorded as a deviation in `IRR-92` |
-| Descriptions re-read in this pass / carried forward | **8 / 55** — `NFLPARLAYCOMP`, `Elections`, `LSTARENGY`, `PRICINGEXPERT`, `RGENGY`, `NFLInjuryReport`, `NFL-PLAYER-PROP-SIM` and this repository, all sharing one pass stamp (`IRR-87`). Both figures are what `counts.proseReReadLatestPass` itself reports |
-| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: 829 checks, 829 ok, **0 mismatched — 0 hard, 0 drift**. `audit_kind.py`: 63 checked, 0 derived, **0 disagreements**. `audit_descriptions.py`: **28** accepted exceptions, **1 entry needing manual confirmation** (`TradingViewTheLeap`, `IRR-91` — two figures verbatim at its stamped commit, superseded at head). The Playwright contract runs in CI only — no browser binary or CDN access exists here, so no local run is claimed |
-| Commits audited across the listed repositories | **3599** |
+| Descriptions provably behind their repository head *at the snapshot* | **18** — down from **27** at the `02:50:57Z` snapshot, because 28 entries were re-read at head this pass; but the treadmill is measured, not assumed: the 28 rewrites took about two hours, and in that window the repositories pushed 18 times, so the queue fell by nine and then climbed back. `AGENTS.md` records the durable rule: `PROSE-STALE` against a repository on a cron is expected, and the triage is to compare its own generated counters |
+| Descriptions re-read in this pass / carried forward | **28 / 35** — all 28 `PROSE-STALE` entries were re-read at head from executed evidence (clone at head, `json.load` the generated artifacts, run each repository's own test / verifier / audit commands), each stamped with the commit its prose was read at. The 35 carried entries were already current at the `02:50:57Z` snapshot and were re-checked by `verify_live.py` rather than re-read |
+| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: 829 checks, 829 ok, **0 mismatched — 0 hard, 0 drift**. `audit_kind.py`: 63 checked, 0 derived, **0 disagreements**. `audit_descriptions.py`: **34** accepted exceptions, **0 entries needing manual confirmation** — `IRR-91` is **closed**: the `TradingViewTheLeap` `$20.56` figure is not re-verifiable at head `d09a594` and was withdrawn rather than softened. The Playwright contract runs in CI only — no browser binary or CDN access exists here, so no local run is claimed |
+| Commits audited across the listed repositories | **3629** |
 | Public repositories on the account (API) | **64** |
 | Pages sites on the account (API) | **64** |
 | Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request). `PRICINGEXPERT` was listed by the first full build of this pass, closing `IRR-86`; `NFL-PLAYER-PROP-SIM` was curated and listed in the same pass (`IRR-88`) |
 | Unreachable entries (needs owner review) | **1** (`JobSearchSF` — HTTP 404, re-confirmed 2026-09-21) |
-| Irregularities registered | **94** (`IRR-01` … `IRR-94`) — 15 critical, 47 warn, 32 info |
-| Accepted description exceptions / description notes | **28 / 17** |
+| Irregularities registered | **104** (`IRR-01` … `IRR-104`) — ten registered this pass (`IRR-95` … `IRR-104`), of which 5 critical and 5 warn |
+| Accepted description exceptions / description notes | **34 / 17** |
 | Categories | **10** — Sports Data & Scoreboards (25), Travel & Korea Trip (11), Markets & Trading Research (11), SF Local Guides (7), Science & ML Research (3), Directory & Meta (2), Elections & Civic Data (1), Gaming & Guides (1), Health & Personal Guides (1), Social & Creator Data (1) |
 | Pages publish sources | **62** from `main /`, **1** (`GOLD`) from `main /docs` |
 
 The generator proves its own arithmetic: `listed + withheld = Pages sites on the account` is asserted at build time (**63 + 1 = 64**), and every withheld repository is named with its reason in `data/sites.js → counts.unlisted`. There is no silent gap, and as of this pass the gap has exactly one component — `ProjX`, permanently excluded by owner request. The second component the previous snapshot carried was procedural rather than deliberate: `PRICINGEXPERT` had been fully curated while GitHub credentials were dead, and `--overlay-only` cannot add a site, so its reason string read "no curated entry in tools/overlay.json yet" when an entry did exist. The first full build of this pass listed it and replaced the string (`IRR-86`), which is the lesson that survives: **narrative can be landed offline, listing cannot.**
 
-### What changed in the 2026-09-23 pass — **63 sites listed, credentials restored, all three verifiers run, 24 provably stale, published on instruction**
+### What changed in the 2026-09-23 pass, second half — **28 stale entries rewritten from executed evidence, all four read-only tools clean, `IRR-91` closed, 10 new irregularities registered**
 
-This pass finished the one before it. Credentials came back at ~`00:50Z` after the `23:55Z` expiry, and the blocked work was completed rather than repeated: two new repositories were curated and listed, four entries were re-read at head, one entry was reclassified from executed evidence, and all three verifiers ran against the shipping snapshot. It closes with **24 entries provably behind their repositories** and publishes anyway, because the owner's instruction was to create and merge a PR and merging deploys through Pages — `IRR-92` records that as a deviation from the completion gate instead of letting "published" imply "gate clean".
+The first half of this pass is summarised below it. The second half did the thing the first half left open: it re-read **all 28** `PROSE-STALE` entries at head and rewrote them from executed evidence rather than quoted prose. For each one a shallow clone at head was read file by file — generated JSON, markdown and ledger artifacts were loaded with `json.load` and counted, never estimated — and the repository's own gates were run in this sandbox: `pytest`, `unittest`, `node --test`, and each project's `verify.py` / audit script. It closes with **18 entries provably behind their repositories**, `IRR-91` closed, and all four read-only tools clean on the shipping snapshot. **The 18 are the measurement, not a failure:** the rewrites took about two hours, and in those two hours the repositories pushed 18 times. The queue fell 27 → 18 and would have fallen further had the repositories been still.
 
 - **Two more repositories listed: `NFL-PLAYER-PROP-SIM` and `PRICINGEXPERT` (`IRR-88`, `IRR-86`).** `NFL-PLAYER-PROP-SIM` was created at `2026-09-22T23:52:54Z` — four minutes before credentials died — with one commit, a 21-byte README containing only its own heading, and no `index.html` (`GET .../contents/index.html` → HTTP 404). It is described from exactly that and from nothing else: no inference from its name, in a directory that has now watched ten repositories grow engines within hours of being created as stubs. `PRICINGEXPERT`, curated offline an hour earlier, was listed by the first full build. The directory went 61 → **63**; the account 63 → **64**.
 - **`LSTARENGY` was published as a four-file documentation stub and is now a 60-file research site (`IRR-90`, critical).** Three commits and 60 files at +18,628/−7,768 after the stamp. Its `npm run check` was **executed** in a clean clone rather than quoted, and passed all three gates: `1..72 / # pass 72 / # fail 0` on Node v22.22.3, `Traceability valid: 36 capabilities, 30 sources, 62 legacy review groups`, and `Verified 22 deterministic site assets. Both main:/ and main:/docs entrypoints are supported.` Every register count was then counted a second time in `docs/data/catalogue.json` and `docs/data/legacy-audit.json`. The repository's own corrections section also **withdrew a price this directory had published as fact** — the entry said "239.99 USD per year" where the vendor's web page and its US app listing display two different dated offers ($239.99 and $269.99). `tools/audit_kind.py` caught the reclassification; the prose gate caught the README change. Only the kind verifier would have caught it had the site been built without touching the README, which is the `IRR-70` case and the reason that tool exists separately.
@@ -41,6 +41,111 @@ This pass finished the one before it. Credentials came back at ~`00:50Z` after t
 - **The stale queue grew while it was being worked (21 → 24 over six full builds).** Account commits read 3,526 → 3,533 → 3,540 → 3,543 → 3,545 → 3,559 → 3,561 across the pass; `MLB-Live-PBP` was pushed at `01:20:19Z`, about a minute after the snapshot read it. Two `building` states produced the only hard mismatches `verify_live.py` reported all pass, and both were cleared the prescribed way — re-running the generator — rather than by editing data. The largest open movers are `NBAComp` (58 commits ahead of its prose), `KalshiPaperSim` (48), `Commodities` (34) and `OLBG-Competition` (22). Each is badged in the UI with the SHA its prose was read at and the SHA the repository is now at.
 - **`PRICINGEXPERT` was an empty stub when it was curated and is now a 72-file Kalshi research desk whose green verification gate has never seen a trade (`IRR-94`, critical).** The `01:37:24Z` snapshot read `main` at `49a5625`: one commit, a 15-byte README, no `index.html`. That was accurate — the project was on a branch, and three PR merges put it on `main` at `02:25:30Z`, `02:27:41Z` and `02:28:34Z`, 48 minutes later. Both gates were **executed** in a clean clone: `pytest tests/ -q` reported **19 passed**, and `scripts/verify.py` exited 0 with **42 passing checks and 0 errors**. Decomposing those 42 by code prefix shows what they cover — V1 hash 6, V2 manifest 7, V5 cash 10, V10 rule-implemented 10, V11 season 3, V13 ledger hygiene 6 — and what they do not: **six of the thirteen check families (V3, V4, V6, V7, V8, V9) recorded nothing at all**, because `trades.jsonl`, `intents.jsonl` and `marks.jsonl` are each 0 lines, there are 0 cycle directories and 0 captured order books, and the leaderboard the site publishes reports `cycles_completed 0` with all ten personas on exactly $10,000.00. The gate is real and green; its trading-mechanics half is unexercised, and the entry says so. Two reporting traps are recorded with it: `verify.py`'s pass messages are phrased as the failures they did *not* find (so `passed: 42` prints beside strings like `V1: hash mismatch exchange-status.json`), and it writes `data/site/link-audit.json` as a side effect — byte-identically in a clean clone, so `git status` stayed empty.
 - **Credentials died a third time, between finishing the toolchain and publishing it — and the resume procedure caught a real defect (`IRR-93`).** `git push` failed at `01:44Z`, about one minute after the last verifier succeeded; `gh auth status` reported the `GH_TOKEN` invalid, `gh api` returned `Bad credentials`, and `/rate_limit` returned HTTP 401 **with no `Authorization` header** — the `IRR-85` egress signature. Nothing was pushed and nothing was claimed as published; the narrative was landed offline with `build_data.py --overlay-only`, which makes no network call, so every API-derived field kept reporting the `01:37:24Z` read rather than a guess. Credentials returned at ~`02:24Z`, and the recorded resume procedure — *re-run everything, because the snapshot will be old* — was followed exactly instead of pushing the 47-minute-old work. That re-run is what caught `PRICINGEXPERT`'s reclassification above: **shipping the pre-outage snapshot would have published a 72-file research desk as an empty stub.** Nine full builds later, all three gates were clean on the snapshot that shipped.
+### The 28 re-reads, and what they found (2026-09-23, second half of the pass)
+
+Every entry below was rewritten because its prose no longer matched its repository head. The rule applied
+throughout was the owner's: **if a figure cannot be re-derived from the current tree it is withdrawn, not
+softened.** Eleven figures the previous entries published were withdrawn on exactly that basis.
+
+**Central claims that were simply false at head.**
+
+- **`MLBComp` — the headline fact reversed.** The previous entry reported `settled_bets` still `0` and
+  `total_simulated_pnl` still `null`, and that all 144,098 records resolved to `EVAL` and `PROPOSED`. At head
+  `c6332b9` the repository's own `data/summary.json` reads `settled_bets` **33,143** and
+  `total_simulated_pnl` **−$96,903.05**, because the gate requiring a verified timestamped quote has since
+  been satisfied by the `bettingtools` and `cesar-dx` historical moneyline files. The six
+  `environment_breakdown` figures sum exactly to the headline (−78,399.80 − 14,352.65 − 3,537.48 + 3,065.35
+  − 4,420.41 + 741.94), and the audit control `no_unverified_pnl` still reports 0 unverified rows with
+  non-zero PnL — so every one of those settlements carries a verified price. The source it did find is still
+  `PARTIALLY_VERIFIED` and still ineligible for wager eligibility specifically because `cesar-dx` carries no
+  `observed_at` / `available_at` timestamps.
+- **`NFLComp` — the named top performer is gone.** The previous entry reported `@AltSpread_Value_v2` at
+  +27.15% ROI and +$145,992.37. At head `7ec80df` the repository's own table lists that strategy as
+  `n/a (open)` with **0 bets**, and the top performer is `@AnalyticsCoach_ATS_v1` at +$3,839.32 / +4.16%.
+  The simulated ledger is 97,218 wagers at −$531,192.71, not 134,255 at −$353,618.85, and the roster is 70
+  personas across 17 categories, not 60.
+- **`Commodities` — the README and its own artifacts disagree.** The README's archive-backtest banner reads
+  `63 markets · 2,455 verified bars · 291 trades`; the committed files it describes read **74 markets, 2,736
+  verified bars and 337 trade rows** across 266 distinct ids (`IRR-97`). Both are published, with the
+  generated files as the number of record.
+
+**A defect in this directory's own previous entry.**
+
+- **`Elections` — the source counts were mis-counted by us, not by the repository (`IRR-95`, critical).**
+  The previous entry published "6 live-only and 4 excluded sources". That is `len()` of each file's
+  top-level dict, not of its `sources` array. The arrays hold **20** and **7**. The repository's own README
+  said so the whole time — `data/master_sources.json — 20 live-only entries`, `data/flagged_sources.json — 7
+  excluded with reasons`. So the directory understated itself by 17 sources while the README it was
+  checking against was correct. Corrected in this pass, and recorded because it is the same class of error
+  `audit_descriptions.py` exists to catch.
+- **`Elections` — one quantity, four figures (`IRR-96`).** The captured open universe file holds
+  **24,141** markets from 4,226 of 4,226 eligible series with `complete: true`; the README's file table
+  says 24,150, its canonical-list section says 24,102 and its All Markets paragraph says 24,139.
+
+**Repositories whose own documentation is stale against their own generated files.**
+
+- **`TradingViewTheLeap` (`IRR-101`)** — the README's limitations section still states
+  `data/intraday/ currently holds 29 of 60 stock series ({15m: 15, 1h: 9, 1d: 5})`, a September 19 state.
+  Its own `intraday_index.json` at the same head records **60 equity series** over 20 symbols × {15m, 1h, 1d}
+  plus 20 futures captures, with `captured_count 61`, `failed_count 9` and `not_attempted_count 10` — so
+  the equity matrix is complete and only 1 of 20 futures series landed.
+- **`NFLInjuryReport` (`IRR-104`)** — the README says data is refreshed **every 10 minutes**; the workflow
+  at the same head carries four staggered cron entries at a five-minute cadence and its own comments record
+  an observed gap of **188 minutes** and a worst of **412**, because GitHub throttles and queues scheduled
+  workflows on free runners.
+- **`MLBRainDelay` (`IRR-103`)** — `docs/verification.md` prints `67 assertions across four suites (26 + 24
+  + 11 + 6)` and the README prints `100+ passing assertions`. Executing the suites gives **32 / 25 / 9** for
+  the three the entry names, plus 25 and 18 for two more — 109 in total. The three figures the previous
+  entry published (26 / 24 / 6) are superseded.
+- **`MLBComp` (`IRR-98`)** — the README's rebuild note still says `18 adversarial controls` where the
+  exported audit file holds **22**, all passing.
+- **`GEMSDOE` (`IRR-102`, critical)** — `python3 -m pytest tests -q` gives **467 passed, 32 skipped, 1
+  FAILED**, the failure being `test_the_build_reproduces_the_committed_pages` — the committed site pages
+  are not the pages the generator produces. `STATUS.md` session 23 claims `445 passed, 1 skipped`, which
+  matches neither the executed pass count nor the executed skip count.
+- **`StokEngineer` (`IRR-100`, critical)** — `pytest` reports **84 passed, 3 skipped, 1 FAILED**
+  (`test_stack_constraint_produces_a_qb_stack`, raising `_BudgetedOut: no legal lineup exists under these
+  constraints`), while `python -m src.stokengineer.cli verify` prints `verify: OK`. The suite disagrees with
+  the gate the repository points readers at.
+
+**A bookkeeping contradiction published rather than resolved.**
+
+- **`NHLComp` (`IRR-99`, critical).** `docs/data/competition.json` (generated 2026-09-23T02:03:46Z) records
+  the FORWARD TEST phase as **0 bets, 0 settled, 0 open, PnL 0.0, ROI null**. The same repository's
+  `docs/data/bets.json`, loaded in full, holds **127 FORWARD TEST rows**, every one `result: OPEN` with
+  `pnl: null`, and the leaderboard's forward rows additionally carry 1 preseason settled bet of +$53.26
+  explicitly flagged `scored_in_competition: false`. The two artifacts disagree on whether the forward book
+  has activity. Both are published. The likely explanation — the forward ledger is not the table the
+  roll-up reads — is an inference and is therefore not asserted.
+
+**Figures withdrawn because they are not re-derivable at head.** The previous entries' `38 sources` / `71,004
+bytes` / `155 badges` / `24-line claim log` / `7 flagged irregularities` for `StokEngineer`; its
+`24-line` framing of what is now an 89-line mechanism description with the claim log moved to
+`src/data/claims.json`; `TradingViewTheLeap`'s `$20.56` refutation margin and its
+`401 passed / 459-check / 94-unit-test` figures; `DrugAnalysis`'s v27 row counts (1,000 new decisions, 2,969
+openFDA decisions, the 1,933-row analysis table, the 485-row scorecard, the 2,848-row price index, the
+`90.6% Phase 1→2 on n=1453` base rates); `VacationSchedule`'s 42 tests, 53 review items and 21
+irregularities; `Coupons`' 185/18/517 and `SocialMediaComp`'s 60 entries in four batches of 15;
+`SelfLearn`'s 89 documents, 141 questions, 22 failures, 35 irregularities and 156 tests. Each replacement
+figure was counted or executed in this pass, and each `verifiedBasis` names the file it came from and the
+commit it was read at.
+
+**What the executed gates turned up that the prose did not.** Running the repositories' own test and
+verifier commands is the only reason several of the above are visible at all, and it also produced the
+passes: `MasterSelfLearn` **350 passed in 13.40s**; `SelfLearn` **189 passed**; `StockPaperSim` **697
+passed** plus `independent_audit_season2.py` at **5,513 checks, 5,513 passed, 0 failed** with a custody note
+of **327 files byte-identical**, and `independent_audit.py` at **763 and 611** (1,374 total);
+`OLBG-Competition`'s suite green at **499 collected cases** from **441 test functions**; `GEMSDOE`'s
+`validate_submission.py` passing all 8 checks on a freshly written submission whose sha256 matched the
+committed artifact byte for byte; `NFLComp`'s **33 of 33** audit controls; `NFLInjuryReport`'s **222** tests
+across 15 modules; `VacationSchedule`'s **125**; `MLB-PBP`'s 6 Python tests plus 15 Node tests; `SABERENGY`'s
+10 core tests passing and its NFL suite skipping 2 for want of a reachable weekly file; `PRICINGEXPERT`'s
+`verify.py` at **1,198 passed, 0 errors** with 39 pytest tests, against 42 and 19 at the previous read; and
+`TradingViewTheLeap`'s `verify.py` at **444 passed, 0 failed, 1 warning**. Two gates could not be exercised
+and are recorded as limits rather than passes: `MLB-Live-PBP`'s `smoke-test.mjs` fails here only because it
+fetches live `statsapi.mlb.com`, which this sandbox cannot reach, and `GEMSDOE`'s suite needed
+`rasterio`, `scikit-image`, `torch`, `pyyaml` and `tqdm` installed before it would even collect.
+
 - **Interface work from the previous pass is unchanged and still unexercised by a browser here.** Compact-by-default rows, the per-browser Density toggle and the sub-900px stacked table are documented below; the four tests added for them run in `.github/workflows/test.yml`, including `mobile-chromium`. The DOM contract was verified offline in jsdom (39 checks); layout is only observable in a real browser, so no local Playwright run is claimed.
 
 ### What changed in the 2026-09-22 pass — **61 sites listed, 10 new repositories, 21 provably stale, verifiers blocked**
