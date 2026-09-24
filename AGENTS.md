@@ -26,19 +26,21 @@ This exclusion is **permanent and unconditional**. It survives future audits, re
 
 ## 2. Do not "fix" the listed-vs-account count mismatch
 
-The directory lists **63** sites while the account has **64** public GitHub Pages repositories. **Both numbers are correct**, and as of 2026-09-23 the gap has **one component**: `ProjX`. Until this pass it had two, and telling the two apart was the whole point of this section — one was a permanent owner instruction, the other was a procedural accident of dead credentials. The second is now closed and is kept below as the case study it is.
+The directory lists **68** sites while the account has **69** public GitHub Pages repositories. **Both numbers are correct**, and as of 2026-09-24 the gap has **one component**: `ProjX`. Until this pass it had two, and telling the two apart was the whole point of this section — one was a permanent owner instruction, the other was a procedural accident of dead credentials. The second is now closed and is kept below as the case study it is.
 
 - **`ProjX` — permanently excluded by owner request. Never list it.** Not in `sites[]`, not in `VERIFICATION.md` § 2, not in the README counts, not in the exports, not in `tools/overlay.json → entries`. This half of the gap is deliberate and permanent (§ 1, § 6).
 - **`PRICINGEXPERT` — withheld only procedurally; LISTED by the 2026-09-23 build (`IRR-86` closed).** It was fully curated in `tools/overlay.json → entries` (read from its own contents at `49a5625`) while GitHub credentials were dead, and stayed unlisted because that pass had to land its work with `--overlay-only`, which **cannot add a site**. One full `python3 tools/build_data.py` run listed it and replaced the stale reason string. The durable rule: **narrative can be landed offline, listing cannot** — and do not delete a curated entry to make the accounting look tidy.
-- Keep `accountsChecked[].publicRepos: 64` and `pagesSites: 64` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing.
-- Never lower those to 63, and never raise the directory to 64 by listing `ProjX`.
+- Keep `accountsChecked[].publicRepos: 69` and `pagesSites: 69` at their verified API values — they describe the *account*, and are the auditable reason one entry is missing. **Re-read them from the API every pass; do not carry them forward by hand** — this pass began at 64 and ended at 69 because five repositories were published and one was deleted inside it.
+- Never lower those to 68, and never raise the directory to 69 by listing `ProjX`.
 - `tools/build_data.py` asserts `len(sites) + len(unlisted) == pagesSites` at build time and records every withheld repository in `counts.unlisted` with a reason. If that assertion ever fires, the accounting is wrong — fix the accounting, do not loosen the assertion.
 - These totals move every time the owner publishes a repository (**64** as of 2026-09-23, up from 63 on 2026-09-22, 53 on 2026-09-21, 50 on 2026-09-20 and 41 on 2026-09-18 — ten of them in the 23 hours before the 2026-09-22 snapshot, and the eleventh, `NFL-PLAYER-PROP-SIM`, four minutes before those credentials died). Always re-read them from the API rather than trusting this file.
 - The gap is documented on purpose in three places so nobody "repairs" it: the `data/sites.js` header comment, `VERIFICATION.md` § 2a, and `IRR-08` in the irregularities register.
 
 ## 3. Unreachable entries: freeze, never silently delete
 
-Repositories that were published in a previous audit but return **HTTP 404** (or any non-200) from the API today go into the `unreachable` array — **not** into `sites[]`, and **not** into the bin.
+Repositories that were published in a previous audit — **or fully verified in the pass that discovered them** — but return **HTTP 404** (or any non-200) from the API go into the `unreachable` array: **not** into `sites[]`, and **not** into the bin. As of 2026-09-24 there are **two**, and the second widened the rule.
+
+- `MALTA` was **new to the 2026-09-24 pass**, never published in any earlier audit. It was cloned at head `f0fb352` and verified in full — `tests/test_calculate.py` 53 OK, `tests/test_radio.py` 19 OK, `scripts/check_links.py` OK over 10 pages, `node --test` 36/36 — and then stopped existing: `GET /repos/buffedlizard55-lab/MALTA` returns 404 and no surviving repository carries its `created_at` of `2026-09-23T17:19:52Z`, so it was deleted rather than renamed. The proof is in the pass's own output: the build at `00:17:06Z` reported 68 sites and 3,793 commits, the build at `00:23:27Z` reported 67 and 3,753 — exactly MALTA's 40 commits. It is frozen with its last verified values (`IRR-109`). **The widened rule: whether a repository is frozen no longer depends on whether it was previously published.** If a pass has already done the work of reading it, the work is preserved and the disappearance is flagged for the owner rather than dropped. `MALTA2`, the 8-byte placeholder created at `00:22:26Z`, is listed in `sites[]` as a stub.
 
 - `JobSearchSF` was listed on 2026-09-16 (68 commits, last main commit `f68c452`) and returned 404 on 2026-09-17. **Re-confirmed 2026-09-18, 2026-09-20, 2026-09-21 and 2026-09-22:** still HTTP 404, still `total_count 0` in the search API, still absent from the account's public list (now 63 repositories). It is frozen in `tools/overlay.json → retired[]` with its last verified values plus the endpoints that reproduce the 404.
 - It renders on the site in the *Unreachable — Needs Owner Review* panel and in `VERIFICATION.md` § 2b.
@@ -47,27 +49,24 @@ Repositories that were published in a previous audit but return **HTTP 404** (or
 
 ## 4. Expected state of the directory
 
-As of the **2026-09-23** seventh-pass audit (API snapshot `generated: 2026-09-23T09:25:16Z`, with all four read-only tools run against that exact snapshot):
+As of the **2026-09-24** eighth-pass audit (API snapshot `2026-09-24T00:39:08Z`, with all four read-only tools run against that snapshot):
 
 | Metric | Expected |
 |---|---|
-| `sites[]` entries in `data/sites.js` | 63 |
-| `unreachable[]` entries | 1 (`JobSearchSF`) |
+| `sites[]` entries in `data/sites.js` | 69 |
+| `unreachable[]` entries | 2 (`JobSearchSF` since 2026-09-17; `MALTA`, deleted mid-pass on 2026-09-24 — `IRR-109`) |
 | `counts.unlisted[]` entries | 1 (`ProjX` — permanently excluded by owner request) |
-| `grep -c '"repo":' data/sites.js` | 65 (63 sites + 1 unreachable + 1 unlisted) |
-| Ledger rows in `VERIFICATION.md` § 2 | 63, numbered 1–63 |
-| Irregularities | 104 (`IRR-01` … `IRR-104`) — 15 critical, 47 warn, 32 info, plus ten registered in the second half of this pass (`IRR-95` … `IRR-104`): 5 critical (`IRR-95` this directory's own source-count mis-read, `IRR-97` `Commodities`' README-vs-artifact backtest divergence, `IRR-99` `NHLComp`'s forward-test contradiction, `IRR-100` `StokEngineer`'s failing suite beside a green gate, `IRR-102` `GEMSDOE`'s non-reproducing site pages) and 5 warn (`IRR-96`, `IRR-98`, `IRR-101`, `IRR-103`, `IRR-104`) |
-| Commits summed across listed sites | 3,629 |
-| Pages sites `built` | **63 / 63** — `Elections` recovered on its own push at `c41cc79` (`IRR-83` closed, and recorded rather than deleted because it is the first Pages failure this directory watched recover) |
-| Apps / doc stubs | 56 / 7 — `LSTARENGY` (`IRR-90`) and `PRICINGEXPERT` (`IRR-94`) both flipped stub → app this pass, both caught by `audit_kind.py`, both rewritten from executed evidence |
-| Public repos on account (API) | 64 |
-| Pages sites on account (API) | 64 |
-| Categories | 10 — *Sports Data & Scoreboards* (25), *Travel & Korea Trip* (11), *Markets & Trading Research* (11), *SF Local Guides* (7), *Science & ML Research* (3), *Directory & Meta* (2), *Elections & Civic Data* (1), *Gaming & Guides* (1), *Health & Personal Guides* (1), *Social & Creator Data* (1) |
-| `counts.proseShaStamped` | 63 / 63 |
-| `counts.proseStale` | **18 — NOT zero, and not publishable as complete.** All 28 stale entries were re-read at head in the second half of this pass and the queue fell 27 → 18; it then climbed back to 18 because the rewrites took about two hours and the repositories pushed 18 times inside that window. That is the measurement, not an excuse: the queue cannot be drained while 64 repositories are written to faster than they can be audited. All 18 are listed in `counts.proseStaleRepos` and rendered stale-first in `VERIFICATION.md` § 4a |
-| `counts.proseReReadLatestPass` / carried | 28 / 35 (see `IRR-87` for why this figure is what it claims to be) |
-| `descriptionNotes` / `acceptedDescriptionExceptions` | 17 / 34 real entries (plus a `__doc__` key the tools filter out). All 34 name the *generated file* each numeric token comes from, because `audit_descriptions.py` can only read a repository's `README.md` while these descriptions are sourced from artifacts the READMEs quote inconsistently or not at all |
-| Verifier results | **RUN against this snapshot.** `verify_live.py`: 829 checks, 829 ok, **0 mismatched — 0 hard, 0 drift**. `audit_kind.py`: 63 checked, 0 derived, **0 disagreements**. `audit_descriptions.py` after `rm -rf tools/.readme-cache`: **34** accepted exceptions, **0 entries needing manual confirmation** — `IRR-91` is **closed**, because the `TradingViewTheLeap` `$20.56` figure is not re-verifiable at head `d09a594` and was withdrawn rather than softened. The Playwright contract runs in CI only; **no local browser run is claimed** (`npx playwright install chromium` fails on the blocked CDN) |
+| Ledger rows in `VERIFICATION.md` § 2 | 69, numbered 1–69 |
+| Irregularities | 109 (`IRR-01` … `IRR-109`) — five registered this pass (`IRR-105` … `IRR-109`), of which 2 critical and 3 warn |
+| Commits summed across listed sites | **3,761 at the shipping snapshot, and it will not hold.** This pass watched the figure move 3,629 → 3,793 → 3,753 → 3,758 across successive builds of the same pass; treat any number here as a timestamp, never a constant |
+| Pages sites `built` | 69 / 69 at the shipping snapshot. One transient `building` (`THUNDERPICK-WC-2026`) was published as-is, then reported by `verify_live.py` as a hard mismatch, then cleared by re-running the generator — the prescribed path, in that order |
+| Apps / doc stubs | 60 / 9 |
+| Public repos on account (API) | 70 |
+| Pages sites on account (API) | 70 |
+| Categories | 11 — Sports Data & Scoreboards (26), Travel & Korea Trip (11), Markets & Trading Research (11), SF Local Guides (7), Travel & Event Dossiers (2), Science & ML Research (3), Directory & Meta (3), Gaming & Guides (2), Elections & Civic Data (1), Health & Personal Guides (1), Social & Creator Data (1). *Travel & Event Dossiers* was created by this pass; **never hardcode a category count** — the UI chips are derived from the data and `GOLD` alone publishing from `main /docs` is the only source oddity |
+| `counts.proseShaStamped` | 69 / 69 — and **verify the shape, not just the presence**: `IRR-108` proved that a stamp reading `AUTO:COUNTS` or `main` satisfies "is populated" while making the gate permanently unsatisfiable. Assert `^[0-9a-f]{7,40}$` |
+| `counts.proseStale` | **23 — a work queue, not a failure.** It is only meaningful now that the two non-SHA stamps are fixed; before this pass it could never reach zero. Repositories are pushed to faster than they can be read, and this pass generated its own example: a repository was created *and* a different one deleted while the pass was running |
+| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: 894 checks, 893 ok, 0 hard mismatches after the prescribed re-run. `audit_kind.py`: 68 checked, 0 disagreements. `audit_descriptions.py` (after `rm -rf tools/.readme-cache`): 38 accepted exceptions, **0 entries needing manual confirmation**. The Playwright contract runs in CI only — no browser binary or CDN access exists here, so no local run is claimed |
 
 **`acceptedDescriptionExceptions` is a dict keyed by repository name; `descriptionNotes` is a flat array.** They are not the same shape — check before indexing either one.
 
