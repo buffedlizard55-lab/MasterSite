@@ -825,20 +825,6 @@
    "verifiedBasis": "Sourced entirely from API reads at the repository's only commit, with no inference from its name. GET /repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM gives created_at 2026-09-22T23:52:54Z, pushed_at 23:52:56Z, size 0, default_branch main and description null; GET .../commits?per_page=5 returns exactly one commit, 0807ee5 'Initial commit' at 23:52:55Z, and the pagination Link header names page 1 as the last page, which is the independent confirmation that the count is 1; GET .../git/trees/main?recursive=1 returns truncated false with a single entry, blob README.md, size 21; GET .../contents/README.md with Accept: application/vnd.github.raw returns exactly '# NFL-PLAYER-PROP-SIM'; GET .../contents/index.html returns HTTP 404; GET .../pages returns status built with source branch main and path /; GET .../branches/main gives head 0807ee5. Reproduce: curl -s -H 'Accept: application/vnd.github.raw' https://api.github.com/repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM/contents/README.md | wc -c  # 21",
    "verifiedAtSha": "0807ee5"
   },
-  "MALTA-LAWS": {
-   "title": "MALTA-LAWS — Malta Trip & Law Dossier (parallel site)",
-   "category": "Travel & Event Dossiers",
-   "kind": "app",
-   "description": "Fourteen-page parallel dossier to MALTA, covering Maltese customs and entry under the 2026 EES rules, a law and public-behaviour guide for a US citizen resident in California with a California-vs-Malta comparison, a live-sports-over-radio registry cross-mapped to Kalshi market families, prize due diligence against the sponsor's Terms, and a scenario cost model (SFO origin, $30/day food bound to days-on-ground) with an in-browser planner. Every row carries a source URL, an access date and one of four status badges, and rows whose only reading came from the parallel MALTA audit are labelled AUDIT-REC instead of being presented as verified. Executed in a clean clone at head 18f3323: python3 -m unittest discover -s tests → OK (Ran 15 tests) and python3 tests/test_site.py → OK — site integrity: 14 pages, links/anchors/model-digest/totals/hygiene verified.",
-   "flags": [
-    "Rows whose only reading came from the parallel MALTA audit are marked AUDIT-REC, not verified: community.hotspawn.com was unreachable from build time onward and the same-day Wayback capture of the terms URL shows only “These terms aren't available.”",
-    "Its budget and digest checks are self-consistent by construction — tests/test_site.py recomputes sha256(expenses/trip.json)[:16] and compares it to data/budget.json's model_digest — but the cost bands themselves are labelled estimates, not quotes.",
-    "No CI workflow exists in the repository (no .github/ directory); its two check scripts run only when a human runs them. The GitHub Actions API shows 2 runs for this repository, both Pages build events, zero workflow runs."
-   ],
-   "lastVerified": "2026-09-24T00:20:00Z",
-   "verifiedBasis": "New entry this pass, read in full at head 18f3323 (2026-09-23T23:12:07Z) from a shallow clone. Executed in that clone: python3 -m unittest discover -s tests → Ran 15 tests, OK; python3 tests/test_site.py → exit 0, 'OK — site integrity: 14 pages, links/anchors/digest/totals/hygiene verified'. tests/test_site.py is a check()-style script (25 check() call sites), not a unittest module, so its 25 checks are described as a passing script rather than counted as tests. Page count 14 confirmed against the script's own PAGES list and by find -name '*.html'. Absence of a workflow confirmed by the file listing and by GET /repos/buffedlizard55-lab/MALTA-LAWS/actions/runs, which returns Pages build events only.",
-   "verifiedAtSha": "18f3323"
-  },
   "MALTASUPPLEMENTAL": {
    "title": "MALTASUPPLEMENTAL — Malta Trip Travel Supplement",
    "category": "Travel & Event Dossiers",
@@ -884,34 +870,80 @@
    "verifiedBasis": "New entry this pass, read in full at head 6a4067a (2026-09-23T23:51:01Z) from a shallow clone. Executed in that clone: python -m unittest discover -s tests -v → Ran 18 tests, OK; node --test tests/ui.test.mjs → tests 6, pass 6, fail 0. Counted with json.load rather than quoted: data/archive.json → incidents 80, verifiedOn 2026-09-23; the 80 incidents together hold 154 claim objects; data/review.json → flags 21. The README's arithmetic was reconciled rather than trusted: its 'first 123 quotes re-fetched' plus '31 excerpts added after' equals the 154 claims counted in the archive, so the two figures are consistent with the file. The schedule-event claim was checked independently against GET /repos/buffedlizard55-lab/InjuryAlerTNFL/actions/runs, which returns 54 runs: 24 push, 19 pull_request, 10 dynamic and 1 schedule (created 2026-09-23T23:07:03Z, conclusion cancelled) — see IRR-106.",
    "verifiedAtSha": "6a4067a"
   },
-  "MALTA2": {
-   "title": "MALTA2 — Empty Placeholder Repository",
-   "category": "Directory & Meta",
-   "kind": "stub",
-   "description": "Empty placeholder repository created 2026-09-24T00:22:26Z with a single commit (e806c87, 'Initial commit', 00:22:27Z). Its entire tree is one blob: a README.md of 8 bytes whose whole content is the heading '# MALTA2'. There is no index.html — GET /repos/buffedlizard55-lab/MALTA2/contents/index.html returns HTTP 404 — and the repository reports a size of 0 KB, so GitHub Pages (status built, source main /) serves Jekyll's default render of that one-line README. It was created roughly three minutes after MALTA, a 40-commit verified Malta dossier that this same pass had just read in full, was deleted upstream. No statement is made here about what MALTA2 is intended to become, or about whether it replaces MALTA's content, because the repository does not say: its name suggests a continuation of the Malta work and that inference is deliberately not published.",
-   "flags": [
-    "Created 2026-09-24T00:22:26Z, about one minute before this pass's build read it, and roughly three minutes after the 40-commit MALTA repository behind it stopped resolving (HTTP 404). The two events are adjacent in time and both are recorded; that they are related is plausible and unproven, so it is stated as what it is (IRR-109).",
-    "GitHub Pages reports status built even though there is nothing to build: with no index.html and an 8-byte README, the published URL serves Jekyll's render of that README. A 'built' badge on this entry is evidence about the deployment, not about a working site.",
-    "Its category is provisional and is not an inference from the name. The repository holds one commit and an 8-byte README containing only the heading '# MALTA2' — no code, no data and no prose to classify — so it sits in 'Directory & Meta' as an unclassified placeholder rather than being filed under a subject guessed from its slug. This directory has now watched eight empty placeholders become real projects within hours of being created, so this entry should be re-read rather than trusted."
-   ],
-   "lastVerified": "2026-09-24T00:20:00Z",
-   "verifiedBasis": "New entry this pass, sourced entirely from API reads at the repository's only commit, with no inference from its name and no clone (there is nothing to clone but one blob). GET /repos/buffedlizard55-lab/MALTA2 → created_at 2026-09-24T00:22:26Z, pushed_at 2026-09-24T00:22:27Z, size 0, default_branch main. GET /repos/buffedlizard55-lab/MALTA2/commits → 1 commit, e806c87, 2026-09-24T00:22:27Z, 'Initial commit'. GET /repos/buffedlizard55-lab/MALTA2/readme → 8 bytes, '# MALTA2'. GET /repos/buffedlizard55-lab/MALTA2/contents/index.html → HTTP 404, which is why kind is stub. GET /repos/buffedlizard55-lab/MALTA2/pages → status built, source main /.",
-   "verifiedAtSha": "e806c87"
-  },
   "NOBEL-PRIZE": {
-   "title": "NOBEL-PRIZE — Empty Placeholder Repository",
-   "category": "Directory & Meta",
-   "kind": "stub",
-   "description": "Empty placeholder repository created 2026-09-24T00:32:52Z with a single commit (117b939, 'Initial commit', 00:32:53Z). Its entire tree is one blob: a README.md of 13 bytes whose whole content is the heading '# NOBEL-PRIZE'. There is no index.html — GET /repos/buffedlizard55-lab/NOBEL-PRIZE/contents/index.html returns HTTP 404 — and the repository reports a size of 0 KB, so GitHub Pages (status built, source main /) serves Jekyll's default render of that one-line README. It was created while this pass was running, ten minutes after MALTA2 and about ten minutes after MALTA was deleted. No statement is made here about what it is intended to become: its name suggests a Nobel Prize project and that inference is deliberately not published.",
+   "title": "NOBEL-PRIZE — Independent Nobel Prize Archive",
+   "category": "Reference & Archives",
+   "kind": "app",
+   "description": "Independent archive of the official Nobel Prize records, not affiliated with Nobel Prize Outreach or the Nobel Foundation. It lists prizes by subject, the official motivation for each award, laureate details published by the Nobel Prize API (v2 preferred, v1 as a cross-check, disagreements flagged rather than silently rewritten) and — where the nomination archive is open — the other people and organizations named on the official nomination list, never guessed. Every row links back to nobelprize.org. Its committed verification report records 682 prize records (633 awarded, 49 not awarded), 1,018 laureate entities and 1,026 award slots, with 2026 prizes omitted because on 2026-09-24 the official physics list said the 2026 physics prize had not been awarded and would be announced 2026-10-06 at the earliest.",
    "flags": [
-    "Created 2026-09-24T00:32:52Z, during this pass, and found by the build that ran at 00:37:01Z — it is the twelfth repository to appear while an audit was running, and the third placeholder in this one pass (MALTA2, NOBEL-PRIZE, and MALTA which was deleted).",
-    "It was missing a curated entry when the build first saw it, so the generator withheld it from sites[] and named it in counts.unlisted with the reason 'no curated entry in tools/overlay.json yet'. That is the intended behaviour — a repository is never published with an invented description — and it is also the mechanism that makes a silent gap impossible: the withheld repository is named, with its reason, in the published data. This entry replaces that reason with a sourced one.",
-    "GitHub Pages reports status built even though there is nothing to build: with no index.html and a 13-byte README, the published URL serves Jekyll's render of that README.",
-    "Its category is provisional and is not an inference from the name. The repository holds one commit and a 13-byte README containing only the heading '# NOBEL-PRIZE' — no code, no data and no prose to classify — so it sits in 'Directory & Meta' as an unclassified placeholder rather than being filed under a subject guessed from its slug. Nine empty placeholders have now become real projects within hours of being created, so this entry should be re-read rather than trusted."
+    "Published as an empty one-file placeholder in the 2026-09-24T00:39:08Z snapshot and now a 12-commit archive site: kind re-derived 'app' by tools/audit_kind.py (main//index.html -> HTTP 200). See IRR-112.",
+    "Its own data/verification-report.json records the archive counts (682 prize records, 633 awarded, 49 not awarded, 1,018 laureate entities, 1,026 award slots); that report was loaded and quoted, not the README banner alone. Sim-Comp-Nobel-Prize's PROVENANCE.md states it copied its prize catalog from this repository at commit 274e373."
    ],
-   "lastVerified": "2026-09-24T00:20:00Z",
-   "verifiedBasis": "New entry this pass, sourced entirely from API reads at the repository's only commit, with no inference from its name and no clone (there is nothing to clone but one blob). GET /repos/buffedlizard55-lab/NOBEL-PRIZE → created_at 2026-09-24T00:32:52Z, pushed_at 2026-09-24T00:32:53Z, updated_at 2026-09-24T00:32:58Z, size 0, default_branch main. GET /repos/buffedlizard55-lab/NOBEL-PRIZE/commits → 1 commit, 117b939, 2026-09-24T00:32:53Z, 'Initial commit'. GET /repos/buffedlizard55-lab/NOBEL-PRIZE/readme → 13 bytes, '# NOBEL-PRIZE'. GET /repos/buffedlizard55-lab/NOBEL-PRIZE/contents/index.html → HTTP 404, which is why kind is stub. GET /repos/buffedlizard55-lab/NOBEL-PRIZE/pages → status built, source main /. The single-file tree was confirmed by GET /repos/buffedlizard55-lab/NOBEL-PRIZE/git/trees/main?recursive=1, which returns README.md only.",
-   "verifiedAtSha": "117b939"
+   "lastVerified": "2026-09-25T00:08:00Z",
+   "verifiedBasis": "Re-read in full at head dfd8253 (2026-09-24T17:34:54Z) from the repository's own README.md and data/verification-report.json, both fetched through the official contents API this pass. The README describes the prize archive, API v2/v1 cross-check and the nomination-archive rule; data/verification-report.json quotes catalogCounts { prizeRecords 682, awardedPrizeRecords 633, unawardedPrizeRecords 49, laureateEntities 1018, laureateSlots 1026, flags 709 }. The previous published description was an empty-stub placeholder and is withdrawn.",
+   "verifiedAtSha": "dfd8253"
+  },
+  "MLBSCORINGCHANGE": {
+   "title": "MLBSCORINGCHANGE — MLB Live PBP Copy + Scoring-Change Model",
+   "category": "Sports Data & Scoreboards",
+   "kind": "app",
+   "description": "Working copy of the MLB Live PBP replay-feed site with a scoring-change model on top, built so the original MLB-Live-PBP site is never modified. It scores every play ruled \"reached on error\" 0–100 for the chance the official ruling becomes a hit (🎯 Error Watch), shows each Scoring Change's pre-change chance and final result, keeps single→error reversals in their own 📉 Hit→Error tab out of the primary alert system, and calibrates ruling-pending distributions from captured outcomes. The 3-hourly official-data pipeline parses MLB's official log, links 693 official entries (229 + 211 + 253) across 7,323 completed games, and reports the current results — 3,161 settled error→hit plays changed 189 times (6.0%), cross-validated AUC 0.609 — while re-testing official-scorer and home-park effects every run (both \"not used\"). A live capture records error calls with their error type before StatsAPI rewrites them. Honest about limits: error-type adjustment and pending calibration switch on only once enough captured plays settle.",
+   "flags": [
+    "A copy of another site in the same account (MLB-Live-PBP) with the scoring model layered on; the README records the safe-baseline commit ddca0b8 = original at 859e958 and isolates browser storage per site."
+   ],
+   "lastVerified": "2026-09-25T00:08:00Z",
+   "verifiedBasis": "New entry this pass, read in full at head e2ed97a (2026-09-24T23:34:12Z) from the repository's own README.md via the official contents API. The scores, Error Watch / Hit→Error tabs, the 3-hourly official-data pipeline, the 693 official entries (229 + 211 + 253), 7,323 completed games, 3,161 settled error→hit plays with 189 changes (6.0%), cross-validated AUC 0.609, and the 'not used' official-scorer / home-park verdicts are all quoted from the README's Current-results and Methodology sections at that head. kind=app re-derived (main//index.html -> HTTP 200). The intervening commits to head 7b74d7b are automated “data: refresh official scoring data and model” runs whose README is byte-identical to e2ed97a (verified via the contents API at both refs), so the stamp is carried to 7b74d7b under the SFWeather durable rule (data-only refresh, README unchanged, re-examine next pass).",
+   "verifiedAtSha": "7b74d7b"
+  },
+  "NBAInjScoreboard": {
+   "title": "NBAInjScoreboard — Live NBA Scoreboard & In-Game Injury Desk",
+   "category": "Sports Data & Scoreboards",
+   "kind": "app",
+   "description": "Source-linked live NBA scoreboard with two separate systems on one site: in-game injury updates in the Injury desk and explicit coach's challenges/replay reviews in the Replay room, with the all-game Live feed carrying play-by-play and the same injury updates. The data rules are strict: an injury alert requires an ESPN timestamp after game start, a current live game, team and athlete ID match, participation evidence, medical detail and non-future game context, and the originating wire (e.g. RotoWire) is cited; absence from the box score, benching, substitutions and elapsed time never become injury alerts. Regression fixtures are real ESPN captures from 2026-09-24 because the first implementation passed 25/25 tests while its injury parser returned zero candidates. Flagged: as of 2026-09-24 no games were in progress to validate end-to-end live injury delivery; the NBA CDN returned HTTP 403 from the Pages-origin probe so those fields are tested with synthetic fixtures; GitHub Pages cannot run the Node collector; and the shipped source registry enables zero automatic sources by design.",
+   "flags": [
+    "Coverage is best-effort, not guaranteed; the README says the MLB /reviews.html page was reviewed as a UI reference only, and that a stray 'NFL games' note in the request was rejected in favor of the repeated NBA specification."
+   ],
+   "lastVerified": "2026-09-25T00:08:00Z",
+   "verifiedBasis": "New entry this pass, read in full at head 231392d (2026-09-24T18:00:09Z) from the repository's own README.md via the official contents API. The two-system layout, the five strict alert gates, the RotoWire citation, the 25/25-tests-but-zero-candidates incident with the missing athlete.id field, the no-games-in-progress status on 2026-09-24, the HTTP 403 NBA CDN probe and the zero-automatic-sources registry are all quoted from the README's Data-and-evidence-rules and Verification sections at that head. kind=app re-derived (main//index.html -> HTTP 200).",
+   "verifiedAtSha": "231392d"
+  },
+  "SIM-COMP-NOBEL-PRIZE": {
+   "title": "SIM-COMP-NOBEL-PRIZE — Nobel Prize Record + Simulated Kalshi Competition",
+   "category": "Markets & Trading Research",
+   "kind": "app",
+   "description": "Research desk with two layers that are not allowed to blur: (1) the Nobel Prize record — prizes, laureates, the official motivation and the other names on the public nomination list where that list is open — and (2) a simulated Kalshi competition of 2,011 paper participants (11 primary plus a 2,000-strategy research program in 20 batches of 100) with predeclared strategies, run on the same stored Kalshi prices and the same starting cash. Every family has a research card (question, mechanism, information channels, predicted sign, falsification condition, verified sources) and is judged by predeclared rules against a random-entry null and, where one exists, a matched placebo, with the Program board as the working leaderboard and the Research view as the verdict table. The collector uses only the Python standard library and the public Kalshi Trade API (no key, no paid endpoint), and a full rebuild from the stored snapshot takes about 5 minutes. Simulated names, orders, positions and P&L are not Kalshi users and not real fills, and the project is not affiliated with Kalshi, Nobel Prize Outreach or the Nobel Foundation.",
+   "flags": [
+    "Simulated competition layered on a real Nobel record archive; the prize catalog is carried from the earlier NOBEL-PRIZE desk with provenance in data/nobel/PROVENANCE.md.",
+    "Its two workflows (Collect Kalshi and simulate; Tests) run on GitHub Actions, because the build sandbox cannot open TLS to Kalshi or nobelprize.org - Actions can."
+   ],
+   "lastVerified": "2026-09-25T00:08:00Z",
+   "verifiedBasis": "New entry this pass, read in full at head 4724a64 (2026-09-24T23:25:36Z) from the repository's own README.md via the official contents API. The two-layer structure, the 2,011 participants (11 primary + 2,000-strategy program in 20 batches of 100), the research-card fields, the random-entry null and matched placebo, the Program board / Research views, the standard-library collector against the public Kalshi Trade API, and the ~5-minute full rebuild are all quoted from the README's Read-this-first, Refresh-and-verify and Competitions sections at that head. The 2,000-strategy program and information channels were cross-checked against LIMITATIONS.md (third session). kind=app re-derived (main//index.html -> HTTP 200).",
+   "verifiedAtSha": "4724a64"
+  },
+  "TAXKALSHI": {
+   "title": "TAXKALSHI — Kalshi Tax Research Desk & Cost Calculator",
+   "category": "Markets & Trading Research",
+   "kind": "app",
+   "description": "Sourced research desk for how Kalshi earnings are taxed for a U.S. citizen who is a California resident paying tax in the ordinary way, outside withholding and penalty regimes. Because the character of event-contract income is open, a single-slider calculator computes the same $10,000 step through $200,000 under five candidate characters at once — ordinary, short-term capital, section 1256 (60/40), long-term capital, and wagering — and shows the difference; at $50,000 of modeled taxable income the federal figure is $5,752.00 / $5,752.00 / $2,234.50 / $82.50 / $5,752.00, while California is $1,534.89 in every scenario, and the README states the lower rows are not established for these contracts. The front page answers that Kalshi earnings are taxable, that event-contract character was not settled by any IRS ruling located by 2026-09-24, and that California taxes a resident’s taxable income at ordinary rates with no lower capital-gains rate. The site frames a decision engine as a panel of real verified public accountants licensed in California and the US that critique each other’s work, with the line-by-line record in data/findings.json, a critique table (engine.html), conflicts (flags.html) and a next-session reading list (method.html). Flagged: the CPA seats it frames are empty until verified, and its own rules forbid stating a 2026 California bracket until the Franchise Tax Board publishes the schedule.",
+   "flags": [
+    "Created 2026-09-24T23:03:18Z with an 11-byte README and then re-read twice this pass as it grew: at 779d4dc (23:39:45Z) with a calculator and research desk, then at 90ac077 (23:58:35Z) with the calculator extended to five candidate income characters from one slider — a stub-to-app reversal plus a feature change inside ~55 minutes, which is why the youngest entries are always re-read (IRR-111).",
+    "Penalties and withholding design are explicitly out of scope, and there is no form for personal tax data."
+   ],
+   "lastVerified": "2026-09-25T00:08:00Z",
+   "verifiedBasis": "New entry this pass, re-read in full at head 90ac077 (2026-09-24T23:58:35Z) from the repository’s own README.md via the official contents API, after two earlier reads of this pass saw an 11-byte stub README (0a565bb, 23:03:19Z) and then a first calculator release (779d4dc, 23:39:45Z). The five-candidate-character single-slider calculator ($10,000–$200,000), its published anchor rows (federal $5,752.00 / $5,752.00 / $2,234.50 / $82.50 / $5,752.00 at $50,000 and $40,598.00 / $40,598.00 / $30,312.00 / $22,582.50 / $40,598.00 at $200,000; California $1,534.89 / $15,038.64), the front-page taxable/not-settled/no-lower-capital-gains answers dated 2026-09-24, the CPA-panel framing, data/findings.json, engine.html, flags.html and method.html are all quoted from the README at that head. kind=app re-derived (main//index.html -> HTTP 200).",
+   "verifiedAtSha": "90ac077"
+  },
+  "THUNDERPICKCOMP": {
+   "title": "THUNDERPICKCOMP — Thunderpick WC 2026 CS2 Prediction, Ledger & Backtesting Hub",
+   "category": "Gaming & Guides",
+   "kind": "app",
+   "description": "Ten-page hub for the Thunderpick World Championship 2026 that pairs a verified, source-linked master list (56 dated claims ML-001–056) and team/roster records with a simulated prediction and leaderboard competition: eight simulated strategy accounts gated behind double-sourced fixtures and strictly pre-start first-party quotes, an append-only SHA-256-chained settlement journal, a bounded free-source collector (Valve GitHub API, Liquipedia wiki API, Kalshi, Polymarket) and a new historical backtesting pipeline over 22 verified matches with 69 simulated bets. The first live Actions deployment succeeded 2026-09-24 at 18:00 UTC with zero quotes and zero paper positions because no eligible pre-event asks existed — nothing was invented. Flagged: Pages publishing is still the legacy build (admin must switch the source to GitHub Actions), free historical pre-match odds are unavailable so odds are modeled and labeled MODELED, and the settlement journal is built but unproven against a real resolution.",
+   "flags": [
+    "Sister site to THUNDERPICK-WC-2026 (also in this directory); it copies that design and is explicit that its linked content does not automatically validate facts found there."
+   ],
+   "lastVerified": "2026-09-25T00:08:00Z",
+   "verifiedBasis": "New entry this pass, read in full at head e0f4ecc (2026-09-24T21:18:46Z) from the repository's own README.md via the official contents API. The ten-page structure, 56-entry master list ML-001–056, eight strategy accounts, SHA-256 settlement journal, the collector's four free sources, the 22-verified-match / 69-simulated-bet backtest, the 18:00 UTC first live deploy with zero quotes / zero paper positions, and the outstanding legacy-build/admin-switch and MODELED-odds labels are all quoted from the README's Repository-map, Session-log and Next-highest-value-work sections at that head. kind=app re-derived (main//index.html -> HTTP 200).",
+   "verifiedAtSha": "e0f4ecc"
   }
  },
  "retired": [
@@ -939,11 +971,11 @@
     "Pipeline submission engine intentionally disabled with 0 applications sent (read-only discovery)"
    ],
    "retiredAt": "2026-09-17",
-   "retiredReason": "Listed in the 2026-09-16 directory with 68 main-branch commits, but GET /repos/buffedlizard55-lab/JobSearchSF returned HTTP 404 Not Found on 2026-09-17 and the GitHub repository search API returns 0 results for user:buffedlizard55-lab JobSearchSF (re-confirmed 2026-09-17, 2026-09-18 and 2026-09-20; the account now lists 45 public repositories and JobSearchSF is in none of them). The repository no longer exists publicly (deleted or made private), so its Pages site is no longer served. Frozen here with its last independently verified values for owner review; excluded from the live directory, the counts and the exports.",
+   "retiredReason": "Listed in the 2026-09-16 directory with 68 main-branch commits, but GET /repos/buffedlizard55-lab/JobSearchSF returned HTTP 404 Not Found on 2026-09-17 and the GitHub repository search API returns 0 results for user:buffedlizard55-lab JobSearchSF (re-confirmed 2026-09-24 (ninth consecutive audit); the account now lists 73 public repositories and JobSearchSF is in none of them). The repository no longer exists publicly (deleted or made private), so its Pages site is no longer served. Frozen here with its last independently verified values for owner review; excluded from the live directory, the counts and the exports.",
    "retiredEvidence": [
-    "https://api.github.com/repos/buffedlizard55-lab/JobSearchSF — HTTP 404 Not Found (re-confirmed 2026-09-20)",
-    "https://api.github.com/search/repositories?q=JobSearchSF+user:buffedlizard55-lab — total_count 0 (re-confirmed 2026-09-20)",
-    "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 — JobSearchSF absent from the 45-repo public list (re-confirmed 2026-09-20)"
+    "https://api.github.com/repos/buffedlizard55-lab/JobSearchSF — HTTP 404 Not Found (re-confirmed 2026-09-24)",
+    "https://api.github.com/search/repositories?q=JobSearchSF+user:buffedlizard55-lab — total_count 0 (re-confirmed 2026-09-24)",
+    "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 — JobSearchSF absent from the 73-repo public list (re-confirmed 2026-09-24)"
    ]
   },
   {
@@ -971,11 +1003,75 @@
     "Cross-repository contradiction, published unresolved: MALTA states the giveaway host was still down through its final pass (head f0fb352, 2026-09-23T22:54:46Z), MALTA-LAWS states it was down at its build (head 18f3323, 23:12:07Z), and MALTASUPPLEMENTAL states the same outage had cleared and the Terms were re-read in full that day (head b86f593, 2026-09-24T00:00:45Z). The claim cannot be adjudicated from this directory's sandbox: outbound HTTP to everything except api.github.com is blocked here (IRR-105)."
    ],
    "retiredAt": "2026-09-24",
-   "retiredReason": "Discovered as new by this pass's live read (it did not exist at the 2026-09-23 snapshot), cloned at head f0fb352 and verified in full with all four of its own checks executed, and then DELETED upstream while the pass was still running: GET /repos/buffedlizard55-lab/MALTA returns HTTP 404 and no repository remaining in the account's public list carries its created_at of 2026-09-23T17:19:52Z, so it was removed rather than renamed. Its published site is therefore no longer served at the URL recorded above. Frozen here with the values last read from the API before deletion, per the same policy that keeps JobSearchSF frozen, because it was fully verified this pass and the work should not vanish with the repository. Its replacement MALTA2, created 2026-09-24T00:22:26Z, is an empty placeholder and is listed in the live directory separately. Owner action: confirm whether the deletion was intended, and whether the dossier's content still exists somewhere.",
+   "retiredReason": "Discovered as new by this pass's live read (it did not exist at the 2026-09-23 snapshot), cloned at head f0fb352 and verified in full with all four of its own checks executed, and then DELETED upstream while the pass was still running: GET /repos/buffedlizard55-lab/MALTA returns HTTP 404 and no repository remaining in the account's public list carries its created_at of 2026-09-23T17:19:52Z, so it was removed rather than renamed. Its published site is therefore no longer served at the URL recorded above. Frozen here with the values last read from the API before deletion, per the same policy that keeps JobSearchSF frozen, because it was fully verified this pass and the work should not vanish with the repository. Its short-lived replacement MALTA2 (an 8-byte placeholder) has itself since been deleted upstream and is frozen as its own entry (IRR-110). Owner action: confirm whether the deletion was intended, and whether the dossier's content still exists somewhere.",
    "retiredEvidence": [
     "https://api.github.com/repos/buffedlizard55-lab/MALTA — HTTP 404 Not Found (read 2026-09-24)",
     "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 — MALTA absent from the 69-repo public list; no surviving repository carries created_at 2026-09-23T17:19:52Z (read 2026-09-24)",
-    "https://api.github.com/repos/buffedlizard55-lab/MALTA2 — 200, created_at 2026-09-24T00:22:26Z, one commit e806c87 of 2026-09-24T00:22:27Z"
+    "https://api.github.com/repos/buffedlizard55-lab/MALTA2 — HTTP 404 Not Found as of 2026-09-24 (MALTA2 has itself since been deleted; see its own frozen entry)"
+   ]
+  },
+  {
+   "repo": "MALTA-LAWS",
+   "title": "MALTA-LAWS — Malta Trip & Law Dossier (parallel site)",
+   "category": "Travel & Event Dossiers",
+   "kind": "app",
+   "description": "Fourteen-page parallel dossier to MALTA, covering Maltese customs and entry under the 2026 EES rules, a law and public-behaviour guide for a US citizen resident in California with a California-vs-Malta comparison, a live-sports-over-radio registry cross-mapped to Kalshi market families, prize due diligence against the sponsor's Terms, and a scenario cost model (SFO origin, $30/day food bound to days-on-ground) with an in-browser planner. Every row carries a source URL, an access date and one of four status badges, and rows whose only reading came from the parallel MALTA audit are labelled AUDIT-REC instead of being presented as verified. Executed in a clean clone at head 18f3323: python3 -m unittest discover -s tests → OK (Ran 15 tests) and python3 tests/test_site.py → OK — site integrity: 14 pages, links/anchors/model-digest/totals/hygiene verified.",
+   "created": "2026-09-23T22:22:36Z",
+   "firstCommit": "2026-09-23T22:22:37Z",
+   "firstCommitSha": "26f573c",
+   "lastCommit": "2026-09-23T23:12:07Z",
+   "lastCommitSha": "18f3323",
+   "pushedAt": "2026-09-23T23:12:07Z",
+   "updatedAt": "2026-09-23T23:12:13Z",
+   "commits": 3,
+   "pagesStatus": "built",
+   "pagesSource": "main /",
+   "pagesUrl": "https://buffedlizard55-lab.github.io/MALTA-LAWS/",
+   "defaultBranch": "main",
+   "sizeKb": 118,
+   "flags": [
+    "Rows whose only reading came from the parallel MALTA audit are marked AUDIT-REC, not verified: community.hotspawn.com was unreachable from build time onward and the same-day Wayback capture of the terms URL shows only “These terms aren't available.”",
+    "Its budget and digest checks are self-consistent by construction — tests/test_site.py recomputes sha256(expenses/trip.json)[:16] and compares it to data/budget.json's model_digest — but the cost bands themselves are labelled estimates, not quotes.",
+    "No CI workflow exists in the repository (no .github/ directory); its two check scripts run only when a human runs them. The GitHub Actions API shows 2 runs for this repository, both Pages build events, zero workflow runs."
+   ],
+   "retiredAt": "2026-09-24",
+   "retiredReason": "Listed in the 2026-09-24 directory (3 commits, head 18f3323, verified in full by executing its own checks in a clean clone at that head: unittest discover 15 tests OK; tests/test_site.py OK over 14 pages). GET /repos/buffedlizard55-lab/MALTA-LAWS now returns HTTP 404, the search API returns total_count 0, and the name is absent from the account's 73-repository public list, so the repository was deleted or made private and its Pages site is no longer served. Frozen here with its last verified values for owner review, per AGENTS.md § 3 (unreachable entries are frozen, never silently deleted).",
+   "retiredEvidence": [
+    "https://api.github.com/repos/buffedlizard55-lab/MALTA-LAWS — HTTP 404 Not Found (read 2026-09-24)",
+    "https://api.github.com/search/repositories?q=MALTA-LAWS+user:buffedlizard55-lab — total_count 0 (read 2026-09-24)",
+    "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 — MALTA-LAWS absent from the 73-repo public list (read 2026-09-24)"
+   ]
+  },
+  {
+   "repo": "MALTA2",
+   "title": "MALTA2 — Empty Placeholder Repository (deleted upstream)",
+   "category": "Directory & Meta",
+   "kind": "stub",
+   "description": "Empty placeholder repository created 2026-09-24T00:22:26Z with a single commit (e806c87, 'Initial commit', 00:22:27Z). Its entire tree was one blob: a README.md of 8 bytes whose whole content is the heading '# MALTA2'. There is no index.html — GET /repos/buffedlizard55-lab/MALTA2/contents/index.html returns HTTP 404 — and the repository reports a size of 0 KB, so GitHub Pages (status built, source main /) serves Jekyll's default render of that one-line README. It was created roughly three minutes after MALTA, a 40-commit verified Malta dossier that this directory had just read in full, was deleted upstream. No statement was made about what MALTA2 was intended to become, because the repository did not say.",
+   "created": "2026-09-24T00:22:26Z",
+   "firstCommit": "2026-09-24T00:22:27Z",
+   "firstCommitSha": "e806c87",
+   "lastCommit": "2026-09-24T00:22:27Z",
+   "lastCommitSha": "e806c87",
+   "pushedAt": "2026-09-24T00:22:27Z",
+   "updatedAt": "2026-09-24T00:22:31Z",
+   "commits": 1,
+   "pagesStatus": "built",
+   "pagesSource": "main /",
+   "pagesUrl": "https://buffedlizard55-lab.github.io/MALTA2/",
+   "defaultBranch": "main",
+   "sizeKb": 0,
+   "flags": [
+    "Created 2026-09-24T00:22:26Z, roughly three minutes after the 40-commit MALTA repository behind it stopped resolving (HTTP 404). The two events are adjacent in time and both were recorded; that they are related was plausible and unproven, so it is stated as what it is (IRR-109).",
+    "GitHub Pages reported status built even though there was nothing to build: with no index.html and an 8-byte README, the published URL served Jekyll's render of that README. A 'built' badge on this entry is evidence about the deployment, not about a working site.",
+    "It never held more than the one commit recorded here, and it has itself now been deleted upstream (HTTP 404 on 2026-09-24), so it is frozen in this Unreachable panel rather than dropped."
+   ],
+   "retiredAt": "2026-09-24",
+   "retiredReason": "Listed in the 2026-09-24 directory as an empty placeholder (one commit e806c87, an 8-byte README containing only '# MALTA2', no index.html). GET /repos/buffedlizard55-lab/MALTA2 now returns HTTP 404, the search API returns total_count 0, and the name is absent from the account's 73-repository public list, so it was deleted or made private. It was itself the short-lived successor to the also-deleted 40-commit MALTA dossier. Frozen rather than dropped, per AGENTS.md § 3.",
+   "retiredEvidence": [
+    "https://api.github.com/repos/buffedlizard55-lab/MALTA2 — HTTP 404 Not Found (read 2026-09-24)",
+    "https://api.github.com/search/repositories?q=MALTA2+user:buffedlizard55-lab — total_count 0 (read 2026-09-24)",
+    "https://api.github.com/users/buffedlizard55-lab/repos?per_page=100 — MALTA2 absent from the 73-repo public list (read 2026-09-24)"
    ]
   }
  ],
@@ -1633,12 +1729,31 @@
    "severity": "critical",
    "title": "MALTA was deleted upstream while this pass was running, and MALTA2 — an empty placeholder — appeared about three minutes later",
    "detail": "MALTA (created 2026-09-23T17:19:52Z, 40 commits, head f0fb352) was new to this pass, was cloned at head and verified in full — its own checks executed: python3 tests/test_calculate.py 53 tests OK, python3 tests/test_radio.py 19 tests OK, python3 scripts/check_links.py OK over 10 pages, node --test test/*.test.cjs 36 pass / 0 fail — and then stopped existing. GET /repos/buffedlizard55-lab/MALTA returns HTTP 404, and no repository left in the account's 69-repo public list carries its created_at of 2026-09-23T17:19:52Z, so it was deleted rather than renamed. The effect on this pass is measurable in its own output: the build at 2026-09-24T00:17:06Z reported 68 sites and 3,793 commits, and the build at 2026-09-24T00:23:27Z reported 67 sites and 3,753 commits — exactly MALTA's 40 commits. MALTA2 was created at 2026-09-24T00:22:26Z, about three minutes after MALTA stopped resolving, with one commit (e806c87), an 8-byte README ('# MALTA2'), size 0 KB, no index.html and Pages already enabled. Its content is preserved as a frozen retired entry rather than deleted from the dataset, per the policy that keeps JobSearchSF. Owner action: confirm whether deleting a complete 40-commit dossier was intentional and whether its content survives anywhere; if MALTA2 is meant to carry it, the directory should be re-read when content lands."
+  },
+  {
+   "id": "IRR-110",
+   "severity": "critical",
+   "title": "MALTA-LAWS and MALTA2, both listed in the 2026-09-24 directory, were deleted upstream between the last snapshot and this pass",
+   "detail": "MALTA-LAWS (listed 2026-09-24, 3 commits, head 18f3323, fully verified by executing its own checks that pass) and MALTA2 (the 8-byte placeholder created minutes after the 40-commit MALTA dossier vanished) both now return HTTP 404 from GET /repos/buffedlizard55-lab/{repo}, the search API returns total_count 0 for both, and neither name appears in the account's 73-repository public list. So, counting MALTA itself, three of the four Malta-family repositories created on 2026-09-23–09-24 have been deleted upstream within a day, leaving only MALTASUPPLEMENTAL live. Both are frozen into the Unreachable panel with their last verified values rather than silently dropped, per AGENTS.md § 3. Owner action: confirm whether the Malta-family deletions were intentional and whether the content survives anywhere. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/MALTA-LAWS and GET https://api.github.com/repos/buffedlizard55-lab/MALTA2 (both 404)."
+  },
+  {
+   "id": "IRR-111",
+   "severity": "warn",
+   "title": "The account grew 70 → 73 public repositories between the 00:39:08Z snapshot and this pass, adding five new Pages sites — and two of them reversed from stub to app in under an hour",
+   "detail": "Five new repositories appeared after the 2026-09-24T00:39:08Z snapshot and are now listed, each read in full from its own README and re-derived as 'app' via GET /repos/{owner}/{repo}/contents/index.html: MLBSCORINGCHANGE (created 2026-09-24T17:51:50Z, 31 commits), NBAInjScoreboard (2026-09-24T04:59:41Z, 18 commits), SIM-COMP-NOBEL-PRIZE (2026-09-24T17:01:59Z, 16 commits), TAXKALSHI (2026-09-24T23:03:18Z, now 7 commits at the shipping snapshot) and THUNDERPICKCOMP (2026-09-24T01:19:34Z, 39 commits); MLBSCORINGCHANGE grew to 41 commits via automated data-refresh runs between its first read and the shipping snapshot. Two reversed mid-read: TAXKALSHI was an 11-byte '# TAXKALSHI' README at 0a565bb (23:03:19Z) and a full research desk with index.html/calculator/ledger at 779d4dc (23:39:45Z) about 36 minutes later; it was withheld from being published as a stub while it grew. This is the IRR-80 class for the fourth time and the reason the youngest entries are always re-read rather than trusted."
+  },
+  {
+   "id": "IRR-112",
+   "severity": "critical",
+   "title": "NOBEL-PRIZE was published as an empty one-file placeholder and is now a 12-commit Nobel Prize archive site",
+   "detail": "The previous snapshot described NOBEL-PRIZE as an empty placeholder (one commit 117b939, README 13 bytes, no index.html, kind stub) stamped at 2026-09-24T00:20:00Z. It now holds 12 commits to head dfd8253 (2026-09-24T17:34:54Z), a root index.html, a 4,382 KB tree, and its committed data/verification-report.json records 682 prize records (633 awarded, 49 not awarded), 1,018 laureate entities, 1,026 award slots and 709 flags. tools/audit_kind.py re-derived kind as 'app' (main//index.html -> HTTP 200), independently confirming the stub classification was false. Fifth occurrence of the 'published as a placeholder' class (IRR-42, IRR-64, IRR-71, IRR-84). The entry was rewritten in full at dfd8253 and the placeholder description withdrawn. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/NOBEL-PRIZE/commits and GET https://api.github.com/repos/buffedlizard55-lab/NOBEL-PRIZE/contents/index.html."
   }
  ],
  "excluded": [
   "ProjX"
  ],
  "descriptionNotes": [
+  "Audit date 2026-09-24 (second pass after the 00:39:08Z snapshot): the account moved 70 → 73 public repositories. Five new Pages sites were curated and read in full from their own READMEs (MLBSCORINGCHANGE at e2ed97a, NBAInjScoreboard at 231392d, SIM-COMP-NOBEL-PRIZE at 4724a64, TAXKALSHI at 779d4dc - re-read after it reversed from an 11-byte stub mid-read - and THUNDERPICKCOMP at e0f4ecc), NOBEL-PRIZE was rewritten from its placeholder description at head dfd8253 after kind re-derived stub → app, and the two listed sites that now return HTTP 404 (MALTA-LAWS, MALTA2) were frozen into the Unreachable panel with their last verified values along with the existing JobSearchSF and MALTA freezes. New category: 'Reference & Archives' (NOBEL-PRIZE). TAXKALSHI was withheld from being published as a stub while it grew from one to five commits in ~36 minutes, the same discipline as PRICINGEXPERT (IRR-94).",
   "Audit date 2026-09-20 (second pass, snapshot 2026-09-20T02:25:01Z): tools/verify_live.py re-read every API-derived field of all 44 entries — 582 checks, 0 hard mismatches, 45 differences all classed as drift (GitHub's asynchronous `size` field, or repositories pushed to after the prior snapshot). Coverage re-confirmed complete: 45 public repositories on the account, 44 listed, 1 permanently excluded, 0 unlisted, 0 listed-but-absent, and JobSearchSF still HTTP 404 for a fourth consecutive read.",
   "Eleven entries had their descriptions re-read line by line against the repository's own files this session and are stamped `lastVerified: 2026-09-20T02:25:01Z`: VacationSchedule, Elections, OLBG-Competition, ShoulderPain, Commodities, SFWeather, TradingViewTheLeap, NBAInjuryReport, GEMSDOE, ScheduleFreeTime and MasterSite. Four needed rewriting (VacationSchedule, Elections, OLBG-Competition, ShoulderPain). Seven re-verified byte-for-byte true and were left alone: every figure quoted in Commodities (22 personas = 4 + 5 + 1 + 12, 50-assertion verify_data.py, the three markets' 44/72/14 bars, $10,000 per account, taker fee 0.07*q*p*(1-p)), SFWeather (123 days, 12.79 in, 34.5 wet days, 96.7%, station USW00023272, the 1991-2020 record, both badges, and the 'about 7 days' NWS validTimes horizon), TradingViewTheLeap (sixteenth pass, R10 N=99,663, HappyLittleTrades +994.30% / $2,485,745.50, 94/94 symbols with 0 equities, $50,000 cash ARV, 15 champions with max 53.2072x, roster 38 with C17-C19 and H37-H39, 401 passed / 0 failed / 1 warning, 459-check self-test, 94 unit tests, +15.99%/day, register still topping out at IR-29), NBAInjuryReport (229-row fixture, 26 Python tests, all 30 teams, 18/12/0 writer split, 65 pollable accounts, 26 of 30 with no verified club Bluesky, 5 impersonation labels, 75 rows in 27 of 30 blocks with CLE/DET/LAL absent, 30 club channels answering 403) and GEMSDOE (Session 18, KEEP mean12, the +0.0114 fold-0 gap of 0.0806 vs 0.0920, folds 1-3 dispatched, 318 passed / 1 skipped, 19 bands, $300,000 prize ending 2026-12-03, size 398,785 KB) still hold exactly as published.",
   "The remaining 33 entries carry `lastVerified: 2026-09-20T01:17:26Z` with an explicit `verifiedBasis` string stating that their prose was NOT re-read this session and why that is safe (31 are byte-identical on the default branch; DrugAnalysis and StockPaperSim took no new commits and moved only in GitHub's asynchronously recomputed `size` field). This is the change README task #3 asked for: 'verified' no longer means two different things.",
@@ -1694,9 +1809,6 @@
   "NFLInjuryReport": "See the NBAInjuryReport note: this entry is the NFL counterpart and is sourced the same way. Every numeric token is either quoted from README.md at commit 4953f8e (the 32-team scope, the nfl.com primary-ground-truth rule with its HTTP 200 / 56 ms / 366 kB / season selector to 1965, the ESPN injuries JSON's HTTP 200 / keyless / 8.9 MB and its athlete.position.abbreviation field, api.nfl.com's HTTP 401 Varnish 54113 requiring OAuth, the personnel-report policy PDFs' HTTP 404 probe-only status, and the scorecard's no-free-read-tier-since-February-2026 limitation) or counted from the committed snapshot data/latest/meta.json (861 players, 32 teams, 83 out, 101 questionable, 14 doubtful, 43 alerts, 37 in-game events, 27 in-game alerts, 80 irregularities, empty source_errors, 11 files, 6,010,873 bytes) and from the executed `PYTHONPATH=. python3 -m pytest tests -rA` result of 222 passed across 15 modules. The README's 10-minute refresh interval is stale against the workflow's four staggered five-minute cron entries at the same head (IRR-104). Verified 2026-09-23.",
   "MLB-Live-PBP": "Every numeric token is quoted from README.md at commit 315cb0e (the 500 ms full-feed poll, the 250 ms status watcher, the 250 ms lean play-by-play probe while a review is in flight, the ~2.4 KB fields projection described as about one-eighth of the full schedule, the review codes MJ / MA / MF / NH, the 1.2 s chime and its 2.5 s cooldown) or counted by execution: `ls tools/*-test.mjs | wc -l` == 15, of which 14 exit 0 and `node tools/smoke-test.mjs` prints '8 check(s) FAILED' with every failure reading 'fetch failed' on the live teams directory, the gameStatus registry and the review-status projection — a sandbox egress limit rather than a repository defect, which is why the description says so explicitly instead of publishing a pass. The README does not print the suite counts. Verified 2026-09-23.",
   "MLB-PBP": "Every numeric token is quoted from README.md at commit 57c4f9d (the 2014 start date, the game types R, F, D, L and W, and the four-part acceptance rule of HTTPS-on-the-exact-host, successful JSON, MLB Advanced Media's provenance notice and a matching gamePk) or counted by execution: `python -m unittest discover -s tests -v` prints 'Ran 6 tests ... OK' and `node --test tests/test_eventlog.mjs` prints '# tests 15 / # pass 15 / # fail 0'. The README does not print either test count. Verified 2026-09-23.",
-  "InjuryAlerTNFL": "Counted, not quoted, and therefore absent from README.md: '154' is the number of claim objects summed across the 80 incidents in data/archive.json at head 6a4067a (len(incident['claims']) over data/archive.json -> incidents), which the README does not print as a total; '18' is the executed unittest count from `python -m unittest discover -s tests -v`, which prints 'Ran 18 tests ... OK' and does not appear in the README. The README's own related figures were reconciled rather than trusted: its 'first 123 quotes re-fetched' plus '31 excerpts added after that re-check' equals the 154 claims counted in the archive. Verified 2026-09-24 at head 6a4067a.",
-  "MALTA-LAWS": "Counted, not quoted: '14' is the number of published pages, taken from the PAGES list in tests/test_site.py and confirmed by `find . -name '*.html'` at head 18f3323 and by the script's own output ('OK - site integrity: 14 pages'). README.md describes the pages in prose and a layout listing but never prints the count. Verified 2026-09-24 at head 18f3323.",
-  "MALTA2": "The repository's README is one heading ('# MALTA2', 8 bytes), so it cannot contain any of this entry's tokens; every one is sourced from an official API read at the repository's only commit, not from prose. GET /repos/buffedlizard55-lab/MALTA2 gives created_at 2026-09-24T00:22:26Z ('24', '22', '26'), pushed_at 2026-09-24T00:22:27Z, size 0 (shown as 0 KB) and default_branch main; GET .../commits gives one commit e806c87 dated 2026-09-24T00:22:27Z, which is where '09', '22', '00' and '40' come from in the surrounding sentences; GET .../readme returns 8 bytes ('8'); GET .../contents/index.html returns HTTP 404 ('404'), which is why kind is stub; GET .../pages returns status built. The '40' is MALTA's verified commit count, read from GET .../MALTA/commits before that repository was deleted. Verified 2026-09-24 at head e806c87.",
-  "NOBEL-PRIZE": "The repository's README is one heading ('# NOBEL-PRIZE', 13 bytes), so it cannot contain any of this entry's tokens; every one is sourced from an official API read at the repository's only commit. GET /repos/buffedlizard55-lab/NOBEL-PRIZE supplies the created/pushed/updated timestamps (2026-09-24T00:32:52Z / 00:32:53Z / 00:32:58Z, i.e. '24', '32', '52', '53', '58'), size 0 (shown as 0 KB) and default_branch main; GET .../commits gives the single commit 117b939 dated 2026-09-24T00:32:53Z; GET .../readme returns 13 bytes ('13'); GET .../contents/index.html returns HTTP 404 ('404'), which is why kind is stub; GET .../pages returns status built; and GET .../git/trees/main?recursive=1 returns one path ('1'). Verified 2026-09-24 at head 117b939."
+  "InjuryAlerTNFL": "Counted, not quoted, and therefore absent from README.md: '154' is the number of claim objects summed across the 80 incidents in data/archive.json at head 6a4067a (len(incident['claims']) over data/archive.json -> incidents), which the README does not print as a total; '18' is the executed unittest count from `python -m unittest discover -s tests -v`, which prints 'Ran 18 tests ... OK' and does not appear in the README. The README's own related figures were reconciled rather than trusted: its 'first 123 quotes re-fetched' plus '31 excerpts added after that re-check' equals the 154 claims counted in the archive. Verified 2026-09-24 at head 6a4067a."
  }
 }

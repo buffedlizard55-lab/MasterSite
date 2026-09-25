@@ -1,9 +1,23 @@
 {
-  "generatedOffsetVsLive": "2026-09-24T00:39:08Z",
-  "checks": 907,
-  "mismatches": [],
+  "generatedOffsetVsLive": "2026-09-25T00:10:26Z",
+  "checks": 946,
+  "mismatches": [
+    {
+      "entry": "sites[]/InjuryAlerTNFL",
+      "field": "pushedAt",
+      "committed": "2026-09-24T21:21:43Z",
+      "live": "2026-09-25T00:09:41Z"
+    }
+  ],
   "unlistedInApi": [],
   "listedNotInApi": [],
-  "volatileDrift": [],
+  "volatileDrift": [
+    {
+      "entry": "sites[]/InjuryAlerTNFL",
+      "field": "pushedAt",
+      "committed": "2026-09-24T21:21:43Z",
+      "live": "2026-09-25T00:09:41Z"
+    }
+  ],
   "hardMismatches": []
 }
