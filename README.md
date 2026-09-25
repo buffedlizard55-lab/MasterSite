@@ -1,33 +1,38 @@
 # MasterSite
 
-The **master list and directory of the GitHub Pages sites published under** [`buffedlizard55-lab`](https://github.com/buffedlizard55-lab) (with a verified audit of [`kanlerxz87-cyber`](https://github.com/kanlerxz87-cyber)) — generated entirely from official GitHub REST API reads, with zero manual data entry and zero hallucinations. One repository is deliberately unpublished by owner request, and four sites that were listed in earlier passes are frozen as unreachable because they no longer exist upstream.
+The **master list and directory of the GitHub Pages sites published under** [`buffedlizard55-lab`](https://github.com/buffedlizard55-lab) (with a verified audit of [`kanlerxz87-cyber`](https://github.com/kanlerxz87-cyber)) — generated entirely from official GitHub REST API reads, with zero manual data entry and zero hallucinations. One repository is deliberately unpublished by owner request, and four previously verified repositories are frozen as unreachable because they no longer exist upstream.
 
 **Live Directory:** <https://buffedlizard55-lab.github.io/MasterSite/>
 
 ---
 
-## Audit status — 2026-09-25, second pass (API snapshot `2026-09-25T00:10:26Z`; **all three read-only verifiers run against that snapshot**)
+## Audit status — 2026-09-25, third pass (API snapshot `2026-09-25T04:18:12Z`; **all three read-only verifiers run against that snapshot**)
 
 | Metric | Value |
 |---|---|
-| GitHub Pages sites published in the directory | **72** |
-| Interactive apps / documentation stubs | **65 / 7** — the remaining stubs are `Leg3SeoulTrip`, `MLB-Prediction-model-backtest`, `NFL-PLAYER-PROP-SIM`, `NFLPRED`, `PFFNFL`, `RGENGY` and `StokEngineer` |
-| Pages builds reporting `built` | **72 / 72** at the shipping snapshot |
-| Descriptions stamped with the commit they were read at | **72 / 72** (`verifiedAtSha`) |
-| Descriptions provably behind their repository head *at the snapshot* | **26** — the published work queue, rendered stale-first in `VERIFICATION.md` § 4a. This is expected: the account's repositories are pushed to continuously, and a `PROSE-STALE` report is a work item, not a defect |
-| Descriptions re-read in this pass / carried forward | **6 / 66** — the five newly published repositories plus a rewritten `NOBEL-PRIZE` (see `IRR-112`) were read in full at head this pass; the other 66 are carried with a stated reason |
-| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: **946 checks, 945 ok, 0 hard mismatches, 1 drift** (the drift is `InjuryAlerTNFL`'s `pushedAt`, pushed one second after the snapshot read it). `audit_kind.py`: **72 checked, 0 disagreements**. `audit_descriptions.py` after `rm -rf tools/.readme-cache`: **35 accepted exceptions, 0 entries needing manual confirmation**. The Playwright contract still runs in CI only — no browser binary or CDN access exists here, so no local run is claimed |
-| Commits audited across the listed repositories | **4017**, true only at the moment the build read it — the figure moves every few minutes while 72 repositories are actively pushed to |
-| Public repositories on the account (API) | **73** |
-| Pages sites on the account (API) | **73** |
-| Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request). `listed + withheld = 72 + 1 = 73` is asserted at build time |
-| Unreachable entries (needs owner review) | **4** (`JobSearchSF` — HTTP 404 for a ninth consecutive audit; `MALTA` — deleted mid-pass, `IRR-109`; `MALTA-LAWS` and `MALTA2` — deleted upstream since the last snapshot, `IRR-110`) |
-| Irregularities registered | **112** (`IRR-01` … `IRR-112`) — three registered this pass (`IRR-110` … `IRR-112`), of which 2 critical and 1 warn |
+| GitHub Pages sites published in the directory | **74** |
+| Interactive apps / documentation stubs | **67 / 7** — stubs: `Leg3SeoulTrip`, `MLB-Prediction-model-backtest`, `NFL-PLAYER-PROP-SIM`, `NFLPRED`, `PFFNFL`, `RGENGY` and `StokEngineer` |
+| Pages builds reporting `built` | **74 / 74** at the shipping snapshot |
+| Descriptions stamped with the commit they were read at | **74 / 74** (`verifiedAtSha`) |
+| Descriptions provably behind their repository head *at the snapshot* | **28** — a measured work queue, not a failed verification; the owner pushes to these repositories continuously (`VERIFICATION.md` § 4a) |
+| Descriptions re-read in this pass / carried forward | **2 / 72** — the two newly listed sites were read at head; existing prose is carried with its original stamp and staleness badge |
+| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: **972 checks, 972 ok, 0 hard mismatches, 0 drift**. `audit_kind.py`: **74 checked, 0 disagreements**. `audit_descriptions.py` with a cleared README cache: **35 accepted exceptions, 0 entries needing manual confirmation**. `npm run check` passed locally; the Playwright browser contract runs in PR CI, not in this sandbox |
+| Commits audited across the listed repositories | **4231** at the API snapshot, not a permanent count |
+| Public repositories / Pages sites on the account (API) | **75 / 75** |
+| Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request). `listed + withheld = 74 + 1 = 75` is asserted at build time |
+| Unreachable entries (needs owner review) | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2` — previously verified, now HTTP 404) |
+| Irregularities registered | **114** (`IRR-01` … `IRR-114`); new this pass: `IRR-113` (warn) and `IRR-114` (critical) |
 | Accepted description exceptions / description notes | **35 / 19** |
-| Categories | **12** — Sports Data & Scoreboards (28), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (7), Science & ML Research (3), Gaming & Guides (3), Directory & Meta (2), Reference & Archives (1), Travel & Event Dossiers (1), Elections & Civic Data (1), Health & Personal Guides (1), Social & Creator Data (1) |
-| Pages publish sources | **71** from `main /`, **1** (`GOLD`) from `main /docs` |
+| Categories | **12** — Sports Data & Scoreboards (28), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (7), Science & ML Research (5), Gaming & Guides (3), Directory & Meta (2), Reference & Archives (1), Travel & Event Dossiers (1), Elections & Civic Data (1), Health & Personal Guides (1), Social & Creator Data (1) |
+| Pages publish sources | **73** from `main /`, **1** (`GOLD`) from `main /docs` |
 
-`Reference & Archives` is a new category created by this pass for `NOBEL-PRIZE` (which grew from an empty placeholder into a full archive since the last snapshot), and the UI needed no change to support it: the filter chips are built from the data, and `AGENTS.md` forbids hardcoding a category list.
+### What changed in the 2026-09-25 third pass — two recently published GEMS sites added
+
+The account grew from **73 to 75 public Pages repositories** since the previous snapshot. Both new repositories were curated from their own files, confirmed as built on `main /`, and independently classified as apps (`IRR-113`):
+
+- **`GEMSDOE2`** is a fault-mapping and submission workspace. Its root redirects to a docs/ site with a direct fusion GeoTIFF/ZIP download and a separate browser builder for an earlier ensemble field. The two downloads are **not the same candidate**; the local surrogate score is not an official competition result. Its latest committed upstream Tests log at verified head `9d1aea9` reports **523 passed, 3 skipped, 1 failed**: four committed HTML pages do not reproduce from the generator. Pages is still `built`; the failed test and the ambiguous candidate choice are registered for owner review (`IRR-114`).
+- **`GEMSDOE3` (Riftline)** is a separate GEMS fault-mapping research workspace with direct and browser-generated candidate downloads, an executive guide, experiments and a dated source-health feed. Its submission manifest at verified head `9d7c47f` says **unsubmitted; score unknown**. Hosted Riftline verification and Pages deployment both passed for that head. No hidden-label performance is asserted.
+- The directory now lists **74 / 75** published Pages repositories; the deliberate `ProjX` exclusion is unchanged and four deleted repositories remain frozen rather than discarded. GitHub's new-repository size field still reads 0 KB for the two new sites at this snapshot despite their nonempty Git trees; it is recorded as asynchronous API metadata, not evidence of empty sites (`IRR-113`).
 
 ### What changed in the 2026-09-24 second pass — **five new Pages sites listed, one false placeholder description rewritten, and two listed sites that vanished upstream frozen rather than dropped**
 
