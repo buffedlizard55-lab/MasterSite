@@ -1,9 +1,23 @@
 {
-  "generatedOffsetVsLive": "2026-09-25T04:18:12Z",
-  "checks": 972,
-  "mismatches": [],
+  "generatedOffsetVsLive": "2026-09-26T00:28:59Z",
+  "checks": 1115,
+  "mismatches": [
+    {
+      "entry": "sites[]/PRICINGEXPERT",
+      "field": "sizeKb",
+      "committed": 3935,
+      "live": 3750
+    }
+  ],
   "unlistedInApi": [],
   "listedNotInApi": [],
-  "volatileDrift": [],
+  "volatileDrift": [
+    {
+      "entry": "sites[]/PRICINGEXPERT",
+      "field": "sizeKb",
+      "committed": 3935,
+      "live": 3750
+    }
+  ],
   "hardMismatches": []
 }
