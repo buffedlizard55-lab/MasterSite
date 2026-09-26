@@ -6,25 +6,35 @@ The **master list and directory of the GitHub Pages sites published under** [`bu
 
 ---
 
-## Audit status — 2026-09-25, third pass (API snapshot `2026-09-25T04:18:12Z`; **all three read-only verifiers run against that snapshot**)
+## Audit status — 2026-09-26 (API snapshot `2026-09-26T00:28:59Z`; **all three read-only verifiers run against that snapshot**)
 
 | Metric | Value |
 |---|---|
-| GitHub Pages sites published in the directory | **74** |
-| Interactive apps / documentation stubs | **67 / 7** — stubs: `Leg3SeoulTrip`, `MLB-Prediction-model-backtest`, `NFL-PLAYER-PROP-SIM`, `NFLPRED`, `PFFNFL`, `RGENGY` and `StokEngineer` |
-| Pages builds reporting `built` | **74 / 74** at the shipping snapshot |
-| Descriptions stamped with the commit they were read at | **74 / 74** (`verifiedAtSha`) |
-| Descriptions provably behind their repository head *at the snapshot* | **28** — a measured work queue, not a failed verification; the owner pushes to these repositories continuously (`VERIFICATION.md` § 4a) |
-| Descriptions re-read in this pass / carried forward | **2 / 72** — the two newly listed sites were read at head; existing prose is carried with its original stamp and staleness badge |
-| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: **972 checks, 972 ok, 0 hard mismatches, 0 drift**. `audit_kind.py`: **74 checked, 0 disagreements**. `audit_descriptions.py` with a cleared README cache: **35 accepted exceptions, 0 entries needing manual confirmation**. `npm run check` passed locally; the Playwright browser contract runs in PR CI, not in this sandbox |
-| Commits audited across the listed repositories | **4231** at the API snapshot, not a permanent count |
-| Public repositories / Pages sites on the account (API) | **75 / 75** |
-| Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request). `listed + withheld = 74 + 1 = 75` is asserted at build time |
+| GitHub Pages sites published in the directory | **85** |
+| Interactive apps / documentation stubs | **73 / 12** — stubs: `11GEMSDOE`, `7GEMSDOE`, `8GEMSDOE`, `GEMSDOE9`, `GEMSDOE10`, `Leg3SeoulTrip`, `MLB-Prediction-model-backtest`, `NFL-PLAYER-PROP-SIM`, `NFLPRED`, `PFFNFL`, `RGENGY` and `StokEngineer` |
+| Pages builds reporting `built` | **85 / 85** at the shipping snapshot |
+| Descriptions stamped with the commit they were read at | **85 / 85** (`verifiedAtSha`) |
+| Descriptions provably behind their repository head *at the snapshot* | **24** — a measured work queue, not a failed verification; the owner pushes to these repositories continuously (`VERIFICATION.md` § 4a) |
+| Descriptions re-read in this pass / carried forward | **19 / 66** — eleven new sites read at head plus eight dangling stamps re-read at their live heads; every stamp was then matched against the live head before publication |
+| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: **1115 checks, 1114 ok, 0 hard mismatches, 1 drift** (an asynchronously recomputed size field). `audit_kind.py`: **85 checked, 0 disagreements**. `audit_descriptions.py` with a cleared README cache: **42 accepted exceptions, 0 entries needing manual confirmation**. `npm run check` passed locally; the Playwright browser contract runs in PR CI, not in this sandbox |
+| Commits audited across the listed repositories | **4595** at the API snapshot, not a permanent count |
+| Public repositories / Pages sites on the account (API) | **86 / 86** |
+| Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request). `listed + withheld = 85 + 1 = 86` is asserted at build time |
 | Unreachable entries (needs owner review) | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2` — previously verified, now HTTP 404) |
-| Irregularities registered | **114** (`IRR-01` … `IRR-114`); new this pass: `IRR-113` (warn) and `IRR-114` (critical) |
-| Accepted description exceptions / description notes | **35 / 19** |
-| Categories | **12** — Sports Data & Scoreboards (28), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (7), Science & ML Research (5), Gaming & Guides (3), Directory & Meta (2), Reference & Archives (1), Travel & Event Dossiers (1), Elections & Civic Data (1), Health & Personal Guides (1), Social & Creator Data (1) |
-| Pages publish sources | **73** from `main /`, **1** (`GOLD`) from `main /docs` |
+| Irregularities registered | **122** (`IRR-01` … `IRR-122`); new this pass: `IRR-115`–`IRR-122` (1 critical, 5 warn, 2 info) |
+| Accepted description exceptions / description notes | **42 / 20** |
+| Categories | **12** — Sports Data & Scoreboards (31), Science & ML Research (13), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (7), Gaming & Guides (3), Directory & Meta (2), Reference & Archives (1), Travel & Event Dossiers (1), Elections & Civic Data (1), Health & Personal Guides (1), Social & Creator Data (1) |
+| Pages publish sources | **84** from `main /`, **1** (`GOLD`) from `main /docs` |
+
+### What changed in the 2026-09-26 pass — **eleven new sites listed, eight dangling SHA stamps caught and re-read, and one GEMS repository recommending the deletion of the other ten**
+
+The account grew from **75 to 86 public Pages repositories** since the previous snapshot. All eleven newcomers, created 2026-09-25, were curated from their own files and confirmed as built on `main /`: six apps (`5GEMSDOE`, `6GEMSDOE`, `GEMSDOE4`, `NBASCOREBOARD`, `NFLMAIN`, `NHL-SCOREBOARD`) and five single-commit README-only stubs (`7GEMSDOE`, `8GEMSDOE`, `GEMSDOE9`, `GEMSDOE10`, `11GEMSDOE`) (`IRR-116`):
+
+- **Eight `verifiedAtSha` stamps were dangling — the commits no longer exist upstream — and all eight entries were re-read at their live heads before publication (`IRR-115`, critical).** Five of the eight repository heads are byte-identical to the previous snapshot, so those mains moved backwards (force-push, reset or branch recreation) before this pass began; the other three had moved and were rewritten from executed evidence. Every stamp in the shipping snapshot was matched against the live API head.
+- **`6GEMSDOE` designates itself the only legitimate GEMS entry and recommends archiving then deleting the other ten GEMS repositories; `GEMSDOE4`'s charter instead plans more sites for more submissions (`IRR-119`, warn).** Both positions are quoted from the repositories' own files; MasterSite lists all eleven and takes no position. Owner decision required.
+- **`GEMSDOE4` moved mid-pass and was re-read at its new head.** The adopted candidate is now the k=2-of-5 union at proxy DTI **0.1897** (vs 0.1747 for the 4-member union it replaces, P=0.957 over 9 blocks), but the charter's summary row still reports the retired 0.1864 figure while §0.2 reports 0.1897 — an internal README inconsistency, published with the newer figure and the contradiction flagged rather than hidden.
+- **Three README-vs-file divergences found by counting, not quoting.** `5GEMSDOE` commits a failing pytest log for the same stale-committed-pages test class as `GEMSDOE` and `GEMSDOE2` — the third occurrence (`IRR-117`). `NBASCOREBOARD` says "two year-count maps" but the tree holds eight; the README's other three counts match exactly, so the map count alone is stale prose (`IRR-118`). `OLBG-Competition` says twelve of thirteen PnL desks lose, but its own `FACTS.md` shows two positive desks (`IRR-120`). `NBAInjuryReport`'s JS suites fail at head on data decay (167+4, 237+1) while its Python suite passes — the repo's own freshness guards firing, published as-is (`IRR-121`).
+- **The verifiers were run against the shipping snapshot and the one finding they reported was resolved, not silenced.** `audit_descriptions.py` flagged `NBAInjScoreboard`'s `403` token as absent from its live README; the claim is still true at head but moved to `LIMITATIONS.md`, so it became the 42nd accepted exception with the move documented. `verify_live.py`'s single drift item is an asynchronously recomputed size field.
 
 ### What changed in the 2026-09-25 third pass — two recently published GEMS sites added
 
