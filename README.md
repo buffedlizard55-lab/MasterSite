@@ -1,30 +1,44 @@
 # MasterSite
 
-The **master list and directory of the GitHub Pages sites published under** [`buffedlizard55-lab`](https://github.com/buffedlizard55-lab) (with a verified audit of [`kanlerxz87-cyber`](https://github.com/kanlerxz87-cyber)) — generated entirely from official GitHub REST API reads, with zero manual data entry and zero hallucinations. One repository is deliberately unpublished by owner request, and four previously verified repositories are frozen as unreachable because they no longer exist upstream.
+MasterSite is a source-linked directory of public GitHub Pages repositories for [`buffedlizard55-lab`](https://github.com/buffedlizard55-lab), with a public-account census for [`kanlerxz87-cyber`](https://github.com/kanlerxz87-cyber). Each listed site has a repository and Pages link, a short description curated from repository-owned files, its creation date, its latest default-branch commit timestamp, and official links for review. Per-entry source SHAs, snapshot telemetry, and flagged findings are in [`VERIFICATION.md`](VERIFICATION.md).
 
-**Live Directory:** <https://buffedlizard55-lab.github.io/MasterSite/>
+**Live directory:** <https://buffedlizard55-lab.github.io/MasterSite/>
 
----
+> **How to read the dates and status:** GitHub's public repository/Pages APIs do not expose site visits or last use. “Last commit” is the newest committer timestamp on the default branch, not evidence of site use. The “HTML entry point” label means `index.html` exists at the configured Pages source path; it does not establish that the page is interactive, works in a browser, or is reachable over HTTP. Pages status `built` is GitHub API metadata, not an uptime check.
+>
+> **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.
 
-## Audit status — 2026-09-26 (API snapshot `2026-09-26T00:28:59Z`; **all three read-only verifiers run against that snapshot**)
+## Current audit status — 2026-09-29 (API snapshot `2026-09-29T23:15:11Z` UTC)
 
-| Metric | Value |
+| Metric | Snapshot result |
 |---|---|
-| GitHub Pages sites published in the directory | **85** |
-| Interactive apps / documentation stubs | **73 / 12** — stubs: `11GEMSDOE`, `7GEMSDOE`, `8GEMSDOE`, `GEMSDOE9`, `GEMSDOE10`, `Leg3SeoulTrip`, `MLB-Prediction-model-backtest`, `NFL-PLAYER-PROP-SIM`, `NFLPRED`, `PFFNFL`, `RGENGY` and `StokEngineer` |
-| Pages builds reporting `built` | **85 / 85** at the shipping snapshot |
-| Descriptions stamped with the commit they were read at | **85 / 85** (`verifiedAtSha`) |
-| Descriptions provably behind their repository head *at the snapshot* | **24** — a measured work queue, not a failed verification; the owner pushes to these repositories continuously (`VERIFICATION.md` § 4a) |
-| Descriptions re-read in this pass / carried forward | **19 / 66** — eleven new sites read at head plus eight dangling stamps re-read at their live heads; every stamp was then matched against the live head before publication |
-| Verifier results | **RUN against the shipping snapshot.** `verify_live.py`: **1115 checks, 1114 ok, 0 hard mismatches, 1 drift** (an asynchronously recomputed size field). `audit_kind.py`: **85 checked, 0 disagreements**. `audit_descriptions.py` with a cleared README cache: **42 accepted exceptions, 0 entries needing manual confirmation**. `npm run check` passed locally; the Playwright browser contract runs in PR CI, not in this sandbox |
-| Commits audited across the listed repositories | **4595** at the API snapshot, not a permanent count |
-| Public repositories / Pages sites on the account (API) | **86 / 86** |
-| Repositories withheld, each with a stated reason | **1** (`ProjX` — permanently excluded by owner request). `listed + withheld = 85 + 1 = 86` is asserted at build time |
-| Unreachable entries (needs owner review) | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2` — previously verified, now HTTP 404) |
-| Irregularities registered | **122** (`IRR-01` … `IRR-122`); new this pass: `IRR-115`–`IRR-122` (1 critical, 5 warn, 2 info) |
-| Accepted description exceptions / description notes | **42 / 20** |
-| Categories | **12** — Sports Data & Scoreboards (31), Science & ML Research (13), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (7), Gaming & Guides (3), Directory & Meta (2), Reference & Archives (1), Travel & Event Dossiers (1), Elections & Civic Data (1), Health & Personal Guides (1), Social & Creator Data (1) |
-| Pages publish sources | **84** from `main /`, **1** (`GOLD`) from `main /docs` |
+| Sites listed | **100** |
+| HTML entry points / README-documentation stubs | **87 / 13**; based only on the configured `index.html` path |
+| Pages API status | **100 / 100 report `built`** at the snapshot; this is not an uptime or behavior test |
+| Default-branch commits | **5,903** across the listed repositories |
+| `buffedlizard55-lab` public repositories / Pages-enabled repositories | **101 / 101**; 100 are listed and `ProjX` is excluded by owner instruction |
+| `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** |
+| Description provenance | **100 / 100** entries have a source commit SHA; **35** stamps are behind the snapshot head and remain a visible re-read queue, not proof the prose is false |
+| Latest prose stamp | **1 re-read / 99 carried** at `2026-09-29T23:12:23Z` |
+| `verify_live.py` | **1,316 checks; 1,316 OK; 0 mismatches; 0 drift** |
+| `audit_kind.py` | **100 checked; 0 disagreements; 0 unresolved** |
+| `audit_descriptions.py` | **100 checked; 0 needing review; 42 documented numeric-token exceptions**. This is a lint, not semantic proof |
+| Local code checks | `npm run check`, Python syntax compilation, and Playwright test discovery (84 tests) pass. Browser tests remain unexecuted because browser binaries are unavailable; a prior Playwright CDN download failed. The PR workflow installs browsers and is expected to run the suite |
+| Irregularities / description notes | **126 / 24** (`IRR-01` … `IRR-126`) |
+| Categories | **12** — Sports Data & Scoreboards (34), Science & ML Research (24), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (8), Gaming & Guides (3), Directory & Meta (2), plus five single-entry categories |
+| Pages source paths | **99** from `main /`; **1** (`GOLD`) from `main /docs` |
+| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all returned HTTP 404 in the latest live API verification |
+
+### 2026-09-29 audit follow-up
+
+- The API census found and curated **15 previously unlisted Pages repositories**: `12GEMSDOE`, `13GEMSDOE`, `14GEMSDOE`, `15GEMSDOE`, `16GEMSDOE`, `17GEMSDOE`, `18GEMSDOE`, `19GEMSDOE`, `20GEMSDOE`, `based-loaded-MLB-alert-system`, `GRANTWRITING`, `LEARNGEMSDOE`, `LiveScoringErrors`, `POSTSEASONMLBALERTS`, and `RADIOSF`. Nine have a configured-path `index.html`; six (`13GEMSDOE` and `16GEMSDOE`–`20GEMSDOE`) lack one and are classified as README/documentation stubs. Their source basis and current SHAs are recorded per entry.
+- A later kind audit found **five older GEMS entries had changed since the prior snapshot**: `11GEMSDOE`, `7GEMSDOE`, `8GEMSDOE`, `GEMSDOE9`, and `GEMSDOE10` now have a configured-path `index.html`. Their current README and HTML entry points were re-read, summaries revised, and kinds reclassified (`IRR-124`). Root redirect pages are described as entry points, not as independently tested apps.
+- `based-loaded-MLB-alert-system` advanced during the first refresh; its README and API evidence were re-read at the newer head `d06dc48` before this snapshot. The description is limited to the documented alert rules and controls; no complete historical replay is claimed (`IRR-125`).
+- **`16GEMSDOE` changed materially after the first census.** At head `8354839`, its README now describes the H16-1 DOE GEMS submission and links to a documentation hub and download variants. The Pages API still reports `built` from `main /`, but the configured root has no `index.html`; the README's nested `docs/index.html` is not the root landing page. The summary was re-read and narrowed, and the source-path distinction is flagged as `IRR-126`; reported model scores are not independently validated here.
+- The final refresh incorporated later heads for `NBASCOREBOARD`, `NFLInjuryReport`, and `NHL-SCOREBOARD`. The independent live check then matched the refreshed snapshot, including a final default-branch-head recheck for repositories that moved during verification.
+- **35 descriptions still need a current-head source review.** They are flagged by `verifiedAtSha`/`proseStale` in the UI and stale-first in the ledger. A changed commit is a prompt to re-read, not automatic proof that the description is wrong; no stale entry is silently re-stamped.
+
+## Historical audit journal (through 2026-09-26)
 
 ### What changed in the 2026-09-26 pass — **eleven new sites listed, eight dangling SHA stamps caught and re-read, and one GEMS repository recommending the deletion of the other ten**
 
@@ -262,36 +276,31 @@ Six repositories changed state *during* this audit (`MLBComp` twice, `DrugAnalys
 
 ## Directory Overview
 
-For each of the **72 GitHub Pages sites** in the directory:
+For each listed site, the directory shows:
 
-- **Live Site Link** & **Repository Link**
-- **Sourced Brief Description** — extracted line by line from the repository's own `README.md` and published file structure
-- **Created Date** — GitHub `created_at`, with the first-commit timestamp and SHA shown alongside
-- **Last Updated Date** — newest committer timestamp on the default branch, with the latest commit SHA, plus `pushed_at`
-- **GitHub Pages Status & Build Source** — **72 / 72 reporting `built`** at the shipping snapshot, each recorded as-is rather than assumed healthy, and any non-`built` state published rather than hidden; 71 publishing from `main /` and 1 (`GOLD`) from `main /docs`
-- **Total Commits on the Default Branch**, repository size, and app-vs-stub classification
-- **Official Source Links for Manual Review** — live URL, repository, Pages API JSON, commits API, and Pages settings
-- **Verification provenance per entry** — `lastVerified` (when the prose was read), `verifiedBasis` (what was read, and the exact command or endpoint that reproduces it) and `verifiedAtSha` (the commit it was read against, compared against the live head on every build)
-- **Per-entry audit flags** and a **112-entry flagged irregularities register** (`IRR-01` … `IRR-112`), ordered by severity
+- **Site and repository links**, plus a short summary curated from the repository's own README or source files. The exact source basis and commit are recorded in `tools/overlay.json` and `VERIFICATION.md`.
+- **Created date (UTC)** from GitHub repository metadata, with first-commit timestamp and SHA in the inspector/ledger.
+- **Last commit (UTC)** from the newest committer timestamp on the default branch, plus its commit SHA. GitHub's public APIs do not expose the last time a site was visited or used.
+- **Pages status and deployment source** as returned by GitHub at the snapshot. `built` is not a live uptime result.
+- **Site type** derived from whether `index.html` exists at the configured Pages source path. It does not mean the page is interactive or functional.
+- **Default-branch commit count, repository size, description-verification state, and per-entry flags.** Thirty-five description stamps are behind the current repository head in this snapshot; those entries are explicitly marked for review.
+- **Official manual-review links** — live URL, repository, Pages API, commits API, Pages settings, and the recorded README/source reference as applicable.
+- **Unreachable history and irregularities** — four currently missing repositories remain visible with their last recorded state; the 124-item irregularities register includes reproduction details and source links.
 
 ---
 
 ## User Interface Features
 
-- **Instant Search & Multi-Filter** — search by title, repository, description, category or flags, combined with category and type filter chips showing live counts.
-- **Shareable Directory Views** — search, category, type, prose state, sort and layout are encoded in the URL. Copy a view link, reload it, or use Back/Forward to revisit filter changes. Invalid filter values fall back to defaults; unrelated query parameters and anchors are preserved. Search edits replace the current history entry rather than adding one per keystroke.
-- **Prose Review Filter** — narrow the directory to behind-recorded-head, missing-stamp, latest-stamp or carried entries, using the same state as each card’s badge. “Latest” means the exact newest `lastVerified` timestamp in the snapshot, not all work in a multi-hour audit. **Reset filters** clears search/category/type/prose while retaining sort and layout.
-- **Snapshot-Aware Status** — both layouts display the recorded Pages status (including building, errors or unknown) rather than assuming every deployment is built. Matching prose/head SHAs describe the recorded snapshot, not a live check or proof of description accuracy.
-- **Dual View Modes** — responsive **card grid** and a dense **table view**, both retuned by the density preference below.
-- **Row Density** — the table is **compact by default**, because its job is to let a reader compare many entries on one screen: rows drop from ~60px to ~29px, the name column is fixed-width with the curated title clipped to one line (the longest in the snapshot is 78 characters, and the full title stays in the anchor's `title` attribute, the card view and the inspector) and the repository slug sits beside it. The **Density** button restores the padded "Roomy" layout and is remembered per browser in `localStorage`. It is deliberately **not** a URL parameter and **not** a filter: shared links, Back/Forward and **Reset filters** all behave exactly as before, and neither export changes.
-- **Narrow-Screen Table** — below 900px the table re-stacks into one labelled line per field, so a phone reads a card per site instead of scrolling a ~1,000px table sideways. This is **CSS only**: the DOM keeps the same nine cells in the same order on every screen size, the column headings stay in the accessibility tree, and the `colspan="9"` empty state, the `.table-repo` slug and the recorded Pages status in the fourth cell are all unchanged. Touch targets get their own size there, independent of the density preference.
-- **Sort** by last updated, date created, name or commit count.
-- **Site Inspector Modal** — full telemetry, timestamps, commit SHAs, size, branch, Pages source and the raw verified JSON record for any entry.
-- **Unreachable Panel** — retired entries kept visible with their last verified state and the exact commands that reproduce the 404.
-- **Severity-Ordered Irregularities** — critical → warn → info, each with a reproduction endpoint.
-- **Client-Side Export** — download the verified master list as JSON or CSV in one click (CSV marks retired rows instead of dropping them).
-- **Accessibility** — skip link, ARIA live regions, focus-preserving filter chips, visible keyboard focus and a native inspector dialog with inert background, Tab/Shift+Tab containment, Escape to close and focus return to the opener. The density button carries its state in `aria-pressed` and names both options in its tooltip. Narrow-screen cards wrap long content, stacked table cells break long values instead of overflowing, and the controls stop sticking on mobile so they do not cover the directory.
-- **No build step, no runtime dependencies, no framework** — plain `index.html` + `styles.css` + `app.js` plus one data file.
+- **Search and filters** by repository, description, category, flags, HTML-entry-point/stub type, and prose-verification state.
+- **Shareable views** — search, category, type, prose state, sort, and layout are encoded in the URL; Back/Forward, reset, and export preserve the documented state contract.
+- **Snapshot-aware indicators** — recorded Pages status, prose SHA status, and audit flags are shown as snapshot data, not live health checks.
+- **Card and table views** with a per-browser compact/roomy density preference.
+- **Responsive table layout** re-stacks fields below the narrow-screen breakpoint. Browser layout and keyboard behavior are covered by Playwright tests, which could not run in this sandbox because browser downloads were blocked.
+- **Sort** by last default-branch commit, creation date, name, or commit count.
+- **Inspector modal** with timestamps, SHAs, size, branch, Pages source, description basis, official links, and raw record.
+- **Unreachable panel** retaining missing entries and last verified values; **irregularities register** ordered by critical, warning, and informational severity.
+- **JSON and CSV exports**, including unreachable rows.
+- **Static deployment** — plain HTML, CSS, JavaScript, and generated data; no runtime framework or dependency.
 
 ---
 
@@ -299,185 +308,181 @@ For each of the **72 GitHub Pages sites** in the directory:
 
 | File | Purpose |
 |---|---|
-| [`index.html`](index.html) | Semantic, accessible directory markup (grid, table, panels, inspector modal) |
-| [`styles.css`](styles.css) | Responsive design system — CSS custom properties, cards, tables, badges |
-| [`app.js`](app.js) | Zero-dependency application logic (search, filter, sort, export, inspector, toast) |
-| [`data/sites.js`](data/sites.js) | **Generated** verified dataset — 72 sites, 4 unreachable entries, 112 irregularities, 2 audited accounts, methodology |
-| [`tools/overlay.json`](tools/overlay.json) | Hand-authored narrative: titles, categories, descriptions, flags, the irregularity register, the permanent exclusion list |
-| [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads the official GitHub API and writes `data/sites.js` |
-| [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from `data/sites.js` |
-| [`AGENTS.md`](AGENTS.md) | Standing maintenance instructions for future sessions, including the permanent repository exclusion |
-| [`VERIFICATION.md`](VERIFICATION.md) | **Generated** line-by-line audit ledger with official endpoints, commit SHAs and reproduction commands |
-| [`tools/verify_live.py`](tools/verify_live.py) | **Read-only verifier** — re-reads every API-derived field of every entry and reports ok / mismatch / drift. Never writes the dataset |
-| [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only verifier** — checks every numeric claim in a description against the repository's own README |
-| [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — re-derives each entry's app-vs-stub `kind` from the API and reports any disagreement with the committed value |
+| [`index.html`](index.html) | Accessible directory markup, filters, cards, table, panels, and inspector |
+| [`styles.css`](styles.css) | Responsive visual styles |
+| [`app.js`](app.js) | Search, filtering, sorting, exports, inspector, and status copy |
+| [`data/sites.js`](data/sites.js) | **Generated** 100-site snapshot, four unreachable records, 124 irregularities, account totals, and methodology |
+| [`tools/overlay.json`](tools/overlay.json) | Curated titles, categories, descriptions, flags, source stamps, exclusions, and irregularity register |
+| [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads GitHub's official API and writes `data/sites.js` |
+| [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from the snapshot and current audit reports |
+| [`AGENTS.md`](AGENTS.md) | Current maintenance rules, exclusions, source-verification workflow, and known constraints |
+| [`VERIFICATION.md`](VERIFICATION.md) | **Generated** API snapshot, per-entry source ledger, exclusion/unreachable records, irregularities, and reproduction commands |
+| [`tools/verify_live.py`](tools/verify_live.py) | **Read-only verifier** — compares snapshot API fields against GitHub; never writes the dataset |
+| [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only numeric-token lint** — checks whether description numbers occur in the README; not semantic proof |
+| [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — checks for `index.html` at each configured Pages path; only HTTP 200/404 resolve type, other responses are unresolved |
 
-### Testing the interface (no API access)
+### Testing the interface
 
-The site still runs directly from its static files. Node.js 22 and Python 3 are
-needed only for development tests; Playwright is a pinned **dev dependency**, not
-part of the deployed application.
+The deployed site runs from static files. Node.js and Python are needed only for
+development checks; Playwright is a pinned dev dependency and is not part of the
+deployed application.
 
 ```bash
 npm ci
 npm run check
 npx playwright install --with-deps chromium firefox webkit
-npm test                          # Chromium, Firefox, WebKit and mobile Chromium
+npm test                          # Chromium, Firefox, WebKit, and mobile Chromium
 npm run test:chromium             # desktop Chromium only
 ```
 
-Tests read the committed snapshot without rewriting it. Synthetic browser-only
-fixtures exercise non-built statuses, all four prose states, URL validation and
-escaping, combined filters, history, reset, copying, keyboard focus and the
-inspector. Other tests check the actual snapshot's listing/accounting/exclusion
-invariants, complete JSON/CSV exports (including frozen unreachable rows), and
-narrow-screen layout. `.github/workflows/test.yml` runs these on PRs and pushes
-to `main`. Failure traces are uploaded for diagnosis; caches/results are ignored.
-
-For an already running static server, set `TEST_BASE_URL`; for an installed
-Chromium executable, set `CHROMIUM_PATH` and run the Chromium projects. These
-are test-runner settings only, never browser-facing service URLs.
-
-**Scope of the 2026-09-22 interface update:** no API refresh or repository prose
-re-audit was performed. The audit snapshot, overlay and ledger below remain at
-their recorded timestamps. UI regression tests do not replace the independent
-live/prose/kind verifiers required for a data refresh.
+Tests use a local static server and synthetic browser fixtures; they do not
+replace the independent API/prose/kind audits or check upstream Pages uptime.
+`.github/workflows/test.yml` runs the browser suite on pull requests and pushes
+to `main`. Failure traces are uploaded by CI.
 
 ### Refreshing the directory
 
 ```bash
-export GITHUB_TOKEN=...                  # optional, raises the rate limit; 5,250 requests/h were
-                                         # available unauthenticated in this audit sandbox
-python3 tools/build_data.py              # reads api.github.com, rewrites data/sites.js
-python3 tools/build_verification.py      # rewrites VERIFICATION.md from the new data
-
-# then verify what you just generated, independently of the generator:
-python3 tools/verify_live.py             # 686 field checks — expect 0 hard mismatches
-python3 tools/audit_descriptions.py      # every numeric claim vs the repo's own README
-python3 tools/audit_kind.py              # re-derives app-vs-stub from the API — expect 0 disagreements
+python3 tools/build_data.py              # refreshes official API metadata and data/sites.js
+python3 tools/verify_live.py              # independent read-only API comparison
+python3 tools/audit_kind.py               # re-derives configured-path index.html classification
+rm -rf tools/.readme-cache               # ensure the next read uses current pinned README text
+python3 tools/audit_descriptions.py       # numeric-token lint; review is still semantic
+python3 tools/build_verification.py       # regenerate VERIFICATION.md after the audit reports
+npm run check
+npm test                                  # requires installed Playwright browsers
 ```
 
-**Read the generator's last line before you trust the build.** It prints a prose-staleness gate:
+The generator prints a `PROSE-STALE` queue for descriptions whose recorded
+`verifiedAtSha` no longer matches the current default-branch head. That is a
+reason to re-read the cited repository files and update the description/source
+basis; the mismatch alone does not prove the prose is false. If a repository
+moves while the audit is in progress, refresh and rerun the independent checks
+before publishing. A successful numeric-token lint is not a semantic audit.
 
-```
-prose: 1 re-read this pass, 51 carried, 52 stamped with a SHA, 0 provably behind their repo
-```
+If GitHub API access is blocked, `python3 tools/build_data.py --overlay-only`
+can re-render curated narrative into the **existing** snapshot without network
+access. It cannot discover new repositories, refresh API metadata, or see commits
+made after that snapshot, so it is not a substitute for a full refresh before
+publication. `tools/audit_descriptions.py` caches README bodies in
+`tools/.readme-cache`; remove that cache before an audit when source freshness
+matters.
 
-Any `PROSE-STALE <repo> description read at <sha>, repository is now at <sha>` line means that
-entry's description was read at a commit that is no longer the default branch's head, so it is
-*provably* out of date and must be re-read before publishing. Repositories in this account commit
-continuously — **six repositories moved during the 2026-09-21 pass, forcing six successive builds
-before the gate reached zero** — so this line, not the timestamp, is the pass's completion gate
-(`IRR-50`, `IRR-61`, `IRR-72`). Treat re-reading and rebuilding as one loop that repeats until it
-prints `0 provably behind their repo`; a `PROSE-STALE` range whose README did not change still
-requires triage, never a silent re-stamp (`IRR-70`).
-
-If `api.github.com` is unreachable or the credentials have expired, `--overlay-only` re-renders the
-narrative fields (descriptions, categories, flags, the irregularity register) into the **existing**
-snapshot without a single network call:
-
-```bash
-python3 tools/build_data.py --overlay-only   # narrative only; API fields carried forward verbatim
-```
-
-It leaves `generated` and every API-derived field byte-identical, writes a separate
-`overlayRendered` timestamp, and prints a warning that it cannot detect commits made since the
-snapshot. It refuses to run if a listed repository has no curated overlay entry, so it can never
-default a description into existence. Verified non-fabricating: re-rendering the `03:06:19Z`
-snapshot produced **0 differences across 44 sites × 16 API-derived fields**.
-
-Every timestamp, SHA, commit count, Pages status, build source and size in the output comes from an API read at that moment — nothing is carried over from memory. Repositories that vanish are moved into the `unreachable` list instead of disappearing.
-
-`verify_live.py` separates two kinds of difference. A **hard mismatch** means the committed value and the live value disagree with no explanation, and is a defect: re-run the generator. **Drift** means the field is one GitHub recomputes asynchronously (`size`, `pushed_at`, `updated_at`) or the repository was pushed to *after* the snapshot was taken — expected, and folded in by the next refresh. The 2026-09-21 pass finished at **0 hard mismatches across 686 checks**, with 3 volatile-field drifts (all `pushedAt`, pushed after the snapshot read).
-
-A third failure mode is worth naming because it looks like a data defect and is not: **dead credentials**. When the token expires, `verify_live.py` reports every entry as `MISMATCH ... committed=200 live=401`. That is an authentication failure, not 52 broken records. Check `gh auth status` before reading any verifier output, and discard a run whose mismatches are uniformly 401 — the second pass did exactly that and restored the last valid artifact from git rather than committing a false result.
+`verify_live.py` distinguishes mismatches from fields that may drift because of
+GitHub's asynchronous metadata updates. Authentication or network failures are
+not evidence that entries are missing or sites are down; discard an incomplete
+run and retry after access is restored. The sandbox could not fetch Playwright
+browser binaries from its CDN during this pass, so the browser suite is left to
+CI rather than reported as passed.
 
 ---
 
-## Verification & Integrity Policy
+## Verification & Source Policy
 
-1. **Zero Hallucinations.** Every field is read from `api.github.com` or from the repository's own files. Where a claim could not be re-verified it was **deleted or corrected, never softened** — for example `TradingViewTheLeap`'s "203-check verifier" and `GEMSDOE`'s "19/19 rules" figures no longer appear in those repositories and were removed rather than restated, and this audit removed `DrugAnalysis`'s superseded "1,038 core rows".
-2. **Autonomous Execution.** No manual data entry, no owner prompts during the audit. The only hand-authored content is narrative prose in `tools/overlay.json`.
-3. **Independent Re-Verification, Not Restatement.** `tools/verify_live.py` re-reads every API-derived field of every entry straight from GitHub and prints each one as ok, mismatch or drift. It is deliberately read-only — it reports, it never repairs. `tools/audit_descriptions.py` checks each description's numeric claims against the repository's own README. Run both after any refresh:
-   ```bash
-   python3 tools/verify_live.py           # 686 field checks across 52 entries + both accounts
-   python3 tools/audit_descriptions.py    # every numeric claim vs the repo's own README
-   ```
-4. **Transparent Irregularity Reporting.** Every anomaly is catalogued with the endpoint needed to reproduce it, ordered by severity (`critical` → `warn` → `info`). The 2026-09-22 audit added fifteen (`IRR-73` … `IRR-87`), three of them `critical`; the 2026-09-21 audit added nine (`IRR-64` … `IRR-72`), two of them `critical`.
-5. **Nothing Is Silently Deleted.** Excluded and unreachable repositories are named, explained and preserved with their last verified values.
-6. **Corrections Are Recorded, Not Hidden.** When a published description turns out to have been wrong, the entry is fixed *and* the mistake is registered with what it said, what it should have said, and how it was caught — see `IRR-25` through `IRR-29`.
+1. **Use sources, not inference.** API-derived fields come from GitHub's official
+   REST API. Titles, categories, short descriptions, and flags are curated from
+   repository-owned files and record their evidence and commit in
+   `tools/overlay.json`. Do not infer a project's behavior from its name, badge,
+   topic, or an `index.html` alone.
+2. **Keep snapshot and prose provenance separate.** API metadata is refreshed
+   by `tools/build_data.py`; description provenance uses `lastVerified`,
+   `verifiedAtSha`, and `verifiedBasis`. A matching SHA records what was read,
+   not proof that every sentence is true. Stale stamps remain visible until the
+   source is reviewed; never re-stamp to hide a mismatch.
+3. **Run independent read-only checks.** `verify_live.py` checks API fields,
+   `audit_kind.py` checks the configured Pages entry point, and
+   `audit_descriptions.py` performs a numeric-token lint against the README.
+   The latter cannot establish meaning or verify non-numeric claims.
+4. **State limits and irregularities plainly.** Pages status `built` is not an
+   uptime test; an HTML entry point is not proof of interactivity; commit dates
+   do not show site use. Keep exclusions and unreachable records in the audit
+   trail, and register reproducible irregularities rather than smoothing them
+   over.
+5. **Do not claim zero hallucinations or exhaustive defect detection.** Verify
+   each concrete statement from an official or otherwise identified source and
+   describe what could not be checked.
 
 ---
 
-## Repository Exclusions — Standing Instructions for Future Sessions
+## Repository Exclusions — Standing Instruction
 
-One repository on the account is **permanently excluded** from this site. Do not list it, link it, count it, or export it — in any future session, regeneration, or refresh of this directory.
-
-| Excluded repository | Status | Instruction |
-|---|---|---|
-| `ProjX` | Still live on GitHub; intentionally unpublished **here** since 2026-09-12 by owner request | **Never add it back** to `data/sites.js`, the `VERIFICATION.md` ledger table, README counts, or the JSON/CSV exports. No live link, API endpoint or Pages URL for it is printed anywhere in this repository. Full rationale in [VERIFICATION.md § 2a](VERIFICATION.md#2a-repository-exclusions-deliberately-omitted). |
-
-Because of this exclusion the directory shows **72** sites while the GitHub API reports **73** public Pages repositories. That mismatch is correct and expected: keep the account-level totals (`publicRepos: 73`, `pagesSites: 73`) at their verified API values and filter excluded names *after* the API read, instead of lowering those totals. `tools/build_data.py` applies the `excluded` list from `tools/overlay.json` automatically, records every withheld repository with its reason in `counts.unlisted`, and **asserts at build time** that `listed + withheld == pagesSites` so a silent gap is impossible.
+`ProjX` remains public upstream but is permanently excluded from this directory by
+owner request. Do not add it to the overlay, generated dataset, ledger table, or
+exports. At the current snapshot the account API reports **101** public
+repositories and **101** Pages-enabled repositories; the directory lists **100**
+and records `ProjX` as the single deliberate omission. `kanlerxz87-cyber` has
+**0** public repositories and **0** Pages-enabled repositories. The generator
+filters the exclusion after the official API read and asserts that listed plus
+excluded Pages repositories match the account total.
 
 ---
 
-## Unreachable Entries — Needs Owner Review
+## Unreachable Entries — Owner Review Required
 
-| Repository | Last verified | What happened | Owner action |
-|---|---|---|---|
-| `JobSearchSF` | `f68c452`, 2026-09-16T19:37:41Z, 68 commits | Re-confirmed 2026-09-24 (ninth consecutive audit): `GET /repos/buffedlizard55-lab/JobSearchSF` returns **HTTP 404** and the repository is absent from the account's 73-repository public list, so it was deleted or made private. Its Pages site is therefore no longer served. | **Restore it** (undelete / make public) so it can be re-listed, **or confirm it should stay retired** and the frozen entry can be dropped. Flagged as `IRR-01` (critical). |
-| `MALTA` | `f0fb352`, 2026-09-23T22:54:46Z, 40 commits | **Deleted mid-pass on 2026-09-24.** It was new to this pass, was cloned at head and fully verified — all four of its own checks executed clean — and then `GET /repos/buffedlizard55-lab/MALTA` returned **HTTP 404** with no surviving repository carrying its `created_at`. Its short-lived replacement `MALTA2` has itself since been deleted upstream (both are frozen as separate entries). Measured in this pass's own builds: 68 sites / 3,793 commits at `00:17:06Z`, then 67 sites / 3,753 at `00:23:27Z`. | **Confirm whether deleting a complete 40-commit dossier was intentional**, and whether its content survives anywhere. Flagged as `IRR-109` (critical). |
-| `MALTA-LAWS` | `18f3323`, 2026-09-23T23:12:07Z, 3 commits | Listed 2026-09-24 and fully verified by executing its own checks (`unittest discover` 15 OK; `tests/test_site.py` OK over 14 pages). Now `GET /repos/buffedlizard55-lab/MALTA-LAWS` returns **HTTP 404** and the name is absent from the account's 73-repository public list. | **Restore it, or confirm it is retired.** Flagged as `IRR-110` (critical). |
-| `MALTA2` | `e806c87`, 2026-09-24T00:22:27Z, 1 commit | An 8-byte `# MALTA2` placeholder created minutes after `MALTA` vanished; it never held more than one commit and has now itself been deleted upstream (HTTP 404). Frozen per the standing policy. | **Confirm the Malta-family deletions were intentional.** Flagged as `IRR-110` (critical). |
+The live API audit on 2026-09-29 returned HTTP 404 for all four repositories
+below. They are excluded from active site counts but retained with their last
+verified data in the Unreachable panel and `VERIFICATION.md` § 2b.
 
-The entry stays visible in the site's *Unreachable — Needs Owner Review* panel and in `VERIFICATION.md` § 2b with every value it last verified, plus the three commands that reproduce the 404.
+| Repository | Last recorded head / commit count | Last Pages status | Current finding | Follow-up |
+|---|---:|---|---|---|
+| `JobSearchSF` | `f68c452` / 68 | `built` | Repository API returns 404 | Owner: restore it or confirm retirement |
+| `MALTA` | `f0fb352` / 40 | `built` | Repository API returns 404 | Owner: confirm deletion and whether its dossier survives elsewhere |
+| `MALTA-LAWS` | `18f3323` / 3 | `built` | Repository API returns 404 | Owner: restore it or confirm retirement |
+| `MALTA2` | `e806c87` / 1 | `built` | Repository API returns 404 | Owner: confirm the Malta-family deletions were intentional |
+
+The frozen Pages URLs are expected to be unavailable until the repositories are
+restored. The API check establishes the repository 404, not the intention behind
+the deletion or privacy change.
 
 ---
 
 ## Known Limitations
 
-These are the real obstacles, stated plainly. Several are the reason a claim can be "verified" today and wrong tomorrow.
-
-1. **The prose is the fragile part, not the numbers — and it failed again this pass.** Every timestamp, SHA, commit count and Pages status is read from `api.github.com`, and this pass re-ran the full live check cleanly (946/946 field checks, 0 hard mismatches). Descriptions are written prose, and the false-description class struck a fifth time: `NOBEL-PRIZE` was published as an empty one-file placeholder and is now a 12-commit archive site (`IRR-112`), the same class as `SelfLearn`/`MasterSelfLearn` (`IRR-84`), `NFLComp`'s sign-flipped PnL (`IRR-65`) and `NFLPARLAYCOMP`'s mid-read flip (`IRR-82`). `verifiedAtSha` reliably tells us *which* entries to re-read; it cannot tell us what they now say.
-2. **A matching SHA proves the prose was read against those bytes, never that the prose is true — and a README-unchanged diff proves even less.** This pass, the README changed in only 13 of the 20 stale ranges, yet **four of the five sharpest findings came from ranges that touched no README at all** (`IRR-70`). A SHA-only re-stamp would have missed `IRR-68` entirely.
-3. **Five upstream repositories contradict themselves, so "read the README" is not sufficient either.** `Elections` states 209 sources in one place and 189 in another while its file holds **229**, and claims 63 irregularities against a file holding **58** (`IRR-67`); `NBAInjuryReport`'s prose is two days behind its own regenerated data (`IRR-68`); `OLBG-Competition` says 262 tests where the test functions count 258. This pass added two: `NFLPARLAYCOMP`'s README describes its site bundles as ~6.8 MB / ~1,050 files where the committed tree measures **7.62 MB / 1,052 files**, and `SelfLearn`'s `SUMMARY.md` reports 91 documents and 5 experiments while its own `reports/site_data.json`, generated ten minutes earlier, holds **89 and 3** (`IRR-77`, `IRR-84`). Where prose and file disagree, this directory **publishes the counted file value and flags the prose** — but that policy has to be applied by hand, every time.
-4. **Live page bodies are still not fetched over HTTP.** Pages liveness rests on two API facts — status `built` and a real `index.html` at the published path — not an HTTP 200 on the rendered page. Re-tested 2026-09-22: this sandbox still cannot reach `*.github.io` **or `raw.githubusercontent.com`** (`curl` returns `000`, an `SSL_ERROR_SYSCALL` on connect, while `github.com` HTML returns 200), so the block is network egress, not configuration. `IRR-83` is exactly the case this gap hides: `Elections` reports `errored`, and from here there is no way to see what its URL actually serves. A site can be `built` and still render a blank page. Every entry links its live URL for one-click manual review.
-5. **Repositories move faster than the audit can snapshot — the account gained ten repositories in 23 hours and four changed state *during this pass*.** `NFLPARLAYCOMP` was rewritten wholesale 40 minutes after being read (`IRR-82`); `SelfLearn` and `MasterSelfLearn` grew from one-file placeholders into engines with 156 and 350 passing tests (`IRR-84`); `PRICINGEXPERT` was created at `23:01:18Z` and discovered by a build already in progress (`IRR-80`); and `MasterSelfLearn` commits its own output on a `*/30` cron, so it moved from `fe488ed` to `eda549e` *while this audit was reading it* and will report `PROSE-STALE` forever unless triaged by cycle number. The 2026-09-21 pass needed **eight successive builds** before its gate reached zero; this pass's gate never reached zero at all, because credentials died with 21 entries still queued (`IRR-85`).
-6. **The youngest entries remain where every error comes from.** Every critical finding of this pass is a repository under 48 hours old or under two days of active development: `NFLPARLAYCOMP`, `SelfLearn`, `MasterSelfLearn`, `PRICINGEXPERT`. Five audits running, every stale-description defect has traced to a repository under two days old. Re-read the youngest entries first — and note that `MasterSelfLearn` is now the extreme case, being rewritten by its own cron every 30 minutes.
-7. **Some upstream test suites cannot be executed here, so a few counts are of test *functions* rather than *assertions*.** `NHLComp`'s suite runs only with `PYTHONPATH=src` (231 tests, verified); `MLBComp`'s Python suite needs `pandas`, which is absent, so only its Node contract test was executed; `OLBG-Competition` has no `pytest` available, so its 258 is a `def test_` count that may differ from collected parametrised cases. This pass *did* execute four more suites (`SelfLearn` 156, `MasterSelfLearn` 350, `NFLPARLAYCOMP` 103, `FLABSENGY` 79) and hit a new trap doing it: **`NFLPARLAYCOMP`'s suite rewrites `docs/site_data/` and `data/competition/verification_report.json` in the working tree**, so its counts must be taken from a clean checkout (`git status --porcelain` empty) or they measure regenerated files (`IRR-82`). Each of these is disclosed in the entry's own `verifiedBasis` rather than presented as a measured pass.
-8. **Repository size is GitHub's asynchronously-recomputed field**, so size moves that do not line up with commit deltas are normal (`IRR-04`–`IRR-06`). `GEMSDOE` alone is ~400 MB because competition rasters are committed as git parts.
-9. **`kanlerxz87-cyber` contributes nothing.** Verified to exist (`type: User`, created `2026-08-03T20:56:16Z`) with **0** public repositories (re-verified `2026-09-24T23:54Z`). If it ever publishes, the generator picks it up automatically.
-10. **One repository is withheld, permanently, by owner request.** `ProjX` is the only withheld repository, so the directory will always show one fewer site than the account totals — deliberate, and never to be "fixed"; see [Repository Exclusions](#repository-exclusions--standing-instructions-for-future-sessions). The earlier procedural hold on `PRICINGEXPERT` was resolved when a full `build_data.py` run listed it (`IRR-86`): narrative can be landed offline, but listing cannot, and it is now a listed 72-file research desk.
-11. **The four unreachable repositories cannot be resolved from here** — `JobSearchSF` has returned HTTP 404 for a ninth consecutive audit (`IRR-01`), and the Malta family (`MALTA`, `MALTA-LAWS`, `MALTA2`) was deleted upstream around this pass (`IRR-109`, `IRR-110`). Owner decision only.
-12. **Credentials can die mid-audit, and when they do the verifiers lie — this pass they died with the queue uncleared.** A uniform HTTP 401 across every entry means dead credentials, not 61 broken records (`IRR-55`). Check `gh auth status` before acting on any verifier output, and discard such a run rather than committing it. `IRR-85` adds two details worth knowing: the sandbox egress path injects the token into **every** `api.github.com` request, so a request with no `Authorization` header also returns 401 and the unauthenticated 60-request tier is not a fallback; and `git clone` dies with it ("could not read Username"), so repository contents become unreadable too, not just API metadata. The recovery path is `--overlay-only`, which lands narrative work with no network at all.
+1. **Thirty-five descriptions are behind their recorded repository head.** The
+   UI and ledger mark these entries as a re-read queue. A new commit does not by
+   itself prove a description is false, but this status is not a current-head
+   semantic verification. Review the cited repository files before carrying or
+   rewriting each description.
+2. **Pages metadata is not runtime monitoring.** This sandbox cannot establish
+   that all published URLs return working page bodies in a browser. GitHub's
+   Pages API status (`built`) and the existence of a configured-path
+   `index.html` are structural metadata only. Manual live links are provided;
+   an automated HTTP check would need to run from an environment with access to
+   `*.github.io`.
+3. **GitHub does not expose last site use through the public repository/Pages
+   API.** The displayed “Last commit” is only the newest committer timestamp on
+   the default branch. Usage data would require a separate analytics source and
+   is not inferred here.
+4. **The `HTML entry point` label is intentionally narrow.** It means a
+   configured-path `index.html` exists. It does not guarantee interactivity,
+   valid assets, accessibility, or a successful browser render. Likewise,
+   `built` does not guarantee the live page is healthy.
+5. **The description audit is a numeric-token lint.** It detects numbers not
+   found in the README and has 42 documented exceptions for source numbers that
+   live elsewhere or are measured independently. A clean lint does not prove
+   semantic accuracy; repository files can contradict their own README, and the
+   irregularities register records known cases without claiming exhaustiveness.
+6. **The account can change during and after a snapshot.** Current API values
+   are independently checked, and 35 prose stamps already lag the current head.
+   Re-run the refresh and audits before relying on a later reading.
+7. **Four previously listed repositories are currently 404** and await owner
+   review, while `ProjX` remains intentionally excluded. The other named
+   account currently has no public repositories.
+8. **Browser tests were not completed in this sandbox.** `npm run check` and
+   Python syntax checks pass, but Playwright browser binaries could not be
+   downloaded because the browser CDN connection reset. CI is configured to
+   install Chromium, Firefox, and WebKit and run the full suite.
 
 ---
 
-## What Still Needs To Be Done
+## Remaining Work and Suggestions
 
-Ordered by what actually threatens the project's core promise. **Items 1, 2 and 3 are the work for the next session.** Item 1 is now done for this pass (the toolchain ran clean against the shipping snapshot) and has been replaced by the two things that pass exposed.
-
-| # | Task | Why it matters | Effort |
-|---|---|---|---|
-| 1 | **Add the `verifiedAtSha` shape guard to `build_data.py`** — warn when an entry sets the field to anything that is not `^[0-9a-f]{7,40}$`. | `IRR-108` was invisible for two passes because a non-SHA stamp looks populated: `KalshiPaperSim` held `AUTO:COUNTS` and `MasterSite` held `main`, so the staleness gate reported both stale on every build forever and the badge in the UI read "read at AUTO:COUNTS". The field is now correct by hand; the guard stops the next leak, whose cost was two permanently false work items. | **Low effort — start here** |
-| 2 | **Clear the 26-entry `PROSE-STALE` queue by re-reading each description against its repository — and open the *data files*, not just the README.** The queue is printed by every build and rendered stale-first in `VERIFICATION.md` §4a. | Still the only error class that has materially misled a reader, now across seven consecutive audits; the previous passes produced a headline PnL that changed **sign** mid-audit (`IRR-82`) and a placeholder that became an archive site (`IRR-112`). `verifiedAtSha` turns an unbounded job into a work queue but cannot do the reading, and `IRR-70` shows a README-unchanged diff is not a safe shortcut. Several entries carry durable triage rules in their `verifiedBasis` (e.g. `SFWeather`, `MasterSelfLearn`) — use them instead of re-deriving. | **High — the real work** |
-| 2a | **Re-read the youngest entries first.** This pass's two sharpest findings — `NFLPARLAYCOMP`'s sign flip and `NOBEL-PRIZE`'s stub→app reversal (`IRR-112`), and `TAXKALSHI`'s stub→app reversal *mid-read* (`IRR-111`) — are all repositories under 48 hours old. Six audits running, every stale-description defect has traced to a repository under two days old. | The youngest repositories are where every critical error comes from, and they churn fastest. | Part of item 2 |
-| 3 | **Run the interface test suite in an environment that has a browser.** The DOM contract was verified offline (jsdom), but layout — `scrollWidth ≤ innerWidth` at 375×812, touch-target heights — is only observable in a real browser. | The published site's readability on a phone is a claim this repository cannot currently evidence from the sandbox. `.github/workflows/test.yml` runs all four projects, including `mobile-chromium`. | Low — CI does it on push |
-| 4 | **Resolve the four deleted repositories upstream: `MALTA` (`IRR-109`), `MALTA-LAWS` / `MALTA2` (`IRR-110`) and `JobSearchSF` (`IRR-01`).** | Three of the four Malta-family repositories created on 2026-09-23/24 have now been deleted upstream within a day; `JobSearchSF` has been 404 for nine audits. A directory cannot distinguish "deliberately replaced" from "accidentally deleted", and only the owner can. | Owner only |
-| 5 | **Report the self-contradiction defects upstream** (`Elections` 209/189/229 and 63/58, `NBAInjuryReport` 65/21 vs 94/70, `OLBG-Competition` 262/258, and the Malta-family outage contradiction `IRR-105`) so the repositories fix their own prose instead of this directory carrying a permanent footnote. | A directory that grades other projects' verification should not need a standing workaround for their arithmetic. Each is a one-line fix at the source. | Owner / upstream |
-| 6 | **Resolve `JobSearchSF` (`IRR-01`).** Restore the repository, or confirm it is retired so the frozen entry can be dropped. | The oldest open `critical` irregularity (2026-09-17), now in its ninth audit. No machine can resolve it. | Owner only |
-| 7 | **Fetch live pages over HTTP from an environment with egress to `*.github.io`.** A GitHub Actions job in this repository would have that access even though the audit sandbox does not. | It is the difference between "GitHub says it built" and "it works". The blocker is the sandbox, not the design. | **Medium — highest-value new capability** |
-| 8 | **Move `GEMSDOE`'s ~400 MB of rasters out of git** (Git LFS or a release asset). | Real operational cost; growth pattern documented in `IRR-04`. | Medium |
-| 9 | **Decide whether overlapping entries should stay listed.** `HotelSeoulRoughdraft1` duplicates `Itinerary-Korea` (`IRR-14`); `MLB-PBP`/`MLB-Live-PBP` overlap (and `MLBSCORINGCHANGE` is now an explicit working copy of `MLB-Live-PBP`); `ScheduleFreeTime` and `VacationSchedule` overlap; `NFLPARLAYCOMP` and `ParlaySports` both cover NFL parlay paper-trading; `SelfLearn`/`MasterSelfLearn` are two engines over the same claim graph; and `THUNDERPICK-WC-2026`/`THUNDERPICKCOMP` and `NOBEL-PRIZE`/`SIM-COMP-NOBEL-PRIZE` are explicit design-copy / source pairs. | A directory is more useful when it does not send readers to a superseded draft, and 72 repositories is past the point where a reader can tell the relationships out themselves. Curation, not data. | Owner only |
-| 10 | **Automate the audit on a schedule** (GitHub Actions running `build_data.py` + all three verifiers, opening a PR when the gate is non-zero). | Repositories appear and change state *during* every audit; a scheduled job would keep the window between snapshot and reality to hours instead of days — and, unlike this sandbox, it would hold working credentials and reach the live sites (items 1, 3 and 7). | Medium |
-| 11 | **Verify the two `TAXKALSHI` and `NOBEL-PRIZE` reversals stay true after their first live Pages builds.** Both were read at head during rapid growth and are the youngest entries in the directory. | Their descriptions were written from heads read minutes apart; a `PROSE-STALE` re-read is near-certain next pass. | Low |
-| 12 | **Settle `IRR-105` (the Malta/hotspawn outage contradiction) once egress is available.** | Three repositories describe the same host's availability that day in three different ways. From this sandbox, `curl` to anything except `api.github.com` returns HTTP `000`. | **Medium — blocked on egress, not effort** |
-
-**Closed this pass:**
-
-- ~~**`NOBEL-PRIZE` was published as an empty placeholder while the repository had become a 12-commit archive site.**~~ Rewritten in full at head `dfd8253`; the placeholder description was withdrawn and `kind` re-derived `app` (`IRR-112`).
-- ~~**`MALTA-LAWS` and `MALTA2` had been deleted upstream since the last snapshot.**~~ Both are frozen in the Unreachable panel with their last verified values rather than dropped (`IRR-110`).
-- ~~**`TAXKALSHI` would have been published as an empty stub while it grew.**~~ Withheld from publication until a full build read it at 5 commits with a real `index.html` (`IRR-111`).
-- ~~**`PRICINGEXPERT` was withheld pending a full `build_data.py` run.**~~ It is now a listed 72-file research desk; the earlier "withheld procedurally" limitation no longer applies (`IRR-86`).
-
-**Closed in the 2026-09-21 pass:** the `IRR-43` class of finding ("built site lives in `docs/` but Pages publishes `main /`, so the live URL serves a Jekyll README render") — **resolved for every affected repository.** `MLBComp`, `NHLComp` and `VacationSchedule` all now commit a root `index.html`, `audit_kind.py` reported **0 disagreements across 52 sites**, and the standing owner-action items asking for a Settings → Pages change are withdrawn. (`NFLPARLAYCOMP` re-opened a variant of it this pass: its root `index.html` is a forwarder to `docs/`, because switching the Pages source to Actions returns 403 — see `IRR-76`.)
+| Priority | Follow-up | Why |
+|---|---|---|
+| High | Re-read the **35 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
+| High | Confirm the pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect before merging | Local browser binaries were unavailable in this sandbox |
+| Owner review | Resolve `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` (restore or confirm retirement) | Their repositories currently return HTTP 404; only the owner can establish intent |
+| Medium | Add scheduled API/prose/kind audits that open a review PR when results drift | The catalog changes over time; a repeatable schedule shortens the snapshot-to-review interval |
+| Medium | Run a live HTTP check from an environment that can reach `*.github.io` | Would verify rendered page responses beyond Pages API metadata and configured-path files |
+| Optional | Decide how to present overlapping or sibling projects | Some repositories describe related, copied, or draft work; the directory preserves them as separate repositories and does not infer consolidation intent |
+| Optional | Add an explicit analytics source only if site-use dates are required | The GitHub API cannot supply last visit/usage timestamps |

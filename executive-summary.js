@@ -61,7 +61,7 @@
     return "https://github.com/" + OWNER + "/" + s.repo;
   }
 
-  // Health answers "should I worry?" — flags first, then stub, else healthy.
+  // Review state summarizes recorded per-entry flags and whether an HTML entry point exists; it is not a health or uptime check.
   function healthOf(s) {
     if (s.flags && s.flags.length > 0) return "review";
     if (s.kind === "stub") return "stub";
@@ -76,9 +76,9 @@
         '<ul class="exec-flag-reasons">' + reasons + "</ul>";
     }
     if (h === "stub") {
-      return '<span class="health health-stub" title="Documentation / README placeholder — no interactive site yet.">📝 Stub</span>';
+      return '<span class="health health-stub" title="No index.html at the recorded Pages source path; the published root may render a README.">📝 Stub</span>';
     }
-    return '<span class="health health-healthy" title="No audit flags; a real published app.">✓ Healthy</span>';
+    return '<span class="health health-healthy" title="No per-entry audit flags are recorded; this is not an uptime or user-activity check.">✓ No flags</span>';
   }
 
   // ---------------- KPIs ----------------
@@ -96,9 +96,9 @@
     }).length;
 
     var cards = [
-      { value: String(sites.length), label: "Websites tracked", sub: "as of " + fmtDate(D.generated) },
-      { value: apps + " / " + stubs, label: "Live apps / Stubs", sub: built + " of " + sites.length + " built" },
-      { value: String(fresh7), label: "Updated in last 7 days", sub: "of snapshot date" },
+      { value: String(sites.length), label: "Sites listed", sub: "as of " + fmtDate(D.generated) },
+      { value: apps + " / " + stubs, label: "HTML sites / Stubs", sub: built + " of " + sites.length + " built" },
+      { value: String(fresh7), label: "Recent commits (7 days)", sub: "relative to snapshot date" },
       { value: String(needReview), label: "Need review", sub: needReview === 0 ? "nothing flagged" : "have audit flags" },
       { value: commits.toLocaleString(), label: "Total commits", sub: "across all sites" }
     ];
@@ -174,8 +174,8 @@
         '<a class="exec-visit" href="' + esc(url) + '" target="_blank" rel="noopener" title="' + esc(url) + '">Visit ↗</a><br>' +
         '<a class="exec-repo-link" href="' + esc(repoUrl(s)) + '" target="_blank" rel="noopener">Repo</a>' +
       "</td>" +
-      // 3 — Last updated
-      '<td data-label="Last updated"><div class="exec-updated" title="' + esc(fmtDateTime(s.lastCommit)) + '">' +
+      // 3 — Last default-branch commit (not last site use)
+      '<td data-label="Last commit"><div class="exec-updated" title="Newest committer timestamp on the default branch: ' + esc(fmtDateTime(s.lastCommit)) + '. GitHub does not expose last site use.">' +
         '<div class="exec-updated-date">' + esc(fmtDate(s.lastCommit)) + "</div>" +
         '<div class="exec-updated-ago ' + age.cls + '">' + esc(age.text) + "</div>" +
         (s.lastCommitSha ? '<div class="exec-sha">' + esc(s.lastCommitSha) + "</div>" : "") +
@@ -184,8 +184,8 @@
       '<td data-label="Category"><span class="exec-pill">' + esc(s.category) + "</span></td>" +
       // 5 — Type
       '<td data-label="Type">' + (s.kind === "app"
-        ? '<span class="exec-pill app">App</span>'
-        : '<span class="exec-pill stub">Stub</span>') + "</td>" +
+        ? '<span class="exec-pill app" title="index.html exists at the recorded Pages path">HTML</span>'
+        : '<span class="exec-pill stub" title="No index.html at the recorded Pages path">Stub</span>') + "</td>" +
       // 6 — Build
       '<td data-label="Build" title="Recorded Pages status at snapshot · Source: ' + esc(s.pagesSource) + '">' +
         '<span class="exec-pill ' + (built ? "built" : "notbuilt") + '">' + esc(s.pagesStatus || "unknown") + "</span></td>" +
@@ -193,8 +193,8 @@
       '<td data-label="Commits" class="exec-commits">' + esc(String(s.commits || 0)) + "</td>" +
       // 8 — Created
       '<td data-label="Created"><span class="exec-created" title="' + esc(fmtDateTime(s.created)) + '">' + esc(fmtDate(s.created)) + "</span></td>" +
-      // 9 — Health
-      '<td data-label="Health">' + healthBadge(s) + "</td>" +
+      // 9 — Review state
+      '<td data-label="Review state">' + healthBadge(s) + "</td>" +
     "</tr>";
   }
 

@@ -25,9 +25,14 @@ ACCOUNTS = ["buffedlizard55-lab", "kanlerxz87-cyber"]
 
 OK, BAD, FAIL = "OK", "MISMATCH", "FAIL"
 report = []
+API_FAILURE = None
+API_FAILURE_STATUS = None
 
 
 def api_get(path, accept="application/vnd.github+json"):
+    global API_FAILURE, API_FAILURE_STATUS
+    if API_FAILURE:
+        return API_FAILURE_STATUS, {"message": API_FAILURE}
     req = urllib.request.Request(
         API + path,
         headers={
@@ -47,6 +52,11 @@ def api_get(path, accept="application/vnd.github+json"):
             body = json.loads(e.read().decode("utf-8"))
         except Exception:
             body = {"message": e.reason}
+        message = body.get("message") or str(e.reason)
+        if e.code == 401:
+            API_FAILURE_STATUS, API_FAILURE = e.code, message
+        elif e.code == 403 and "rate limit" in message.lower():
+            API_FAILURE_STATUS, API_FAILURE = e.code, message
         return e.code, body
     except Exception as e:
         return 0, {"message": str(e)}
@@ -72,6 +82,10 @@ def load_data():
 
 
 def check(entry, field, expected, actual):
+    # Once authentication or a rate limit blocks API access, subsequent status/count
+    # values are placeholders from that failed request, not comparable data.
+    if API_FAILURE:
+        return False
     verdict = OK if expected == actual else BAD
     report.append((entry, field, verdict, expected, actual))
     return verdict == OK
@@ -112,6 +126,29 @@ def verify_site(site):
         check(name, "GET /commits", 200, cst)
 
 
+def write_api_blocked_report(data, status, message, partial_checks=0):
+    """Persist API access failures without misclassifying them as snapshot mismatches."""
+    out = os.path.join(ROOT, "tools", "last_live_verify.json")
+    kind = "blocked_auth" if status == 401 else "blocked_rate_limit"
+    report_data = {
+        "snapshotGenerated": data.get("generated"),
+        "status": kind,
+        "complete": False,
+        "partialChecks": partial_checks,
+        "error": {"httpStatus": status, "message": message},
+        "mismatches": [],
+        "unlistedInApi": [],
+        "listedNotInApi": [],
+        "volatileDrift": [],
+        "hardMismatches": [],
+    }
+    with open(out, "w", encoding="utf-8") as fh:
+        json.dump(report_data, fh, indent=2)
+    print("GitHub API access blocked (HTTP %s); audit stopped without treating it as data drift." % status)
+    print("Rerun tools/verify_live.py after the API rate limit resets or authorization is restored.")
+    print("wrote %s" % os.path.relpath(out, ROOT))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo")
@@ -127,6 +164,9 @@ def main():
     for acct in data["accountsChecked"]:
         login = acct["login"]
         st, p = api_get("/users/%s" % login)
+        if st in (401, 403) and API_FAILURE:
+            write_api_blocked_report(data, API_FAILURE_STATUS, API_FAILURE)
+            return 2
         if st != 200:
             check("accounts/%s" % login, "GET /users", 200, st)
             continue
@@ -162,8 +202,10 @@ def main():
     # --- verify the unreachable / retired entries ------------------------
     for u in data.get("unreachable", []):
         st, body = api_get("/repos/%s/%s" % (OWNER, u["repo"]))
+        expected = u.get("httpStatus", 404)
+        check("unreachable[]/" + u["repo"], "GET /repos status", expected, st)
         print("  unreachable %-24s GET /repos -> HTTP %s (recorded: %s)"
-              % (u["repo"], st, u.get("httpStatus")))
+              % (u["repo"], st, expected))
 
     # --- per-site field verification -------------------------------------
     if not args.skip_commits:
@@ -188,6 +230,22 @@ def main():
         st, r = api_get("/repos/%s/%s" % (OWNER, site["repo"]))
         if st == 200 and (r.get("pushed_at") or "") > (site.get("pushedAt") or ""):
             moved_since.add(site["repo"])
+            # A push can land after verify_site() has already read the commit list.
+            # Re-read the default-branch head for moved repositories so the final
+            # report catches that race instead of reporting only pushedAt drift.
+            branch = r.get("default_branch") or site.get("defaultBranch") or "main"
+            cs, latest = api_get("/repos/%s/%s/commits?sha=%s&per_page=1" % (OWNER, site["repo"], branch))
+            if cs == 200 and isinstance(latest, list) and latest:
+                head = latest[0]
+                check("sites[]/" + site["repo"], "finalHeadSha",
+                      site.get("lastCommitSha"), head.get("sha", "")[:7])
+                check("sites[]/" + site["repo"], "finalLastCommit",
+                      site.get("lastCommit"), head.get("commit", {}).get("committer", {}).get("date"))
+            else:
+                check("sites[]/" + site["repo"], "GET /commits final-head recheck", 200, cs)
+    if API_FAILURE:
+        write_api_blocked_report(data, API_FAILURE_STATUS, API_FAILURE, partial_checks=len(report))
+        return 2
     bad = [r for r in report if r[2] != OK]
     hard = [r for r in bad
             if r[1] not in volatile and r[0].split("/")[-1] not in moved_since]
@@ -214,8 +272,14 @@ def main():
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(
             {
+                "snapshotGenerated": data["generated"],
                 "generatedOffsetVsLive": data["generated"],
+                "status": "complete" if not hard else "complete_with_mismatches",
+                "complete": True,
                 "checks": len(report),
+                "okCount": len(report) - len(bad),
+                "driftCount": len(soft),
+                "hardMismatchCount": len(hard),
                 "mismatches": [
                     {"entry": e, "field": f, "committed": ex, "live": ac}
                     for e, f, v, ex, ac in bad

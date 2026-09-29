@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Regenerate data/sites.js for MasterSite from the official GitHub REST API.
 
-Zero manual data entry: every timestamp, SHA, commit count, Pages status and
-build source in the generated file is read from api.github.com at run time.
-The only hand-authored content lives in tools/overlay.json, which holds the
-human-written *narrative* fields (title, category, description, flags, the
-irregularity register) plus the permanent exclusion list.
+All repository telemetry in the generated file (timestamps, SHAs, commit
+counts, Pages status and publish source) is read from api.github.com at run
+time. No user-supplied entry data is required. Titles, categories, short
+summaries and flags are human-curated in tools/overlay.json from repository-
+own files; this generator does not infer or synthesize those descriptions.
 
 Usage:
     GITHUB_TOKEN=xxx python3 tools/build_data.py          # higher rate limit
@@ -21,11 +21,11 @@ Endpoints read (all official, all public):
 
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +35,46 @@ OUT_PATH = os.path.join(ROOT, "data", "sites.js")
 API = "https://api.github.com"
 OWNER = "buffedlizard55-lab"
 ACCOUNTS = ["buffedlizard55-lab", "kanlerxz87-cyber"]
+SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
+
+
+def sha_matches(stamp, head):
+    """Compare complete SHAs or a shared prefix of at least seven characters."""
+    if not isinstance(stamp, str) or not isinstance(head, str):
+        return False
+    if len(stamp) < 7 or len(head) < 7:
+        return False
+    return stamp.startswith(head) or head.startswith(stamp)
+
+
+def validate_overlay(entries, excluded):
+    """Reject malformed curated prose before it can enter the generated site."""
+    errors = []
+    for repo, entry in entries.items():
+        if not isinstance(entry, dict):
+            errors.append("%s: overlay entry must be an object" % repo)
+            continue
+        for field in ("title", "category", "description"):
+            value = entry.get(field)
+            if not isinstance(value, str) or not value.strip():
+                errors.append("%s: %s must be a non-empty string" % (repo, field))
+        if entry.get("kind") not in (None, "app", "stub"):
+            errors.append("%s: kind must be 'app', 'stub', or omitted for API derivation" % repo)
+        flags = entry.get("flags", [])
+        if not isinstance(flags, list) or any(not isinstance(flag, str) for flag in flags):
+            errors.append("%s: flags must be a list of strings" % repo)
+        stamp = entry.get("verifiedAtSha")
+        if stamp is not None and (not isinstance(stamp, str) or not SHA_RE.fullmatch(stamp)):
+            errors.append("%s: verifiedAtSha must be a 7-40 character lowercase commit SHA" % repo)
+        if entry.get("lastVerified") and not entry.get("verifiedBasis"):
+            errors.append("%s: lastVerified has no verifiedBasis" % repo)
+        if entry.get("verifiedBasis") is not None and not isinstance(entry.get("verifiedBasis"), str):
+            errors.append("%s: verifiedBasis must be a string" % repo)
+    for repo in excluded:
+        if repo in entries:
+            errors.append("%s: permanently excluded repository must not have a curated entry" % repo)
+    if errors:
+        raise SystemExit("invalid tools/overlay.json:\n  - " + "\n  - ".join(errors))
 
 
 def api_get(path, accept="application/vnd.github+json"):
@@ -83,10 +123,18 @@ def paginate(path):
 
 
 def has_entry_point(owner, repo, pages_source_path, branch):
-    """Does the published path actually contain an index.html?"""
+    """Return whether the published path has index.html; fail closed on API errors."""
     sub = "" if pages_source_path in ("/", "") else "/" + pages_source_path.strip("/")
-    status, _ = api_get_raw("/repos/%s/%s/contents%s/index.html?ref=%s" % (owner, repo, sub, branch))
-    return status == 200
+    endpoint = "/repos/%s/%s/contents%s/index.html?ref=%s" % (owner, repo, sub, branch)
+    status, _ = api_get_raw(endpoint)
+    if status == 200:
+        return True
+    if status == 404:
+        return False
+    raise SystemExit(
+        "cannot derive site kind for %s/%s: configured-path index.html read returned HTTP %s (%s)"
+        % (owner, repo, status, endpoint)
+    )
 
 
 def render_overlay_only():
@@ -143,8 +191,9 @@ def render_overlay_only():
                 site[k] = ov[k]
         # Recomputed, not fetched: the snapshot's own headSha is the only head this
         # mode is entitled to compare against.
-        site["proseStale"] = bool(site.get("verifiedAtSha")) and \
-            site.get("verifiedAtSha") != site.get("headSha")
+        site["proseStale"] = bool(site.get("verifiedAtSha")) and not sha_matches(
+            site.get("verifiedAtSha"), site.get("headSha")
+        )
         if {k: site.get(k) for k in OVERLAY_FIELDS} != before:
             changed.append(site["repo"])
 
@@ -233,6 +282,7 @@ def main():
     overlay = json.load(open(OVERLAY_PATH, encoding="utf-8"))
     entries = overlay["entries"]
     excluded = set(overlay.get("excluded", []))
+    validate_overlay(entries, excluded)
 
     print("MasterSite data refresh — reading api.github.com")
     print("-" * 72)
@@ -256,10 +306,10 @@ def main():
         if login == OWNER:
             note = (
                 "%d of %d public repositories have GitHub Pages enabled (verified per-repo via "
-                "GET /repos/%s/{repo}/pages). This directory publishes %d of them: %d repo(s) are "
-                "permanently excluded by owner request and must never be added back (see AGENTS.md)."
-                % (pages_enabled, profile.get("public_repos") or 0, login,
-                   len([n for n in names if n not in excluded]), len(excluded))
+                "GET /repos/%s/{repo}/pages). Repositories without a curated source entry are reported "
+                "as unlisted rather than described; %d repository/repositories are permanently excluded "
+                "by owner request and must never be added back (see AGENTS.md)."
+                % (pages_enabled, profile.get("public_repos") or 0, login, len(excluded))
             )
         else:
             note = (
@@ -385,7 +435,9 @@ def main():
                 # mechanical check instead of a re-read — see IRR-50.
                 "verifiedAtSha": ov.get("verifiedAtSha"),
                 "headSha": newest["sha"][:7],
-                "proseStale": bool(ov.get("verifiedAtSha")) and ov.get("verifiedAtSha") != newest["sha"][:7],
+                "proseStale": bool(ov.get("verifiedAtSha")) and not sha_matches(
+                    ov.get("verifiedAtSha"), newest["sha"]
+                ),
             }
         )
         print("  ok   %-38s commits=%-5s pages=%-8s source=%s" % (name, len(commits), pages.get("status"), source_str))
@@ -426,38 +478,41 @@ def main():
             "status, custom-domain configuration and the published branch/path.",
             "Queried paginated GET /repos/buffedlizard55-lab/{repo}/commits?sha={default_branch} to obtain "
             "exact commit totals plus first-commit and latest-commit timestamps and SHAs.",
-            "Queried GET /repos/buffedlizard55-lab/{repo}/contents/{published path}/index.html to determine "
-            "whether a repository publishes a real site ('app') or only a Jekyll-rendered README ('stub').",
-            "Read each repository's README.md through the official contents API to source every description, "
-            "then re-read the READMEs of every repository whose commit count moved since the previous audit.",
-            "Repositories present in previous audits but returning HTTP 404 today are moved to the "
-            "'unreachable' list with their last verified values instead of being silently deleted.",
+            "Queried GET /repos/buffedlizard55-lab/{repo}/contents/{published path}/index.html; an existing "
+            "index.html is classified as an HTML-entry-point site ('app' in the data schema), while an absent "
+            "one is classified as a README/documentation stub. This does not assert that a site is interactive.",
+            "Titles, categories, descriptions and flags are curated in tools/overlay.json from each repository's "
+            "own files. This metadata generator does not fetch README prose or infer descriptions; verifiedBasis "
+            "records the source evidence and verifiedAtSha records the commit the prose was checked against.",
+            "New public Pages repositories without a curated overlay entry are recorded in counts.unlisted and "
+            "are not described or added to sites[]. Previously verified unreachable entries are carried from "
+            "tools/overlay.json and should be rechecked with tools/verify_live.py before publication.",
             "%s" % excluded_note,
-            "Cataloged every anomaly found during the pass in the flagged irregularities register, with the "
-            "official endpoint needed to reproduce each one.",
-            "Stamped every entry with 'lastVerified' plus a 'verifiedBasis' string. 'generated' records when "
-            "the API-derived fields were read; 'lastVerified' records when the *description prose* was last "
-            "re-read against the repository's own files. An entry whose prose was carried forward says so "
-            "explicitly and states why carrying it is safe, so 'verified' never silently means two "
-            "different things.",
-            "Re-derived the 'app' vs 'stub' classification for every entry with tools/audit_kind.py, which "
-            "reads GET /repos/{owner}/{repo}/pages for the published branch and path and then GET "
-            "/repos/{owner}/{repo}/contents/{published path}/index.html, and compared the result with the "
-            "value recorded in tools/overlay.json.",
+            "Observed anomalies are retained in the irregularities register with source endpoints for manual review; "
+            "the register does not imply that every possible defect in every upstream repository has been found.",
+            "The generated 'proseStale' field is a mechanical SHA comparison: it means the repository head differs "
+            "from the commit at which the description was last checked, not that the text has been proved false. "
+            "A matching SHA is provenance, not proof that every sentence is correct.",
+            "tools/audit_kind.py independently re-derives the HTML-entry-point vs. stub classification from the "
+            "Pages API source path and contents endpoint, then compares it with tools/overlay.json.",
         ],
         "caveats": [
-            "Created date is the official GitHub repository creation timestamp; the first-commit committer "
-            "date matches it within one second for every listed repository.",
-            "Last Updated is the newest committer timestamp on the repository's default branch; pushed_at "
-            "tracks the latest push to any branch and can therefore lead it.",
+            "Created date is GitHub's repository created_at timestamp. The first commit is a separate observation "
+            "and can differ by more than one second; both timestamps are shown rather than treated as interchangeable.",
+            "The directory's Last Commit date is the newest committer timestamp on the default branch. pushed_at "
+            "tracks the latest push to any branch, and GitHub updated_at can reflect other repository activity. "
+            "The public API does not expose when people last visited or used a Pages site; no last-use date is claimed.",
             "Repository size is GitHub's own size field in KB; it is recomputed asynchronously and can lag "
             "or lead the commit history.",
-            "Descriptions are sourced from each repository's own README.md and generated site. A repository "
-            "that pushes a new README after this snapshot can make a description stale until the next refresh.",
+            "Descriptions are curated from repository-owned README/source files, not generated from repo names. "
+            "A description whose recorded SHA differs from the snapshot head is marked stale for re-reading; "
+            "the SHA difference alone does not prove the prose is inaccurate.",
+            "This audit queries public repositories only. Private repositories are not enumerated, so the directory "
+            "makes no claim about private GitHub Pages sites.",
             "The audit sandbox can reach github.com but not *.github.io, so live page bodies are not re-fetched "
-            "over HTTP here. 'Built' status from the Pages API plus a verified index.html entry point are the "
-            "two signals used; every entry also links to its live site for manual review.",
-            "kanlerxz87-cyber has %s public repositories and therefore zero GitHub Pages sites."
+            "over HTTP here. 'Built' status from the Pages API plus an HTML entry-point check are API-level signals, "
+            "not a guarantee that the public page responds or works; every entry links to its live site for review.",
+            "kanlerxz87-cyber has %s public repositories and therefore zero public GitHub Pages sites."
             % next((a["publicRepos"] for a in accounts_checked if a["login"] == "kanlerxz87-cyber"), 0),
         ],
     }

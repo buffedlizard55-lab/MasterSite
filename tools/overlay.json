@@ -973,64 +973,60 @@
       "verifiedAtSha": "e0f4ecc"
     },
     "11GEMSDOE": {
-      "title": "11GEMSDOE (README Stub)",
+      "title": "11GEMSDOE — GEMS Prize Research & Submission Project",
       "category": "Science & ML Research",
-      "kind": "stub",
-      "description": "Single-commit placeholder repository holding a GEMS Prize-style name; contains only a stub README.md with the repository's own heading and no site content.",
-      "flags": [
-        "README-only repository (README.md holds only '# 11GEMSDOE'); no index.html at the published path, so Pages serves the default markdown render."
-      ],
-      "lastVerified": "2026-09-26T00:20:58Z",
-      "verifiedBasis": "READ at default-branch head 4c2eccd (Initial commit 2026-09-25T18:33:57Z): the root tree holds only README.md (11 bytes, '# 11GEMSDOE'); GET /repos/buffedlizard55-lab/11GEMSDOE/contents/index.html returns HTTP 404; GET /repos/buffedlizard55-lab/11GEMSDOE/pages reports built, legacy. Created 2026-09-25T18:33:56Z. One commit, so there is no earlier state to carry. Reproduce: GET /repos/buffedlizard55-lab/11GEMSDOE/readme and GET /repos/buffedlizard55-lab/11GEMSDOE/contents/.",
-      "verifiedAtSha": "4c2eccd"
+      "kind": "app",
+      "description": "DOE GEMS Prize project focused on evidence-led geological fault mapping and a reproducible submission workflow. Its root `index.html` redirects visitors to the project dashboard at `docs/index.html`.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:56:13Z",
+      "verifiedBasis": "READ 2026-09-29T21:56:13Z at the current default-branch head 7d8133c69cb39363f394fc2d4a6d4919112c4270 (commit time 2026-09-27T04:49:12Z). The official README at https://api.github.com/repos/buffedlizard55-lab/11GEMSDOE/readme?ref=7d8133c69cb39363f394fc2d4a6d4919112c4270 is titled `11GEMSDOE — GEMS Prize research and submission project` and supports the project summary and the stated caveat. The configured Pages source is `main /`; GET https://api.github.com/repos/buffedlizard55-lab/11GEMSDOE/pages reports `built`. The current root listing contains `index.html`; the official contents read https://api.github.com/repos/buffedlizard55-lab/11GEMSDOE/contents/index.html?ref=7d8133c69cb39363f394fc2d4a6d4919112c4270 returns the entry-point file (blob ee6c77dbdafeacf390c00f17028adb262e0ba46b). The root HTML page includes a meta refresh and canonical link to `docs/index.html`. At the previous recorded head 4c2eccd3b9e052e9f85baf98eac40fb49ab428a8, this repository had been cataloged as a README-only stub; the current `index.html` presence justifies reclassifying `kind` as `app` (HTML entry point), not a claim of interactivity, successful runtime behavior, or live HTTP availability. Reproduce from the repository, README, Pages, and contents endpoints above; the Pages URL is https://buffedlizard55-lab.github.io/11GEMSDOE/.",
+      "verifiedAtSha": "7d8133c69cb39363f394fc2d4a6d4919112c4270"
     },
     "7GEMSDOE": {
-      "title": "7GEMSDOE (README Stub)",
+      "title": "7GEMSDOE — Fault Discovery Lab",
       "category": "Science & ML Research",
-      "kind": "stub",
-      "description": "Single-commit placeholder repository holding a GEMS Prize-style name; contains only a stub README.md with the repository's own heading and no site content.",
-      "flags": [
-        "README-only repository (README.md holds only '# 7GEMSDOE'); no index.html at the published path, so Pages serves the default markdown render."
-      ],
-      "lastVerified": "2026-09-26T00:20:58Z",
-      "verifiedBasis": "READ at default-branch head 2bcf23f (Initial commit 2026-09-25T18:22:02Z): the root tree holds only README.md (10 bytes, '# 7GEMSDOE'); GET /repos/buffedlizard55-lab/7GEMSDOE/contents/index.html returns HTTP 404; GET /repos/buffedlizard55-lab/7GEMSDOE/pages reports built, legacy. Created 2026-09-25T18:22:01Z. One commit, so there is no earlier state to carry. Reproduce: GET /repos/buffedlizard55-lab/7GEMSDOE/readme and GET /repos/buffedlizard55-lab/7GEMSDOE/contents/.",
-      "verifiedAtSha": "2bcf23f"
+      "kind": "app",
+      "description": "DOE GEMS Prize fault-discovery research lab with executive-summary, experiment, research, data, results, metric, and submission-guide pages.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:56:13Z",
+      "verifiedBasis": "READ 2026-09-29T21:56:13Z at the current default-branch head 9d8b5d55b674629f7b0e0e486269917c0fa2dade (commit time 2026-09-27T00:03:30Z). The official README at https://api.github.com/repos/buffedlizard55-lab/7GEMSDOE/readme?ref=9d8b5d55b674629f7b0e0e486269917c0fa2dade is titled `7GEMSDOE — fault discovery lab` and supports the project summary and the stated caveat. The configured Pages source is `main /`; GET https://api.github.com/repos/buffedlizard55-lab/7GEMSDOE/pages reports `built`. The current root listing contains `index.html`; the official contents read https://api.github.com/repos/buffedlizard55-lab/7GEMSDOE/contents/index.html?ref=9d8b5d55b674629f7b0e0e486269917c0fa2dade returns the entry-point file (blob 5df43eb49ded30600933094acd5c16bf5985458e). The root `index.html` is the executive-summary page and links to the other project pages. At the previous recorded head 2bcf23f5c726c12d908ab95ab44930d9946eac6f, this repository had been cataloged as a README-only stub; the current `index.html` presence justifies reclassifying `kind` as `app` (HTML entry point), not a claim of interactivity, successful runtime behavior, or live HTTP availability. Reproduce from the repository, README, Pages, and contents endpoints above; the Pages URL is https://buffedlizard55-lab.github.io/7GEMSDOE/.",
+      "verifiedAtSha": "9d8b5d55b674629f7b0e0e486269917c0fa2dade"
     },
     "8GEMSDOE": {
-      "title": "8GEMSDOE (README Stub)",
+      "title": "8GEMSDOE — Apex Geothermal Fault Discovery & Submission Hub",
       "category": "Science & ML Research",
-      "kind": "stub",
-      "description": "Single-commit placeholder repository holding a GEMS Prize-style name; contains only a stub README.md with the repository's own heading and no site content.",
+      "kind": "app",
+      "description": "DOE GEMS Prize fault-discovery and submission hub with executive, research, strategy, results, and data pages. Its README warns that key competition rasters and test dependencies are missing from the documented checkout, so older measurements are not freshly reproducible.",
       "flags": [
-        "README-only repository (README.md holds only '# 8GEMSDOE'); no index.html at the published path, so Pages serves the default markdown render."
+        "README warns that key competition rasters and Python test dependencies are absent from the documented checkout; historical measurements are not freshly reproducible."
       ],
-      "lastVerified": "2026-09-26T00:20:58Z",
-      "verifiedBasis": "READ at default-branch head dc11bdc (Initial commit 2026-09-25T18:22:23Z): the root tree holds only README.md (10 bytes, '# 8GEMSDOE'); GET /repos/buffedlizard55-lab/8GEMSDOE/contents/index.html returns HTTP 404; GET /repos/buffedlizard55-lab/8GEMSDOE/pages reports built, legacy. Created 2026-09-25T18:22:21Z. One commit, so there is no earlier state to carry. Reproduce: GET /repos/buffedlizard55-lab/8GEMSDOE/readme and GET /repos/buffedlizard55-lab/8GEMSDOE/contents/.",
-      "verifiedAtSha": "dc11bdc"
+      "lastVerified": "2026-09-29T21:56:13Z",
+      "verifiedBasis": "READ 2026-09-29T21:56:13Z at the current default-branch head e24abefab237115d67e0afb2acfde01c6304783f (commit time 2026-09-26T23:21:37Z). The official README at https://api.github.com/repos/buffedlizard55-lab/8GEMSDOE/readme?ref=e24abefab237115d67e0afb2acfde01c6304783f is titled `8GEMSDOE — Apex Geothermal Fault Discovery & Submission Hub` and supports the project summary and the stated caveat. The configured Pages source is `main /`; GET https://api.github.com/repos/buffedlizard55-lab/8GEMSDOE/pages reports `built`. The current root listing contains `index.html`; the official contents read https://api.github.com/repos/buffedlizard55-lab/8GEMSDOE/contents/index.html?ref=e24abefab237115d67e0afb2acfde01c6304783f returns the entry-point file (blob c91b990cecdb263c6c25c5de5d22d99be0633604). The root `index.html` is the executive-summary landing page and links to the other project pages. At the previous recorded head dc11bdca1042bbeedf5f716c9d8e2772ec4bd888, this repository had been cataloged as a README-only stub; the current `index.html` presence justifies reclassifying `kind` as `app` (HTML entry point), not a claim of interactivity, successful runtime behavior, or live HTTP availability. Reproduce from the repository, README, Pages, and contents endpoints above; the Pages URL is https://buffedlizard55-lab.github.io/8GEMSDOE/.",
+      "verifiedAtSha": "e24abefab237115d67e0afb2acfde01c6304783f"
     },
     "GEMSDOE10": {
-      "title": "GEMSDOE10 (README Stub)",
+      "title": "GEMSDOE10 — Evidence-First Fault Discovery",
       "category": "Science & ML Research",
-      "kind": "stub",
-      "description": "Single-commit placeholder repository holding a GEMS Prize-style name; contains only a stub README.md with the repository's own heading and no site content.",
+      "kind": "app",
+      "description": "DOE GEMS Prize hidden-fault discovery workspace with a submission hub, experiment records, research artifacts, and reproducibility checks. Its README says a file-format pass alone is not enough to recommend a new submission.",
       "flags": [
-        "README-only repository (README.md holds only '# GEMSDOE10'); no index.html at the published path, so Pages serves the default markdown render."
+        "README requires matched-holdout and artifact-evidence gates before a new submission; passing a file-format check alone is not an upload recommendation."
       ],
-      "lastVerified": "2026-09-26T00:20:58Z",
-      "verifiedBasis": "READ at default-branch head ca0c6b7 (Initial commit 2026-09-25T18:31:25Z): the root tree holds only README.md (11 bytes, '# GEMSDOE10'); GET /repos/buffedlizard55-lab/GEMSDOE10/contents/index.html returns HTTP 404; GET /repos/buffedlizard55-lab/GEMSDOE10/pages reports built, legacy. Created 2026-09-25T18:31:23Z. One commit, so there is no earlier state to carry. Reproduce: GET /repos/buffedlizard55-lab/GEMSDOE10/readme and GET /repos/buffedlizard55-lab/GEMSDOE10/contents/.",
-      "verifiedAtSha": "ca0c6b7"
+      "lastVerified": "2026-09-29T21:56:13Z",
+      "verifiedBasis": "READ 2026-09-29T21:56:13Z at the current default-branch head 4d08f51aa59bf57b4041474ff1463c9e737c8090 (commit time 2026-09-28T02:23:46Z). The official README at https://api.github.com/repos/buffedlizard55-lab/GEMSDOE10/readme?ref=4d08f51aa59bf57b4041474ff1463c9e737c8090 is titled `GEMSDOE10 — evidence-first hidden-fault discovery` and supports the project summary and the stated caveat. The configured Pages source is `main /`; GET https://api.github.com/repos/buffedlizard55-lab/GEMSDOE10/pages reports `built`. The current root listing contains `index.html`; the official contents read https://api.github.com/repos/buffedlizard55-lab/GEMSDOE10/contents/index.html?ref=4d08f51aa59bf57b4041474ff1463c9e737c8090 returns the entry-point file (blob 54eb012daedeae81a61eb8564d6a942794daedd9). The root `index.html` redirects visitors to `docs/index.html`, the submission hub. At the previous recorded head ca0c6b7b0fd4e2c480304fc66a3b25494b23c3b1, this repository had been cataloged as a README-only stub; the current `index.html` presence justifies reclassifying `kind` as `app` (HTML entry point), not a claim of interactivity, successful runtime behavior, or live HTTP availability. Reproduce from the repository, README, Pages, and contents endpoints above; the Pages URL is https://buffedlizard55-lab.github.io/GEMSDOE10/.",
+      "verifiedAtSha": "4d08f51aa59bf57b4041474ff1463c9e737c8090"
     },
     "GEMSDOE9": {
-      "title": "GEMSDOE9 (README Stub)",
+      "title": "GEMSDOE9 — Fault Discovery Beyond the Catalogue",
       "category": "Science & ML Research",
-      "kind": "stub",
-      "description": "Single-commit placeholder repository holding a GEMS Prize-style name; contains only a stub README.md with the repository's own heading and no site content.",
+      "kind": "app",
+      "description": "DOE GEMS Prize research site for fault discovery beyond the public catalogue, with metric and holdout notes plus a submission hub. Its README identifies the downloadable GeoTIFF as a format-check placeholder and says no model has been trained.",
       "flags": [
-        "README-only repository (README.md holds only '# GEMSDOE9'); no index.html at the published path, so Pages serves the default markdown render."
+        "README identifies the downloadable GeoTIFF as a format-check placeholder and says no model has been trained."
       ],
-      "lastVerified": "2026-09-26T00:20:58Z",
-      "verifiedBasis": "READ at default-branch head ff887a2 (Initial commit 2026-09-25T18:31:02Z): the root tree holds only README.md (10 bytes, '# GEMSDOE9'); GET /repos/buffedlizard55-lab/GEMSDOE9/contents/index.html returns HTTP 404; GET /repos/buffedlizard55-lab/GEMSDOE9/pages reports built, legacy. Created 2026-09-25T18:31:01Z. One commit, so there is no earlier state to carry. Reproduce: GET /repos/buffedlizard55-lab/GEMSDOE9/readme and GET /repos/buffedlizard55-lab/GEMSDOE9/contents/.",
-      "verifiedAtSha": "ff887a2"
+      "lastVerified": "2026-09-29T21:56:13Z",
+      "verifiedBasis": "READ 2026-09-29T21:56:13Z at the current default-branch head 1fdfddcefd291889e618adf8c42922e4893d514d (commit time 2026-09-27T05:06:19Z). The official README at https://api.github.com/repos/buffedlizard55-lab/GEMSDOE9/readme?ref=1fdfddcefd291889e618adf8c42922e4893d514d is titled `GEMSDOE9 — Geothermal Fault Discovery Beyond the Catalogue` and supports the project summary and the stated caveat. The configured Pages source is `main /`; GET https://api.github.com/repos/buffedlizard55-lab/GEMSDOE9/pages reports `built`. The current root listing contains `index.html`; the official contents read https://api.github.com/repos/buffedlizard55-lab/GEMSDOE9/contents/index.html?ref=1fdfddcefd291889e618adf8c42922e4893d514d returns the entry-point file (blob f087d84331026c3d60d097a5950e8c6776311c50). The root `index.html` redirects visitors to `docs/index.html`. At the previous recorded head ff887a2584581ca7925f09d2a9b53d5812bd54f1, this repository had been cataloged as a README-only stub; the current `index.html` presence justifies reclassifying `kind` as `app` (HTML entry point), not a claim of interactivity, successful runtime behavior, or live HTTP availability. Reproduce from the repository, README, Pages, and contents endpoints above; the Pages URL is https://buffedlizard55-lab.github.io/GEMSDOE9/.",
+      "verifiedAtSha": "1fdfddcefd291889e618adf8c42922e4893d514d"
     },
     "5GEMSDOE": {
       "title": "5GEMSDOE — GEMS Leaderboard-Inversion & Scarp-Channel Workspace",
@@ -1111,6 +1107,171 @@
       "lastVerified": "2026-09-26T00:20:58Z",
       "verifiedBasis": "READ at default-branch head 7389443 (2026-09-25T22:13:11Z): README.md (capability table, endpoint table with 1917-12-19 and 2026 Final cross-checks, snapshot architecture, CORS/relay evidence, roadmap); data/manifest.json (11 snapshotted games, 120 archive dates, seasons 20262027/20252026, 32 clubs); counted in a clean clone: 120 files in data/archive/, 32 club files per season, 22 game payloads (11 games times play-by-play plus boxscore). Executed here: `node tools/test-app.mjs` reports ALL APP TESTS PASSED and `node tools/test-build.mjs` reports ALL TESTS PASSED (TTL reuse, immutable carry-forward, failed-run preservation). Official GET /repos/buffedlizard55-lab/NHL-SCOREBOARD/pages reported built, legacy main /. Reproduce: GET /repos/buffedlizard55-lab/NHL-SCOREBOARD/contents/data/manifest.json?ref=7389443.",
       "verifiedAtSha": "7389443"
+    },
+    "12GEMSDOE": {
+      "title": "12GEMSDOE — GEMS Fault Discovery Workbench",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "DOE GEMS Prize research and submission workbench with experiment notes, validation evidence, candidate raster downloads, and an executive submission guide.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "c98d77b",
+      "verifiedBasis": "READ at default-branch head c98d77b0a540d7d35d06d299ded9e4d5048f0b9d (latest commit timestamp 2026-09-29T21:23:50Z): README.md identifies the repository as a geothermal fault-discovery and submission workbench and links to its executive submission guide, research hypotheses, evidence, candidate downloads, and official competition leaderboard. The description summarizes the repository purpose and documented components; it does not claim a leaderboard score or that an unsubmitted candidate has been accepted. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/12GEMSDOE/readme?ref=c98d77b0a540d7d35d06d299ded9e4d5048f0b9d; GET https://api.github.com/repos/buffedlizard55-lab/12GEMSDOE/contents/?ref=c98d77b0a540d7d35d06d299ded9e4d5048f0b9d; GET https://api.github.com/repos/buffedlizard55-lab/12GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/12GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-27T01:13:46Z."
+    },
+    "13GEMSDOE": {
+      "title": "13GEMSDOE — GEMS Prize Research Stub",
+      "category": "Science & ML Research",
+      "kind": "stub",
+      "description": "DOE GEMS Prize research repository documenting metric analysis, fault-mapping experiments, and submission guidance. At this snapshot, Pages uses `main /` but the repository has no root `index.html`, so it is a README-rendered documentation stub rather than a standalone HTML site.",
+      "flags": [
+        "GitHub Pages API reports `built`, but `GET /contents/index.html?ref=main` returns HTTP 404 for the configured root path. Classified as a documentation stub; the `docs/` and `src/` directories are not the configured Pages root."
+      ],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "ced9666",
+      "verifiedBasis": "READ at default-branch head ced9666af34907c06cbc51e6a6a2c0d72cd001f5 (latest commit timestamp 2026-09-29T18:37:25Z): README.md describes a GEMS Prize challenge working repository and its metric/research notes. The official Pages API reports `status=built`, `source=main /`; the official root tree includes README.md, docs/, knowledge/, reports/, scripts/, and src/ but no index.html. GET /contents/index.html?ref=main returns HTTP 404. The directory therefore classifies this published root as a documentation stub, not a standalone HTML site. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/13GEMSDOE/readme?ref=ced9666af34907c06cbc51e6a6a2c0d72cd001f5; GET https://api.github.com/repos/buffedlizard55-lab/13GEMSDOE/contents/?ref=ced9666af34907c06cbc51e6a6a2c0d72cd001f5; GET https://api.github.com/repos/buffedlizard55-lab/13GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/13GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-27T01:14:11Z."
+    },
+    "14GEMSDOE": {
+      "title": "14GEMSDOE — GEMS Prize Submission Site",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "DOE GEMS Prize status and submission site with an executive summary, downloadable or browser-rebuildable GeoTIFF, source tables, leaderboard feed, and artifact checks.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "88dd365",
+      "verifiedBasis": "READ at default-branch head 88dd365dc7469c316f0f7c3bdd18fd90c5825a07 (latest commit timestamp 2026-09-29T18:14:11Z): README.md describes the GEMS Prize goal and links to an executive summary, a downloadable/rebuildable submission GeoTIFF, source tables, leaderboard feed, and artifact audit. The official Pages API reports `built`, source `main /`; GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/14GEMSDOE/readme?ref=88dd365dc7469c316f0f7c3bdd18fd90c5825a07; GET https://api.github.com/repos/buffedlizard55-lab/14GEMSDOE/contents/?ref=88dd365dc7469c316f0f7c3bdd18fd90c5825a07; GET https://api.github.com/repos/buffedlizard55-lab/14GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/14GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-27T01:14:51Z."
+    },
+    "15GEMSDOE": {
+      "title": "15GEMSDOE — DOE GEMS Prize Research Workspace",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "DOE GEMS Prize research and submission workspace with a documented project charter, source register, experimental hypotheses, model/data tooling, and validation notes.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "8c94b0f",
+      "verifiedBasis": "READ at default-branch head 8c94b0f83f22999032ba8a29c523af7ae6cf5e76 (latest commit timestamp 2026-09-29T15:46:55Z): README.md names the DOE GEMS Prize competition and describes the project charter, linked official sources/rules, research plans, scripts, and test/evidence material. The official Pages API reports `built`, source `main /`; GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/15GEMSDOE/readme?ref=8c94b0f83f22999032ba8a29c523af7ae6cf5e76; GET https://api.github.com/repos/buffedlizard55-lab/15GEMSDOE/contents/?ref=8c94b0f83f22999032ba8a29c523af7ae6cf5e76; GET https://api.github.com/repos/buffedlizard55-lab/15GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/15GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-27T01:15:12Z."
+    },
+    "based-loaded-MLB-alert-system": {
+      "title": "Loaded Late — Bases-Loaded MLB Alerts",
+      "category": "Sports Data & Scoreboards",
+      "kind": "app",
+      "description": "Live MLB scoreboard with an alert monitor for tied games in the bottom of inning 9 or later when the bases are loaded and fewer than three outs remain. The README documents watch rules, alert controls, and browser-local history; it explicitly says this is not a complete historical replay.",
+      "flags": [],
+      "lastVerified": "2026-09-29T22:22:12Z",
+      "verifiedAtSha": "d06dc4886ad1426075478ce734df77959a02f283",
+      "verifiedBasis": "READ 2026-09-29T22:22:12Z at current default-branch head d06dc4886ad1426075478ce734df77959a02f283 (merge commit dated 2026-09-29T22:20:37Z). The official README at https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system/readme?ref=d06dc4886ad1426075478ce734df77959a02f283 (blob 4e3bd090494467af3625d3d01054c28b5c3ad28b) describes the tied, bases-loaded bottom-of-inning-9-or-later rule, watcher and alert controls, browser-local history, and states that it is not a complete historical replay. The root listing includes the README, `index.html`, `bases-loaded.html`, `scoreboard.html`, `game.html`, and `reviews.html`; the current root `index.html` at https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system/contents/index.html?ref=d06dc4886ad1426075478ce734df77959a02f283 (blob 3ce11706b27aea326a9311911e328c3e2db7a9e9) is the live landing page. GET https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system/pages reports `built`, source `main /`, URL https://buffedlizard55-lab.github.io/based-loaded-MLB-alert-system/. The description summarizes repository documentation; no live HTTP, notification delivery, or historical-replay behavior was tested independently. This head advanced from 355511b after the 2026-09-29T22:18:09Z API snapshot; the prose was re-read at the new head before re-stamping. Reproduce the current metadata, README, contents, and Pages reads via the official endpoints above."
+    },
+    "GRANTWRITING": {
+      "title": "Federal Research Grant Intelligence Platform",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "Federal research-grant intelligence dashboard with a searchable opportunity catalog, source and status context, and documented verification limits for public funding records.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "450833a",
+      "verifiedBasis": "READ at default-branch head 450833a49d3b31d309f56db87153acbc6956e33f (latest commit timestamp 2026-09-29T17:00:53Z): README.md names this the Federal Research Grant Intelligence Platform and describes its opportunity catalog, source/status handling, and verification limits. The description avoids snapshot counts, which the README says can change on each data refresh. The official Pages API reports `built`, source `main /`; GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/GRANTWRITING/readme?ref=450833a49d3b31d309f56db87153acbc6956e33f; GET https://api.github.com/repos/buffedlizard55-lab/GRANTWRITING/contents/?ref=450833a49d3b31d309f56db87153acbc6956e33f; GET https://api.github.com/repos/buffedlizard55-lab/GRANTWRITING/pages; GET https://api.github.com/repos/buffedlizard55-lab/GRANTWRITING/contents/index.html?ref=main. Repository created_at: 2026-09-27T00:54:24Z."
+    },
+    "LEARNGEMSDOE": {
+      "title": "LEARNGEMSDOE — GEMS Prize Research Library",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "GEMS Prize research library and searchable knowledge base for cited literature, facts, hypotheses, and feature research. Its README explicitly says the repository documents research and does not generate, validate, or submit prediction GeoTIFFs.",
+      "flags": [
+        "README describes both a GitHub Actions upload of `docs/` and legacy Pages settings for `main /`; the Pages API snapshot confirms `main /`. The README says the root index redirects into `docs/`."
+      ],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "032abc1",
+      "verifiedBasis": "READ at default-branch head 032abc124e0c1e2bbd43aa0a153b4ce962b0a661 (latest commit timestamp 2026-09-27T01:01:32Z): README.md describes a GEMS Prize research library, its cited research/hypothesis material, and explicitly states that this repository does not generate, validate, or submit prediction GeoTIFFs. The README also notes a docs/ workflow alongside legacy Pages settings. The official Pages API reports `built`, source `main /`; root index.html exists. GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/LEARNGEMSDOE/readme?ref=032abc124e0c1e2bbd43aa0a153b4ce962b0a661; GET https://api.github.com/repos/buffedlizard55-lab/LEARNGEMSDOE/contents/?ref=032abc124e0c1e2bbd43aa0a153b4ce962b0a661; GET https://api.github.com/repos/buffedlizard55-lab/LEARNGEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/LEARNGEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-26T18:18:32Z."
+    },
+    "LiveScoringErrors": {
+      "title": "LiveScoringErrors — MLB Scoring Research",
+      "category": "Sports Data & Scoreboards",
+      "kind": "app",
+      "description": "MLB official-scoring research project exploring whether a batted ball will be recorded as a hit, error, or fielder’s choice. The README describes a Statcast-based data pipeline, model work, and public site; this summary makes no claim about predictive accuracy.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "2fa30db",
+      "verifiedBasis": "READ at default-branch head 2fa30db6418f41652c6b60c6568bfa28eaedc256 (latest commit timestamp 2026-09-29T18:42:10Z): README.md frames the project as investigating predictions of MLB official scoring decisions from Statcast batted-ball data and identifies a data pipeline, statistical-model work, and public site. No accuracy claim is made. The official Pages API reports `built`, source `main /`; GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/LiveScoringErrors/readme?ref=2fa30db6418f41652c6b60c6568bfa28eaedc256; GET https://api.github.com/repos/buffedlizard55-lab/LiveScoringErrors/contents/?ref=2fa30db6418f41652c6b60c6568bfa28eaedc256; GET https://api.github.com/repos/buffedlizard55-lab/LiveScoringErrors/pages; GET https://api.github.com/repos/buffedlizard55-lab/LiveScoringErrors/contents/index.html?ref=main. Repository created_at: 2026-09-29T02:36:26Z."
+    },
+    "POSTSEASONMLBALERTS": {
+      "title": "POSTSEASONMLBALERTS — MLB Live Event Alerts",
+      "category": "Sports Data & Scoreboards",
+      "kind": "app",
+      "description": "MLB live-event feed based on MLB-Live-PBP that adds ABS pitch challenges to the All feed, alerts, and live tracking. Its README says the other event-feed behavior is intentionally copied from the sister project.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "b8b5497",
+      "verifiedBasis": "READ at default-branch head b8b549750870d5c37a35807dfe7a339610b0861b (latest commit timestamp 2026-09-29T21:30:58Z): README.md states that this is a copy of MLB-Live-PBP with ABS pitch challenges included in the All feed, alert system, and live tracking, and describes the other behavior as deliberately identical. The official Pages API reports `built`, source `main /`; GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/POSTSEASONMLBALERTS/readme?ref=b8b549750870d5c37a35807dfe7a339610b0861b; GET https://api.github.com/repos/buffedlizard55-lab/POSTSEASONMLBALERTS/contents/?ref=b8b549750870d5c37a35807dfe7a339610b0861b; GET https://api.github.com/repos/buffedlizard55-lab/POSTSEASONMLBALERTS/pages; GET https://api.github.com/repos/buffedlizard55-lab/POSTSEASONMLBALERTS/contents/index.html?ref=main. Repository created_at: 2026-09-29T21:11:54Z."
+    },
+    "RADIOSF": {
+      "title": "RADIOSF — San Francisco Sports-Radio Schedule",
+      "category": "SF Local Guides",
+      "kind": "app",
+      "description": "San Francisco sports-radio schedule project aimed at surfacing MLB playoff broadcasts on selected local stations, including listings marked TBD. The README asks for official or clearly marked unofficial schedule sources.",
+      "flags": [],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "e4ae599",
+      "verifiedBasis": "READ at default-branch head e4ae59914746d4703cbdd978caf6f3399ecbb3c3 (latest commit timestamp 2026-09-28T16:32:55Z): README.md project brief names selected San Francisco AM/FM stations, asks to find MLB playoff games airing on radio, notes that schedules can be TBD, and requests official or explicitly marked unofficial sources. This describes the repository’s stated purpose and does not claim that every broadcast is independently confirmed. The official Pages API reports `built`, source `main /`; GET /contents/index.html?ref=main returns HTTP 200. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/RADIOSF/readme?ref=e4ae59914746d4703cbdd978caf6f3399ecbb3c3; GET https://api.github.com/repos/buffedlizard55-lab/RADIOSF/contents/?ref=e4ae59914746d4703cbdd978caf6f3399ecbb3c3; GET https://api.github.com/repos/buffedlizard55-lab/RADIOSF/pages; GET https://api.github.com/repos/buffedlizard55-lab/RADIOSF/contents/index.html?ref=main. Repository created_at: 2026-09-26T23:19:36Z."
+    },
+    "16GEMSDOE": {
+      "title": "16GEMSDOE — DOE GEMS Prize Contender (H16-1)",
+      "category": "Science & ML Research",
+      "kind": "stub",
+      "description": "DOE GEMS Prize contender repository centered on the README-described H16-1 seam-free, multi-scale tectonic-ridge synthesis. The README links to a documentation hub, executive summary, leaderboard/audit JSON, and GeoTIFF download variants; it also describes spatially blocked validation and reproduction commands. The configured Pages source is `main /` and has no root `index.html`; the README points to a nested `docs/index.html`.",
+      "flags": [
+        "README includes model scores and data-quality claims; this directory does not repeat or independently validate those results.",
+        "The configured Pages source is main / and lacks a root index.html; the README points to nested docs/index.html. The stub label describes the missing root entry point, not site uptime or quality."
+      ],
+      "lastVerified": "2026-09-29T23:12:23Z",
+      "verifiedAtSha": "8354839d6d268818e20affd4a15dd386a56aa828",
+      "verifiedBasis": "READ at default-branch head 8354839d6d268818e20affd4a15dd386a56aa828 (committer timestamp 2026-09-29T23:05:36Z). The official README title identifies a DOE GEMS Prize contender and H16-1 seam-free multi-scale tectonic-ridge synthesis; its opening links to docs/index.html, docs/executive_summary.html, docs/leaderboard.json and three GeoTIFF variants. README sections describe five hypotheses, four-quadrant spatial holdout validation, flagged data issues and reproduction commands; performance and data-quality numbers remain repository-authored claims, not independently validated by this directory. Official source reads: https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/readme?ref=8354839d6d268818e20affd4a15dd386a56aa828; https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/pages (status built, source main /); https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/contents?ref=main (root listing has no index.html); https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/contents/index.html?ref=main (HTTP 404); https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/contents/docs/index.html?ref=main (HTTP 200, 51,173 bytes). The kind remains stub solely because the configured Pages source main / lacks a root index.html; the nested docs/index.html is part of the published source tree, but the API source and file listing do not establish that it is the root landing page or verify the live response."
+    },
+    "17GEMSDOE": {
+      "title": "17GEMSDOE (README Stub)",
+      "category": "Science & ML Research",
+      "kind": "stub",
+      "description": "Placeholder repository whose root contains only the `README.md` heading (`# 17GEMSDOE`) and no `index.html` at the configured `main /` Pages path. The Pages API reports `built`, but the repository has no HTML entry point.",
+      "flags": [
+        "The verified root tree contains only README.md (`# 17GEMSDOE`, 11 bytes); GET /contents/index.html?ref=main returns HTTP 404. Pages status is `built`, which does not mean the repository contains an HTML app."
+      ],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "14f43dd",
+      "verifiedBasis": "READ at default-branch head 14f43dd434a332661d70c0f85fecf810dec7ff13 (latest commit timestamp 2026-09-29T21:22:35Z): At the default-branch head the official root listing contains only README.md. The README is exactly 11 bytes (`# 17GEMSDOE`); GET /contents/index.html?ref=main returns HTTP 404. The official Pages API reports `built`, source `main /`. This is cataloged as a README/Jekyll stub, without inferring project functionality from the repository name. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/17GEMSDOE/readme?ref=14f43dd434a332661d70c0f85fecf810dec7ff13; GET https://api.github.com/repos/buffedlizard55-lab/17GEMSDOE/contents/?ref=14f43dd434a332661d70c0f85fecf810dec7ff13; GET https://api.github.com/repos/buffedlizard55-lab/17GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/17GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-29T21:22:34Z."
+    },
+    "18GEMSDOE": {
+      "title": "18GEMSDOE (README Stub)",
+      "category": "Science & ML Research",
+      "kind": "stub",
+      "description": "Placeholder repository whose root contains only the `README.md` heading (`# 18GEMSDOE`) and no `index.html` at the configured `main /` Pages path. The Pages API reports `built`, but the repository has no HTML entry point.",
+      "flags": [
+        "The verified root tree contains only README.md (`# 18GEMSDOE`, 11 bytes); GET /contents/index.html?ref=main returns HTTP 404. Pages status is `built`, which does not mean the repository contains an HTML app."
+      ],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "178b832",
+      "verifiedBasis": "READ at default-branch head 178b83274e71f847cf0ae0c8452a7f83695a2f84 (latest commit timestamp 2026-09-29T21:22:57Z): At the default-branch head the official root listing contains only README.md. The README is exactly 11 bytes (`# 18GEMSDOE`); GET /contents/index.html?ref=main returns HTTP 404. The official Pages API reports `built`, source `main /`. This is cataloged as a README/Jekyll stub, without inferring project functionality from the repository name. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/18GEMSDOE/readme?ref=178b83274e71f847cf0ae0c8452a7f83695a2f84; GET https://api.github.com/repos/buffedlizard55-lab/18GEMSDOE/contents/?ref=178b83274e71f847cf0ae0c8452a7f83695a2f84; GET https://api.github.com/repos/buffedlizard55-lab/18GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/18GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-29T21:22:56Z."
+    },
+    "19GEMSDOE": {
+      "title": "19GEMSDOE (README Stub)",
+      "category": "Science & ML Research",
+      "kind": "stub",
+      "description": "Placeholder repository whose root contains only the `README.md` heading (`# 19GEMSDOE`) and no `index.html` at the configured `main /` Pages path. The Pages API reports `built`, but the repository has no HTML entry point.",
+      "flags": [
+        "The verified root tree contains only README.md (`# 19GEMSDOE`, 11 bytes); GET /contents/index.html?ref=main returns HTTP 404. Pages status is `built`, which does not mean the repository contains an HTML app."
+      ],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "2d9d244",
+      "verifiedBasis": "READ at default-branch head 2d9d2449107f105a99350dd89e12f07ccf9e1a7f (latest commit timestamp 2026-09-29T21:23:16Z): At the default-branch head the official root listing contains only README.md. The README is exactly 11 bytes (`# 19GEMSDOE`); GET /contents/index.html?ref=main returns HTTP 404. The official Pages API reports `built`, source `main /`. This is cataloged as a README/Jekyll stub, without inferring project functionality from the repository name. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/19GEMSDOE/readme?ref=2d9d2449107f105a99350dd89e12f07ccf9e1a7f; GET https://api.github.com/repos/buffedlizard55-lab/19GEMSDOE/contents/?ref=2d9d2449107f105a99350dd89e12f07ccf9e1a7f; GET https://api.github.com/repos/buffedlizard55-lab/19GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/19GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-29T21:23:15Z."
+    },
+    "20GEMSDOE": {
+      "title": "20GEMSDOE (README Stub)",
+      "category": "Science & ML Research",
+      "kind": "stub",
+      "description": "Placeholder repository whose root contains only the `README.md` heading (`# 20GEMSDOE`) and no `index.html` at the configured `main /` Pages path. The Pages API reports `built`, but the repository has no HTML entry point.",
+      "flags": [
+        "The verified root tree contains only README.md (`# 20GEMSDOE`, 11 bytes); GET /contents/index.html?ref=main returns HTTP 404. Pages status is `built`, which does not mean the repository contains an HTML app."
+      ],
+      "lastVerified": "2026-09-29T21:47:53Z",
+      "verifiedAtSha": "1e75ac1",
+      "verifiedBasis": "READ at default-branch head 1e75ac15474a01dc502b7cc964bdade385f18f84 (latest commit timestamp 2026-09-29T21:23:36Z): At the default-branch head the official root listing contains only README.md. The README is exactly 11 bytes (`# 20GEMSDOE`); GET /contents/index.html?ref=main returns HTTP 404. The official Pages API reports `built`, source `main /`. This is cataloged as a README/Jekyll stub, without inferring project functionality from the repository name. Official source links: GET https://api.github.com/repos/buffedlizard55-lab/20GEMSDOE/readme?ref=1e75ac15474a01dc502b7cc964bdade385f18f84; GET https://api.github.com/repos/buffedlizard55-lab/20GEMSDOE/contents/?ref=1e75ac15474a01dc502b7cc964bdade385f18f84; GET https://api.github.com/repos/buffedlizard55-lab/20GEMSDOE/pages; GET https://api.github.com/repos/buffedlizard55-lab/20GEMSDOE/contents/index.html?ref=main. Repository created_at: 2026-09-29T21:23:34Z."
     }
   },
   "retired": [
@@ -1954,8 +2115,8 @@
     {
       "id": "IRR-119",
       "severity": "warn",
-      "title": "6GEMSDOE designates itself the only legitimate GEMS entry and recommends deleting the other ten GEMS repositories; GEMSDOE4's charter plans more sites for more submissions",
-      "detail": "6GEMSDOE ACCOUNT_STATUS.md (head d67dd19) audits the hosting account (11 GEMS-named repositories, Pages built on all), cites the competition's one-final-submission and three-per-week rules, and recommends keeping 6GEMSDOE as the only entry and the only published site, archiving then deleting the other ten. GEMSDOE4 README section 0 ask 1 (head 4e2f864) instead records copying the tree 'because more sites are being created for more submissions'. Both positions are quoted from the repositories' own files; MasterSite lists all eleven GEMS-named repositories and takes no position. Owner decision required: which registration is the official entry, which repositories are deliberate, and whether any deletion happens. Reproduce: GET /repos/buffedlizard55-lab/6GEMSDOE/contents/ACCOUNT_STATUS.md?ref=d67dd19 and GET /repos/buffedlizard55-lab/GEMSDOE4/contents/README.md?ref=4e2f864 (section 0, row 1)."
+      "title": "GEMS portfolio guidance conflicts, and the 6GEMSDOE account census is stale",
+      "detail": "At the 2026-09-29 account snapshot, the official public repository list contains 20 GEMS-named competition repositories (GEMSDOE plus 2GEMSDOE through 20GEMSDOE); the directory now lists all 20 and records their Pages status separately. 6GEMSDOE/ACCOUNT_STATUS.md at head e2fe3f4 says it was re-audited on 2026-09-26, still counts eleven GEMS repositories, and recommends keeping 6GEMSDOE as the only entry while archiving or deleting the other ten. GEMSDOE4/README.md at head 198a121 says the copy was made because more sites were being created for more submissions. 12GEMSDOE/docs/sibling-audit.md at c98d77b independently documents shared submission artifacts across sibling repositories. These are repository-authored positions and measured file relationships, not MasterSite endorsement; which repositories or competition registration should be retained is an owner decision. Reproduce: GET https://api.github.com/users/buffedlizard55-lab/repos?per_page=100; GET https://api.github.com/repos/buffedlizard55-lab/6GEMSDOE/contents/ACCOUNT_STATUS.md?ref=e2fe3f4; GET https://api.github.com/repos/buffedlizard55-lab/GEMSDOE4/contents/README.md?ref=198a121; GET https://api.github.com/repos/buffedlizard55-lab/12GEMSDOE/contents/docs/sibling-audit.md?ref=c98d77b."
     },
     {
       "id": "IRR-120",
@@ -1974,6 +2135,30 @@
       "severity": "info",
       "title": "Elections base-to-head compare cannot be generated via the API (diff too large); staleness triage falls back to the commit list",
       "detail": "GET /repos/buffedlizard55-lab/Elections/compare/dae1427...9ab05f4 returns 422 'Server Error: Sorry, this diff is taking too long to generate', so the changed-file list is unobtainable through the compare endpoint. The stamp itself resolves (GET .../commits/dae1427 returns 200), so unlike IRR-115 this is a triage gap, not broken provenance; per-file reads at each ref remain possible. The entry stays in the PROSE-STALE work queue. Reproduce: the compare URL above."
+    },
+    {
+      "id": "IRR-123",
+      "severity": "info",
+      "title": "The 2026-09-29 census found 15 new Pages repositories; all were sourced and classified before listing",
+      "detail": "The prior committed snapshot dated 2026-09-26 recorded 86 public repositories and 85 listed sites. The official account API now returns 101 public repositories and the per-repository Pages API audit finds 101 Pages-enabled repositories. Fifteen previously uncurated repositories were read at their default-branch heads and added: 12GEMSDOE, 13GEMSDOE, 14GEMSDOE, 15GEMSDOE, 16GEMSDOE, 17GEMSDOE, 18GEMSDOE, 19GEMSDOE, 20GEMSDOE, based-loaded-MLB-alert-system, GRANTWRITING, LEARNGEMSDOE, LiveScoringErrors, POSTSEASONMLBALERTS, and RADIOSF. Nine have an index.html at the configured Pages path; six (13GEMSDOE and 16GEMSDOE–20GEMSDOE) do not and are clearly labeled README/documentation stubs despite Pages reporting built. After curation, the only account-level omission remains ProjX, suppressed by the standing owner instruction. Source commit SHAs and reproduction endpoints are in each entry’s verifiedBasis. Reproduce the account and coverage counts with GET https://api.github.com/users/buffedlizard55-lab and the per-repository GET /repos/buffedlizard55-lab/{repo}/pages endpoints."
+    },
+    {
+      "id": "IRR-124",
+      "severity": "info",
+      "title": "Five previously stub-classified GEMS sites gained root HTML entry points after the 2026-09-26 snapshot",
+      "detail": "The 2026-09-26 entries for 11GEMSDOE, 7GEMSDOE, 8GEMSDOE, GEMSDOE9 and GEMSDOE10 were correctly classified as stubs at their then-recorded one-commit heads (4c2eccd, 2bcf23f, dc11bdc, ff887a2 and ca0c6b7). At the current heads 7d8133c, 9d8b5d5, e24abef, 1fdfddc and 4d08f51, respectively, each configured `main /` Pages path contains `index.html`; each official Pages endpoint reports `built`. The five READMEs and HTML entry points were re-read, the descriptions updated, and `kind` changed from `stub` to `app`. Some root files redirect to `docs/index.html`; this is an entry-point classification, not evidence that the hosted page is interactive or has been tested in a browser. Reproduce with GET /repos/buffedlizard55-lab/{repo}/pages, GET /repos/buffedlizard55-lab/{repo}/readme?ref={full-head-sha}, and GET /repos/buffedlizard55-lab/{repo}/contents/index.html?ref={full-head-sha} for each repository; the full SHAs and file evidence are in the entries' `verifiedBasis`."
+    },
+    {
+      "id": "IRR-125",
+      "severity": "info",
+      "title": "A default-branch merge landed during the live audit; current prose and head were re-read",
+      "detail": "The snapshot generated at 2026-09-29T22:18:09Z recorded based-loaded-MLB-alert-system at `355511b`. While `verify_live.py` was running, the repository received merge commit `d06dc4886ad1426075478ce734df77959a02f283` (committer time 2026-09-29T22:20:37Z; official repo metadata reports pushed_at 22:20:38Z). The first verifier pass reported `pushedAt` drift but had already read that repository’s default-branch commit list, so the final output did not include the new head. Re-read the README and root `index.html` at the new head; the description remains supported and the source stamp now uses the merge SHA. The live verifier was strengthened to recheck the final head for repos with newer `pushed_at`. The Pages API continues to report `built` from `main /`; this event demonstrates snapshot timing, not runtime health. Reproduce with GET https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system, GET https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system/commits?sha=main&per_page=1, GET https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system/readme?ref=d06dc4886ad1426075478ce734df77959a02f283, and GET https://api.github.com/repos/buffedlizard55-lab/based-loaded-MLB-alert-system/pages."
+    },
+    {
+      "id": "IRR-126",
+      "severity": "warn",
+      "title": "16GEMSDOE README points to nested docs/index.html while root Pages path has no index.html",
+      "detail": "At head 8354839d6d268818e20affd4a15dd386a56aa828, the README calls docs/index.html the GitHub Pages site. The official Pages API reports status built with source main /; the root contents listing contains no index.html, GET /contents/index.html returns HTTP 404, and GET /contents/docs/index.html returns HTTP 200 (51,173 bytes). The nested page is in the root source tree, but this does not establish which route visitors see or that the live page responds. The entry is classified as a README/documentation stub because the configured root lacks index.html. Official review links: https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/pages; https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/contents?ref=main; https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/contents/index.html?ref=main; https://api.github.com/repos/buffedlizard55-lab/16GEMSDOE/contents/docs/index.html?ref=main."
     }
   ],
   "excluded": [
@@ -1999,7 +2184,11 @@
     "Audit date 2026-09-20: ten repositories gained commits since the 2026-09-18 audit (DrugAnalysis, Elections, GEMSDOE, KalshiPaperSim, MasterSite, NBAInjuryReport, SFWeather, StockPaperSim, TradingViewTheLeap, WoWForever) and each entry was re-read against the fresh README fetched through the contents API — where a claim could no longer be found it was deleted, never softened (IRR-35). The remaining 30 listed repositories re-verified byte-identical (same latest commit SHA, same commit count). Four new repositories (Commodities, OLBG-Competition, ShoulderPain, VacationSchedule) were described wholly from their own READMEs and root tree listings: Commodities' 22 personas / three verified markets / hash-bound season memory, OLBG-Competition's (Northstar) 27-match pilot with all four strategies negative and its licensing gates, ShoulderPain's nine-page sourced medical/ergonomics guide with its two-pass price re-check, and VacationSchedule's 18-byte placeholder README. WoWForever's claims ledger (183 claims), page count (14) and irregularity log (I-24) come from its README site map; GEMSDOE's status from STATUS.md sessions 11-18; TradingViewTheLeap's from its sixteenth-pass section; KalshiPaperSim's from its machine-regenerated AUTO:COUNTS block read 2026-09-20; DrugAnalysis's from its v19-v21 sections; NBAInjuryReport's reporter coverage from its 2026-09-19 session-15 re-measurement; StockPaperSim's from its 2026-09-19/2026-09-20 notes.",
     "Fifth-pass scan, 2026-09-22 (snapshot regenerated from the API at 23:20Z): GET /users/buffedlizard55-lab returned public_repos 62 against 53 in the 2026-09-21T23:07:59Z snapshot, and a set difference against the previous sites[], unreachable[] and excluded[] lists named nine repositories that had never been audited — ParlaySports, Coupons, StokEngineer, FLABSENGY, LSTARENGY, RGENGY, SABERENGY, FUTURESCOMMODITIES and NFLPARLAYCOMP (IRR-80). All nine were described from a clone of the repository itself, never from its name or its GitHub topic, and every count in the nine new descriptions was either loaded from a committed data file or produced by executing the repository's own test, verify or CLI command in this audit: Coupons' 185/18/204/44/517 from data/coupons.json plus 53 tests by running unittest; FLABSENGY's 49 ledger rows, 20 metric rows, 16 irregularities and 79 passing pytest tests; FUTURESCOMMODITIES' 17 catalog strategies against 12 in the committed tick, 44 trades, 34 verified, 10 anomalies, 74 instruments and 817 backtest trades; LSTARENGY's 13 sports, four patent numbers, two price points and six phases by grep of docs/index.html; NFLPARLAYCOMP's 35 strategies, 100 users, 32 ledger trades, 77 flags and 12 passing tests; ParlaySports' meta.json counts plus 60 unittest tests, a 63-check committed audit report and 15 rendered UI routes; RGENGY's 460 passing unittest tests, 16 endpoints via its own CLI, 11 scoring tables, 34 findings and 122 operator-confirmed coefficients across 9 tables; SABERENGY's 33 verification rows, 7 numbered limitations, 9 modules and one passing test; StokEngineer's 24 verification lines, 38 registry sources across six categories, 7 irregularities, 8 modules and 155 verified badges. Four of the nine (FUTURESCOMMODITIES, RGENGY, SABERENGY, StokEngineer) were pushed to again while this pass was reading them, so all nine were re-cloned, reset to their new heads and re-counted before publication, and three of the four re-counts changed a published figure (IRR-75, IRR-79, IRR-81). Nine new irregularities were registered, IRR-73 through IRR-81, taking the register to 81; none of the nine descriptions repeats a number that its own repository contradicts, and where a repository's prose and its files disagree the counted file value is published and the disagreement is registered. JobSearchSF was re-checked and is still absent from the account's public repository list, so it stays frozen in the retired ledger; ProjX stays excluded. kanlerxz87-cyber still has 0 public repositories and therefore 0 Pages sites.",
     "Audit date 2026-09-24 (eighth pass, snapshot 2026-09-24T00:38:03Z): five newly published repositories were curated from executed evidence (MALTA, MALTA-LAWS, MALTASUPPLEMENTAL, THUNDERPICK-WC-2026, InjuryAlerTNFL) and a sixth was listed as the empty placeholder it is (MALTA2); the two entries whose verifiedAtSha was not a commit SHA were re-read and corrected (KalshiPaperSim at 8a359bd with its suite executed — 157 tests, 157 pass — and MasterSite at b1c9765), which is what makes the prose-staleness count a measurement rather than a permanent false alarm (IRR-108). Five irregularities were registered (IRR-105 the three-way Malta-family contradiction about community.hotspawn.com's availability and its time of day; IRR-106 InjuryAlerTNFL's 'zero schedule events' claim falsified by one cancelled schedule run created 44 minutes before its own head commit; IRR-107 KalshiPaperSim's README contradicting its own generated game-window artifact, with the in-play count reversing from 0 to 2; IRR-108 the non-SHA stamps; IRR-109 MALTA's deletion mid-pass). One repository was deleted while the audit ran (MALTA, 40 verified commits) and is frozen rather than dropped; one repository was mid-deploy at snapshot time and was cleared by re-running the generator, never by editing data. Descriptions re-read this pass: 7; carried: 61. Verified 2026-09-24 by re-running all four read-only tools against the regenerated snapshot.",
-    "Audit date 2026-09-26 (pass stamp 2026-09-26T00:20:58Z): the account moved 75 → 86 public Pages repositories and all 11 newcomers were curated and read in full (six apps at 0c0b785/d67dd19/a514859 (re-read after it moved mid-pass; first read at 4e2f864)/c3b1fb5/84d054e/7389443 with their suites executed where runnable — 44 pytest, 14 unittest plus a 164-file integrity scan, 121 pytest, and two green Node suites — and five single-commit README-only stubs). Eight entries whose verifiedAtSha stamps no longer exist upstream were re-read in full at head and re-stamped (IRR-115, critical): OLBG-Competition, SFWeather, SocialMediaComp, MLB-Live-PBP, MLB-PBP, MLBRainDelay, NBAInjuryReport and NFLInjuryReport. Five stale descriptions were corrected in the same motion (OLBG desk counts, SFWeather withdrawals, SocialMediaComp Q32, NBAInjuryReport tool growth and JS failures, NFLInjuryReport week-3 snapshot); two were re-stamped unchanged after every claim re-verified (MLB-PBP, MLB-Live-PBP). New irregularities IRR-115 (critical) and IRR-116..IRR-122. The remaining PROSE-STALE queue is resolvable history with both SHAs live, except Elections whose compare exceeds the API diff limit (IRR-122)."
+    "Audit date 2026-09-26 (pass stamp 2026-09-26T00:20:58Z): the account moved 75 → 86 public Pages repositories and all 11 newcomers were curated and read in full (six apps at 0c0b785/d67dd19/a514859 (re-read after it moved mid-pass; first read at 4e2f864)/c3b1fb5/84d054e/7389443 with their suites executed where runnable — 44 pytest, 14 unittest plus a 164-file integrity scan, 121 pytest, and two green Node suites — and five single-commit README-only stubs). Eight entries whose verifiedAtSha stamps no longer exist upstream were re-read in full at head and re-stamped (IRR-115, critical): OLBG-Competition, SFWeather, SocialMediaComp, MLB-Live-PBP, MLB-PBP, MLBRainDelay, NBAInjuryReport and NFLInjuryReport. Five stale descriptions were corrected in the same motion (OLBG desk counts, SFWeather withdrawals, SocialMediaComp Q32, NBAInjuryReport tool growth and JS failures, NFLInjuryReport week-3 snapshot); two were re-stamped unchanged after every claim re-verified (MLB-PBP, MLB-Live-PBP). New irregularities IRR-115 (critical) and IRR-116..IRR-122. The remaining PROSE-STALE queue is resolvable history with both SHAs live, except Elections whose compare exceeds the API diff limit (IRR-122).",
+    "Audit date 2026-09-29 (new-entry pass, prose read at 2026-09-29T21:40:23Z UTC): the official API census found 15 new Pages repositories. All 15 were read from their README at the exact recorded default-branch head; based-loaded-MLB-alert-system moved once during the refresh and was re-read at 355511b and assigned a concise sourced description; the configured Pages root/index.html check independently classifies 9 as HTML-entry-point sites and 6 as README/documentation stubs (13GEMSDOE and 16GEMSDOE–20GEMSDOE). Each new entry records its commit SHA, Pages API source/status, root listing, and source endpoint in verifiedBasis. This is a summary of repository-owned content, not a claim that every described feature has been independently tested.",
+    "Audit follow-up 2026-09-29 (five-entry re-read stamped 2026-09-29T21:56:13Z UTC): `tools/audit_kind.py` found that five GEMS repositories previously cataloged as README-only stubs had since gained a root `index.html`. Re-read each current README and configured Pages entry point at the recorded default-branch head; rewrote the summaries and changed `kind` to HTML-entry-point site: 11GEMSDOE, 7GEMSDOE, 8GEMSDOE, GEMSDOE9, and GEMSDOE10. All five Pages API records report `built` from `main /`. For 11GEMSDOE and GEMSDOE10/GEMSDOE9 the root file redirects to `docs/index.html`; that path is noted rather than described as an independently tested application. The README caveats for 8GEMSDOE and GEMSDOE9 are preserved. This structural classification does not test interactivity, runtime behavior, or live HTTP availability.",
+    "Audit follow-up 2026-09-29 at 2026-09-29T22:22:12Z UTC: `based-loaded-MLB-alert-system` advanced from snapshot head `355511b` to merge commit `d06dc4886ad1426075478ce734df77959a02f283` at 22:20:37Z while the independent audit was running. Re-read its current README and root `index.html`; the concise alert-system description remains supported, and its basis/stamp now point at the new head. The Pages API still reports `built` from `main /`. This movement exposed a verifier race: its first commit-list read could precede a push while a later `pushedAt` read detected movement. `tools/verify_live.py` now rechecks the current default-branch head for repositories whose `pushed_at` advanced after the snapshot. This is an API snapshot race, not evidence of a Pages failure.",
+    "Audit follow-up 2026-09-29 (16GEMSDOE re-read at 2026-09-29T23:12:23Z): after merge commit 8354839d6d268818e20affd4a15dd386a56aa828, the README expanded from the prior 11-byte heading to a DOE GEMS H16-1 submission and documentation hub. The concise description now reflects the README links and reproduction material without repeating unverified model scores. Pages remains built from main /; root index.html is absent while docs/index.html exists, so kind remains stub under the configured-root definition. The distinction is recorded as IRR-126."
   ],
   "acceptedDescriptionExceptions": {
     "__doc__": "Numeric tokens that tools/audit_descriptions.py will not find in the repository's README, with the reason each one is nevertheless verified. Anything NOT listed here is an unresolved flag and must be confirmed or deleted before publishing.",
