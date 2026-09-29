@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Line-by-line description auditor for MasterSite.
+"""Numeric-token lint for MasterSite descriptions.
 
-For every entry in data/sites.js this fetches the repository's own README.md
-(and, where the README is absent, the root file listing) through the official
-contents API and checks that the *numeric and named* claims in the published
-description can actually be found in the repository itself. Anything it cannot
-find is reported so a human can confirm or delete the claim.
+For every entry in data/sites.js, fetch that snapshot's README from the
+repository's recorded head SHA through the official contents API and check
+whether numeric tokens in the curated description also occur in the README.
+Unmatched tokens are reported for review.
 
-It never rewrites the dataset — it only reports.
+This is only a mechanical coverage check: it does not establish that a number
+has the same meaning in both places, and it cannot prove non-numeric claims.
+Source review and the per-entry verifiedBasis remain necessary. It never
+rewrites data/sites.js.
 """
 
 import json
@@ -16,6 +18,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://api.github.com"
@@ -48,19 +51,30 @@ def api_get(path, accept="application/vnd.github+json"):
         return 0, {"message": str(e)}
 
 
-def readme_for(repo, branch="main"):
+def readme_for(repo, ref):
     if not os.path.isdir(CACHE):
         os.makedirs(CACHE)
-    path = os.path.join(CACHE, repo + ".md")
+    safe_ref = re.sub(r"[^A-Za-z0-9._-]", "_", ref or "default")
+    path = os.path.join(CACHE, repo + "-" + safe_ref[:40] + ".md")
     if os.path.exists(path):
-        return open(path, encoding="utf-8").read()
+        return open(path, encoding="utf-8").read(), None
+    quoted_ref = quote(ref or "main", safe="")
+    last_error = None
     for name in ("README.md", "readme.md", "README.MD", "Readme.md"):
-        st, body = api_get("/repos/%s/%s/contents/%s?ref=%s" % (OWNER, repo, name, branch),
-                           accept="application/vnd.github.raw")
+        endpoint = "/repos/%s/%s/contents/%s?ref=%s" % (OWNER, repo, name, quoted_ref)
+        st, body = api_get(endpoint, accept="application/vnd.github.raw")
         if st == 200 and isinstance(body, str):
             open(path, "w", encoding="utf-8").write(body)
-            return body
-    return ""
+            return body, None
+        if st == 404:
+            continue
+        last_error = {"status": st, "endpoint": endpoint,
+                      "message": body.get("message") if isinstance(body, dict) else str(body)}
+        # Authorization, rate limits, and server errors are not evidence that a
+        # repository has no README. Stop rather than turning transport failures
+        # into false source-review findings.
+        return "", last_error
+    return "", None
 
 
 NUM_RE = re.compile(r"\b\d[\d,]*(?:\.\d+)?\s*(?:%|x|k|K|KB|MB|GB)?\b")
@@ -87,19 +101,31 @@ def main():
     overlay = json.load(open(os.path.join(ROOT, "tools", "overlay.json"), encoding="utf-8"))
     accepted = {k: v for k, v in overlay.get("acceptedDescriptionExceptions", {}).items()
                 if not k.startswith("__")}
-    unresolved = 0
-
     problems = []
-    print("description audit — checking each published description against the repo's own README")
-    print("-" * 92)
+    api_errors = []
+    readme_refs = {}
+    checked = 0
+    print("description audit — numeric-token lint against README at each recorded snapshot head")
+    print("This does not prove semantic accuracy; see each entry's verifiedBasis and the audit caveats.")
+    print("-" * 104)
     for site in data["sites"]:
         repo = site["repo"]
         if only and repo != only:
             continue
-        md = readme_for(repo, site.get("defaultBranch") or "main")
+        ref = site.get("headSha") or site.get("defaultBranch") or "main"
+        readme_refs[repo] = ref
+        md, error = readme_for(repo, ref)
+        if error:
+            api_errors.append({"repo": repo, "ref": ref, **error})
+            print("  API-ERROR %-34s ref=%-10s HTTP %s — %s"
+                  % (repo, ref, error.get("status"), error.get("message") or error.get("endpoint")))
+            # Stop on transport/auth failures. Continuing would only duplicate
+            # the same error and could make an incomplete audit look complete.
+            break
+        checked += 1
         if not md:
-            print("  NO-README %-34s (repository publishes a stub or has no README.md)" % repo)
-            problems.append((repo, "no README.md readable through the contents API", []))
+            print("  NO-README %-34s ref=%-10s (no supported README name at this commit)" % (repo, ref))
+            problems.append((repo, "no supported README name at snapshot head", []))
             continue
         hay = md.lower()
         hay_flat = re.sub(r"[^a-z0-9]", "", md.lower())
@@ -115,24 +141,37 @@ def main():
             status, note = "exc ", "  (accepted: see overlay.json acceptedDescriptionExceptions)"
         else:
             status, note = ("ok  " if not misses else "CHECK"), ""
-        print("  %s %-34s readme=%6d chars  unverified-tokens=%s%s"
-              % (status, repo, len(md), misses or "-", note))
+        print("  %s %-34s ref=%-10s readme=%6d chars  unmatched-tokens=%s%s"
+              % (status, repo, ref, len(md), misses or "-", note))
         if misses and repo not in accepted:
-            unresolved += 1
             problems.append((repo, "numeric tokens not found in README", misses))
 
-    print("-" * 92)
-    print("accepted exceptions (documented in overlay.json): %d" % len(accepted))
-    print("entries needing manual confirmation: %d" % unresolved)
+    print("-" * 104)
+    complete = checked == len(data["sites"]) and not api_errors
+    print("snapshot entries checked: %d / %d%s" % (
+        checked, len(data["sites"]), "" if complete else " (INCOMPLETE)"))
+    print("accepted numeric-token exceptions (documented in overlay.json): %d" % len(accepted))
+    print("entries needing source/numeric review: %d" % len(problems))
     for repo, why, toks in problems:
         print("  %-34s %s %s" % (repo, why, toks))
+    for error in api_errors:
+        print("  API ERROR: %s ref=%s HTTP %s (%s)" % (
+            error["repo"], error["ref"], error.get("status"), error.get("message") or error.get("endpoint")))
     out = os.path.join(ROOT, "tools", "last_description_audit.json")
-    json.dump({"unresolved": [{"repo": r, "why": w, "tokens": t} for r, w, t in problems],
-               "accepted": accepted},
-              open(out, "w", encoding="utf-8"), indent=2)
+    json.dump({
+        "snapshotGenerated": data.get("generated"),
+        "checkedEntries": checked,
+        "totalEntries": len(data["sites"]),
+        "complete": complete,
+        "readmeRefs": readme_refs,
+        "numericTokenLintOnly": True,
+        "unresolved": [{"repo": r, "why": w, "tokens": t} for r, w, t in problems],
+        "apiErrors": api_errors,
+        "accepted": accepted
+    }, open(out, "w", encoding="utf-8"), indent=2)
     print("wrote %s" % os.path.relpath(out, ROOT))
-    return 0 if not problems else 1
+    return 0 if complete and not problems else (2 if api_errors else 1)
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

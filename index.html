@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MasterSite — Verified GitHub Pages Directory · buffedlizard55-lab</title>
-  <meta name="description" content="Verified master list and directory of all GitHub Pages sites hosted under buffedlizard55-lab and kanlerxz87-cyber, with descriptions, creation dates, last updated timestamps, and official source links for manual review.">
+  <title>MasterSite — Source-Linked GitHub Pages Directory · buffedlizard55-lab</title>
+  <meta name="description" content="Source-linked directory of public GitHub Pages repositories for buffedlizard55-lab and kanlerxz87-cyber, with repository summaries, creation dates, latest default-branch commits, build metadata, and official review links.">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🗂️</text></svg>">
   <script>
@@ -32,18 +32,19 @@
   <header class="hero">
     <div class="wrap">
       <div class="hero-eyebrow">
-        <span class="badge-pill verified">✓ Line-by-Line Verified</span>
-        <span class="badge-pill date">Audit Date: <span id="auditDatePill">—</span> (UTC)</span>
-        <span class="badge-pill guarantee">Zero Hallucinations</span>
+        <span class="badge-pill verified">✓ Source-Linked Directory</span>
+        <span class="badge-pill date">API Snapshot: <span id="auditDatePill">—</span> (UTC)</span>
+        <span class="badge-pill guarantee">Public GitHub Pages</span>
       </div>
       
       <h1>MasterSite Directory</h1>
       <p class="tagline">
-        The official master list and directory of every GitHub Pages site hosted under 
-        <a href="https://github.com/buffedlizard55-lab" target="_blank" rel="noopener"><strong>buffedlizard55-lab</strong></a> 
-        and audited check of 
+        A source-linked directory of public GitHub Pages sites for
+        <a href="https://github.com/buffedlizard55-lab" target="_blank" rel="noopener"><strong>buffedlizard55-lab</strong></a>
+        and
         <a href="https://github.com/kanlerxz87-cyber" target="_blank" rel="noopener"><strong>kanlerxz87-cyber</strong></a>.
-        Verified line by line directly against official GitHub REST API records.
+        Repository dates and Pages metadata come from GitHub’s API; short descriptions are sourced from each repository’s own files.
+        Stale descriptions, stubs, exclusions, and unreachable records are identified rather than silently treated as current.
       </p>
 
       <!-- Quick Stats Grid -->
@@ -56,7 +57,7 @@
 
       <div class="exec-cta">
         <a class="exec-cta-btn" href="executive-summary.html">📊 Executive Summary →</a>
-        <span class="exec-cta-note">One row per site: name, live link, last updated — readable on phone &amp; desktop</span>
+        <span class="exec-cta-note">One row per site: name, live link, latest default-branch commit — readable on phone &amp; desktop</span>
       </div>
     </div>
   </header>
@@ -77,8 +78,8 @@
           <div class="control-group">
             <label for="sortSelect" class="control-label">Sort:</label>
             <select id="sortSelect" class="custom-select" aria-label="Sort sites">
-              <option value="updated-desc">Last Updated (Newest first)</option>
-              <option value="updated-asc">Last Updated (Oldest first)</option>
+              <option value="updated-desc">Last Commit (Newest first)</option>
+              <option value="updated-asc">Last Commit (Oldest first)</option>
               <option value="created-desc">Date Created (Newest first)</option>
               <option value="created-asc">Date Created (Oldest first)</option>
               <option value="name-asc">Name (A → Z)</option>
@@ -177,7 +178,7 @@
             <th scope="col">Category</th>
             <th scope="col">Type &amp; Status</th>
             <th scope="col">Created (UTC)</th>
-            <th scope="col">Last Updated (UTC)</th>
+            <th scope="col" title="Newest committer timestamp on the default branch. GitHub does not expose last site use.">Last Commit (UTC)</th>
             <th scope="col" title="When this entry's description prose was last re-read against the repository's own files. Distinct from the API fields, which are re-read on every build.">Description Verified</th>
             <th scope="col">Commits</th>
             <th scope="col">Verified Review Links</th>
@@ -226,7 +227,7 @@
         <div class="panel-icon">⚑</div>
         <div>
           <h2>Flagged Irregularities &amp; Discrepancies</h2>
-          <p class="panel-subtitle">Every anomaly discovered during autonomous line-by-line verification is cataloged openly for review rather than assumed.</p>
+          <p class="panel-subtitle">Observed inconsistencies and review items are cataloged with source links; this register does not claim that every possible upstream issue has been found.</p>
         </div>
       </div>
       
@@ -241,7 +242,7 @@
         <div class="panel-icon">🛡️</div>
         <div>
           <h2>Verification Methodology &amp; Official Audit Sources</h2>
-          <p class="panel-subtitle">No hallucinations. Every single metric and description was obtained from verified official GitHub endpoints.</p>
+          <p class="panel-subtitle">API-derived metadata is snapshotted from GitHub. Summaries are sourced from repository-owned files; the exact source basis and any stale SHA state are shown per entry.</p>
         </div>
       </div>
 
@@ -288,7 +289,7 @@
             <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">
               <strong>VERIFICATION.md in MasterSite repo</strong>
             </a>
-            <span class="source-desc">— Complete line-by-line audit ledger and verification log</span>
+            <span class="source-desc">— API snapshot, description sources, verification results, and known limits</span>
           </li>
         </ul>
       </div>

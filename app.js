@@ -232,9 +232,9 @@
     var other = sites.length - built;
     var totalCommits = sites.reduce(function (sum, s) { return sum + (s.commits || 0); }, 0);
 
-    var health = (other === 0)
-      ? built + "/" + sites.length + " built"
-      : built + "/" + sites.length + " built · " + other + " other";
+    var pageSummary = (other === 0)
+      ? built + "/" + sites.length + " reporting built"
+      : built + "/" + sites.length + " reporting built · " + other + " other statuses";
 
     // Descriptions re-read against the repository's own files in the latest pass.
     // Computed from the data so it can never disagree with the per-entry stamps.
@@ -244,11 +244,11 @@
       : 0;
 
     var statsData = [
-      { label: "Total Pages Sites", value: sites.length },
-      { label: "Build Health", value: health },
-      { label: "Interactive Web Apps", value: apps },
-      { label: "Documentation Stubs", value: stubs },
-      { label: "Total Commits Audited", value: totalCommits.toLocaleString() },
+      { label: "Sites Listed", value: sites.length },
+      { label: "Pages Status", value: pageSummary },
+      { label: "HTML Entry-Point Sites", value: apps },
+      { label: "README / Docs Stubs", value: stubs },
+      { label: "Default-Branch Commits", value: totalCommits.toLocaleString() },
       { label: "Accounts Audited", value: D.accountsChecked.length }
     ];
 
@@ -340,8 +340,8 @@
 
     var kinds = [
       { id: "all", label: "All Types", count: D.sites.length },
-      { id: "app", label: "Interactive Apps", count: D.sites.filter(function (s) { return s.kind === "app"; }).length },
-      { id: "stub", label: "Doc / README Stubs", count: D.sites.filter(function (s) { return s.kind === "stub"; }).length }
+      { id: "app", label: "HTML Entry Points", count: D.sites.filter(function (s) { return s.kind === "app"; }).length },
+      { id: "stub", label: "README / Docs Stubs", count: D.sites.filter(function (s) { return s.kind === "stub"; }).length }
     ];
 
     $("kindChips").innerHTML = kinds.map(function (k) {
@@ -402,8 +402,8 @@
     var isSelf = (s.repo === "MasterSite");
 
     var typeBadge = (s.kind === "app")
-      ? '<span class="tag-badge app">Interactive App</span>'
-      : '<span class="tag-badge stub">Doc Stub</span>';
+      ? '<span class="tag-badge app" title="An index.html exists at the recorded GitHub Pages source path.">HTML Site</span>'
+      : '<span class="tag-badge stub" title="No index.html exists at the recorded GitHub Pages source path; Pages may render the README.">README / Docs Stub</span>';
 
     var builtBadge = pagesBadge(s, true);
 
@@ -442,11 +442,11 @@
           '<span class="metric-value" title="Repo created: ' + esc(s.created) + ' · 1st commit: ' + esc(s.firstCommit) + ' (' + esc(s.firstCommitSha) + ')">' + fmtDate(s.created) + '</span>' +
         '</div>' +
         '<div class="metric-item">' +
-          '<span class="metric-label">Last Updated (UTC)</span>' +
-          '<span class="metric-value" title="Latest commit: ' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + ')">' + fmtDate(s.lastCommit) + '</span>' +
+          '<span class="metric-label">Last Default-Branch Commit (UTC)</span>' +
+          '<span class="metric-value" title="Newest committer timestamp on the default branch: ' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + '). This does not measure site visits or use.">' + fmtDate(s.lastCommit) + '</span>' +
         '</div>' +
         '<div class="metric-item">' +
-          '<span class="metric-label">Activity Total</span>' +
+          '<span class="metric-label">Default-Branch Commits</span>' +
           '<span class="metric-value">' + (s.commits || 0) + ' commits on ' + esc(s.defaultBranch || 'default branch') + '</span>' +
         '</div>' +
         '<div class="metric-item">' +
@@ -465,7 +465,7 @@
         '<a class="action-btn" href="' + esc(repoUrl) + '" target="_blank" rel="noopener">Repo</a>' +
         '<a class="action-btn" href="' + esc(apiUrl) + '" target="_blank" rel="noopener" title="Official GitHub Pages API record (JSON)">API JSON</a>' +
         '<a class="action-btn" href="' + esc(settingsUrl) + '" target="_blank" rel="noopener" title="GitHub Pages settings (requires admin access)">Settings</a>' +
-        '<button class="action-btn inspect-btn" data-inspect="' + esc(s.repo) + '" title="View verified telemetry and raw JSON">Inspect</button>' +
+        '<button class="action-btn inspect-btn" data-inspect="' + esc(s.repo) + '" title="View recorded metadata and the raw snapshot JSON">Inspect</button>' +
       '</div>' +
     '</article>';
   }
@@ -482,7 +482,7 @@
     var apiUrl = "https://api.github.com/repos/" + OWNER + "/" + s.repo + "/pages";
 
     var typeClass = (s.kind === "app") ? "app" : "stub";
-    var typeText = (s.kind === "app") ? "Live App" : "README Stub";
+    var typeText = (s.kind === "app") ? "HTML Site" : "README / Docs Stub";
 
     return '<tr>' +
       '<td class="table-rownum" data-label="#">' + (index + 1) + '</td>' +
@@ -500,7 +500,7 @@
         pagesBadge(s, false) +
       '</td>' +
       '<td class="date" data-label="Created" title="' + esc(s.created) + '">' + fmtDate(s.created) + '</td>' +
-      '<td class="date" data-label="Updated" title="' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + ')">' + fmtDate(s.lastCommit) + '</td>' +
+      '<td class="date" data-label="Last Commit" title="Newest committer timestamp on the default branch: ' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + '). This does not measure site visits or use.">' + fmtDate(s.lastCommit) + '</td>' +
       '<td class="' + proseFreshClass(s) + ' date" data-label="Description Verified" title="' + esc(proseBasis(s)) + '">' +
         (s.lastVerified ? fmtDate(s.lastVerified) : '—') +
       '</td>' +
@@ -522,7 +522,7 @@
     var list = sortSites(filtered);
 
     // Update Result Count text
-    var countText = "Showing " + list.length + " of " + D.sites.length + " verified sites";
+    var countText = "Showing " + list.length + " of " + D.sites.length + " sites in this snapshot";
     if (state.q) {
       countText += ' matching "' + esc(state.q) + '"';
     }
@@ -530,7 +530,7 @@
       countText += " in " + esc(state.category);
     }
     if (state.kind !== "all") {
-      countText += " (" + (state.kind === "app" ? "Interactive Apps only" : "Doc Stubs only") + ")";
+      countText += " (" + (state.kind === "app" ? "HTML-entry-point sites only" : "README/documentation stubs only") + ")";
     }
     if (state.prose !== "all") countText += " · " + PROSE_LABEL[state.prose];
     $("resultCount").innerHTML = countText + ".";
@@ -662,6 +662,8 @@
     var liveUrl = site.pagesUrl || ("https://" + OWNER + ".github.io/" + site.repo + "/");
     var apiUrl = "https://api.github.com/repos/" + OWNER + "/" + site.repo + "/pages";
     var settingsUrl = repoUrl + "/settings/pages";
+    var readmeApiUrl = "https://api.github.com/repos/" + OWNER + "/" + site.repo +
+      "/readme?ref=" + encodeURIComponent(site.headSha || site.defaultBranch || "main");
 
     $("modalCategory").textContent = site.category;
     $("modalTitle").textContent = site.title;
@@ -678,11 +680,13 @@
         '<tbody>' +
           '<tr><td>Description</td><td>' + esc(site.description) + '</td></tr>' +
           '<tr><td>GitHub Pages Status</td><td><strong>' + esc(site.pagesStatus) + '</strong> (Source: ' + esc(site.pagesSource) + ')</td></tr>' +
-          '<tr><td>Site Type</td><td>' + (site.kind === "app" ? "Interactive Web Application" : "Documentation / README Stub") + '</td></tr>' +
+          '<tr><td>Published Path Type</td><td>' + (site.kind === "app" ? "HTML entry point exists at the recorded Pages path" : "No HTML entry point at the recorded Pages path; README/documentation stub") + '</td></tr>' +
           '<tr><td>Repo Created (UTC)</td><td>' + fmtDateTime(site.created) + '</td></tr>' +
           '<tr><td>First Commit (UTC)</td><td>' + fmtDateTime(site.firstCommit) + ' (SHA: ' + esc(site.firstCommitSha) + ')</td></tr>' +
-          '<tr><td>Latest Commit (UTC)</td><td>' + fmtDateTime(site.lastCommit) + ' (SHA: ' + esc(site.lastCommitSha) + ')</td></tr>' +
-          '<tr><td>Last Push to Repo (UTC)</td><td>' + fmtDateTime(site.pushedAt) + '</td></tr>' +
+          '<tr><td>Last Commit on Default Branch (UTC)</td><td>' + fmtDateTime(site.lastCommit) + ' (SHA: ' + esc(site.lastCommitSha) + ')</td></tr>' +
+          '<tr><td>Last Push to Any Branch (UTC)</td><td>' + fmtDateTime(site.pushedAt) + '</td></tr>' +
+          '<tr><td>GitHub Repository updated_at (UTC)</td><td>' + fmtDateTime(site.updatedAt) + '</td></tr>' +
+          '<tr><td>Last Site Use</td><td>Not exposed by GitHub’s public repository/Pages API; this directory does not infer visits or usage.</td></tr>' +
           '<tr><td>Description Last Verified (UTC)</td><td><span class="' + proseFreshClass(site) + '">' +
             (site.lastVerified ? fmtDateTime(site.lastVerified) : 'never stamped') + '</span>' +
             (site.lastVerified ? (proseIsFresh(site) ? ' — latest recorded stamp' : ' — earlier stamp') : '') + '</td></tr>' +
@@ -702,6 +706,7 @@
           '<tr><td>Live URL</td><td><a href="' + esc(liveUrl) + '" target="_blank" rel="noopener">' + esc(liveUrl) + '</a></td></tr>' +
           '<tr><td>Repo URL</td><td><a href="' + esc(repoUrl) + '" target="_blank" rel="noopener">' + esc(repoUrl) + '</a></td></tr>' +
           '<tr><td>Official Pages API</td><td><a href="' + esc(apiUrl) + '" target="_blank" rel="noopener">' + esc(apiUrl) + '</a></td></tr>' +
+          '<tr><td>README at recorded head</td><td><a href="' + esc(readmeApiUrl) + '" target="_blank" rel="noopener">' + esc(readmeApiUrl) + '</a></td></tr>' +
           '<tr><td>Pages Settings</td><td><a href="' + esc(settingsUrl) + '" target="_blank" rel="noopener">' + esc(settingsUrl) + '</a></td></tr>' +
         '</tbody>' +
       '</table>' +
