@@ -1,15 +1,29 @@
 {
-  "snapshotGenerated": "2026-09-29T23:15:11Z",
-  "generatedOffsetVsLive": "2026-09-29T23:15:11Z",
+  "snapshotGenerated": "2026-10-01T23:59:25Z",
+  "generatedOffsetVsLive": "2026-10-01T23:59:25Z",
   "status": "complete",
   "complete": true,
-  "checks": 1316,
-  "okCount": 1316,
-  "driftCount": 0,
+  "checks": 1407,
+  "okCount": 1406,
+  "driftCount": 1,
   "hardMismatchCount": 0,
-  "mismatches": [],
+  "mismatches": [
+    {
+      "entry": "sites[]/GEMSDOE24",
+      "field": "pushedAt",
+      "committed": "2026-10-01T23:57:20Z",
+      "live": "2026-10-02T00:00:26Z"
+    }
+  ],
   "unlistedInApi": [],
   "listedNotInApi": [],
-  "volatileDrift": [],
+  "volatileDrift": [
+    {
+      "entry": "sites[]/GEMSDOE24",
+      "field": "pushedAt",
+      "committed": "2026-10-01T23:57:20Z",
+      "live": "2026-10-02T00:00:26Z"
+    }
+  ],
   "hardMismatches": []
 }

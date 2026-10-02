@@ -8,35 +8,41 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 >
 > **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.
 
-## Current audit status — 2026-09-29 (API snapshot `2026-09-29T23:15:11Z` UTC)
+## Current audit status — API snapshot `2026-10-01T23:59:25Z` (UTC)
 
 | Metric | Snapshot result |
 |---|---|
-| Sites listed | **100** |
-| HTML entry points / README-documentation stubs | **87 / 13**; based only on the configured `index.html` path |
-| Pages API status | **100 / 100 report `built`** at the snapshot; this is not an uptime or behavior test |
-| Default-branch commits | **5,903** across the listed repositories |
-| `buffedlizard55-lab` public repositories / Pages-enabled repositories | **101 / 101**; 100 are listed and `ProjX` is excluded by owner instruction |
+| Sites listed | **107** |
+| HTML entry points / README-documentation stubs | **94 / 13**; determined only from `index.html` at the configured Pages source path |
+| Pages API status | **106 `built`, 1 `building`** (`MasterSite`) at the snapshot; API status is not uptime or browser behavior |
+| Default-branch commits | **6,380** across the 107 listed repositories |
+| `buffedlizard55-lab` public repositories / Pages-enabled repositories | **108 / 108**; 107 are listed and `ProjX` remains excluded by owner instruction |
 | `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** |
-| Description provenance | **100 / 100** entries have a source commit SHA; **35** stamps are behind the snapshot head and remain a visible re-read queue, not proof the prose is false |
-| Latest prose stamp | **1 re-read / 99 carried** at `2026-09-29T23:12:23Z` |
-| `verify_live.py` | **1,316 checks; 1,316 OK; 0 mismatches; 0 drift** |
-| `audit_kind.py` | **100 checked; 0 disagreements; 0 unresolved** |
-| `audit_descriptions.py` | **100 checked; 0 needing review; 42 documented numeric-token exceptions**. This is a lint, not semantic proof |
-| Local code checks | `npm run check`, Python syntax compilation, and Playwright test discovery (84 tests) pass. Browser tests remain unexecuted because browser binaries are unavailable; a prior Playwright CDN download failed. The PR workflow installs browsers and is expected to run the suite |
-| Irregularities / description notes | **126 / 24** (`IRR-01` … `IRR-126`) |
-| Categories | **12** — Sports Data & Scoreboards (34), Science & ML Research (24), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (8), Gaming & Guides (3), Directory & Meta (2), plus five single-entry categories |
-| Pages source paths | **99** from `main /`; **1** (`GOLD`) from `main /docs` |
-| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all returned HTTP 404 in the latest live API verification |
+| Description provenance | **107 / 107** entries have a source commit SHA; **38** are behind their snapshot heads and remain a visible re-read queue, not proof the prose is false |
+| Latest prose pass | **6 re-read / 101 carried** at `2026-10-01T23:46:40Z` |
+| `verify_live.py` | **1,407 checks; 0 hard mismatches; 1 volatile drift** (`GEMSDOE24.pushedAt` changed after the snapshot; no default-branch-head mismatch) |
+| `audit_kind.py` | **107 checked; 0 disagreements; 0 unresolved** |
+| `audit_descriptions.py` | **107 checked; 0 needing review; 42 documented numeric-token exceptions**. This is a lint, not semantic proof |
+| Local code checks | `npm run check` and Python syntax compilation pass. `npm test -- --list` discovered **84** Playwright cases, but discovery is not execution: no browser tests ran because browser installation failed with TLS `ECONNRESET` from `cdn.playwright.dev` |
+| Irregularities / description notes | **130 / 27** (`IRR-01` … `IRR-130`) |
+| Categories | **13** — Sports Data & Scoreboards (34), Science & ML Research (25), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (8), Unclassified & Placeholder (6), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Travel & Event Dossiers (1), Reference & Archives (1), Health & Personal Guides (1), Social & Creator Data (1) |
+| Pages source paths | **106** from `main /`; **1** (`GOLD`) from `main /docs` |
+| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all returned HTTP 404 in the latest API checks and remain preserved |
 
-### 2026-09-29 audit follow-up
+### Official manual-review links
 
-- The API census found and curated **15 previously unlisted Pages repositories**: `12GEMSDOE`, `13GEMSDOE`, `14GEMSDOE`, `15GEMSDOE`, `16GEMSDOE`, `17GEMSDOE`, `18GEMSDOE`, `19GEMSDOE`, `20GEMSDOE`, `based-loaded-MLB-alert-system`, `GRANTWRITING`, `LEARNGEMSDOE`, `LiveScoringErrors`, `POSTSEASONMLBALERTS`, and `RADIOSF`. Nine have a configured-path `index.html`; six (`13GEMSDOE` and `16GEMSDOE`–`20GEMSDOE`) lack one and are classified as README/documentation stubs. Their source basis and current SHAs are recorded per entry.
-- A later kind audit found **five older GEMS entries had changed since the prior snapshot**: `11GEMSDOE`, `7GEMSDOE`, `8GEMSDOE`, `GEMSDOE9`, and `GEMSDOE10` now have a configured-path `index.html`. Their current README and HTML entry points were re-read, summaries revised, and kinds reclassified (`IRR-124`). Root redirect pages are described as entry points, not as independently tested apps.
-- `based-loaded-MLB-alert-system` advanced during the first refresh; its README and API evidence were re-read at the newer head `d06dc48` before this snapshot. The description is limited to the documented alert rules and controls; no complete historical replay is claimed (`IRR-125`).
-- **`16GEMSDOE` changed materially after the first census.** At head `8354839`, its README now describes the H16-1 DOE GEMS submission and links to a documentation hub and download variants. The Pages API still reports `built` from `main /`, but the configured root has no `index.html`; the README's nested `docs/index.html` is not the root landing page. The summary was re-read and narrowed, and the source-path distinction is flagged as `IRR-126`; reported model scores are not independently validated here.
-- The final refresh incorporated later heads for `NBASCOREBOARD`, `NFLInjuryReport`, and `NHL-SCOREBOARD`. The independent live check then matched the refreshed snapshot, including a final default-branch-head recheck for repositories that moved during verification.
-- **35 descriptions still need a current-head source review.** They are flagged by `verifiedAtSha`/`proseStale` in the UI and stale-first in the ledger. A changed commit is a prompt to re-read, not automatic proof that the description is wrong; no stale entry is silently re-stamped.
+The generated [`VERIFICATION.md`](VERIFICATION.md) has a row for every listed repository with its live Pages URL, repository, Pages API, commits API, Pages settings, date/SHA evidence, curated-source basis, and any irregularity. The account census can be reviewed directly via GitHub's official REST API: [`buffedlizard55-lab` repositories, page 1](https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&page=1), [page 2](https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&page=2), and [`kanlerxz87-cyber` repositories](https://api.github.com/users/kanlerxz87-cyber/repos?per_page=100&page=1). The pagination matters: the first account currently has more than 100 public repositories.
+
+### Findings and limitations from this refresh
+
+- **Six GEMS repositories are now classified as HTML entry-point sites:** `13GEMSDOE`, `16GEMSDOE`, `17GEMSDOE`, `18GEMSDOE`, `19GEMSDOE`, and `20GEMSDOE`. The classification uses current root HTML evidence and does not claim that the pages run correctly or validate research results (`IRR-130`). Root files in `16GEMSDOE`, `19GEMSDOE`, and `20GEMSDOE` redirect to `docs/index.html`; `13GEMSDOE` and `17GEMSDOE` are download landing pages; `18GEMSDOE` has a home page.
+- **`GEMSDOE22`–`GEMSDOE27` remain neutral placeholders.** Their Pages API status is `built`, but at their recorded heads each README is title-only and the configured root has no `index.html` (`IRR-128`). The `built` label alone is not evidence of a useful landing page.
+- **`LiveScoringErrors` resolves to canonical repository `ErrorsLive`** (same repository ID); its current README heading retains the older name (`IRR-127`).
+- **`MasterSite` still reports Pages status `building`** in the latest API snapshot. The last recorded build is for commit `3cda9250f12b3cd48ef85687bf4405591633a4c2`, created/updated `2026-09-29T23:23:35Z`, from `main /`. A direct Pages fetch from this sandbox ended in TLS/SSL EOF; that does not establish that the public site is down (`IRR-129`).
+- GitHub's public APIs do not show visits or last use. The displayed latest default-branch commit is a repository timestamp only; it must not be presented as site usage. `pagesStatus: built` likewise does not establish uptime, rendering, or interactivity.
+- **Remaining review work:** the 38 stale description stamps still need source re-reading before those descriptions can be represented as current. Keep their stale flags visible; never clear them by changing only a SHA. The numeric-token lint checks only README token presence, not what claims mean.
+- **Browser-suite limitation:** Playwright's 84 cases were discovered but not executed locally because `cdn.playwright.dev` could not be reached for browser downloads (`ECONNRESET`). The PR workflow installs the browser engines; report its actual result rather than treating discovery as a pass. Local Python/JavaScript checks are not a substitute for those browser runs.
+- The independent API audit had one volatile drift: `GEMSDOE24`'s repository-level `pushedAt` advanced from `2026-10-01T23:57:20Z` to `2026-10-02T00:00:26Z` after the snapshot. Its default-branch content matched; no hard mismatch was recorded.
 
 ## Historical audit journal (through 2026-09-26)
 
