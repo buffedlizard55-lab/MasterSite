@@ -3,6 +3,7 @@
   "repo": "CruiseDeals",
   "title": "CruiseDeals — U.S. Departure Ports (Feb–Mar 2027)",
   "category": "Travel & Korea Trip",
+  "family": null,
   "kind": "app",
   "description": "Research table of 441 verified in-window sailings (Feb 15 – Mar 31, 2027) from 14 U.S. departure ports across 12 cruise lines, with 2-adult price snapshots, SFO-based flight planning, and total trip cost models.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/CruiseDeals/",

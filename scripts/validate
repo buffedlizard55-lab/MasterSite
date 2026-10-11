@@ -26,6 +26,9 @@ Checks performed
   G. counts:   counts{} agrees with sites[] and with the unreachable/frozen records
   H. flagged:  FLAGGED.md exists and every repo it names is a real repository in the census
   I. hygiene:  no duplicate repository slugs; pagesUrl matches the owner/repo pattern
+  K. families: published family fields, MASTERDATA.families and counts.families agree
+               with the curated tools/families.json member list; nameToken coverage
+               warnings surface uncurated name-matches for review
 """
 
 import json
@@ -37,6 +40,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "sites.js")
 OVERLAY = os.path.join(ROOT, "tools", "overlay.json")
+FAMILIES = os.path.join(ROOT, "tools", "families.json")
 FLAGGED = os.path.join(ROOT, "FLAGGED.md")
 TASKS = os.path.join(ROOT, "TASKS.md")
 LEDGER = os.path.join(ROOT, "VERIFICATION.md")
@@ -233,6 +237,88 @@ def main():
     check(counts.get("proseUnstamped") == len(sites) - stamped,
           "counts.proseUnstamped=%r but %d records lack lastVerified"
           % (counts.get("proseUnstamped"), len(sites) - stamped))
+
+    # ---- K. family grouping (curated readability aid) ----------------------------
+    # tools/families.json is a curated member list (membership is never inferred
+    # from a name). This section proves the published data agrees with it —
+    # membership fields, metadata block, counts — and reports any published site
+    # whose official name matches a family's coverage nameToken without being
+    # curated in, so a newly published lane cannot sit ungrouped forever without
+    # anyone noticing (the curated-list analogue of the census coverage gap).
+    if check(os.path.isfile(FAMILIES), "tools/families.json is missing"):
+        fam = json.load(open(FAMILIES, encoding="utf-8"))
+        fam_defs = fam.get("families") or []
+        def_ids = [d.get("id") for d in fam_defs]
+        check(len(def_ids) == len(set(def_ids)), "tools/families.json has duplicate family ids")
+        member_of = {}
+        for d in fam_defs:
+            for field in ("id", "label", "summary", "basis"):
+                check(bool(str(d.get(field, "")).strip()),
+                      "tools/families.json: family %r is missing %s" % (d.get("id"), field))
+            repos = d.get("repos")
+            if check(isinstance(repos, list) and bool(repos),
+                     "tools/families.json: family %r needs a non-empty repos list" % d.get("id")):
+                for repo in repos:
+                    check(repo not in member_of,
+                          "tools/families.json: %r is listed in both %r and %r"
+                          % (repo, member_of.get(repo), d.get("id")))
+                    member_of[repo] = d.get("id")
+
+        published = {s.get("repo") for s in sites}
+        for repo, fid in sorted(member_of.items()):
+            check(repo in published,
+                  "tools/families.json: %r (%s) is not a published site — a family "
+                  "member must have a curated overlay entry and a published record" % (repo, fid))
+        for s in sites:
+            want = member_of.get(s.get("repo"))
+            check(s.get("family") == want,
+                  "%s: published family %r disagrees with tools/families.json (expected %r)"
+                  % (s.get("repo"), s.get("family"), want))
+
+        block = data.get("families") or []
+        block_by_id = {}
+        for g in block:
+            check(g.get("id") not in block_by_id,
+                  "MASTERDATA.families lists family %r twice" % g.get("id"))
+            block_by_id[g.get("id")] = g
+        for d in fam_defs:
+            g = block_by_id.get(d.get("id"))
+            if check(g is not None, "MASTERDATA.families is missing family %r" % d.get("id")):
+                for field in ("label", "summary", "basis"):
+                    check(g.get(field) == d.get(field),
+                          "MASTERDATA.families[%s].%s disagrees with tools/families.json"
+                          % (d.get("id"), field))
+                members = [s for s in sites if s.get("family") == d.get("id")]
+                check(g.get("count") == len(members),
+                      "MASTERDATA.families[%s].count=%r but %d published member(s)"
+                      % (d.get("id"), g.get("count"), len(members)))
+        derived = {}
+        for s in sites:
+            if s.get("family"):
+                derived[s["family"]] = derived.get(s["family"], 0) + 1
+        check(counts.get("families") == dict(sorted(derived.items(), key=lambda kv: (-kv[1], kv[0]))),
+              "counts.families disagrees with the published family fields")
+
+        # Coverage-warning aid (never membership): nameToken + ungroupedByDesign.
+        token = fam.get("nameToken")
+        by_design = set(fam.get("ungroupedByDesign") or [])
+        if isinstance(token, str) and token.strip():
+            for repo in sorted(by_design):
+                check(repo in published,
+                      "tools/families.json: ungroupedByDesign names %r, which is not a published site" % repo)
+                check(member_of.get(repo) is None,
+                      "tools/families.json: %r is in ungroupedByDesign but also curated into %r"
+                      % (repo, member_of.get(repo)))
+            for s in sites:
+                repo = s.get("repo") or ""
+                if not s.get("family") and token.upper() in repo.upper() and repo not in by_design:
+                    warnings.append(
+                        "%s: official name contains %r but it is not curated into any family and "
+                        "is not in ungroupedByDesign — confirm this is deliberate (a new lane "
+                        "usually belongs in tools/families.json)" % (repo, token))
+        else:
+            warnings.append("tools/families.json has no nameToken — the family coverage-gap "
+                            "warning is disabled for this snapshot")
 
     # ---- H. FLAGGED.md + TASKS.md ------------------------------------------------
     check(os.path.isfile(FLAGGED), "FLAGGED.md is missing")

@@ -3,6 +3,7 @@
   "repo": "16GEMSDOE",
   "title": "16GEMSDOE — DOE GEMS Prize Research & Submission Hub",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS research and submission hub with a download-first site, executive upload guide, and linked research, results, knowledge, and audit pages. Its results are repository-reported; this summary makes no independent accuracy or competition-acceptance claim.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/16GEMSDOE/",

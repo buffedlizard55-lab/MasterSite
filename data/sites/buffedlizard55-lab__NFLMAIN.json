@@ -3,6 +3,7 @@
   "repo": "NFLMAIN",
   "title": "NFL Scoreboard — Every Game Since 1999 From NFL Data",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "NFL scoreboard covering 28 seasons from 1999 to the present week with full play-by-play, box scores, drives and stat leaders: 7,548 games in committed season files with 33 play-by-play games totalling 5,662 plays at this head, all counted here and matching the pipeline manifest. The display layer normalises the nflverse mirror (whose declared upstream is nfl.com and which preserves the league's GSIS and NFL API identifiers) while the pipeline reads nfl.com week pages and Game Book PDFs directly on every run and publishes the comparison separately: 17 scores matched, 0 disagreed across the two weeks read. Identifier linkage was proved by resolving a mirror UUID to the official Game Book PDF; the schedule feed's nfl_detail_id column was proved not to be the game UUID on two 2021 games and is never used to build URLs. The root index.html redirects to the docs/ site. Executed here: 121 pipeline tests pass.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NFLMAIN/",

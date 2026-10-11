@@ -3,6 +3,7 @@
   "repo": "RADIOSF",
   "title": "RADIOSF — San Francisco Sports-Radio Schedule",
   "category": "SF Local Guides",
+  "family": null,
   "kind": "app",
   "description": "San Francisco sports-radio schedule project aimed at surfacing MLB playoff broadcasts on selected local stations, including listings marked TBD. The README asks for official or clearly marked unofficial schedule sources.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/RADIOSF/",

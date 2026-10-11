@@ -3,6 +3,7 @@
   "repo": "17GEMSDOE",
   "title": "17GEMSDOE — DOE GEMS Prize Challenge",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS challenge repository describing a fault-mapping system with a one-click GeoTIFF download and a documented submission workflow. The summary reflects the stated project goal, not verified competition scores or independent model quality.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/17GEMSDOE/",

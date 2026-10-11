@@ -3,6 +3,7 @@
   "repo": "GEMSDOE43",
   "title": "GEMSDOE43 — Auditable Research with Two Slot-Track Files",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "Auditable DOE GEMS Prize research and submission repository whose current decision records two slot-track files with one primary: SUP01 with 40,000 dots, validated as the only shipped layout whose emission family passed at equal mass on the frozen protocol (0.262666 against H42’s 0.250744, 4/4 folds). An alternative maximal-covering file is recorded as validated only as a prior, never scored at equal mass, with its channel stack and out-of-fold surface lost with .cache/ and therefore irreproducible until rebuilt. Both files are labelled live-unscored.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE43/",

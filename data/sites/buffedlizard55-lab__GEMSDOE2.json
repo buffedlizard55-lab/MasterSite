@@ -3,6 +3,7 @@
   "repo": "GEMSDOE2",
   "title": "GEMSDOE2 — GEMS Fault-Mapping & Submission Workspace",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize geologic-fault mapping and submission workspace. Its Pages root redirects into a docs/ site with an executive summary, submission guide, source catalogue, methodology and measured-results pages. The landing page offers a direct fusion GeoTIFF/ZIP download, combining a fault backbone, multiscale geophysics and an ensemble, and a separate in-browser GeoTIFF builder backed by a different, earlier ensemble field; those downloads are not the same candidate. Committed validation reports check the template footprint, georeferencing and file format, but local/proxy metrics do not establish a hidden-label leaderboard score or a successful competition upload. The upstream pytest run recorded at this head fails the committed-pages reproduction test despite a successful Pages build (documented in the irregularities register).",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE2/",

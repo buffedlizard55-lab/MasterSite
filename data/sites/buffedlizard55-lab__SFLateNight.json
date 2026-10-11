@@ -3,6 +3,7 @@
   "repo": "SFLateNight",
   "title": "SF Late Night — Post-11PM Venue Directory",
   "category": "SF Local Guides",
+  "family": null,
   "kind": "app",
   "description": "Directory of 207 San Francisco restaurants, diners, and bars open past 11 PM on weekends, with verified operating hours and transit lines from 21st Ave & Judah.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/SFLateNight/",

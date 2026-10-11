@@ -3,6 +3,7 @@
   "repo": "GEMSDOE39",
   "title": "GEMSDOE39 — Wald SPRT Submission Lane",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize submission lane that selects its candidate with a pre-declared Wald sequential probability ratio test, described in its README as avoiding peeking and run-extension inflation of false positives, and delivers a one-click download from its Pages site with an executive summary explaining how to submit. The directory summarises the stated selection method and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE39/",

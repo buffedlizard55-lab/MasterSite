@@ -3,6 +3,7 @@
   "repo": "GEMSDOE35",
   "title": "GEMSDOE35 — Fault-Discovery Experiments & Space-Filling Design",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize experiments repository that adds a formal space-filling (Latin hypercube) design so duplicate candidates are avoided at the design stage instead of being caught after generation. It preserves its charter and prompt verbatim and keeps a hypothesis register, an AGENTS.md protocol and a machine-readable latest experiment report. Its charter states that a local proxy result must never be turned into an unearned competition score claim.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE35/",

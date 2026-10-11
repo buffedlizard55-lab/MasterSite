@@ -3,6 +3,7 @@
   "repo": "14GEMSDOE",
   "title": "14GEMSDOE — GEMS Prize Submission Site",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize status and submission site with an executive summary, downloadable or browser-rebuildable GeoTIFF, source tables, leaderboard feed, and artifact checks.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/14GEMSDOE/",

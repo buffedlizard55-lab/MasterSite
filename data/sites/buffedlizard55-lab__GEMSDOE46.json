@@ -3,6 +3,7 @@
   "repo": "GEMSDOE46",
   "title": "GEMSDOE46 — Four-Arm Experiments (R11F Fusion Candidate)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "Auditable DOE GEMS Prize fault-discovery experiments repository running four parallel arms, of which the R11F scarp and radiometric fusion arm is the current candidate: a unique, format-audited, all-finite single-band float32 GeoTIFF with 44,090 unit dots and zero outside the scored footprint. The README records that the proxy gate passed but nothing was submitted, that no competition slot has been used, and it keeps the other three arms published as negatives.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE46/",

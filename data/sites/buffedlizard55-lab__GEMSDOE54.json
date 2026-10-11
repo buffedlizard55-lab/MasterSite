@@ -3,6 +3,7 @@
   "repo": "GEMSDOE54",
   "title": "GEMSDOE54 — H54-C Manifest-Edge Submission",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize submission repository that clears one H54-C GeoTIFF for download and upload, reporting lane uniqueness across the 54-repository corpus and format safety against the submission form’s value-range rejection, with the exact submission name and short comment recorded. Its README also records an unresolved question about the form’s null/NaN-outside wording (its own issue IR-54-072) and states that portal acceptance and any organizer score remain unproven.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE54/",

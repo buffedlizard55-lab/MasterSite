@@ -3,6 +3,7 @@
   "repo": "POSTSEASONMLBALERTS",
   "title": "POSTSEASONMLBALERTS — MLB Live Event Alerts",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "MLB live-event feed based on MLB-Live-PBP that adds ABS pitch challenges to the All feed, alerts, and live tracking. Its README says the other event-feed behavior is intentionally copied from the sister project.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/POSTSEASONMLBALERTS/",

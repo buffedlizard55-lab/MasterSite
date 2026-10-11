@@ -3,6 +3,7 @@
   "repo": "NBASCOREBOARD",
   "title": "NBA Scoreboard — Official-Source Scores, Box Scores & Play-by-Play",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Independent read-only viewer of NBA-owned data: a scores-first Pages site with quarter lines, date navigation, team search, box scores, complete play-by-play for published games, schedule, sources and capture-health indicators, fed by a GitHub Actions job that samples the official NBA CDN and nba.com feeds into committed JSON. The archive at this head holds 116 date files (46 with games), 19 game-detail archives and one 2026-27 season schedule, all counted here and matching the README; the README's 'two year-count maps' understates the 8 committed calendar maps the generated index lists (flagged). The site never labels a stale snapshot live, shows capture and last-confirmed-read times, and warns on stale or failed feeds. Executed here: 14 Python tests pass and the integrity scan checks 164 data files with no irregularities. Limitation: no schedule-triggered run and no live game night had been observed end to end at this head, so real-time behavior is unproven.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NBASCOREBOARD/",

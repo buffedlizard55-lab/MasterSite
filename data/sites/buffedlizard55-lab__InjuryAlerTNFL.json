@@ -3,6 +3,7 @@
   "repo": "InjuryAlerTNFL",
   "title": "InjuryAlerTNFL — Sideline Signal: source-checked NFL in-game injury board",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Mobile-friendly NFL scoreboard and in-game injury-alert prototype that keeps three things apart: what was observed, what happened in that game, and later-reported availability. The published archive holds 80 manually source-checked 2026 in-game incidents (data/archive.json → incidents, counted at head 6a4067a) carrying 154 dated claims between them, each with a short excerpt and a link to NFL.com or an official club page; 21 separately flagged source disagreements sit in data/review.json → flags. A GitHub Actions collector reads NFL.com's public roundup index and recent in-game roundups and a deliberately conservative parser republishes only explicit single-player return/out phrases — never a group claim, never an inference from silence, and never an LLM-written prognosis. Its suites were executed in a clean clone: python -m unittest discover -s tests → 18 tests OK, node --test tests/ui.test.mjs → 6 pass / 0 fail.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/InjuryAlerTNFL/",

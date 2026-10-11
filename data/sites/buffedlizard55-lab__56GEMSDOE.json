@@ -3,6 +3,7 @@
   "repo": "56GEMSDOE",
   "title": "56GEMSDOE — Corrections Lane (Negative / Stop)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize corrections lane whose README opens with “CURRENT CORRECTIONS STATUS: NEGATIVE / STOP — do not submit any file in the corrections lane.” It records that the H57 artifact’s final-dot registry receipt reports a 1.0 within-3-px fraction against a documented >0.70 stop limit, that a strict replay found 7,111,787 finite cells outside the pinned sample mask plus a missing NaN nodata tag, and that the earlier “OK to submit” wording is superseded by the run card’s post-review verdict. It states that no experiment or weekly submission slot was used in that review.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/56GEMSDOE/",

@@ -3,6 +3,7 @@
   "repo": "GEMSDOE47",
   "title": "GEMSDOE47 — Local Candidate, New Unique Candidate and Research Artifact",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize repository publishing a local candidate, a newly generated unique candidate and a research artifact, under session directives that require each candidate to beat controls on a spatially blocked holdout before publication and that require the site to state plainly whether each file is OK to download and submit. The README labels one artifact as not OK to submit even though it passes instruments, and records its evidence limits.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE47/",

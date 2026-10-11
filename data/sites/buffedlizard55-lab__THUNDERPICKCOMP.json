@@ -3,6 +3,7 @@
   "repo": "THUNDERPICKCOMP",
   "title": "THUNDERPICKCOMP — Thunderpick WC 2026 CS2 Prediction, Ledger & Backtesting Hub",
   "category": "Gaming & Guides",
+  "family": null,
   "kind": "app",
   "description": "Ten-page hub for the Thunderpick World Championship 2026 that pairs a verified, source-linked master list (56 dated claims ML-001–056) and team/roster records with a simulated prediction and leaderboard competition: eight simulated strategy accounts gated behind double-sourced fixtures and strictly pre-start first-party quotes, an append-only SHA-256-chained settlement journal, a bounded free-source collector (Valve GitHub API, Liquipedia wiki API, Kalshi, Polymarket) and a new historical backtesting pipeline over 22 verified matches with 69 simulated bets. The first live Actions deployment succeeded 2026-09-24 at 18:00 UTC with zero quotes and zero paper positions because no eligible pre-event asks existed — nothing was invented. Flagged: Pages publishing is still the legacy build (admin must switch the source to GitHub Actions), free historical pre-match odds are unavailable so odds are modeled and labeled MODELED, and the settlement journal is built but unproven against a real resolution.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/THUNDERPICKCOMP/",

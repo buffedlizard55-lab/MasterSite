@@ -3,6 +3,7 @@
   "repo": "LEARNGEMSDOE",
   "title": "LEARNGEMSDOE — GEMS Prize Research Library",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "GEMS Prize research library and searchable knowledge base for cited literature, facts, hypotheses, and feature research. Its README explicitly says the repository documents research and does not generate, validate, or submit prediction GeoTIFFs.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/LEARNGEMSDOE/",

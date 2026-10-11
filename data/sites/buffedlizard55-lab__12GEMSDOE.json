@@ -3,6 +3,7 @@
   "repo": "12GEMSDOE",
   "title": "12GEMSDOE — GEMS Fault Discovery Workbench",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize research and submission workbench with experiment notes, validation evidence, candidate raster downloads, and an executive submission guide.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/12GEMSDOE/",

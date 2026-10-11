@@ -3,6 +3,7 @@
   "repo": "GEMSDOE44",
   "title": "GEMSDOE44 — Two-Stage Fault-Discovery System",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "stub",
   "description": "DOE GEMS Prize fault-discovery system that splits the problem into two separately validated stages — coarse favourability zones and independent fine placement inside the approved zones — and requires both stages’ holdout performance to be reported separately so one stage’s footprint cannot wear a two-stage label. Its README links the published site at docs/index.html and records two hypotheses as data-blocked with the failing HTTP codes observed in its own environment. The configured Pages root has no index.html, so the directory records this entry as a documentation stub at the configured path.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE44/",

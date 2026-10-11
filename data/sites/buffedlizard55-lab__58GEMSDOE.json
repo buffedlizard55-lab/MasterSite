@@ -3,6 +3,7 @@
   "repo": "58GEMSDOE",
   "title": "58GEMSDOE — Ribbon-Concordance Lane (Submission Blocked)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize lane whose README states “Submission decision: NOT OK TO SUBMIT — DO NOT SUBMIT” and retains its GeoTIFF for research and audit only. It records that the frozen-registry report finds 100% of the candidate’s dots within 3 px of one prior full-footprint-positive raster against a documented >70% stop limit, that the frozen inventory holds 695 rasters from 57 pinned repository snapshots and is neither current nor exhaustive, and that no organizer receipt exists and no weekly slot has been used.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/58GEMSDOE/",

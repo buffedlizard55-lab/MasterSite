@@ -3,6 +3,7 @@
   "repo": "VapePods",
   "title": "VapePods — STIIIZY Pod Prices & Deals (SF 94122)",
   "category": "SF Local Guides",
+  "family": null,
   "kind": "app",
   "description": "Verified price list (178 lines across 7 stores as of 2026-09-15) for STIIIZY-format pods near Stonestown/94122: base price, tax status, deal, official source link, and read date per line; data rebuilt from build/build.py with CI reproducibility checks.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/VapePods/",

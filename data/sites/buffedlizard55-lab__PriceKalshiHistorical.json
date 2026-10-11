@@ -3,6 +3,7 @@
   "repo": "PriceKalshiHistorical",
   "title": "PriceKalshiHistorical — Market Simulator",
   "category": "Markets & Trading Research",
+  "family": null,
   "kind": "app",
   "description": "Autonomous Kalshi event-contract historical collector and Python backtester; Pages hosts the interactive in-browser market orderbook simulation interface.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/PriceKalshiHistorical/",

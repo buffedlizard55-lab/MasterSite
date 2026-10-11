@@ -3,6 +3,7 @@
   "repo": "Leg3SeoulTrip",
   "title": "Leg3SeoulTrip (README Stub)",
   "category": "Travel & Korea Trip",
+  "family": null,
   "kind": "stub",
   "description": "Placeholder repository created for Leg 3 of the Seoul trip; contains only a single-commit README.md with no web application files.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/Leg3SeoulTrip/",

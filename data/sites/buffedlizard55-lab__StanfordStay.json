@@ -3,6 +3,7 @@
   "repo": "StanfordStay",
   "title": "Stanford Stay — Stanford Hotel Myeongdong Planner",
   "category": "Travel & Korea Trip",
+  "family": null,
   "kind": "app",
   "description": "Seoul district itinerary planner for Nov 1–9, 2026 based at Stanford Hotel Myeongdong in Seoul: 47 day itineraries and 26 8-night master routes with source links.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/StanfordStay/",

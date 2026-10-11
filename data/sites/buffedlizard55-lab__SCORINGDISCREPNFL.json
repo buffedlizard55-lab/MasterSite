@@ -3,6 +3,7 @@
   "repo": "SCORINGDISCREPNFL",
   "title": "SCORINGDISCREPNFL — NFL Scoring-Discrepancy Detector & Database",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "NFL scoring-discrepancy research project: an automated detector for post-game scoring and statistical corrections plus a database of documented corrections, built on rules that derived columns are stored separately from transcribed facts (data/verified_corrections_raw.json versus data/discrepancies.json), that `actually_changed_official_outcome` defaults to false and fails the build if set without evidence, and that unverified candidates live in data/prior_session/ walled off from the verified database. The repository also documents alert-system feasibility and its limitations. The directory summarises the stated design and asserts no finding of its own.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/SCORINGDISCREPNFL/",

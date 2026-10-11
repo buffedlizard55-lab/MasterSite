@@ -3,6 +3,7 @@
   "repo": "ScheduleFreeTime",
   "title": "ScheduleFreeTime — Sports Conflict Calendar",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Scoreboard-style calendar for Aug 1, 2026 – Feb 28, 2027 (America/Los_Angeles) that answers one question: when am I free? A moment is busy if any MLB game (all 30 clubs), NFL game (all 32 clubs, through Super Bowl LXI), San Jose Earthquakes, Stanford or Cal football, Warriors (95.7 The Game), Valkyries, Sharks (98.5 KFOX) or a Westwood One national radio broadcast is on air. Bay Area radio research added 2026-09-17: Earthquakes KSFO 810 / KZSF 1370, Stanford KNBR/KTCT 1050, Cal KSFO 810, and Westwood One NFL + NCAAF with 65/65 dated NFL broadcasts matched against the league table.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/ScheduleFreeTime/",

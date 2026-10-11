@@ -3,6 +3,7 @@
   "repo": "ErrorsLive",
   "title": "ErrorsLive — MLB Scoring Research",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Repository documenting an MLB official-scoring research project about whether Statcast batted-ball data can help estimate a decision among hit, error, or fielder’s choice. The README identifies a data pipeline, statistical model, and public site; this summary does not claim predictive performance.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/ErrorsLive/",

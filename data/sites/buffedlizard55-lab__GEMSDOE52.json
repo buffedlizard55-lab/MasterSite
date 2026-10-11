@@ -3,6 +3,7 @@
   "repo": "GEMSDOE52",
   "title": "GEMSDOE52 — PAF-DVA View A (Negative, Research Only)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize research workspace whose current status records a potential-field directional-anisotropy experiment as NEGATIVE: OK to download, but not OK to submit, because the holdout promotion gate failed with 0.029460 against a 0.081592 random control and a 0.190147 standing bar. It reports zero weekly slots used for that round and publishes its controls and intervals alongside the verdict.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE52/",

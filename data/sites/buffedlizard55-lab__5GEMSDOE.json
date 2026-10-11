@@ -3,6 +3,7 @@
   "repo": "5GEMSDOE",
   "title": "5GEMSDOE — GEMS Leaderboard-Inversion & Scarp-Channel Workspace",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "Fork of the GEMSDOE repository and site re-pointed at this repository, pursuing a different submission strategy: it treats the public leaderboard itself as the instrument, measuring five scored files (0.1563, 0.1560, 0.1193, 0.1152 and 0.0830, all committed and re-hashed) against a 0.3049 leader, and adds a topographic scarp channel the 19 official bands lack. Its instrument ranking finds the SGMC-gap proxy anti-ranks the board (Spearman minus 0.8) while the masked catalogue orders it at plus 0.9; the hidden-truth density fit is published as falsified (smallest fitting tolerance 0.028 DTI, and it predicts 0.81 for the platform's own example), so no candidate ships on its say-so. The primary upload is a catalogue-hedge candidate adding the 54,533 catalogue pixels the shipped field missed, with literature-grounded dilational-setting candidates second. The root index.html redirects to a docs/ site with strategy, executive summary, source catalogue and candidate downloads. The committed pytest log at this head reports 1 failed, 550 passed and 6 skipped: the failure is the stale committed strategy.html page (documented in the irregularities register).",
   "pagesUrl": "https://buffedlizard55-lab.github.io/5GEMSDOE/",

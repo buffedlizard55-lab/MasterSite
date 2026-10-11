@@ -3,6 +3,7 @@
   "repo": "Tradingview-pinescript-editor",
   "title": "PinePilot — TradingView Pine Script Strategy Lab",
   "category": "Markets & Trading Research",
+  "family": null,
   "kind": "app",
   "description": "Copy-paste Pine Script v6 trading strategy laboratory (18 customizable modes), beginner tutorial walkthrough, and interactive simulation backtest calculator.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/Tradingview-pinescript-editor/",

@@ -3,6 +3,7 @@
   "repo": "SIM-COMP-NOBEL-PRIZE",
   "title": "SIM-COMP-NOBEL-PRIZE — Nobel Prize Record + Simulated Kalshi Competition",
   "category": "Markets & Trading Research",
+  "family": null,
   "kind": "app",
   "description": "Research desk with two layers that are not allowed to blur: (1) the Nobel Prize record — prizes, laureates, the official motivation and the other names on the public nomination list where that list is open — and (2) a simulated Kalshi competition of 2,011 paper participants (11 primary plus a 2,000-strategy research program in 20 batches of 100) with predeclared strategies, run on the same stored Kalshi prices and the same starting cash. Every family has a research card (question, mechanism, information channels, predicted sign, falsification condition, verified sources) and is judged by predeclared rules against a random-entry null and, where one exists, a matched placebo, with the Program board as the working leaderboard and the Research view as the verdict table. The collector uses only the Python standard library and the public Kalshi Trade API (no key, no paid endpoint), and a full rebuild from the stored snapshot takes about 5 minutes. Simulated names, orders, positions and P&L are not Kalshi users and not real fills, and the project is not affiliated with Kalshi, Nobel Prize Outreach or the Nobel Foundation.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/SIM-COMP-NOBEL-PRIZE/",

@@ -3,6 +3,7 @@
   "repo": "HotelSeoulRoughdraft1",
   "title": "Korea Compass (Rough Draft 1)",
   "category": "Travel & Korea Trip",
+  "family": null,
   "kind": "app",
   "description": "Preliminary draft build of the Korea Compass trip planner, featuring Seoul hotel comparisons and sample 21-night routes. README points to Itinerary-Korea as the production version.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/HotelSeoulRoughdraft1/",

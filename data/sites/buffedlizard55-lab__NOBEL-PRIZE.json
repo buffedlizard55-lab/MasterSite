@@ -3,6 +3,7 @@
   "repo": "NOBEL-PRIZE",
   "title": "NOBEL-PRIZE — Independent Nobel Prize Archive",
   "category": "Reference & Archives",
+  "family": null,
   "kind": "app",
   "description": "Independent archive of the official Nobel Prize records, not affiliated with Nobel Prize Outreach or the Nobel Foundation. It lists prizes by subject, the official motivation for each award, laureate details published by the Nobel Prize API (v2 preferred, v1 as a cross-check, disagreements flagged rather than silently rewritten) and — where the nomination archive is open — the other people and organizations named on the official nomination list, never guessed. Every row links back to nobelprize.org. Its committed verification report records 682 prize records (633 awarded, 49 not awarded), 1,018 laureate entities and 1,026 award slots, with 2026 prizes omitted because on 2026-09-24 the official physics list said the 2026 physics prize had not been awarded and would be announced 2026-10-06 at the earliest.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NOBEL-PRIZE/",

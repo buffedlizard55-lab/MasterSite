@@ -3,6 +3,7 @@
   "repo": "GEMSDOE29",
   "title": "GEMSDOE29 — Auditable GEMS Prize Research Lab",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "Auditable GEMS Prize research lab documenting a fault-prediction workflow for the U.S. DOE Geologic Enhanced Mapping System (GEMS) Prize, with the repository reporting blockers, negative results, uncertainty and exact file checks. Its README records the session-8 state (2026-10-03) in which the sixth candidate family was closed negative and the proxy every promotion decision depends on was calibrated. The directory repeats that self-reported state and asserts no organizer score.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE29/",

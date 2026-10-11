@@ -3,6 +3,7 @@
   "repo": "BathTubOverflowSF",
   "title": "Sunset Repair — Bathtub Overflow SF",
   "category": "SF Local Guides",
+  "family": null,
   "kind": "app",
   "description": "Repair-first plumbing research workspace for a bathtub overflow problem in SF's Outer Sunset. Current snapshot: 793 unique business research records across 16 corpus waves (waves 17–19 are held in separate discovery queues, the latest adding 50 source-linked leads on 2026-09-17), 311 direct CSLB license-detail reads, 207 records with an active license at check time, 172 retained review excerpts, 673 evidence references, and 0 fully qualified master entries.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/BathTubOverflowSF/",

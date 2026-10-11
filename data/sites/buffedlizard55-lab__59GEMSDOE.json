@@ -3,6 +3,7 @@
   "repo": "59GEMSDOE",
   "title": "59GEMSDOE — Intensity Lane (H59-J)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize intensity lane. Its README reports download OK and submit OK for the current candidate, described as unique, format-valid and registry-clear, and states that the expected public score of 0.24–0.29 is “a PROJECTION, not a measurement”. It quotes leaderboard context it labels ORGANIZER-CONFIRMED (#1 0.4133, #8 DARD 0.3195, #23 extradr19 0.2778) and states that no weekly slot has been spent by the project. The directory repeats the repository’s own labels and does not verify the leaderboard.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/59GEMSDOE/",
