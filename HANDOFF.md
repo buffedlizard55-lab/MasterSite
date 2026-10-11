@@ -1171,10 +1171,11 @@ them is a duplicate and should be closed by the owner.**
   and `kanlerxz87-cyber` at 0 public repositories, but that read was not republished; it also reported a
   GitHub secondary-rate-limit block on attempted follow-up audits. This session did not make a fresh census
   or claim the master list is current at 17:03Z.
-- The scheduled workflow is not operational until this PR is merged. After merge, use `workflow_dispatch`
-  for the first full run (or wait for Monday 08:13 UTC); a 401/403/transport failure must remain visibly
-  INCOMPLETE, not be reported as a data pass. The existing `FL-18` citation-template finding can keep the
-  review issue open until T-002 replaces those non-openable `{path}` recipes with concrete endpoints.
+- PR #49 is now merged and the workflow is on the default branch, but the weekly audit has **not** been
+  dispatched in this session. Trigger `workflow_dispatch` for the first operational run (or wait for
+  Monday 08:13 UTC); a 401/403/transport failure must remain visibly INCOMPLETE, not be reported as a data
+  pass. The existing `FL-18` citation-template finding can keep the review issue open until T-002 replaces
+  those non-openable `{path}` recipes with concrete endpoints.
 - **T-015 was completed while this session was in progress** (session `arena-050ee3b9`, merged PR #48);
   the rebase retained its new provenance status in `VERIFICATION.md`. Still-open follow-ups are **T-002**
   (the published snapshot's 51-entry prose-stale queue and `FL-18`; it remains another session's claim),
@@ -1183,9 +1184,19 @@ them is a duplicate and should be closed by the owner.**
 
 ### Next
 
-1. This branch has been rebased onto the current `origin/main` after PR #48 merged; open the T-016 pull
-   request, wait for PR CI, then merge it.
+1. PR #49 has merged; its `browser-tests` check passed. The first live weekly audit is still pending.
 2. Trigger the workflow from default `main`; inspect the artifact and managed issue, and record whether all
    four auditors completed or which official endpoints were blocked.
 3. Continue T-002 source re-reads and owner decisions in their own sessions. Refresh and republish the
    census separately before claiming the directory is complete at a newer timestamp; T-015 is now done.
+
+### Post-merge record
+
+- **PR #49 merged 2026-10-11T17:09:31Z**, merge commit **`b7361ac`** on `main`. The PR's `browser-tests`
+  check passed in **2m40s**.
+- **Read back from `origin/main`:** `.github/workflows/weekly-audits.yml`,
+  `tools/run_scheduled_audits.py`, and `tests/test_weekly_audits.py` are present; the T-016 row is marked
+  done; the published data snapshot is still `2026-10-11T15:06:10Z` (this PR did not refresh or rewrite
+  the directory data).
+- The scheduled workflow has not yet been manually dispatched, so no new full live audit result is claimed.
+  The next operational step is to dispatch it and review its artifact and issue outcome.
