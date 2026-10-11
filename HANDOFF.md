@@ -370,3 +370,25 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
    claimable work. HTTP checks do not replace source rereads or browser testing.
 3. Inspect `pages-smoke` issues and artifacts; artifacts expire after 30 days.
    The directory UI still displays snapshot metadata, not this audit's statuses.
+
+### T-003 completion evidence (same PR #30)
+
+- Actual GitHub-hosted HTTP run [38113546456](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38113546456)
+  completed `2026-10-11T05:03:31Z`: **145/145 HTTP 200**, **144 complete titles**,
+  **0 transport/HTTP errors**, **1 review** (`SABERENGY` root title is null).
+  The workflow is intentionally red for the finding; do not misreport it as green.
+- Official runner comments copied verbatim into
+  `reports/pages-smoke/2026-10-11T050331Z.md`. Automated row/set checks confirm all
+  145 unique record identities appear exactly once, every status is 200, and
+  exactly 144 titles passed. This is a separate evidence file, not a manually
+  edited master list. Original JSON remains in the 30-day artifact.
+- FL-14 added with exact live URL and immutable official source endpoint.
+  `SABERENGY/index.html` at `098615a…` is a title-less meta-refresh to `docs/`;
+  no source change was made in that other repository and no destination title
+  was inferred. A follow-up browser redirect check or upstream title fix remains.
+- Existing browser-tests run [38113546401](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38113546401)
+  passed. T-003 marked done in this PR: observing every URL is complete even
+  though the observed title irregularity remains open. Recurring checks retain
+  their red-on-review behavior; source-verification queues remain unchanged.
+- Rebase encountered only append-only HANDOFF.md conflict with T-009's parallel
+  session; kept both entries and the T-009 completion record intact.

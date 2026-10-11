@@ -38,6 +38,15 @@ not tested. No token is sent to a site.
   observations never overwrite `pagesStatus`, descriptions, or verification
   stamps. See [FL-02](FLAGGED.md) and [T-003](TASKS.md).
 
+**First recorded live pass — 2026-10-11T05:03:31Z:** all **145** published URLs
+returned HTTP **200**; **144** had a complete HTML title. `SABERENGY`'s root
+response had no title (left `null`, [FL-14](FLAGGED.md)); its source is a
+meta-refresh redirect that this HTTP-only audit does not execute. The audit is
+intentionally red for that review finding, not for a site outage. Review the
+[historical full table](reports/pages-smoke/2026-10-11T050331Z.md) and
+[official run](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38113546456).
+The existing directory browser-test workflow passed on that PR revision.
+
 Local/offline regression tests:
 
 ```sh
