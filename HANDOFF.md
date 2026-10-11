@@ -1093,3 +1093,95 @@ them is a duplicate and should be closed by the owner.**
   `audit_descriptions.py`, `audit_provenance.py`) once GitHub's secondary rate limit clears; the
   largest accuracy queue is the **51-entry** stale-description list (`T-002`, 53 at the `15:53:41Z`
   read), and the duplicate `T-004` PRs (#41/#42) still need one of them closed.
+
+---
+
+## Session `arena-ab56fdfd` — 2026-10-11 (T-022: budgeted scheduled audit runner, planned from measured costs)
+
+**Branch:** `arena/ab56fdfd-mastersite`, based on `4872878` (main after PR #47). Commits `818dad5`
+(claim) → `bed26de` (the work) → this record.
+
+### What was done
+
+- **The gap.** `tools/census_guard.py` (daily 05:17 UTC) answers one question — *is every public
+  repository listed?* — and nothing re-ran the four accuracy audits on a schedule, so the audit layer
+  could go stale or stay access-blocked with nothing saying so. That is exactly what happened on
+  2026-10-11: the published-snapshot audits went INCOMPLETE on a 403 during T-017 and the only record
+  was a sentence in `HANDOFF.md`.
+- **Built the layer (T-022, renumbered — see below).** `tools/scheduled_audit.py` runs a weekday subset
+  of `audit_kind.py` / `audit_descriptions.py` / `verify_live.py` / `audit_provenance.py`
+  (Mon+Thu kind+descriptions, Tue+Fri verify_live, Wed+Sat provenance, Sun full-suite attempt) inside a
+  hard `--budget` 900 / `--reserve` 60, and maps each tool's own report to one verdict
+  (`PASS`/`FINDINGS`/`INCOMPLETE`/`ERROR`/`NOT-RUN`) and the run to one outcome
+  (`CLEAN`/`FINDINGS`/`INCOMPLETE`/`PARTIAL`). `NOT-RUN` is not a checked audit; `PARTIAL` is never a
+  pass. `.github/workflows/audit-schedule.yml` runs it daily at 07:23 UTC and on manual dispatch
+  (`audits`/`budget`/`plan_only` inputs), publishes the report to the job summary, a PR comment, an
+  artifact and one labelled `audit-schedule` issue, and is red unless the run was `CLEAN` or `PARTIAL`
+  for budget.
+- **Planned from measurement, not from a guess.** Every request each audit makes was counted with a
+  `urlopen` shim from a cold scratch checkout and the raw URL lists are committed
+  (`reports/scheduled-audit/`, report `2026-10-11T1735Z-measured-costs.md`): **audit_kind 290,
+  audit_descriptions 145, verify_live 812, audit_provenance 904 — 2,151 requests for a full pass**,
+  ≈2.2 hours of the documented 1,000 requests/hour Actions `GITHUB_TOKEN` limit
+  (<https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api>). The earlier
+  static estimate for `verify_live` (~640) was wrong — the accounts block re-reads the whole repository
+  list — and `--reserve` was corrected 100 → 60 so the measured 812 actually fits its Tue/Fri hour
+  (840 spendable). `audit_provenance` (904 measured, planned at 1,000) exceeds the spendable budget, so
+  its slot reports `NOT-RUN`/`PARTIAL` until the budget is raised or the owner supplies a larger token
+  (`T-023`).
+- **A real end-to-end run found a real defect — and the fix is in.** The first live run (17:42Z)
+  returned `audit_kind` INCOMPLETE (`complete=false` after 86/145 entries) and `audit_descriptions`
+  INCOMPLETE (HTTP 403) — and **both vanished from `report.md`/`report.json`**: the CLI loop ran and
+  printed them, but never appended them to the result list, so the report showed "0 of the 4 audits"
+  and the run was filed `PARTIAL` (exit 3) instead of `INCOMPLETE` (exit 2). An access block had been
+  softened into a budget note, in the one artifact a reviewer reads. Fixed with `combined_results()`
+  plus a fail-closed guard (the runner now refuses to publish a report that is missing any requested
+  audit, exit 2, naming the audit), with six regression cases in `tests/test_scheduled_audit.py` — one
+  of which fails on the pre-fix code (checked by mutation).
+- **A real clean pass is preserved.** After the 403 cleared, the same command ran again
+  (`--revision bed26de`): **`audit_kind` PASS 365.4 s (145/145 re-derived, 0 disagreements)** and
+  **`audit_descriptions` PASS 187.5 s (145/145 linted)**, `verify_live`/`audit_provenance` NOT-RUN for
+  budget, outcome `PARTIAL` (exit 3) — committed verbatim as
+  `reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.md`. The wall-clock matches the measured costs
+  to within 0.2 s, and the fresh audit reports came out byte-identical to the committed ones, i.e. no
+  published value changed.
+- **Renumbered twice, honestly.** The row is `T-022`: `T-016` was taken by open PR #44
+  (`arena/200c157f`), and `T-021` was claimed by session `f2fe1c46` at 17:01:30Z for the fresh-census
+  pass — before this session's claim (17:04:00Z) — so the later claimant renumbered its own row,
+  per the claim rule, and never touched another session's row (same race class as the T-019 record).
+  `T-022`/`T-023`/`T-024` were checked free in `TASKS.md`/`README.md`/`AGENTS.md`/`HANDOFF.md`/
+  `FLAGGED.md` on all 43 other `refs/heads/arena/*` tips before use.
+- **Verification this session:** `tools/scheduled_audit.py --self-test` 0 failed;
+  `python3 -m unittest tests.test_scheduled_audit` **46 tests OK**; `python3 scripts/validate`
+  **PASS**; `npm run check` OK; the two live runs above (one blocked, one clean).
+
+### What is blocked
+
+- **The sandbox token's secondary rate limit** cut the first live run short at ≈172 requests
+  (HTTP 403 "API rate limit exceeded for user ID 309556078", 17:45:46Z) — the same class of block the
+  repository already recorded as IRR-139/IRR-140. Requests succeeded again two minutes later, and
+  `GET /rate_limit` kept reporting `remaining 5000 / used 0` throughout, which is why the runner
+  budgets from measured constants and reports a block instead of trusting that counter. Nothing in the
+  scheduled layer depends on it.
+- **`audit_provenance` in one run needs the owner (T-023):** 904 measured against 840 spendable; a
+  dispatch with `--budget 1000 --reserve 0` would fit it against the built-in 1,000/hour, and a
+  5,000/hour owner token would let a Sunday run cover the whole suite.
+- **`playwright test` still cannot run locally** (no browser binaries; the CDN is unreachable from this
+  sandbox) and the sandbox still cannot reach `*.github.io`, so the browser suite and the live smoke
+  stay CI-side (FL-02, FL-15).
+
+### What is next
+
+1. **The fresh-census pass is claimed elsewhere** — `arena/f2fe1c46` claimed `T-021` at 17:01:30Z
+   (0-new/0-missing census, the blocked audit suite, UI review, merge) and `arena/200c157f`'s `T-020`
+   records the same owner request. Do not duplicate it; check those branches before starting a census.
+2. **T-002 remains the largest accuracy queue** — the stale-description stamps (README item 1 records
+   **41** descriptions behind their recorded repository head at the published snapshot, plus 45 prose
+   stamps lagging it; the earlier 51-marker reading in this log was taken before the `15:53:41Z`
+   refresh). Re-read each at its current head, one at a time.
+3. **T-015 and the new T-024 are the ledger work** — surface `audit_provenance` and then the scheduled
+   run verdicts in the generated ledger (`tools/build_verification.py`), so a reader sees them where
+   the other audit statuses live.
+4. **Owner decisions still open:** `T-006` (`6GEMSDOE` recommends deleting other GEMS repos), `T-004`
+   (frozen 404 records), `FL-05` (`GEMSDOE53` errored), `FL-13` (`62GEMSDOE` category), `FL-17`
+   (`NFLInjuryReport` volatile Pages status).

@@ -1,0 +1,123 @@
+{
+  "results": [
+    {
+      "audit": "audit_kind",
+      "exitCode": 0,
+      "finishedAt": "2026-10-11T17:54:20Z",
+      "logFile": "logs/audit_kind.log",
+      "reason": "145/145 entries re-derived, 0 disagreements",
+      "remainingAfter": 5000,
+      "remainingBefore": 5000,
+      "reviewEndpoint": "https://api.github.com/repos/buffedlizard55-lab/{repo}/pages",
+      "seconds": 365.4,
+      "startedAt": "2026-10-11T17:48:14Z",
+      "toolReport": "tools/last_kind_audit.json",
+      "toolSummary": {
+        "checkedEntries": 145,
+        "complete": true,
+        "derivedEntries": 0,
+        "disagreementsCount": 0,
+        "totalEntries": 145,
+        "unresolvedCount": 0
+      },
+      "verdict": "PASS",
+      "what": "re-derives `app` vs `stub` from each repository's configured Pages path"
+    },
+    {
+      "audit": "audit_descriptions",
+      "exitCode": 0,
+      "finishedAt": "2026-10-11T17:57:28Z",
+      "logFile": "logs/audit_descriptions.log",
+      "reason": "145/145 descriptions linted against their recorded README revision",
+      "remainingAfter": 5000,
+      "remainingBefore": 5000,
+      "reviewEndpoint": "https://api.github.com/repos/buffedlizard55-lab/{repo}/readme",
+      "seconds": 187.5,
+      "startedAt": "2026-10-11T17:54:20Z",
+      "toolReport": "tools/last_description_audit.json",
+      "toolSummary": {
+        "apiErrorsCount": 0,
+        "checkedEntries": 145,
+        "complete": true,
+        "totalEntries": 145,
+        "unresolvedCount": 0
+      },
+      "verdict": "PASS",
+      "what": "numeric-token lint of every curated description against the README at the recorded stamp"
+    },
+    {
+      "audit": "verify_live",
+      "logFile": null,
+      "needed": 812,
+      "reason": "not run: needs ~812 requests, budget left 405",
+      "remainingBeforeSkip": 405,
+      "reviewEndpoint": "https://api.github.com/repos/buffedlizard55-lab/{repo}",
+      "seconds": 0,
+      "toolReport": "tools/last_live_verify.json",
+      "verdict": "NOT-RUN",
+      "what": "line-by-line re-read of every API-derived field in the published snapshot"
+    },
+    {
+      "audit": "audit_provenance",
+      "logFile": null,
+      "needed": 1000,
+      "reason": "not run: needs ~1000 requests, budget left 405",
+      "remainingBeforeSkip": 405,
+      "reviewEndpoint": "https://api.github.com/repos/buffedlizard55-lab/MasterSite/commits/main",
+      "seconds": 0,
+      "toolReport": "tools/last_provenance_audit.json",
+      "verdict": "NOT-RUN",
+      "what": "re-opens every cited endpoint and re-resolves every recorded commit SHA"
+    }
+  ],
+  "run": {
+    "budget": 900,
+    "caveat": "These are mechanical re-reads of official endpoints against the published snapshot. They do not prove that a description is accurate or current, and they make no uptime, rendering, visit or usage claim.",
+    "exitCode": 3,
+    "finishedAt": "2026-10-11T17:57:28Z",
+    "outcome": "PARTIAL",
+    "quota": {
+      "body": {
+        "limit": 5000,
+        "remaining": 5000,
+        "reset": 1791744494,
+        "used": 0
+      },
+      "effectiveRemaining": 5000,
+      "headers": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "ok": true,
+      "readAt": "2026-10-11T17:48:14Z"
+    },
+    "remedy": "The Actions `GITHUB_TOKEN` is capped at 1,000 requests/hour/repository and this run's `--budget` caps it further (900 \u2212 60 reserve = 840 spendable). A full suite measured 2,151 requests and `audit_provenance` alone measured 904, so covering them needs both a higher `--budget` (\u2265 964 for `audit_provenance` at the default reserve) and a token with room to pay for it \u2014 an owner-provided fine-grained token (5,000/hour) exposed to this workflow as a secret.",
+    "requested": [
+      "audit_kind",
+      "audit_descriptions",
+      "verify_live",
+      "audit_provenance"
+    ],
+    "reserve": 60,
+    "revision": "bed26de",
+    "runUrl": "",
+    "slot": "sunday",
+    "snapshot": "2026-10-11T15:06:10Z",
+    "startedAt": "2026-10-11T17:48:14Z",
+    "usable": 840
+  },
+  "runner": "tools/scheduled_audit.py",
+  "skipped": [
+    {
+      "audit": "verify_live",
+      "needed": 812,
+      "remainingBeforeSkip": 405
+    },
+    {
+      "audit": "audit_provenance",
+      "needed": 1000,
+      "remainingBeforeSkip": 405
+    }
+  ]
+}

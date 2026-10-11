@@ -24,6 +24,22 @@ instead of publishing a truncated pass as complete.
 | [`raw/measure_costs.json`](raw/measure_costs.json) | Machine-readable summary of the same measurement |
 | `raw/count-<tool>.json` | One URL per request, per tool (the raw evidence behind every number above) |
 | [`raw/measure_costs.py`](raw/measure_costs.py) / [`raw/counting_shim/sitecustomize.py`](raw/counting_shim/sitecustomize.py) | The harness and the counting shim, so the measurement can be repeated (run it from a scratch clone) |
+| [`2026-10-11T1757Z-sunday-slot.md`](2026-10-11T1757Z-sunday-slot.md) / [`.json`](2026-10-11T1757Z-sunday-slot.json) | A real end-to-end run of the runner (Sunday slot, `--revision bed26de`): what a scheduled report looks like when the budget covers part of the suite |
+
+## Sample run (Sunday slot, 2026-10-11T17:57Z)
+
+`audit_kind` **PASS** (365.4 s, 145/145 entries re-derived, 0 disagreements) and
+`audit_descriptions` **PASS** (187.5 s, 145/145 linted); `verify_live` and `audit_provenance`
+**NOT-RUN** for budget; outcome **PARTIAL**, exit 3. The wall-clock of the two that ran matches the
+measured costs above to within 0.2 s, which is the point of planning from measurement: the constants
+predict what a slot actually costs. That run also caught a real defect — the two audits that ran were
+missing from the report and the run was filed as `PARTIAL` rather than `INCOMPLETE`/`ERROR` when they
+came back blocked; `combined_results()` plus a fail-closed completeness guard fixed it, with regression
+cases that fail on the pre-fix code.
+
+A run that cannot pay for its own scheduled audits is a normal outcome of this design, not a failure of
+it: the report names what did not run, the workflow's final step is red unless the run was `CLEAN` or
+`PARTIAL` for budget, and nothing is ever published as checked that was not.
 
 ## Method (reproducible)
 
