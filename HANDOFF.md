@@ -68,10 +68,29 @@ merged PR).
   gated GeoTIFF); the directory records the API value and infers nothing (`FL-05`, `IRR-132`, `T-005`).
 - **Owner-only decisions:** the four frozen 404 repositories (`FL-03`, `T-004`) and `6GEMSDOE`'s
   instruction to delete the other GEMS repositories (`FL-08`, `T-006`).
-- **Rate limits shape the workflow.** `verify_live.py` alone costs thousands of calls; that window was
-  exhausted mid-`audit_kind` at 03:07Z and the audit chain was rescheduled for the 03:53Z reset. If
-  `last_kind_audit.json` / `last_description_audit.json` report `INCOMPLETE`, that is a rate-limit
-  block, not a data disagreement (`AGENTS.md` §4).
+- **Rate limits shape the workflow, and they are bucketed per endpoint family.** `/pages` and the general
+  bucket exhausted separately at 03:06Z / 03:14Z (`verify_live.py` alone costs thousands of calls), so the
+  first `audit_kind` run stopped `INCOMPLETE` at 24/145. Both audits were then run against fresh windows.
+  If `last_kind_audit.json` / `last_description_audit.json` report `INCOMPLETE`, that is an access block,
+  not a data disagreement (`AGENTS.md` §4).
+
+### Second half of the session — six entries corrected, both audits clean
+
+- **`audit_kind.py` caught six real defects that the 2026-10-01 pass had left behind** (`IRR-138`):
+  `GEMSDOE22`–`GEMSDOE27` were published as `kind: stub` with prose saying the configured root had no
+  `index.html`. `contents/index.html?ref=<snapshot head>` returns HTTP 200 for all six at the very heads
+  recorded in this snapshot (`9648109`, `ebf8fb2`, `07345ea`, `cc90c1a`, `ba071a3`, `3dc3a6b`), so the
+  stored label and the sentence were **already false when published** — this was not drift that happened
+  afterwards. All six READMEs were re-read at their current heads (they are now full research lanes, e.g.
+  `GEMSDOE22`'s README is 84 KB and documents two upload candidates) and every field was rewritten. One
+  further oddity found while reading: `GEMSDOE22`'s README heading says `22GEMSDOE` and its 297-byte root
+  `index.html` carries the title `19GEMSDOE`.
+- **Audit results in the published snapshot:** `audit_kind.py` **145/145, 0 disagreements, 0 unresolved**;
+  `audit_descriptions.py` **145/145 checked**, 1 item needing review (`230` in `MALTASUPPLEMENTAL`, whose
+  README at head no longer contains it — registered as `FL-12`), 42 documented exceptions;
+  `scripts/validate` **PASS**; `VERIFICATION.md` regenerated (695 lines, 145 ledger rows, 138 irregularities).
+- **Final snapshot:** **145 sites** (135 HTML entry points / 10 documentation stubs), 144 `built` + 1
+  `errored`, 10,579 commits, **41 prose-stale** (down from 47 after the six re-reads), 138 irregularities.
 
 ### What is next
 
