@@ -241,3 +241,84 @@ dropped commit contained no data, overlay or generated work — only the pre-pro
 - Run a full refresh (`tools/build_data.py`) when the next session has a clean run window, to clear the 9 `pushed_at` drifts.
 - Consider T-011 (backfill inline hand-review endpoints) or T-002 (40 stale descriptions).
 - Keep the new census guard in the daily workflow (T-010 is done).
+
+## Session `arena-c29c2d14` — 2026-10-11 (T-005 Pages build-health re-check; T-009 race lost)
+
+**Branch:** `arena/c29c2d14-mastersite` (pinned Arena session branch; satisfies the own-branch rule).
+Rebased onto `origin/main` at `ec8af7a` (post-PR #28) before all work.
+
+### T-009 race — documented, not re-worked
+
+- This session read the queue at ≈04:58Z with T-009 `unclaimed` and claimed it at
+  **2026-10-11T04:59:25Z**. Session `7fefeea8`'s claim at **2026-10-11T04:58:44Z** landed 41 s
+  earlier and its PR #28 merged to `main` first, so `7fefeea8` owns T-009 and the claim was
+  abandoned rather than double-landed (branch reset to `main`; the two T-009 commits were
+  dropped — nothing of value was lost, see the corroboration below).
+- **The parallel reads independently corroborate PR #28's result.** At **2026-10-11T04:59Z**
+  (owner token, same public endpoints): `GET /users/kanlerxz87-cyber` → `public_repos: 0`
+  (<https://api.github.com/users/kanlerxz87-cyber>); `GET /users/kanlerxz87-cyber/repos?per_page=100`
+  → empty list; `GET /users/buffedlizard55-lab/repos?per_page=100&page=1/2` → 100 + 46 = **146**
+  public repositories (unchanged); `tools/census_guard.py` exit 0 (PASS): 145 listed + 1 excluded =
+  146, kanlerxz87-cyber 0. `GET /repos/buffedlizard55-lab/MasterSite/pages` → `status: built`,
+  source `main /` (<https://api.github.com/repos/buffedlizard55-lab/MasterSite/pages>).
+- **Protocol lesson for the next session:** the claim line is a second-granularity race. Re-read
+  `TASKS.md` from `origin/main` *immediately before* committing the claim, and if a parallel
+  claim lands in the meantime, treat it as lost and switch tasks.
+
+### T-005 delivered (claimed 2026-10-11T05:00:29Z, done 2026-10-11)
+
+Fresh official reads at **2026-10-11T05:00:34Z–05:00:36Z**:
+
+- **`GEMSDOE53` — still `errored`** (`GET /repos/buffedlizard55-lab/GEMSDOE53/pages`: status
+  `errored`, build_type legacy, source `main /`, html_url
+  <https://buffedlizard55-lab.github.io/GEMSDOE53/>). Repository telemetry
+  (`GET /repos/buffedlizard55-lab/GEMSDOE53`): `pushed_at` unchanged at
+  **2026-10-09T02:00:53Z**, so no push has re-triggered the build since the snapshot read.
+  **No data regeneration was needed or done** — the snapshot already records `errored`.
+  FL-05 stays open (owner decision / new push / manual rebuild); the re-read and its
+  timestamp were appended to FL-05 with the source URLs.
+- **`MALTASUPPLEMENTAL` — `built`** (`GET /repos/buffedlizard55-lab/MALTASUPPLEMENTAL/pages`),
+  re-confirming the FL-06 closure (the task text's `building` was the transient mid-census
+  state); a re-confirmation line was appended to FL-06.
+- **Irregularity found during the re-check → new FL-14 (T-002 queue, not worked here):**
+  `MALTASUPPLEMENTAL`'s default-branch head moved **after** the 03:01:01Z snapshot — current
+  head 4ed9c5a (committer time 2026-10-11T03:31:22Z, "Merge pull request #31 from
+  buffedlizard55-lab/arena/3a5297d2-maltasupplemental", see
+  <https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/commits?per_page=5>) vs the
+  published stamp 81930be (02:58:20Z). The published `proseStale: false` is therefore out of
+  date: the prose was correctly read at 81930be but head is now ahead. `pushed_at` also drifted
+  02:58:20Z → 03:31:22Z (volatile field, same class as the `59GEMSDOE.pushedAt` drift noted in
+  the README table). **No prose was re-read or changed** — that is T-002's job
+  (`session=96e82e25`; effective stale queue 40 → 41 until a refresh recomputes it).
+- **Cadence written into `AGENTS.md` §4** ("Pages build-health re-check cadence (T-005)"):
+  every refresh/health pass re-reads the `/pages` endpoint for each non-`built` entry plus
+  `pushed_at` spot-checks, records timestamped results in FLAGGED.md, and treats a recovery to
+  `built` as a full-refresh trigger (it changes `counts.pagesBuilt`).
+- README audit-status table gained a dated "Pages build health re-check (T-005)" row.
+- `scripts/validate` and `npm run check` pass with all edits (see PR).
+
+### Blocked / not attempted
+
+- `GEMSDOE53` recovery is outside agent control: it needs a new push or an owner-initiated
+  Pages rebuild; nothing in this session could or should force it (FL-05, T-004/T-006 owner
+  decisions remain as before).
+- No `build_data.py` refresh was run: the published snapshot's API fields are still accurate for
+  every entry **except** the MALTASUPPLEMENTAL drift above, which is a T-002 re-read, and a full
+  regeneration would also move every record's snapshot stamp while `session=96e82e25` is mid
+  T-002 (conflict avoidance per protocol).
+
+### What is next
+
+1. **T-002 session:** fold **FL-14 / `MALTASUPPLEMENTAL`** into the stale re-read queue (read the
+   README at head 4ed9c5a, update `description` + `lastVerified` + `verifiedBasis` +
+   `verifiedAtSha` together; queue is effectively 41 until then).
+2. **Owner decisions (unchanged):** T-004 (four frozen 404 repositories), T-006 (GEMS-family
+   consolidation per `6GEMSDOE`'s IRR-119), and whether to push/rebuild `GEMSDOE53` (FL-05).
+3. **T-003 / T-008:** live HTTP smoke test of all 145 `pagesUrl`s (status + title, kept separate
+   from `pagesStatus`) needs a runner with general egress — e.g. a GitHub Actions workflow in
+   the style of `census.yml`; this sandbox cannot reach `*.github.io`.
+4. **T-007:** family view for the 40+ GEMSDOE lanes (generator owner session only).
+5. **T-011:** backfill inline hand-review endpoints where a basis still relies on the ledger row
+   alone (validator currently lists the carried-basis entries as warnings).
+6. Watch the scheduled census guard (05:17 UTC daily) — it will PASS or open a `census-gap`
+   issue on its own.
