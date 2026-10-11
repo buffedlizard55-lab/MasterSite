@@ -4,7 +4,7 @@
 **Generated:** `2026-10-11T15:06:10Z` by `tools/build_data.py` + `tools/build_verification.py`; API telemetry is fetched automatically, while titles/categories/descriptions are curated from repository-owned files in `tools/overlay.json`. No user-supplied entry data was needed.
 **Audited Accounts:** `buffedlizard55-lab`, `kanlerxz87-cyber`
 **Scope:** Public repositories and Pages deployments visible through GitHub's official API for both named accounts. Every discovered omission, permanent exclusion, or unreachable record is identified separately; private repositories are outside scope.
-**Integrity Standard:** API-derived fields are tied to the recorded snapshot; the latest independent `verify_live.py`, kind, and numeric-token checks are reported below as complete, incomplete, blocked, or stale. Each curated description records its source basis and commit SHA; stale SHA stamps are exposed rather than called current. The numeric-token description audit is a lint, not semantic proof.
+**Integrity Standard:** API-derived fields are tied to the recorded snapshot; the latest independent `verify_live.py`, kind, numeric-token, and provenance checks are reported below as complete, incomplete, blocked, or stale. Each curated description records its source basis and commit SHA; stale SHA stamps are exposed rather than called current. The numeric-token description audit is a lint, not semantic proof.
 
 **Live Directory:** <https://buffedlizard55-lab.github.io/MasterSite/>
 
@@ -679,9 +679,10 @@ These summaries distinguish a completed check from a request that could not be m
 
 | Audit | Status for this snapshot | Result |
 |---|---|---|
-| `verify_live.py` | **stale report** | Report refers to `2026-10-11T05:12:27Z`, not `2026-10-11T15:06:10Z`. |
+| `verify_live.py` | **complete** | 1913 checks; 0 hard mismatches; 48 drift. |
 | `audit_kind.py` | **complete** | 145/145 entries checked; 0 disagreements; 0 unresolved. |
 | `audit_descriptions.py` | **complete** | 145/145 entries checked; 0 needing review; 0 API errors. |
+| `audit_provenance.py` | **complete** | 145/145 entries checked (1019 checks); 0 unresolved findings; 5 template citations. Per-entry report: [`reports/provenance/2026-10-11T160219Z.md`](reports/provenance/2026-10-11T160219Z.md). |
 
 ---
 
@@ -716,6 +717,10 @@ python3 tools/build_data.py && python3 tools/build_verification.py
 # 6b. Independently re-check every entry's app-vs-stub classification against the
 #     published path (read-only; reports disagreements, writes nothing)
 python3 tools/audit_kind.py
+
+# 6c. Independently re-check every entry's provenance citations and SHAs
+#     (read-only; reports findings and template citations, writes nothing to data/sites.js)
+python3 tools/audit_provenance.py
 
 # 7. Confirm the published totals against the data file
 grep -c '"repo":' data/sites.js                      # expected 145

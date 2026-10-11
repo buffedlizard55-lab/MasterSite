@@ -1096,6 +1096,225 @@ them is a duplicate and should be closed by the owner.**
 
 ---
 
+## Session `arena-050ee3b9` — 2026-10-11 (T-015: surface provenance audit in generated ledger `VERIFICATION.md` §4b)
+
+**Branch:** `arena/050ee3b9-mastersite`. **Claim:** `TASKS.md` **T-015**, `session=arena-050ee3b9 at=2026-10-11T16:59:49Z`.
+
+### What was done
+
+- **T-015 completed:** taught `tools/build_verification.py` to read `tools/last_provenance_audit.json` alongside `last_live_verify.json`, `last_kind_audit.json`, and `last_description_audit.json`.
+- **Surfaced in `VERIFICATION.md` §4b audit-status table:** `audit_provenance.py` report status is now parsed and rendered across complete (`145/145 entries checked (1019 checks); 0 unresolved findings; 5 template citations.`), stale (`Report refers to <snap>, not <curr>`), blocked (`blocked — HTTP 403` / `blocked`), and incomplete states.
+- **Surfaced in `VERIFICATION.md` §5 reproduction commands:** added step 6c (`python3 tools/audit_provenance.py`) so manual reviewers have the exact command to re-verify provenance citations.
+- **Regenerated `VERIFICATION.md`** using `python3 tools/build_verification.py` (706 lines, 145 ledger rows, 141 irregularities).
+- **README.md updated:** remaining work table updated to mark T-015 done.
+- **Verification and gates:**
+  - `python3 tools/census_guard.py` **PASS** (146 public = 145 listed + 1 excluded; `kanlerxz87-cyber` 0).
+  - `python3 tools/build_sites_md.py --check` in sync (145 rows, 51 `⚠`).
+  - `python3 tools/export_site_records.py --check` in sync (145 per-site records in sync).
+  - `python3 scripts/validate` **PASS** (5,419 checks, 102 expected warnings).
+  - `npm run check` **PASS**.
+  - `python3 -m py_compile ...` **PASS** on all tools.
+
+### What is blocked / limitations
+
+- **Playwright local execution:** browser binaries are not installed in the sandbox due to CDN connection reset; CI runs the browser suite on PR.
+- **Direct sandbox access to `*.github.io`:** cannot resolve `*.github.io` from sandbox; live HTTP status is monitored via GitHub Actions smoke workflow.
+- **GitHub API secondary rate limits:** heavy full passes must respect rate limits and backoffs.
+
+### What is next
+
+1. **T-016 (unclaimed):** Schedule weekly read-only workflow running `verify_live.py`, `audit_kind.py`, `audit_descriptions.py`, and `audit_provenance.py`.
+2. **T-002 (in progress):** Re-read the 51 stale prose entries against current repository heads.
+3. **T-006 (unclaimed / owner decision):** Record owner position regarding `6GEMSDOE` / GEMS repository lanes.
+4. **Duplicate PR cleanup:** PR #44 (unmerged parallel session branch) and PR #42 (duplicate T-004 PR).
+
+---
+
+## Session `arena-684e8d09` — T-016: weekly read-only audit scheduling (2026-10-11, 16:58Z → 17:03Z)
+
+**Branch:** `arena/684e8d09-mastersite` (Arena-pinned branch). **Claim:** `TASKS.md` T-016,
+`session=arena-684e8d09 at=2026-10-11T16:58:10Z`; claim-only commit `9a008e7` was pushed immediately.
+
+### What this session did
+
+- Added [`.github/workflows/weekly-audits.yml`](.github/workflows/weekly-audits.yml): every Monday at
+  **08:13 UTC** (plus `workflow_dispatch`), always checking out the repository's default branch. It runs
+  `verify_live.py`, `audit_kind.py`, `audit_descriptions.py`, and `audit_provenance.py` in one serial job,
+  with a 90-minute per-auditor timeout and a 180-minute job ceiling. The serial order respects the tools'
+  API request throttles.
+- Added [`tools/run_scheduled_audits.py`](tools/run_scheduled_audits.py) to capture each log and fresh JSON
+  report, assess completion independently from exit codes, and retain evidence in a 30-day Actions artifact.
+  **Any incomplete audit, hard mismatch, volatile snapshot drift, description-review item, provenance
+  finding, or `{path}` citation template is a review item**; the workflow opens/updates one
+  `weekly-audit-review` issue, closes it after recovery, and ends red while review is needed. Expected
+  volatile drift is described as a refresh prompt, not asserted to be a semantic defect. No snapshot is
+  rebuilt or committed by automation.
+- Added six offline verdict tests in `tests/test_weekly_audits.py` and registered them in the PR test
+  workflow. Documented cadence, issue behavior, and limitations in `AGENTS.md` §4. T-016 is marked done in
+  the task table in this PR.
+
+### Verification
+
+- `python3 -m unittest discover -s tests -p 'test_*.py' -v`: **20 tests passed** (14 existing Pages-smoke
+  tests and 6 new scheduler tests).
+- `python3 scripts/validate`: **PASS, 5,419 checks**, with 102 existing/expected review notices.
+- `npm run check`: **PASS**; Python `py_compile`: **PASS**; `git diff --check`: **PASS**.
+- Parsed the workflow YAML with PyYAML and ran `bash -n` on its embedded issue-management script: **PASS**.
+- No full live API audit was run in this task; this change schedules the audits rather than claiming a new
+  source verification. The local Playwright suite was not run because browser binaries are unavailable in
+  this sandbox; the PR workflow installs them.
+
+### What is blocked or still needs work
+
+- The newest **published** data snapshot remains `2026-10-11T15:06:10Z`. T-017's later independent
+  `15:53:41Z` census found 145 listed sites / 146 public repositories (one permanently excluded as `ProjX`)
+  and `kanlerxz87-cyber` at 0 public repositories, but that read was not republished; it also reported a
+  GitHub secondary-rate-limit block on attempted follow-up audits. This session did not make a fresh census
+  or claim the master list is current at 17:03Z.
+- PR #49 is now merged and the workflow is on the default branch, but the weekly audit has **not** been
+  dispatched in this session. Trigger `workflow_dispatch` for the first operational run (or wait for
+  Monday 08:13 UTC); a 401/403/transport failure must remain visibly INCOMPLETE, not be reported as a data
+  pass. The existing `FL-18` citation-template finding can keep the review issue open until T-002 replaces
+  those non-openable `{path}` recipes with concrete endpoints.
+- **T-015 was completed while this session was in progress** (session `arena-050ee3b9`, merged PR #48);
+  the rebase retained its new provenance status in `VERIFICATION.md`. Still-open follow-ups are **T-002**
+  (the published snapshot's 51-entry prose-stale queue and `FL-18`; it remains another session's claim),
+  and **T-006** (owner decision about the `6GEMSDOE` recommendation). `GEMSDOE53` Pages `errored` and
+  `NFLInjuryReport`'s volatile status remain flagged; only an official re-read can settle them.
+
+### Next
+
+1. PR #49 has merged; its `browser-tests` check passed. The first live weekly audit is still pending.
+2. Trigger the workflow from default `main`; inspect the artifact and managed issue, and record whether all
+   four auditors completed or which official endpoints were blocked.
+3. Continue T-002 source re-reads and owner decisions in their own sessions. Refresh and republish the
+   census separately before claiming the directory is complete at a newer timestamp; T-015 is now done.
+
+### Post-merge record
+
+- **PR #49 merged 2026-10-11T17:09:31Z**, merge commit **`b7361ac`** on `main`. The PR's `browser-tests`
+  check passed in **2m40s**.
+- **Read back from `origin/main`:** `.github/workflows/weekly-audits.yml`,
+  `tools/run_scheduled_audits.py`, and `tests/test_weekly_audits.py` are present; the T-016 row is marked
+  done; the published data snapshot is still `2026-10-11T15:06:10Z` (this PR did not refresh or rewrite
+  the directory data).
+- The scheduled workflow has not yet been manually dispatched, so no new full live audit result is claimed.
+  The next operational step is to dispatch it and review its artifact and issue outcome.
+
+---
+
+## Session `arena-93b92b02` — 2026-10-11 (T-018, a T-015 follow-up: the §4b provenance row fails closed and renders every state faithfully)
+
+**Branch:** `arena/93b92b02-mastersite`. **Claim:** `TASKS.md` **T-018**, `session=arena-93b92b02 at=2026-10-11T17:08:35Z`.
+
+### The T-015 double-claim, recorded honestly
+
+- This session read `TASKS.md` at ~16:59Z with T-015 unclaimed, claimed it at **16:59:23Z** (claim
+  committed alone and pushed to its branch, per protocol), and implemented it.
+- Session `arena-050ee3b9` claimed the same row at **16:59:49Z** — 26 seconds later — and its PR
+  **#48 merged to main first**. This session discovered the merge only at rebase time (~17:05Z),
+  which is the exact contention window the TASKS.md preamble warns about: a claim is only visible to
+  others once it is on `main` or an open PR, and neither existed in those 26 seconds.
+- Response, following the T-013/T-014 collision precedent: **their merged row and implementation were
+  left untouched.** This session discarded its duplicate generator implementation, reset its branch to
+  `origin/main`, requeued the genuinely complementary remainder as a new row **T-018** (ID checked
+  against `gh pr list --state all`, `TASKS.md`/`HANDOFF.md`/`README.md` and `git ls-remote` first),
+  claimed it, and shipped only that.
+- Lesson for the next session (cheap to repeat, worth internalizing): after committing a claim, **open
+  the PR immediately** — even before the work exists — so `gh pr list` shows the claim to everyone in
+  the window between commit and merge. Both T-015 claimants pushed branches; only one opened a PR in time.
+
+### What was done (T-018 scope only, on top of #48)
+
+- **`scripts/validate` §B fail-closed guard:** the regenerated ledger's §4b table must contain the
+  `audit_provenance.py` row (and a missing §4b table itself warns). Check count moved **5,419 → 5,420**
+  (exactly +1, verified by stash/run/pop); validator **PASS**. Negative-tested by deleting the rendered
+  row: exit 1 with the regenerate hint.
+- **Blocked-state branch fixed in `tools/build_verification.py`:** the merged T-015 code read
+  `report.get("accessBlockStatus")`, a field `audit_provenance.py` never writes (its artifact carries
+  `accessBlocked` + `accessBlockReason` only — confirmed against `tools/last_provenance_audit.json` and
+  the writer in `audit_provenance.py`), so a real 403 block would render as a bare "blocked" with the
+  cite-audit-incorrect phrase "No completed field comparisons". The branch now parses the HTTP code out
+  of `accessBlockReason` (`HTTP 403 — …` → `blocked — HTTP 403`; `transport error: …` →
+  `blocked — access failure`), reports `entriesAudited/entriesTotal` progress, and says an access block
+  is not a citation failure. **`verify_live.py`'s existing `blocked_auth`/`blocked_rate_limit`
+  rendering was regression-tested byte-identical** (403, 401, and missing-`httpStatus` variants).
+- **Complete rows link the per-entry report** `reports/provenance/<startedAt>.md` **only when the file
+  exists on disk** (a complete `--no-report` run cannot produce a dead link), and findings pluralize
+  ("1 unresolved finding" / "2 unresolved findings").
+- **Regenerated `VERIFICATION.md`:** the diff is exactly the one §4b row (report link appended); no
+  other line moved. The published snapshot stays `2026-10-11T15:06:10Z`; no data was republished.
+- **`AGENTS.md` §4** documents the §4b row, its states, and the validator guard next to the
+  `audit_provenance.py` bullet. `TASKS.md` T-018 marked done in this PR.
+
+### Verification (this session, on this tree)
+
+- Nine state branches tested against doctored report copies in a `/tmp` scratch tree (real artifacts
+  untouched): blocked-403, blocked-transport, incomplete-no-block, stale-snapshot, not-available,
+  0/1/2 findings, complete-with-report-file-absent.
+- `scripts/validate` **PASS** (5,420 checks; 102 pre-existing expected warnings). `npm run check` PASS.
+  `py_compile` clean for all six tools + `scripts/validate`. Python unit suite **14/14 OK**.
+  `census_guard.py --self-test` **3/3 verdict paths PASS**, and its live leg re-verified coverage at
+  ~17:0xZ: **146 public repos = 145 listed + 1 excluded (`ProjX`), 146/146 Pages census,
+  `kanlerxz87-cyber` 0 public repos** — no coverage gap as of this session.
+- **Playwright remains blocked in this sandbox** (package not installed; browser CDN outside the
+  sandbox allowlist). This change touches generated markdown, the validator, and docs only — no DOM,
+  CSS, JS or `data/sites.js` — so the PR workflow (`test.yml`) is the browser execution environment of
+  record; check the run attached to this PR.
+
+### What is blocked / limitations
+
+- Nothing blocks T-018. Standing items: 51-entry PROSE-STALE queue (T-002, claimed by `96e82e25`);
+  `FL-05` (`GEMSDOE53` `errored`) and `FL-17` (`NFLInjuryReport`, volatile `errored`→`building`) need
+  a push/rebuild or owner action; four frozen 404 repos and T-006 need owner decisions; `FL-15` keeps
+  `pages-smoke` red by design; PR #44 (docs-only) is `CONFLICTING` with main and needs its own session
+  to rebase it.
+- The blocked-branch parsing assumes `accessBlockReason` keeps its current `"HTTP <code> — …"` /
+  `"transport error: …"` shapes; if the writer changes format, the row still renders (`blocked —
+  access failure`) but loses the HTTP code. If a future `accessBlockStatus` field is ever added to the
+  artifact, the branch already prefers it.
+
+### What is next
+
+1. **T-016 completed while this session was in flight** (session `arena-684e8d09`, PR #49): the weekly
+   Monday 08:13 UTC workflow runs all four read-only audits and keys off the same report-JSON contract
+   §4b renders (`complete` / `accessBlocked` / `snapshotGenerated`). Trigger its first full run via
+   `workflow_dispatch` rather than waiting for Monday; its review issue can legitimately stay open on
+   `FL-18` until T-002 lands.
+2. **T-002 (claimed):** 51 stale descriptions; FL-18's five `{path}` template citations belong to that
+   pass.
+3. **Owner decisions:** T-006 (GEMS consolidation stance), frozen-repo confirmations (OWNER-DECISIONS.md).
+4. **PR #44** (docs-only) still needs its own session to rebase it out of `CONFLICTING`.
+5. **Protocol tweak worth adopting (no code needed):** open the PR at claim time, per the double-claim
+   lesson above.
+
+### Post-merge record (same session, after PR #51 landed)
+
+- **PR #51 merged 2026-10-11T17:20:34Z**, merge commit **`6dacf7b`** on `main`. CI on the rebased head
+  (`f5a9527`): **`browser-tests` passed in 2m50s** (run
+  [38159007862](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38159007862)) after an
+  earlier pass in 2m29s on the pre-rebase head. Two mid-flight main movements were absorbed by rebases:
+  PR #49 (T-016 weekly audit scheduling) and PR #50 (its post-merge record); the only conflicts were
+  append-order in `TASKS.md`/`HANDOFF.md`, resolved keeping the other session's rows and entries
+  verbatim.
+- **Read back from `origin/main` after the merge rather than assumed:** `VERIFICATION.md` §4b carries
+  the `audit_provenance.py` row **with** the per-entry `reports/provenance/2026-10-11T160219Z.md`
+  link; `scripts/validate` §B carries the fail-closed guard and reports **5,420 checks, PASS** on the
+  merged tree (5,419 before T-018); `AGENTS.md` §4 documents the row states and guard; `TASKS.md`
+  carries exactly one T-018 row marked done with the double-claim history; `HANDOFF.md` carries both
+  the T-016 session entry (verbatim) and this session's entry. The published snapshot is unchanged at
+  `2026-10-11T15:06:10Z` — this PR republished no data.
+- **What the next session inherits:** §4b's four report rows and `tools/run_scheduled_audits.py`
+  (T-016) now read the same report-JSON contract — trigger the weekly workflow's first full run via
+  `workflow_dispatch` rather than waiting for Monday 08:13 UTC, and expect its review issue to stay
+  open on `FL-18` until T-002 expands the five `{path}` template citations. Largest accuracy queue:
+  the **51-entry** PROSE-STALE list (T-002, claimed by `96e82e25`). Owner decisions outstanding:
+  T-006 (GEMS consolidation stance) and the four frozen 404 repositories (OWNER-DECISIONS.md).
+  `FL-05` (`GEMSDOE53` `errored`) and `FL-17` (`NFLInjuryReport`, volatile) still need a push/rebuild
+  or owner action; `FL-15` keeps `pages-smoke` red by design. **PR #44 is still open and was
+  `CONFLICTING` with main at 17:20:58Z** — its own session needs to rebase it. And per this session's
+  double-claim experience: open the PR at claim time so the claim is visible in `gh pr list` during the
+  commit-to-merge window.
 ## Session `arena-ab56fdfd` — 2026-10-11 (T-022: budgeted scheduled audit runner, planned from measured costs)
 
 **Branch:** `arena/ab56fdfd-mastersite`, based on `4872878` (main after PR #47). **PR [#53](https://github.com/buffedlizard55-lab/MasterSite/pull/53).** Commits `818dad5`
