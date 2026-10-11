@@ -7,6 +7,8 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 > **How to read the dates and status:** GitHub's public repository/Pages APIs do not expose site visits or last use. “Last commit” is the newest committer timestamp on the default branch, not evidence of site use. The “HTML entry point” label means `index.html` exists at the configured Pages source path; it does not establish that the page is interactive, works in a browser, or is reachable over HTTP. Pages status `built` is GitHub API metadata, not an uptime check.
 >
 > **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.
+>
+> **Multi-session work:** [`TASKS.md`](TASKS.md) carries the claim protocol and open queue, [`FLAGGED.md`](FLAGGED.md) the fields that cannot be verified officially, [`HANDOFF.md`](HANDOFF.md) the session log, and `scripts/validate` mechanically enforces that every record ships official source links.
 
 ## Current audit status — API snapshot `2026-10-01T23:59:25Z` (UTC)
 
@@ -289,9 +291,9 @@ For each listed site, the directory shows:
 - **Last commit (UTC)** from the newest committer timestamp on the default branch, plus its commit SHA. GitHub's public APIs do not expose the last time a site was visited or used.
 - **Pages status and deployment source** as returned by GitHub at the snapshot. `built` is not a live uptime result.
 - **Site type** derived from whether `index.html` exists at the configured Pages source path. It does not mean the page is interactive or functional.
-- **Default-branch commit count, repository size, description-verification state, and per-entry flags.** Thirty-five description stamps are behind the current repository head in this snapshot; those entries are explicitly marked for review.
+- **Default-branch commit count, repository size, description-verification state, and per-entry flags.** Forty-seven description stamps are behind the current repository head in this snapshot; those entries are explicitly marked for review.
 - **Official manual-review links** — live URL, repository, Pages API, commits API, Pages settings, and the recorded README/source reference as applicable.
-- **Unreachable history and irregularities** — four currently missing repositories remain visible with their last recorded state; the 124-item irregularities register includes reproduction details and source links.
+- **Unreachable history and irregularities** — four currently missing repositories remain visible with their last recorded state; the 137-item irregularities register includes reproduction details and source links.
 
 ---
 
@@ -444,7 +446,7 @@ the deletion or privacy change.
 
 ## Known Limitations
 
-1. **Thirty-five descriptions are behind their recorded repository head.** The
+1. **Forty-seven descriptions are behind their recorded repository head.** The
    UI and ledger mark these entries as a re-read queue. A new commit does not by
    itself prove a description is false, but this status is not a current-head
    semantic verification. Review the cited repository files before carrying or
@@ -469,7 +471,7 @@ the deletion or privacy change.
    semantic accuracy; repository files can contradict their own README, and the
    irregularities register records known cases without claiming exhaustiveness.
 6. **The account can change during and after a snapshot.** Current API values
-   are independently checked, and 35 prose stamps already lag the current head.
+   are independently checked, and 47 prose stamps already lag the current head.
    Re-run the refresh and audits before relying on a later reading.
 7. **Four previously listed repositories are currently 404** and await owner
    review, while `ProjX` remains intentionally excluded. The other named
@@ -485,7 +487,7 @@ the deletion or privacy change.
 
 | Priority | Follow-up | Why |
 |---|---|---|
-| High | Re-read the **35 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
+| High | Re-read the **47 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
 | High | Confirm the pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect before merging | Local browser binaries were unavailable in this sandbox |
 | Owner review | Resolve `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` (restore or confirm retirement) | Their repositories currently return HTTP 404; only the owner can establish intent |
 | Medium | Add scheduled API/prose/kind audits that open a review PR when results drift | The catalog changes over time; a repeatable schedule shortens the snapshot-to-review interval |

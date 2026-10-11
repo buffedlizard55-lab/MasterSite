@@ -1,28 +1,52 @@
 {
-  "snapshotGenerated": "2026-10-01T23:59:25Z",
-  "generatedOffsetVsLive": "2026-10-01T23:59:25Z",
+  "snapshotGenerated": "2026-10-11T03:01:01Z",
+  "generatedOffsetVsLive": "2026-10-11T03:01:01Z",
   "status": "complete",
   "complete": true,
-  "checks": 1407,
-  "okCount": 1406,
-  "driftCount": 1,
+  "checks": 1901,
+  "okCount": 1898,
+  "driftCount": 3,
   "hardMismatchCount": 0,
   "mismatches": [
     {
-      "entry": "sites[]/GEMSDOE24",
+      "entry": "sites[]/59GEMSDOE",
       "field": "pushedAt",
-      "committed": "2026-10-01T23:57:20Z",
-      "live": "2026-10-02T00:00:26Z"
+      "committed": "2026-10-11T02:42:44Z",
+      "live": "2026-10-11T03:00:56Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "sizeKb",
+      "committed": 3115,
+      "live": 4439
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "sizeKb",
+      "committed": 252225,
+      "live": 262532
     }
   ],
   "unlistedInApi": [],
   "listedNotInApi": [],
   "volatileDrift": [
     {
-      "entry": "sites[]/GEMSDOE24",
+      "entry": "sites[]/59GEMSDOE",
       "field": "pushedAt",
-      "committed": "2026-10-01T23:57:20Z",
-      "live": "2026-10-02T00:00:26Z"
+      "committed": "2026-10-11T02:42:44Z",
+      "live": "2026-10-11T03:00:56Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "sizeKb",
+      "committed": 3115,
+      "live": 4439
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "sizeKb",
+      "committed": 252225,
+      "live": 262532
     }
   ],
   "hardMismatches": []
