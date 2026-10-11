@@ -1074,3 +1074,22 @@ them is a duplicate and should be closed by the owner.**
 4. **Owner decisions:** one of the duplicate `T-004` PRs (#41/#42); `T-006` (`6GEMSDOE` recommends
    deleting the other GEMS repositories); `FL-17` (settle `NFLInjuryReport`'s Pages status on a later
    refresh); `FL-13` (`62GEMSDOE` category).
+
+### Post-merge record (same session, after PR #46 landed)
+
+- **PR #46 merged 2026-10-11T16:48:29Z**, merge commit **`adcec12`** on `main`. CI on the PR head
+  (`6ea370f`): **`browser-tests` passed in 2m28s** — Chromium, Firefox, WebKit and the mobile profile,
+  including the new case that asserts the directory's link to `SITES.md`. `pages-smoke` did not run on
+  this PR head; it stays red by design while `FL-15` stands.
+- **Read back from `origin/main` after the merge rather than assumed:** `SITES.md` is present with
+  **145 numbered rows** and **51** stale markers (matching the published snapshot
+  `2026-10-11T15:06:10Z`), `TASKS.md` carries exactly one `T-017` row, `data/sites.js` is unchanged at
+  the merged snapshot (this PR deliberately republished no data), `index.html` carries the master-list
+  quick link, `scripts/validate` carries §L, `FLAGGED.md` `FL-17` carries both timestamped Pages
+  readings, and `README.md`/`AGENTS.md` document the generator and the workflow step.
+- **What the next session inherits:** `SITES.md` is generated, gated, and now part of the documented
+  refresh pipeline — rerun `tools/build_sites_md.py` after every census or the validator will fail.
+  The audit layer still needs a clean re-run (`verify_live.py`, `audit_kind.py`,
+  `audit_descriptions.py`, `audit_provenance.py`) once GitHub's secondary rate limit clears; the
+  largest accuracy queue is the **51-entry** stale-description list (`T-002`, 53 at the `15:53:41Z`
+  read), and the duplicate `T-004` PRs (#41/#42) still need one of them closed.
