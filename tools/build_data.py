@@ -31,6 +31,7 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OVERLAY_PATH = os.path.join(ROOT, "tools", "overlay.json")
 OUT_PATH = os.path.join(ROOT, "data", "sites.js")
+FAMILIES_PATH = os.path.join(ROOT, "tools", "families.json")
 
 API = "https://api.github.com"
 OWNER = "buffedlizard55-lab"
@@ -75,6 +76,59 @@ def validate_overlay(entries, excluded):
             errors.append("%s: permanently excluded repository must not have a curated entry" % repo)
     if errors:
         raise SystemExit("invalid tools/overlay.json:\n  - " + "\n  - ".join(errors))
+
+
+def fatal(status):
+    """Transport/auth/server failures that must abort a refresh (404 is a real answer)."""
+    return status in (0, 401, 403) or status >= 500
+
+
+def load_families(entries):
+    """Load curated organizational families from tools/families.json.
+
+    A family groups published sites whose curated descriptions document work on
+    the same named project or competition. Membership is curated per repository
+    and validated here: every named repository must have a curated overlay entry,
+    ids must be unique, and the labels/basis must be non-empty. Nothing is ever
+    inferred from a repository name at runtime.
+    """
+    fam = json.load(open(FAMILIES_PATH, encoding="utf-8"))
+    fam_map, fam_meta, seen_ids = {}, [], set()
+    for f in fam.get("families", []):
+        fid = f.get("id")
+        if not isinstance(fid, str) or not fid or fid in seen_ids:
+            raise SystemExit("invalid tools/families.json: family id %r missing or duplicated" % fid)
+        seen_ids.add(fid)
+        for field in ("label", "summary", "basis"):
+            if not isinstance(f.get(field), str) or not f.get(field).strip():
+                raise SystemExit("invalid tools/families.json: %s.%s must be a non-empty string" % (fid, field))
+        repos = f.get("repos")
+        if not isinstance(repos, list) or not repos:
+            raise SystemExit("invalid tools/families.json: %s.repos must be a non-empty list" % fid)
+        for repo in repos:
+            if repo not in entries:
+                raise SystemExit(
+                    "invalid tools/families.json: %s names %r which has no curated overlay entry"
+                    % (fid, repo)
+                )
+            if repo in fam_map:
+                raise SystemExit(
+                    "invalid tools/families.json: %r appears in both %s and %s"
+                    % (repo, fam_map[repo], fid)
+                )
+            fam_map[repo] = fid
+        fam_meta.append({"id": fid, "label": f["label"], "summary": f["summary"],
+                         "basis": f["basis"], "count": len(repos)})
+    return fam_map, fam_meta
+
+
+def family_counts(sites):
+    out = {}
+    for s in sites:
+        fid = s.get("family")
+        if fid:
+            out[fid] = out.get(fid, 0) + 1
+    return out
 
 
 def api_get(path, accept="application/vnd.github+json"):
@@ -219,12 +273,26 @@ def render_overlay_only():
     data["unreachable"] = overlay.get("retired", [])
     data["irregularities"] = overlay.get("irregularities", [])
 
+    # Organizational families (tools/families.json) are curated metadata, exactly
+    # like the overlay prose, so this mode re-renders them too.
+    fam_map, fam_meta = load_families(entries)
+    published = {s["repo"] for s in data["sites"]}
+    missing = sorted(set(fam_map) - published)
+    if missing:
+        raise SystemExit(
+            "tools/families.json names repositories absent from the snapshot: %s" % ", ".join(missing)
+        )
+    for site in data["sites"]:
+        site["family"] = fam_map.get(site["repo"])
+    data["families"] = fam_meta
+
     sites = data["sites"]
     categories = {}
     for s in sites:
         categories[s["category"]] = categories.get(s["category"], 0) + 1
     c = data["counts"]
     c["categories"] = dict(sorted(categories.items(), key=lambda kv: (-kv[1], kv[0])))
+    c["families"] = family_counts(sites)
     # Derived from sites[] exactly like the category tally, so they must be recomputed
     # here now that this mode renders "kind": leaving them at the snapshot's values would
     # publish an apps/stubs split that disagrees with the entries beside it, and
@@ -301,6 +369,7 @@ def main():
     entries = overlay["entries"]
     excluded = set(overlay.get("excluded", []))
     validate_overlay(entries, excluded)
+    fam_map, fam_meta = load_families(entries)
 
     print("MasterSite data refresh — reading api.github.com")
     print("-" * 72)
@@ -310,15 +379,31 @@ def main():
     for login in ACCOUNTS:
         status, profile = api_get("/users/%s" % login)
         if status != 200:
-            print("  ! %s profile returned HTTP %s" % (login, status), file=sys.stderr)
-            continue
-        repos, _ = paginate("/users/%s/repos?type=public" % login)
+            # Fail closed: an unreadable account census must abort the refresh, not
+            # publish an empty or partial directory (HTTP 403 mid-run is not evidence
+            # that the account has no repositories — observed 2026-10-11).
+            raise SystemExit(
+                "refresh aborted: GET /users/%s returned HTTP %s (%s) — refusing to "
+                "publish a snapshot from an incomplete account census"
+                % (login, status, profile.get("message"))
+            )
+        repos, rstatus = paginate("/users/%s/repos?type=public" % login)
+        if fatal(rstatus):
+            raise SystemExit(
+                "refresh aborted: GET /users/%s/repos?type=public ended with HTTP %s — "
+                "refusing to continue on an incomplete repository list" % (login, rstatus)
+            )
         names = [r["name"] for r in repos]
         pages_enabled = 0
         if login == OWNER:
             api_names.update(names)
             for n in names:
                 st, _ = api_get("/repos/%s/%s/pages" % (OWNER, n))
+                if fatal(st):
+                    raise SystemExit(
+                        "refresh aborted: GET /repos/%s/%s/pages returned HTTP %s mid-census"
+                        % (OWNER, n, st)
+                    )
                 if st == 200:
                     pages_enabled += 1
         if login == OWNER:
@@ -358,10 +443,20 @@ def main():
 
         status, repo = api_get("/repos/%s/%s" % (OWNER, name))
         if status != 200:
+            if fatal(status):
+                raise SystemExit(
+                    "refresh aborted: GET /repos/%s/%s returned HTTP %s mid-refresh"
+                    % (OWNER, name, status)
+                )
             warnings.append("%s: repo endpoint returned HTTP %s" % (name, status))
             continue
         pstatus, pages = api_get("/repos/%s/%s/pages" % (OWNER, name))
         if pstatus != 200:
+            if fatal(pstatus):
+                raise SystemExit(
+                    "refresh aborted: GET /repos/%s/%s/pages returned HTTP %s mid-refresh"
+                    % (OWNER, name, pstatus)
+                )
             warnings.append("%s: pages endpoint returned HTTP %s (not a Pages site)" % (name, pstatus))
             continue
         # `status` is a live state machine, not a property of the repository: a repo
@@ -388,6 +483,11 @@ def main():
 
         branch = repo.get("default_branch") or "main"
         commits, cstatus = paginate("/repos/%s/%s/commits?sha=%s" % (OWNER, name, branch))
+        if fatal(cstatus):
+            raise SystemExit(
+                "refresh aborted: GET /repos/%s/%s/commits?sha=%s ended with HTTP %s"
+                % (OWNER, name, branch, cstatus)
+            )
         if cstatus != 200 or not commits:
             warnings.append("%s: commit list unavailable (HTTP %s)" % (name, cstatus))
             continue
@@ -430,6 +530,7 @@ def main():
                 "repo": name,
                 "title": ov["title"],
                 "category": ov["category"],
+                "family": fam_map.get(name),
                 "kind": kind,
                 "description": ov["description"],
                 "created": repo.get("created_at"),
@@ -461,6 +562,13 @@ def main():
         print("  ok   %-38s commits=%-5s pages=%-8s source=%s" % (name, len(commits), pages.get("status"), source_str))
 
     sites.sort(key=lambda s: s["repo"].lower())
+
+    missing_family_members = sorted(set(fam_map) - {s["repo"] for s in sites})
+    if missing_family_members:
+        raise SystemExit(
+            "tools/families.json names repositories that are not published sites: %s"
+            % ", ".join(missing_family_members)
+        )
 
     owner_account = next((a for a in accounts_checked if a["login"] == OWNER), {})
     total_commits = sum(s["commits"] for s in sites)
@@ -547,6 +655,7 @@ def main():
             "pagesBuilt": built,
             "commits": total_commits,
             "categories": categories,
+            "families": family_counts(sites),
             "publicRepos": owner_account.get("publicRepos"),
             "pagesSites": owner_account.get("pagesSites"),
             "excluded": sorted(excluded),
@@ -572,6 +681,7 @@ def main():
             "proseShaStamped": sum(1 for s in sites if s.get("verifiedAtSha")),
         },
         "sites": sites,
+        "families": fam_meta,
         "unreachable": overlay.get("retired", []),
         "irregularities": overlay.get("irregularities", []),
         "methodology": methodology,
