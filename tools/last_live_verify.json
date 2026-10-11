@@ -1,53 +1,15 @@
 {
-  "snapshotGenerated": "2026-10-11T03:01:01Z",
-  "generatedOffsetVsLive": "2026-10-11T03:01:01Z",
-  "status": "complete",
-  "complete": true,
-  "checks": 1901,
-  "okCount": 1898,
-  "driftCount": 3,
-  "hardMismatchCount": 0,
-  "mismatches": [
-    {
-      "entry": "sites[]/59GEMSDOE",
-      "field": "pushedAt",
-      "committed": "2026-10-11T02:42:44Z",
-      "live": "2026-10-11T03:00:56Z"
-    },
-    {
-      "entry": "sites[]/61GEMSDOE",
-      "field": "sizeKb",
-      "committed": 3115,
-      "live": 4439
-    },
-    {
-      "entry": "sites[]/KalshiPaperSim",
-      "field": "sizeKb",
-      "committed": 252225,
-      "live": 262532
-    }
-  ],
+  "snapshotGenerated": "2026-10-11T05:12:27Z",
+  "status": "blocked_rate_limit",
+  "complete": false,
+  "partialChecks": 0,
+  "error": {
+    "httpStatus": 403,
+    "message": "API rate limit exceeded for user ID 309556078. If you reach out to GitHub Support for help, please include the request ID A2E6:1CFED9:668B3E:EE5E81:6ACB1CCC and timestamp 2026-10-11 05:21:16 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service)"
+  },
+  "mismatches": [],
   "unlistedInApi": [],
   "listedNotInApi": [],
-  "volatileDrift": [
-    {
-      "entry": "sites[]/59GEMSDOE",
-      "field": "pushedAt",
-      "committed": "2026-10-11T02:42:44Z",
-      "live": "2026-10-11T03:00:56Z"
-    },
-    {
-      "entry": "sites[]/61GEMSDOE",
-      "field": "sizeKb",
-      "committed": 3115,
-      "live": 4439
-    },
-    {
-      "entry": "sites[]/KalshiPaperSim",
-      "field": "sizeKb",
-      "committed": 252225,
-      "live": 262532
-    }
-  ],
+  "volatileDrift": [],
   "hardMismatches": []
 }

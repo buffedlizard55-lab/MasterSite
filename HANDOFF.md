@@ -663,3 +663,85 @@ only reach `main` when a PR merges.
 - **PR #34** (this session's parallel T-007 implementation) stays **closed** with the race record
   and cross-check in its thread; its history is the reference if the owner ever wants the
   third-layout variant revived.
+
+---
+
+## Session `arena-81b50f85` — 2026-10-11 (T-012: full census refresh at `05:12:27Z`)
+
+**Branch:** `arena/81b50f85-mastersite`, rebased onto `main` at `cc71a1a` (which already carried PRs
+#28–#30 from three parallel sessions) before the PR was opened. This session read `TASKS.md` and
+`FLAGGED.md` first, added its own task row and claimed it in a commit of its own that was pushed
+immediately, per the protocol.
+
+### What was done
+
+- **Full census refresh, API snapshot `2026-10-11T05:12:27Z`** (`tools/build_data.py` with a token, run
+  after `git pull --rebase origin main`). Both accounts read from the official API:
+  `buffedlizard55-lab` **146 public repositories / 146 Pages-enabled**, `kanlerxz87-cyber` **0 / 0**.
+  Every repository was re-read (repo metadata, Pages settings/status, default-branch commits) and
+  `data/sites.js` was rewritten by the generator only. Result: **145 listed sites** (135 HTML entry
+  points / 10 stubs), **144 `built` + `GEMSDOE53` `errored`**, **10,663** default-branch commits,
+  **45** prose-stale entries, 4 frozen 404 records, `ProjX` excluded. **No repository appeared or
+  vanished and the coverage arithmetic balances exactly: 145 listed + 1 excluded = 146 public.**
+- **Nine default-branch heads advanced** since the `03:01:01Z` snapshot, adding 84 commits:
+  `58GEMSDOE`, `59GEMSDOE`, `60GEMSDOE`, `GEMSDOE52`, `KalshiPaperSim`, `MALTASUPPLEMENTAL`,
+  `MasterSite`, `NFLInjuryReport`, `NFLMAIN`. `61GEMSDOE` moved only in the volatile
+  `pushed_at`/`updated_at` fields (head `8ffc2db` and commit count unchanged).
+- **Kind re-derivation is clean at the new snapshot:** `audit_kind.py` re-derived all 145 entries from
+  the configured Pages path — **145/145 checked, 0 disagreements, 0 unresolved**
+  (`tools/last_kind_audit.json` now carries `snapshotGenerated 2026-10-11T05:12:27Z`). Re-derivation,
+  not trust, is the rule that caught `IRR-138` in the previous pass; this pass found nothing to correct.
+- **The four frozen 404 repositories were re-checked by hand** (`curl`, official endpoints):
+  `GET /repos/buffedlizard55-lab/{JobSearchSF,MALTA,MALTA-LAWS,MALTA2}` all returned HTTP 404, none is in
+  the 146-repository public list, and the repository search API returned `total_count` 0/1/0/0 with the
+  single `MALTA` match being the live `MALTASUPPLEMENTAL` prefix match. This matches the 2026-10-11 note
+  already inside each frozen record, so **no overlay change was needed** (`FL-03` / `T-004` unchanged).
+- **One new finding registered, `FL-16`, instead of a silent fix.** `audit_descriptions.py` flagged five
+  numeric tokens in `59GEMSDOE`'s description (`0.24`, `0.29`, `0.4133`, `0.3195`, `0.2778`) as absent
+  from its README at head `37dc3d4`; the fetched 6,439-byte file was then read by hand and is a rewritten
+  “Intensity Lane (Session H59-I2)” page that contains none of those numbers and reports a
+  `HOLDOUT-DTI` score of `0.166789` instead, while its status line still supports the description's
+  non-numeric claim (download OK, submit OK). The entry stays in the stale queue; re-reading the prose is
+  T-002's work.
+- **`FL-10` and `FL-14` were updated from evidence.** `FL-10` now records the recomputed 45-entry queue
+  and states explicitly that all 40 previously stale entries are still stale. `FL-14`'s
+  `MALTASUPPLEMENTAL` drift is no longer invisible: the published record now reads head `4ed9c5a` with
+  `proseStale: true` and `pushed_at` `2026-10-11T05:07:30Z`.
+- **README, AGENTS.md and FLAGGED.md were synced to the new snapshot** (status table, findings, a new
+  journal entry, the `data/sites.js` row in File Architecture, and the two 40 → 45 mentions in Known
+  Limitations / Remaining Work). The old “live HTTP checks are impossible from this sandbox” bullet was
+  replaced by the T-003 runner result — **145/145 HTTP 200 at `2026-10-11T05:03:31Z`, 144 titles,
+  `SABERENGY` null (`FL-15`)** — while keeping the caveat that it is a one-GET observation, not uptime.
+- **`tools/export_site_records.py` regenerated** from the new snapshot: 145 per-site records
+  (`data/sites/`), 100 machine-verified / 45 not.
+
+### Blocked
+
+- **`verify_live.py` and the complete `audit_descriptions.py` sweep are INCOMPLETE for this snapshot and
+  must not be quoted as passes.** The authenticated hourly quota (5,000/h) exhausted at ~`05:20:55Z`,
+  shared across the parallel Arena sessions using this token; after the window reset the API kept
+  returning HTTP 403 for every request, authenticated **and** unauthenticated, which is the secondary
+  (abuse-detection) block keyed to the sandbox egress IP rather than a data problem. `verify_live.py`
+  stopped after the account and unreachable checks (which pass: `publicRepos` 146/0 and all four 404s
+  re-confirmed), and `audit_descriptions.py` completed 18/145 entries before the block — that partial
+  slice is what found `FL-16`. Both JSON reports carry the blocked status; re-run them from a clean
+  window before relying on them.
+- No `*.github.io` egress from the sandbox (T-003's GitHub-hosted runner is the HTTP observation of
+  record) and no Playwright browser binaries (CI is the browser environment of record). No uptime,
+  rendering or usage claim is made anywhere.
+
+### What is next
+
+1. **Re-run the two blocked audits for the `05:12:27Z` snapshot** (`python3 tools/verify_live.py`,
+   `rm -rf tools/.readme-cache && python3 tools/audit_descriptions.py`) once the 403 clears, then
+   regenerate `VERIFICATION.md` if their statuses change. Never treat an INCOMPLETE report as a pass.
+2. **T-002 continues with a larger queue (45) and one concrete lead (`FL-16`, `59GEMSDOE`).** The
+   stale-first table in `VERIFICATION.md` names every entry with its stamp and its current head.
+3. Unchanged and still open: **T-004** (owner decision on the four frozen 404s), **T-006** (GEMS family
+   consolidation), **T-007** (family view for the 40+ GEMSDOE lanes), **T-008** (the three stub landing
+   pages — now partly answerable from the T-003 report, which observed HTTP 200 and titles for
+   `62GEMSDOE`, `GEMSDOE42` and `GEMSDOE44`).
+4. **Three PRs from parallel sessions landed in `main` while this refresh was running** (#31 T-011,
+   #32/#36–#37 the T-008 landing-page evidence and the T-007 family view). They touch the same narrative
+   files and the generator, which is why this branch was rebased and its snapshot re-rendered with the
+   new `tools/families.json` support before the PR was opened.
