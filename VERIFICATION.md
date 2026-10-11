@@ -504,7 +504,7 @@ Descriptions, titles, categories and flags are curated in `tools/overlay.json` f
 - 2026-10-01 follow-up kind audit: 13GEMSDOE and 16GEMSDOE–20GEMSDOE gained configured root index.html files after the prior snapshot. The current README and root entry point for each were re-read at the full current default-branch SHA; all six descriptions and `kind` values were updated, with three redirecting root files explicitly noted. HTML entry-point classification is not a browser/runtime or research-result validation (IRR-130).
 - 2026-10-11 (session 96e82e25): MALTASUPPLEMENTAL re-read at the snapshot head 81930be to close FL-12. The human-facing verification note for what was withdrawn (page count, 230 V token, transport-mode count) is in the entry's verifiedBasis; the entry is no longer in the PROSE-STALE queue because the stamp now matches the snapshot head.
 
-**Automated numeric-token lint for this snapshot: INCOMPLETE.** It checked 18/145 entries before the API request failed (HTTP 403: API rate limit exceeded for user ID 309556078. If you reach out to GitHub Support for help, please include the request ID EA26:1B35B1:676BA5:EF3B7C:6ACB1CB7 and timestamp 2026-10-11 05:20:55 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service)). This is not a clean lint result; rerun after restoring GitHub API access. The lint is not semantic proof.
+**Automated numeric-token lint for this snapshot:** `tools/audit_descriptions.py` checked 145 entries at their recorded `headSha`; it found 1 entries needing review and has 42 documented numeric-token exception records. This lint only checks whether numbers occur in the README; it cannot establish that they mean the same thing or verify non-numeric claims.
 
 ---
 
@@ -669,9 +669,9 @@ These summaries distinguish a completed check from a request that could not be m
 
 | Audit | Status for this snapshot | Result |
 |---|---|---|
-| `verify_live.py` | **blocked — HTTP 403** | No completed field comparisons; wait for the GitHub API rate limit to reset and rerun this audit. |
+| `verify_live.py` | **complete** | 1921 checks; 0 hard mismatches; 85 drift. |
 | `audit_kind.py` | **complete** | 145/145 entries checked; 0 disagreements; 0 unresolved. |
-| `audit_descriptions.py` | **incomplete** | 18/145 attempted; not a completed audit (HTTP 403: API rate limit exceeded for user ID 309556078. If you reach out to GitHub Support for help, please include the request ID EA26:1B35B1:676BA5:EF3B7C:6ACB1CB7 and timestamp 2026-10-11 05:20:55 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service)). |
+| `audit_descriptions.py` | **complete** | 145/145 entries checked; 1 needing review; 0 API errors. |
 
 ---
 

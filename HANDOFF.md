@@ -715,26 +715,35 @@ immediately, per the protocol.
 - **`tools/export_site_records.py` regenerated** from the new snapshot: 145 per-site records
   (`data/sites/`), 100 machine-verified / 45 not.
 
-### Blocked
+### Blocked, then resolved in the same session
 
-- **`verify_live.py` and the complete `audit_descriptions.py` sweep are INCOMPLETE for this snapshot and
-  must not be quoted as passes.** The authenticated hourly quota (5,000/h) exhausted at ~`05:20:55Z`,
-  shared across the parallel Arena sessions using this token; after the window reset the API kept
-  returning HTTP 403 for every request, authenticated **and** unauthenticated, which is the secondary
-  (abuse-detection) block keyed to the sandbox egress IP rather than a data problem. `verify_live.py`
-  stopped after the account and unreachable checks (which pass: `publicRepos` 146/0 and all four 404s
-  re-confirmed), and `audit_descriptions.py` completed 18/145 entries before the block — that partial
-  slice is what found `FL-16`. Both JSON reports carry the blocked status; re-run them from a clean
-  window before relying on them.
+- **Both audits were blocked mid-pass and later completed.** At ~`05:20:55Z` the sandbox's GitHub API
+  access failed: every request — authenticated **and** unauthenticated — returned HTTP 403
+  “rate limit exceeded”, and `gh auth status` reported the token in `GH_TOKEN` as no longer valid.
+  `verify_live.py` stopped after the account and unreachable checks (which passed) and
+  `audit_descriptions.py` stopped at 18/145. Both JSON reports carried the blocked/incomplete status, and
+  the first `VERIFICATION.md` render for this snapshot said so plainly rather than showing a pass. The
+  connection was restored at ~`05:55Z` and both audits were re-run to completion against the same
+  snapshot:
+  - `verify_live.py`: **complete — 1,921 checks, 0 hard mismatches, 85 volatile drifts**
+    (`listedNotInApi` 0, `unlistedInApi` 0). Every drift is a field GitHub recomputes or a repository
+    pushed to while the audit ran, `MasterSite` itself included.
+  - `audit_descriptions.py`: **complete — 145/145 checked, 1 unresolved item (`FL-16`), 42 documented
+    exceptions, 0 API errors.**
+  The rule stated in AGENTS.md §4 held again: an API 403 is an access block, not a data mismatch, and an
+  INCOMPLETE report is never a pass.
 - No `*.github.io` egress from the sandbox (T-003's GitHub-hosted runner is the HTTP observation of
   record) and no Playwright browser binaries (CI is the browser environment of record). No uptime,
   rendering or usage claim is made anywhere.
 
 ### What is next
 
-1. **Re-run the two blocked audits for the `05:12:27Z` snapshot** (`python3 tools/verify_live.py`,
-   `rm -rf tools/.readme-cache && python3 tools/audit_descriptions.py`) once the 403 clears, then
-   regenerate `VERIFICATION.md` if their statuses change. Never treat an INCOMPLETE report as a pass.
+1. **Rebase note for parallel sessions:** this branch was rebased onto `cc6b5d2` —
+   `main` gained PRs #36/#37 (the curated `tools/families.json` family view, a landing-pages report and
+   new `scripts/validate` family checks) *while* this refresh was running. `data/sites.js` was therefore
+   re-rendered with the **new** generator (`build_data.py --overlay-only`) so the published snapshot
+   carries the `family` fields, and `data/sites/` was re-exported. Anyone re-running the build must do the
+   same or the new family checks in `scripts/validate` will fail.
 2. **T-002 continues with a larger queue (45) and one concrete lead (`FL-16`, `59GEMSDOE`).** The
    stale-first table in `VERIFICATION.md` names every entry with its stamp and its current head.
 3. Unchanged and still open: **T-004** (owner decision on the four frozen 404s), **T-006** (GEMS family
