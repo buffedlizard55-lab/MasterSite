@@ -9,6 +9,7 @@
   }
 
   var OWNER = D.owner || "buffedlizard55-lab";
+  var API_BASE = "https://api.github.com";
   var state = { q: "", category: "All", health: "all", sort: "updated-desc" };
 
   function $(id) { return document.getElementById(id); }
@@ -30,6 +31,11 @@
     if (!iso) return "—";
     var d = new Date(iso);
     return d.toISOString().replace("T", " ").replace("Z", " UTC");
+  }
+
+  function shortSha(sha) {
+    if (!sha) return "";
+    return String(sha).slice(0, 7);
   }
 
   // Plain-English age measured against the snapshot, so every reader sees the
@@ -60,25 +66,60 @@
   function repoUrl(s) {
     return "https://github.com/" + OWNER + "/" + s.repo;
   }
+  function repoApiUrl(s) {
+    return API_BASE + "/repos/" + OWNER + "/" + s.repo;
+  }
+  function pagesApiUrl(s) {
+    return repoApiUrl(s) + "/pages";
+  }
+  function commitsApiUrl(s) {
+    return repoApiUrl(s) + "/commits?sha=" + encodeURIComponent(s.defaultBranch || "main");
+  }
+  function recordJsonUrl(s) {
+    return "data/sites/" + OWNER + "__" + s.repo + ".json";
+  }
 
-  // Review state summarizes recorded per-entry flags and whether an HTML entry point exists; it is not a health or uptime check.
+  // Build the complete list of review reasons from recorded flags, description
+  // provenance staleness (PROSE-STALE), missing stamps, and non-built Pages status.
+  function reviewReasonsOf(s) {
+    var reasons = (s.flags || []).slice();
+    if (!s.lastVerified || !s.verifiedAtSha) {
+      reasons.push("Missing description verification stamp (lastVerified / verifiedAtSha).");
+    } else if (s.proseStale) {
+      reasons.push(
+        "PROSE-STALE: description read at " + shortSha(s.verifiedAtSha) +
+        " is behind recorded head " + (shortSha(s.headSha) || "unknown") +
+        " — re-read source files before treating prose as current."
+      );
+    }
+    var status = s.pagesStatus || "unknown";
+    if (status !== "built") {
+      reasons.push("Pages API status is '" + status + "' at snapshot (not 'built').");
+    }
+    return reasons;
+  }
+
+  // Review state summarizes recorded per-entry flags, description provenance
+  // staleness, build status, and whether an HTML entry point exists; it is not a
+  // live uptime check.
   function healthOf(s) {
-    if (s.flags && s.flags.length > 0) return "review";
+    if (reviewReasonsOf(s).length > 0) return "review";
     if (s.kind === "stub") return "stub";
     return "healthy";
   }
 
   function healthBadge(s) {
+    var reasons = reviewReasonsOf(s);
     var h = healthOf(s);
     if (h === "review") {
-      var reasons = (s.flags || []).map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("");
-      return '<span class="health health-review" title="' + esc((s.flags || []).join(" | ")) + '">⚠ Review (' + s.flags.length + ")</span>" +
-        '<ul class="exec-flag-reasons">' + reasons + "</ul>";
+      var listItems = reasons.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("");
+      return '<span class="health health-review" title="' + esc(reasons.join(" | ")) + '">⚠ Review (' + reasons.length + ")</span>" +
+        '<ul class="exec-flag-reasons">' + listItems + "</ul>";
     }
     if (h === "stub") {
       return '<span class="health health-stub" title="No index.html at the recorded Pages source path; the published root may render a README.">📝 Stub</span>';
     }
-    return '<span class="health health-healthy" title="No per-entry audit flags are recorded; this is not an uptime or user-activity check.">✓ No flags</span>';
+    return '<span class="health health-healthy" title="Description stamp matches recorded head, Pages status is built, and no per-entry audit flags are recorded; this is not an uptime or user-activity check.">✓ No flags</span>';
   }
 
   // ---------------- KPIs ----------------
@@ -89,6 +130,7 @@
     var built = sites.filter(function (s) { return s.pagesStatus === "built"; }).length;
     var commits = sites.reduce(function (sum, s) { return sum + (s.commits || 0); }, 0);
     var needReview = sites.filter(function (s) { return healthOf(s) === "review"; }).length;
+    var staleCount = sites.filter(function (s) { return Boolean(s.proseStale); }).length;
 
     var ref = new Date(D.generated || Date.now()).getTime();
     var fresh7 = sites.filter(function (s) {
@@ -99,7 +141,7 @@
       { value: String(sites.length), label: "Sites listed", sub: "as of " + fmtDate(D.generated) },
       { value: apps + " / " + stubs, label: "HTML sites / Stubs", sub: built + " of " + sites.length + " built" },
       { value: String(fresh7), label: "Recent commits (7 days)", sub: "relative to snapshot date" },
-      { value: String(needReview), label: "Need review", sub: needReview === 0 ? "nothing flagged" : "have audit flags" },
+      { value: String(needReview), label: "Need review", sub: staleCount + " prose-stale · flags/status" },
       { value: commits.toLocaleString(), label: "Total commits", sub: "across all sites" }
     ];
 
@@ -109,10 +151,14 @@
         '<div class="stat-sub">' + esc(c.sub) + "</div></div>";
     }).join("");
 
-    $("execAuditDate").textContent = D.auditDate || (D.generated || "").slice(0, 10) || "—";
+    var auditDateText = D.auditDate || (D.generated || "").slice(0, 10) || "—";
+    $("execAuditDate").textContent = auditDateText;
     $("execGenerated").textContent = fmtDateTime(D.generated);
     $("execGenerated2").textContent = fmtDateTime(D.generated);
     $("execGenStamp").textContent = fmtDateTime(D.generated);
+    if ($("execAccountsDate")) {
+      $("execAccountsDate").textContent = fmtDateTime(D.generated);
+    }
   }
 
   // ---------------- Filters ----------------
@@ -130,7 +176,13 @@
       if (state.category !== "All" && s.category !== state.category) return false;
       if (state.health !== "all" && healthOf(s) !== state.health) return false;
       if (q) {
-        var hay = [s.title, s.repo, s.description, s.category].join(" ").toLowerCase();
+        var hay = [
+          s.title,
+          s.repo,
+          s.description,
+          s.category,
+          (reviewReasonsOf(s) || []).join(" ")
+        ].join(" ").toLowerCase();
         if (hay.indexOf(q) === -1) return false;
       }
       return true;
@@ -161,24 +213,38 @@
       ? s.description.slice(0, 157).replace(/\s+\S*$/, "") + "…"
       : (s.description || "");
     var built = (s.pagesStatus || "unknown") === "built";
+    var vSha = shortSha(s.verifiedAtSha);
+    var hSha = shortSha(s.headSha);
+    var proseStampHtml = vSha
+      ? '<div class="exec-sha exec-prose-stamp' + (s.proseStale ? " stale" : "") + '" title="Description read ' + esc(fmtDateTime(s.lastVerified)) + ' at commit ' + esc(s.verifiedAtSha) + (s.proseStale ? ' (behind recorded head ' + esc(hSha || s.headSha) + ')' : ' (matches recorded head)') + '">' +
+          'prose: ' + esc(vSha) + (s.proseStale ? " ⚠ stale" : " ✓") +
+        "</div>"
+      : '<div class="exec-sha exec-prose-stamp stale" title="Missing description verification stamp">prose: unstamped ⚠</div>';
 
-    return "<tr>" +
+    return '<tr data-repo="' + esc(s.repo) + '">' +
       // 1 — Website name (+ repo id + one-line description)
       '<td data-label="Website">' +
         '<div class="exec-site-name"><a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(s.title) + "</a></div>" +
         '<div class="exec-repo">' + esc(s.repo) + "</div>" +
         (desc ? '<div class="exec-desc" title="' + esc(s.description) + '">' + esc(desc) + "</div>" : "") +
       "</td>" +
-      // 2 — Direct link
+      // 2 — Direct link + official API review links
       '<td data-label="Live link">' +
-        '<a class="exec-visit" href="' + esc(url) + '" target="_blank" rel="noopener" title="' + esc(url) + '">Visit ↗</a><br>' +
-        '<a class="exec-repo-link" href="' + esc(repoUrl(s)) + '" target="_blank" rel="noopener">Repo</a>' +
+        '<a class="exec-visit" href="' + esc(url) + '" target="_blank" rel="noopener" title="' + esc(url) + '">Visit ↗</a>' +
+        '<div class="exec-source-links" aria-label="Official review sources for ' + esc(s.repo) + '">' +
+          '<a class="exec-repo-link" href="' + esc(repoUrl(s)) + '" target="_blank" rel="noopener" title="GitHub repository">Repo</a>' +
+          '<a class="exec-api-link" href="' + esc(repoApiUrl(s)) + '" target="_blank" rel="noopener" title="Official GitHub REST API repository endpoint">Repo API</a>' +
+          '<a class="exec-api-link" href="' + esc(pagesApiUrl(s)) + '" target="_blank" rel="noopener" title="Official GitHub REST API Pages endpoint">Pages API</a>' +
+          '<a class="exec-api-link" href="' + esc(commitsApiUrl(s)) + '" target="_blank" rel="noopener" title="Official GitHub REST API default-branch commits endpoint">Commits API</a>' +
+          '<a class="exec-api-link" href="' + esc(recordJsonUrl(s)) + '" target="_blank" rel="noopener" title="Per-site JSON record in data/sites/">JSON</a>' +
+        "</div>" +
       "</td>" +
-      // 3 — Last default-branch commit (not last site use)
+      // 3 — Last default-branch commit (not last site use) + prose stamp
       '<td data-label="Last commit"><div class="exec-updated" title="Newest committer timestamp on the default branch: ' + esc(fmtDateTime(s.lastCommit)) + '. GitHub does not expose last site use.">' +
         '<div class="exec-updated-date">' + esc(fmtDate(s.lastCommit)) + "</div>" +
         '<div class="exec-updated-ago ' + age.cls + '">' + esc(age.text) + "</div>" +
-        (s.lastCommitSha ? '<div class="exec-sha">' + esc(s.lastCommitSha) + "</div>" : "") +
+        (s.lastCommitSha ? '<div class="exec-sha">head: ' + esc(shortSha(s.lastCommitSha)) + "</div>" : "") +
+        proseStampHtml +
       "</div></td>" +
       // 4 — Category
       '<td data-label="Category"><span class="exec-pill">' + esc(s.category) + "</span></td>" +
@@ -192,7 +258,9 @@
       // 7 — Commits
       '<td data-label="Commits" class="exec-commits">' + esc(String(s.commits || 0)) + "</td>" +
       // 8 — Created
-      '<td data-label="Created"><span class="exec-created" title="' + esc(fmtDateTime(s.created)) + '">' + esc(fmtDate(s.created)) + "</span></td>" +
+      '<td data-label="Created"><span class="exec-created" title="Repository created_at: ' + esc(fmtDateTime(s.created)) + (s.firstCommit ? " · First commit: " + esc(fmtDateTime(s.firstCommit)) : "") + '">' + esc(fmtDate(s.created)) + "</span>" +
+        (s.firstCommitSha ? '<div class="exec-sha">init: ' + esc(shortSha(s.firstCommitSha)) + "</div>" : "") +
+      "</td>" +
       // 9 — Review state
       '<td data-label="Review state">' + healthBadge(s) + "</td>" +
     "</tr>";
@@ -208,6 +276,66 @@
     $("execTableBody").innerHTML = list.length
       ? list.map(rowHtml).join("")
       : '<tr class="exec-empty"><td colspan="9"><strong>No matching websites.</strong><br>Clear the search or change the filters.</td></tr>';
+  }
+
+  // ---------------- Audited Accounts & Unreachable Records ----------------
+  function renderAccounts() {
+    var grid = $("execAccountsGrid");
+    if (!grid) return;
+    var accounts = D.accountsChecked || [];
+    grid.innerHTML = accounts.map(function (a) {
+      var userApi = API_BASE + "/users/" + a.login;
+      var reposApi = (a.apiRepos || (userApi + "/repos")) + "?per_page=100";
+      return '<div class="account-card" data-account="' + esc(a.login) + '">' +
+        '<div class="account-header">' +
+          '<a class="account-login" href="' + esc(a.profile) + '" target="_blank" rel="noopener"><strong>' + esc(a.login) + "</strong> ↗</a>" +
+          '<span class="exec-pill ' + (a.publicRepos > 0 ? "built" : "") + '">' + esc(String(a.publicRepos || 0)) + " public repos · " + esc(String(a.pagesSites || 0)) + " Pages</span>" +
+        "</div>" +
+        '<p class="account-note">' + esc(a.note || "") + "</p>" +
+        '<div class="exec-source-links">' +
+          '<a class="exec-api-link" href="' + esc(a.profile) + '" target="_blank" rel="noopener">GitHub Profile</a>' +
+          '<a class="exec-api-link" href="' + esc(userApi) + '" target="_blank" rel="noopener">User API</a>' +
+          '<a class="exec-api-link" href="' + esc(reposApi) + '" target="_blank" rel="noopener">Repos API</a>' +
+        "</div>" +
+      "</div>";
+    }).join("");
+  }
+
+  function renderUnreachable() {
+    var section = $("exec-unreachable-section");
+    var container = $("execUnreachableList");
+    if (!section || !container) return;
+    var items = D.unreachable || [];
+    if (!items.length) {
+      section.hidden = true;
+      container.innerHTML = "";
+      return;
+    }
+    section.hidden = false;
+    container.innerHTML = items.map(function (u) {
+      var apiRepo = API_BASE + "/repos/" + OWNER + "/" + u.repo;
+      var apiPages = apiRepo + "/pages";
+      return '<div class="unreachable-card" data-unreachable-repo="' + esc(u.repo) + '">' +
+        '<div class="unreachable-header">' +
+          '<strong>' + esc(u.title || u.repo) + "</strong> " +
+          '<span class="exec-repo">(' + esc(u.repo) + ")</span> " +
+          '<span class="health health-review">HTTP 404 since ' + esc(u.retiredAt || "snapshot") + "</span>" +
+        "</div>" +
+        '<p class="unreachable-desc">' + esc(u.description || "") + "</p>" +
+        '<div class="unreachable-meta">' +
+          "Created: " + esc(fmtDate(u.created)) +
+          " · Last recorded commit: " + esc(fmtDate(u.lastCommit)) +
+          (u.lastCommitSha ? " (" + esc(shortSha(u.lastCommitSha)) + ")" : "") +
+          " · Commits: " + esc(String(u.commits || 0)) +
+          " · Last Pages status: " + esc(u.pagesStatus || "unknown") +
+        "</div>" +
+        '<div class="exec-source-links">' +
+          '<a class="exec-api-link" href="' + esc(apiRepo) + '" target="_blank" rel="noopener">Repo API (404 check)</a>' +
+          '<a class="exec-api-link" href="' + esc(apiPages) + '" target="_blank" rel="noopener">Pages API (404 check)</a>' +
+          '<a class="exec-api-link" href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/OWNER-DECISIONS.md" target="_blank" rel="noopener">Owner Decision Record</a>' +
+        "</div>" +
+      "</div>";
+    }).join("");
   }
 
   // ---------------- Events ----------------
@@ -240,4 +368,6 @@
   renderKpis();
   renderCategoryOptions();
   renderTable();
+  renderAccounts();
+  renderUnreachable();
 })();
