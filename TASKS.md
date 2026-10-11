@@ -44,8 +44,6 @@ verified, leave it `null` and add a row to `FLAGGED.md` — never guess.
 | T-023 | Owner action: provide a fine-grained token with 5,000 requests/hour as a workflow secret so one run can cover `audit_provenance` (904 requests measured, planned at 1,000) and the Sunday full-suite attempt | blocked | — | Owner decision (needs the owner to create the token; a PAT shadowing `GITHUB_TOKEN` cannot be verified from a session) |
 | T-024 | Surface the scheduled run verdicts (last clean pass per audit, `NOT-RUN`/`PARTIAL` states) in the generated ledger so readers see them where the other audit statuses live, instead of only in the workflow job summary, the PR comment and the review issue | unclaimed | — | — |
 | T-025 | Carry over the retired weekly coordinator's per-item review detail into the budgeted runner: surface the audit reports' individual review items (findings, snapshot drift, provenance `{path}` citation templates per FL-18) in `report.md` and the review issue, instead of only the per-audit verdict and tool summary | unclaimed | — | — |
-| T-023 | Owner action: provide a fine-grained token with 5,000 requests/hour as a workflow secret so one run can cover `audit_provenance` (904 requests measured, planned at 1,000) and the Sunday full-suite attempt | blocked | — | Owner decision (needs the owner to create the token; a PAT shadowing `GITHUB_TOKEN` cannot be verified from a session) |
-| T-024 | Surface the scheduled run verdicts (last clean pass per audit, `NOT-RUN`/`PARTIAL` states) in the generated ledger so readers see them where the other audit statuses live, instead of only in the workflow job summary, the PR comment and the review issue | unclaimed | — | — |
 `Status` values: `unclaimed` · `claimed` · `in review` · `blocked` · `done`.
 
 ---
