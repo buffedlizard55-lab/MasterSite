@@ -10,7 +10,7 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 >
 > **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.
 >
-> **Multi-session work:** [`TASKS.md`](TASKS.md) carries the claim protocol and open queue, [`FLAGGED.md`](FLAGGED.md) the fields that cannot be verified officially, [`HANDOFF.md`](HANDOFF.md) the session log, and `scripts/validate` mechanically enforces that every record ships official source links.
+> **Multi-session work:** [`TASKS.md`](TASKS.md) carries the claim protocol and open queue, [`FLAGGED.md`](FLAGGED.md) the fields that cannot be verified officially, [`HANDOFF.md`](HANDOFF.md) the session log, [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) the owner-only decision record for frozen 404 repositories, and `scripts/validate` mechanically enforces that every record ships official source links.
 
 ## Live HTTP observations (separate from API status)
 
@@ -459,6 +459,7 @@ For each listed site, the directory shows:
 | [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — checks for `index.html` at each configured Pages path; only HTTP 200/404 resolve type, other responses are unresolved |
 | [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, the `data/sites/` export sync, and family-grouping integrity (`tools/families.json` ↔ published fields ↔ counts, plus a nameToken coverage warning for uncurated name-matches) |
 | [`FLAGGED.md`](FLAGGED.md) | **Hand-maintained review queue** — every field that could not be verified from an official source, with the endpoint to open by hand and whether only the owner can resolve it |
+| [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) | **Owner-only decision record** — current official evidence and the safe keep-frozen default for the four repositories whose API and Pages endpoints return 404 |
 | [`TASKS.md`](TASKS.md) | **Claim board** — the multi-session protocol, task queue with `session=<id> at=<UTC>` claims, and frozen constraints |
 | [`HANDOFF.md`](HANDOFF.md) | **Session log** — what each session did, what is blocked, and what the next session should pick up |
 
@@ -622,7 +623,7 @@ the deletion or privacy change.
 |---|---|---|
 | High | Re-read the **45 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
 | High | Confirm the pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect before merging | Local browser binaries were unavailable in this sandbox |
-| Owner review | Resolve `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` (restore or confirm retirement) | Their repositories currently return HTTP 404; only the owner can establish intent |
+| Owner review | Read [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) and explicitly choose whether to keep frozen, restore, or confirm retirement for `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` | The 2026-10-11 official re-check returned HTTP 404 for both the repository and Pages endpoints for all four; the directory keeps them frozen and infers no intent |
 | Medium | Add scheduled API/prose/kind audits that open a review PR when results drift | The catalog changes over time; a repeatable schedule shortens the snapshot-to-review interval |
 | Medium → **done (T-003/T-008)** | Live HTTP checks now run on a GitHub-hosted runner (`tools/smoke_pages.py`, `.github/workflows/pages-smoke.yml`), recorded separately from `pagesStatus`; extend them to follow meta-refresh/JS and to keep the intentional `FL-15` red visible rather than silenced | The one-GET audit observes status and title only; browser-followed behaviour is still unverified |
 | Optional | Decide how to present overlapping or sibling projects | Some repositories describe related, copied, or draft work; the directory preserves them as separate repositories and does not infer consolidation intent |
