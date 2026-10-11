@@ -1098,8 +1098,8 @@ them is a duplicate and should be closed by the owner.**
 
 ## Session `arena-ab56fdfd` — 2026-10-11 (T-022: budgeted scheduled audit runner, planned from measured costs)
 
-**Branch:** `arena/ab56fdfd-mastersite`, based on `4872878` (main after PR #47). Commits `818dad5`
-(claim) → `bed26de` (the work) → this record.
+**Branch:** `arena/ab56fdfd-mastersite`, based on `4872878` (main after PR #47). **PR [#53](https://github.com/buffedlizard55-lab/MasterSite/pull/53).** Commits `818dad5`
+(claim) → `bed26de` (the work) → `96366a9` (sample run + this record).
 
 ### What was done
 
