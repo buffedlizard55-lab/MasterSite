@@ -1,0 +1,121 @@
+{
+  "startedUtc": "2026-10-11T17:01:47Z",
+  "tools": [
+    {
+      "tool": "audit_kind",
+      "exitCode": 0,
+      "seconds": 365.6,
+      "requests": 290,
+      "topEndpoints": [
+        [
+          "/repos/buffedlizard55-lab/11GEMSDOE/pages",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/11GEMSDOE/contents",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/12GEMSDOE/pages",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/12GEMSDOE/contents",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/13GEMSDOE/pages",
+          1
+        ]
+      ]
+    },
+    {
+      "tool": "audit_descriptions",
+      "exitCode": 0,
+      "seconds": 187.6,
+      "requests": 145,
+      "topEndpoints": [
+        [
+          "/repos/buffedlizard55-lab/11GEMSDOE/contents",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/12GEMSDOE/contents",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/13GEMSDOE/contents",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/14GEMSDOE/contents",
+          1
+        ],
+        [
+          "/repos/buffedlizard55-lab/15GEMSDOE/contents",
+          1
+        ]
+      ]
+    },
+    {
+      "tool": "verify_live",
+      "exitCode": 0,
+      "seconds": 1067.5,
+      "requests": 812,
+      "topEndpoints": [
+        [
+          "/repos/buffedlizard55-lab/NFLInjuryReport/commits",
+          21
+        ],
+        [
+          "/repos/buffedlizard55-lab/KalshiPaperSim/commits",
+          7
+        ],
+        [
+          "/repos/buffedlizard55-lab/GEMSDOE52/commits",
+          6
+        ],
+        [
+          "/users/buffedlizard55-lab/repos",
+          4
+        ],
+        [
+          "/repos/buffedlizard55-lab/Commodities/commits",
+          4
+        ]
+      ]
+    },
+    {
+      "tool": "audit_provenance",
+      "exitCode": 0,
+      "seconds": 406.9,
+      "requests": 904,
+      "topEndpoints": [
+        [
+          "/repos/buffedlizard55-lab/60GEMSDOE/commits",
+          4
+        ],
+        [
+          "/repos/buffedlizard55-lab/GEMSDOE22/contents",
+          4
+        ],
+        [
+          "/repos/buffedlizard55-lab/GEMSDOE23/contents",
+          4
+        ],
+        [
+          "/repos/buffedlizard55-lab/GEMSDOE24/contents",
+          4
+        ],
+        [
+          "/repos/buffedlizard55-lab/GEMSDOE25/contents",
+          4
+        ]
+      ]
+    }
+  ],
+  "finishedUtc": "2026-10-11T17:35:35Z",
+  "totalRequests": 2151,
+  "totalSeconds": 2027.6,
+  "note": "Committed as evidence for reports/scheduled-audit/2026-10-11T1735Z-measured-costs.md. Raw per-request URL lists are the count-<tool>.json files in this directory."
+}

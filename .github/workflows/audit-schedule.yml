@@ -1,0 +1,239 @@
+# Scheduled read-only audit layer (T-022).
+#
+# Why this exists: `census.yml` (T-010) answers one scheduled question — is
+# every public repository listed? Nothing re-ran the four accuracy audits on a
+# schedule, so the audit layer could go stale, or stay access-blocked, without
+# anything saying so: the 2026-10-11T15:06:10Z snapshot shipped with
+# verify_live.py and audit_descriptions.py INCOMPLETE (HTTP 403 access block)
+# and that was only visible because a session wrote it into HANDOFF.md.
+#
+# Why it is budgeted rather than brute force: GitHub documents that the
+# built-in `GITHUB_TOKEN` in Actions is limited to 1,000 requests per hour per
+# repository
+# (<https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api>),
+# and one full pass of the four audits costs more than that (measured counts in
+# reports/scheduled-audit/). A job that simply ran all four would abort mid-pass
+# on HTTP 403 — the failure this repository already recorded twice (IRR-139,
+# IRR-140). So the schedule runs a weekday subset through
+# `tools/scheduled_audit.py`, which reads the live quota, plans inside a hard
+# ceiling, and reports anything it could not afford as NOT-RUN/PARTIAL — never
+# as a pass. Sunday attempts the whole suite, which fits one window only with a
+# larger token.
+#
+# What this workflow can never do: write to the repository. It has no
+# contents:write permission, never pushes, and publishes only to the job
+# summary, a run artifact, a pull-request comment and one labelled issue.
+#
+# Issue policy (deliberately narrow, to stay meaningful):
+#   FINDINGS / INCOMPLETE  -> open or update the issue with the report
+#   CLEAN on a full-suite run -> close it (only a four-audit clean pass closes)
+#   PARTIAL (budget)       -> summary + artifact only; the structural reason is
+#                             documented in README "Known Limitations" and
+#                             flagged for the owner, not re-posted every day
+
+name: Scheduled audit layer
+
+on:
+  schedule:
+    # Daily at 07:23 UTC — off-peak, after the census guard (05:17) and the
+    # Pages smoke audit (06:43), so the repo's own hourly API budget is free.
+    - cron: '23 7 * * *'
+  workflow_dispatch:
+    inputs:
+      audits:
+        description: 'Comma-separated subset (default: the slot scheduled for today)'
+        required: false
+        default: ''
+      budget:
+        description: 'Hard request ceiling for this run (default 900)'
+        required: false
+        default: ''
+      plan_only:
+        description: 'Plan only: read the quota, print the plan, run nothing'
+        type: boolean
+        default: false
+  pull_request:
+    paths:
+      - 'tools/scheduled_audit.py'
+      - 'tests/test_scheduled_audit.py'
+      - '.github/workflows/audit-schedule.yml'
+
+# Least privilege: the job reads the repository and writes an issue/PR comment.
+# No contents:write anywhere, which is what makes "this job can never publish"
+# a property of the token rather than a promise in a comment.
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-schedule-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+
+      - name: Offline checks for the scheduled runner
+        run: |
+          python3 tools/scheduled_audit.py --self-test
+          python3 -m unittest tests.test_scheduled_audit -v
+
+      - name: Run the scheduled audits inside the API budget
+        id: audit
+        # Findings must not skip the evidence-publishing steps below.
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          INPUT_AUDITS: ${{ inputs.audits }}
+          INPUT_BUDGET: ${{ inputs.budget }}
+          INPUT_PLAN_ONLY: ${{ inputs.plan_only }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -o pipefail
+          mkdir -p .work/scheduled-audit
+          ARGS=(--output-dir .work/scheduled-audit --run-url "$RUN_URL"
+                --revision "${{ github.event.pull_request.head.sha || github.sha }}")
+          if [ -n "$INPUT_AUDITS" ]; then ARGS+=(--audits "$INPUT_AUDITS"); fi
+          if [ -n "$INPUT_BUDGET" ]; then ARGS+=(--budget "$INPUT_BUDGET"); fi
+          if [ "$INPUT_PLAN_ONLY" = "true" ]; then ARGS+=(--plan-only); fi
+          python3 tools/scheduled_audit.py "${ARGS[@]}" 2>&1 | tee .work/scheduled-audit/console.txt
+
+      - name: Publish the report and verdict to the job summary
+        if: always()
+        run: |
+          if [ -f .work/scheduled-audit/report.md ]; then
+            cat .work/scheduled-audit/report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'No report was produced. This run verified nothing.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          {
+            echo
+            echo 'Console output (verdicts are printed as each audit finishes):'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          tail -n 40 .work/scheduled-audit/console.txt 2>/dev/null >> "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: scheduled-audit-${{ github.run_id }}
+          path: |
+            .work/scheduled-audit/
+            tools/last_kind_audit.json
+            tools/last_description_audit.json
+            tools/last_live_verify.json
+            tools/last_provenance_audit.json
+            reports/provenance/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish reviewable evidence on this repository's pull request
+        # Never expose a write token to a fork PR. No pull_request_target usage.
+        if: >-
+          always() &&
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          report = Path('.work/scheduled-audit/report.md')
+          text = report.read_text() if report.exists() else 'No report produced; no audit result is claimed.\n'
+          prefix = ('Scheduled audit run (a budget-limited pass of the audits scheduled today, '
+                    'not a full re-verification): ' + os.environ['RUN_URL'] + '\n\n')
+          body = prefix + text
+          if len(body.encode('utf-8')) > 48000:
+              body = body.encode('utf-8')[:47000].decode('utf-8', errors='ignore') + \
+                     '\n\nTruncated: the full report is in the run artifact.\n'
+          Path('.work/scheduled-audit/pr-comment.md').write_text(body)
+          PY
+          gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file .work/scheduled-audit/pr-comment.md
+
+      - name: Track findings in one labelled issue (never a quiet red run)
+        if: always() && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -eu
+          if [ ! -f .work/scheduled-audit/report.json ]; then
+            echo 'No report was produced; there is no verdict to track.'
+            exit 0
+          fi
+          OUTCOME="$(python3 -c "import json;print(json.load(open('.work/scheduled-audit/report.json'))['run']['outcome'])")"
+          COVERAGE="$(python3 -c "import json;d=json.load(open('.work/scheduled-audit/report.json'));print(len(d['run']['requested']))")"
+          echo "outcome: $OUTCOME | audits scheduled this run: $COVERAGE"
+          gh label create audit-schedule --color 0e8a16 \
+            --description 'Scheduled read-only audit layer (T-022)' 2>/dev/null || true
+          EXISTING="$(gh issue list --label audit-schedule --state open --limit 1 --json number --jq '.[0].number' || true)"
+          {
+            echo "Scheduled read-only audit — outcome **$OUTCOME**"
+            echo
+            echo "Run: $RUN_URL"
+            echo
+            cat .work/scheduled-audit/report.md
+            echo
+            echo '_Managed by `.github/workflows/audit-schedule.yml`._'
+          } > .work/scheduled-audit/issue-body.md
+          case "$OUTCOME" in
+            INCOMPLETE|FINDINGS)
+              if [ -n "$EXISTING" ]; then
+                gh issue edit "$EXISTING" --body-file .work/scheduled-audit/issue-body.md
+              else
+                gh issue create --title "Scheduled audit layer: $OUTCOME" \
+                  --label audit-schedule --body-file .work/scheduled-audit/issue-body.md
+              fi ;;
+            CLEAN)
+              # Only a clean pass of every audit scheduled for this run closes the
+              # issue, and only a four-audit run means the suite was covered.
+              if [ -n "$EXISTING" ] && [ "$COVERAGE" = "4" ]; then
+                gh issue comment "$EXISTING" --body "The full suite came back complete and clean: $RUN_URL. Closing. This is a mechanical re-run, not proof that the prose is accurate or that any site is up."
+                gh issue close "$EXISTING"
+              fi ;;
+            *)
+              echo 'No issue write for this outcome: the report is in the summary, the PR comment and the artifact.' ;;
+          esac
+
+      - name: Fail visibly when this run was not clean
+        if: always()
+        run: |
+          set -eu
+          if [ ! -f .work/scheduled-audit/report.json ]; then
+            echo 'No report was produced, so this run verified nothing. Failing.'
+            exit 1
+          fi
+          OUTCOME="$(python3 -c "import json;print(json.load(open('.work/scheduled-audit/report.json'))['run']['outcome'])")"
+          echo "run outcome: $OUTCOME"
+          case "$OUTCOME" in
+            CLEAN)
+              echo 'Every audit scheduled for this run came back complete and clean.'
+              exit 0 ;;
+            PARTIAL)
+              # Not a pass, and not a defect either: the budget could not cover a
+              # scheduled audit (today: audit_provenance needs more than the
+              # Actions token's 1,000/hour ceiling allows — see README Known
+              # Limitations). Reported in the summary, the comment and the
+              # artifact; it must not paint an unrelated pull request red.
+              echo 'Partial coverage: a scheduled audit did not fit the API budget. Reported, not a pass.'
+              exit 0 ;;
+            *)
+              echo "Audits reported $OUTCOME — see the report above. Not a pass."
+              exit 1 ;;
+          esac

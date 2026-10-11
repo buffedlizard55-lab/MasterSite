@@ -8,6 +8,8 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 
 [![Census guard](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/census.yml/badge.svg)](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/census.yml) — a daily scheduled census ([`tools/census_guard.py`](tools/census_guard.py)) now fails loudly when any public repository of either account is neither listed nor explicitly excluded, so a repeat of the 38-site coverage gap (2026-10-01 → 2026-10-11, `IRR-131`/`FL-11`) cannot be silent again.
 
+[![Scheduled audit layer](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/audit-schedule.yml/badge.svg)](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/audit-schedule.yml) — a daily scheduled re-run of the four read-only audits ([`tools/scheduled_audit.py`](tools/scheduled_audit.py)). It reports one verdict per audit and, crucially, **`NOT-RUN` when the GitHub API budget could not cover an audit and `PARTIAL` for the run** — never a pass. The measured cost of each audit and the arithmetic behind the weekday slots are preserved in [`reports/scheduled-audit/`](reports/scheduled-audit/).
+
 > **How to read the dates and status:** GitHub's public repository/Pages APIs do not expose site visits or last use. “Last commit” is the newest committer timestamp on the default branch, not evidence of site use. The “HTML entry point” label means `index.html` exists at the configured Pages source path; it does not establish that the page is interactive, works in a browser, or is reachable over HTTP. Pages status `built` is GitHub API metadata, not an uptime check.
 >
 > **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.
@@ -76,6 +78,7 @@ python3 tools/smoke_pages.py --output-dir .work/pages-smoke
 | Live HTTP smoke (T-003, separate from `pagesStatus`) | **145 of 145 published URLs returned HTTP 200 at `2026-10-11T05:03:31Z`** from the GitHub-hosted runner; 144 pages yielded a complete HTML `<title>`, `SABERENGY` is a meta-refresh landing page with none (`FL-15`). It is a one-GET observation, not uptime, rendering or functionality proof, and it is kept out of `pagesStatus`. The workflow's own job stays **red by design** while `FL-15` (`SABERENGY`) stands — do not read that red as a regression, and do not weaken the criterion to green it |
 | `audit_descriptions.py` | **145 / 145 checked; 0 needing review; 42 documented numeric-token exceptions** — both previously open items (`MALTASUPPLEMENTAL` `230`/`FL-12`, `59GEMSDOE` `FL-16`) were resolved by re-reading the entries against their READMEs at the current heads. This is a lint, not semantic proof |
 | `audit_provenance.py` (T-014) | **145 / 145 entries audited; 1,019 reproduced checks; 0 unresolved findings** — a new read-only audit (2026-10-11T16:02:19Z → 16:08:25Z) that re-opens each record's *citations* rather than its fields: every recorded `verifiedAtSha` / `firstCommitSha` / `lastCommitSha` / head SHA resolved to a real commit through `GET /repos/{owner}/{repo}/commits/{sha}` (0 unresolvable), and every `api.github.com` URL each entry's own `verifiedBasis` cites was re-issued at the recorded ref — cited README reads must answer 200, a cited `index.html` read must agree with the entry's `kind`, a cited root listing must contain `index.html` when `kind` is `app`, and a cited `/pages` read must report the published `pagesUrl`. Description numbers were re-checked against the README **at the stamp SHA** rather than at head (0 unmatched outside the 42 documented exceptions). Four name a status the prose itself documents (three stub `index.html` 404s and `SocialMediaComp`'s renamed-commit 422) and now reproduce it; five cite a `{path}` template instead of an openable endpoint (`FL-18`). Per-entry evidence: [`reports/provenance/2026-10-11T160219Z.md`](reports/provenance/2026-10-11T160219Z.md) |
+| Scheduled audit layer (`T-022`) | **Wired, budget-limited by design.** `.github/workflows/audit-schedule.yml` (daily 07:23 UTC, plus manual dispatch) runs the weekday subset through [`tools/scheduled_audit.py`](tools/scheduled_audit.py). GitHub documents the built-in Actions `GITHUB_TOKEN` at **1,000 requests/hour/repository** and the measured per-tool costs are in [`reports/scheduled-audit/`](reports/scheduled-audit/); a single full pass costs more than that, so the schedule covers the suite across the week and reports `NOT-RUN`/`PARTIAL` rather than truncating silently. `audit_provenance` measured **904 requests** (planned at 1,000) against 840 spendable, so its slot reports `NOT-RUN` under the built-in token unless the budget is raised — see Known Limitations. A `NOT-RUN` audit is **not** checked; a `PARTIAL` run is **never** a pass |
 | `scripts/validate` | **PASS** — every record cites official endpoints, no unfilled values, counts and overlay agree (see below) |
 | Pipeline durability (`T-013`) | `build_data.py` now **serializes the snapshot first and writes it with `os.replace()` only after every integrity assert passes**, so an aborted run can no longer publish a truncated or partial directory; a rate-limit block that survives five attempts aborts the run instead of recording 403s as answers; each repository's Pages endpoint is read once instead of twice; warnings print as they occur. The directory page gained a **Sources & audit trail** panel linking every hand-review artefact |
 | Local code checks | `npm run check`, Python syntax compilation, the census-guard self-test (3/3 verdict paths) and the Python unit suite (14 tests) pass locally. **The Playwright suite cannot run in this sandbox** (browser binaries are not downloadable, `ECONNRESET`), so CI is the execution environment of record for layout and keyboard behaviour — check the run attached to this PR rather than assuming it |
@@ -462,6 +465,7 @@ For each listed site, the directory shows:
 | [`VERIFICATION.md`](VERIFICATION.md) | **Generated** API snapshot, per-entry source ledger, exclusion/unreachable records, irregularities, and reproduction commands |
 | [`tools/verify_live.py`](tools/verify_live.py) | **Read-only verifier** — compares snapshot API fields against GitHub; never writes the dataset |
 | [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only numeric-token lint** — checks whether description numbers occur in the README; not semantic proof |
+| [`tools/scheduled_audit.py`](tools/scheduled_audit.py) | **Budgeted scheduled runner** — runs a weekday subset of the four audits inside a hard request ceiling, maps each tool's own report to `PASS`/`FINDINGS`/`INCOMPLETE`/`ERROR`/`NOT-RUN` and the run to `CLEAN`/`FINDINGS`/`INCOMPLETE`/`PARTIAL`, and writes only into `.work/scheduled-audit/` (report + per-audit logs) — it never touches a published file, though each audit does rewrite its own tracked `tools/last_*.json` report, which the workflow's throwaway checkout discards and a local run leaves dirty. Backed by `.github/workflows/audit-schedule.yml`; offline gates in `tests/test_scheduled_audit.py` and `--self-test` |
 | [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — checks for `index.html` at each configured Pages path; only HTTP 200/404 resolve type, other responses are unresolved |
 | [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, the `data/sites/` export sync, and family-grouping integrity (`tools/families.json` ↔ published fields ↔ counts, plus a nameToken coverage warning for uncurated name-matches) |
 | [`FLAGGED.md`](FLAGGED.md) | **Hand-maintained review queue** — every field that could not be verified from an official source, with the endpoint to open by hand and whether only the owner can resolve it |
@@ -497,9 +501,19 @@ python3 tools/audit_kind.py               # re-derives configured-path index.htm
 rm -rf tools/.readme-cache               # ensure the next read uses current pinned README text
 python3 tools/audit_descriptions.py       # numeric-token lint; review is still semantic
 python3 tools/build_verification.py       # regenerate VERIFICATION.md after the audit reports
+python3 tools/scheduled_audit.py --plan-only   # what the scheduled run would cover, spending nothing
 npm run check
 npm test                                  # requires installed Playwright browsers
 ```
+
+The scheduled layer runs the same audits without publishing anything:
+`.github/workflows/audit-schedule.yml` (daily 07:23 UTC, plus manual dispatch)
+executes the weekday subset through `tools/scheduled_audit.py` inside the
+documented 1,000 requests/hour `GITHUB_TOKEN` ceiling and reports
+`NOT-RUN`/`PARTIAL` for anything it could not cover. Run it by hand with
+`python3 tools/scheduled_audit.py` (today's slot) or `--slot sunday` (full-suite
+attempt) when you want the same verdicts locally; it writes to
+`.work/scheduled-audit/` and never edits a published file.
 
 The generator prints a `PROSE-STALE` queue for descriptions whose recorded
 `verifiedAtSha` no longer matches the current default-branch head. That is a
@@ -616,7 +630,24 @@ the deletion or privacy change.
 7. **Four previously listed repositories are currently 404** and await owner
    review, while `ProjX` remains intentionally excluded. The other named
    account currently has no public repositories.
-8. **Browser tests were not completed in this sandbox.** `npm run check` and
+8. **The scheduled audit layer is budget-limited by the Actions token, by design.**
+   GitHub documents the built-in Actions `GITHUB_TOKEN` at **1,000 requests/hour
+   per repository**; measured on 2026-10-11 ([`reports/scheduled-audit/`](reports/scheduled-audit/)),
+   one pass of the four audits costs 290 requests (`audit_kind`), 145
+   (`audit_descriptions`), 812 (`verify_live`) and 904 (`audit_provenance`) —
+   **2,151 requests, about 2.2 hours of that budget**. `verify_live` (812) fits
+   its own slot only because spendable = budget 900 − reserve 60 = 840.
+   The weekday schedule therefore covers part of the suite per run and reports
+   `NOT-RUN`/`PARTIAL` for anything the budget could not reach — **those audits
+   are not checked by that run**, `CLEAN` means only the audits scheduled for
+   that run came back clean, and only a four-audit clean pass closes the
+   tracking issue. `audit_provenance` alone measured **904 requests** from a cold
+   scratch checkout (the runner plans 1,000 for headroom), which is above the 840
+   requests that remain after the runner's own reserve — so its Wednesday/Saturday
+   slot cannot complete as a single run under the built-in token until the owner
+   supplies a fine-grained token (5,000/hour) as a workflow secret, shards the
+   audit, or dispatch is given an explicit `--reserve 0` (T-023).
+9. **Browser tests were not completed in this sandbox.** `npm run check` and
    Python syntax checks pass, but Playwright browser binaries could not be
    downloaded because the browser CDN connection reset. CI is configured to
    install Chromium, Firefox, and WebKit and run the full suite.
@@ -633,7 +664,10 @@ the deletion or privacy change.
 | Medium (T-002) | Expand the five `Reproduce:` lines flagged as `FL-18` to concrete paths so every citation is openable by hand | The audit proves the *literal* `{path}` URL is not an endpoint; the surrounding sentences do name real files, so this is a small prose fix with a clear owner |
 | Medium (T-002) | Run `audit_provenance.py` whenever prose is re-read, and after any snapshot refresh | It is the only check that proves the source a record names still answers at the SHA it names — the field-level verifier cannot see a stale or broken citation |
 | Medium → **done (T-015)** | `tools/last_provenance_audit.json` surfaced in the generated ledger (`VERIFICATION.md` §4b audit-status table) | Provenance reproducibility audit completeness (145/145 entries, 1,019 checks) is now reported next to `verify_live.py`, `audit_kind.py`, and `audit_descriptions.py` |
-| Medium | Add scheduled API/prose/kind audits that open a review PR when results drift | The catalog changes over time; a repeatable schedule shortens the snapshot-to-review interval |
+| Medium → **done (T-022)** | The four read-only audits now run on a weekday schedule inside the documented Actions request ceiling ([`tools/scheduled_audit.py`](tools/scheduled_audit.py), `.github/workflows/audit-schedule.yml`, daily 07:23 UTC + manual dispatch); a budget-limited pass reports `NOT-RUN`/`PARTIAL` and findings open at most one labelled issue | A repeatable schedule shortens the snapshot-to-review interval, and the measured cost table in [`reports/scheduled-audit/`](reports/scheduled-audit/) makes the ceiling arithmetic reviewable |
+| Owner action (T-023) | Provide a fine-grained token (5,000 requests/hour) as a workflow secret so the scheduled `audit_provenance` slot and the Sunday full-suite attempt can complete — otherwise that audit is re-run only by manual sessions | It measured **904 requests** cold-start (planned at 1,000), above the 840 spendable budget per run, so today its slot reports `NOT-RUN`/`PARTIAL` |
+| Medium (T-024) | Surface the scheduled run verdicts (last clean pass per audit) in the generated ledger | The workflow publishes them to the job summary, the PR comment and one issue; nothing durable in the repository records when each audit last passed |
+| Small (T-025) | Carry the retired weekly coordinator's per-item review detail into the scheduled report | The budgeted runner reports one verdict and a tool summary per audit; the individual review items (findings, snapshot drift, provenance citation templates) stay inside the tool reports |
 | Medium → **done (T-003/T-008)** | Live HTTP checks now run on a GitHub-hosted runner (`tools/smoke_pages.py`, `.github/workflows/pages-smoke.yml`), recorded separately from `pagesStatus`; extend them to follow meta-refresh/JS and to keep the intentional `FL-15` red visible rather than silenced | The one-GET audit observes status and title only; browser-followed behaviour is still unverified |
 | Optional | Decide how to present overlapping or sibling projects | Some repositories describe related, copied, or draft work; the directory preserves them as separate repositories and does not infer consolidation intent |
 | Optional | Add an explicit analytics source only if site-use dates are required | The GitHub API cannot supply last visit/usage timestamps |
