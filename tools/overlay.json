@@ -161,16 +161,16 @@
       "verifiedBasis": "READ 2026-10-11T02:54:23Z at current default-branch head 3302a91ab36a50b59cd52fd900097c5fcfd29f74 (latest commit timestamp 2026-10-11T02:26:23Z as returned by the official commits API). README.md at this head is titled “58GEMSDOE” and states, verbatim or in substance: Submission decision: NOT OK TO SUBMIT — DO NOT SUBMIT. There is no organizer receipt, and no weekly submission slot has been used. The directory repeats the repository’s own status wording and makes no independent claim about research validity, competition acceptance, or any score. Official sources: https://api.github.com/repos/buffedlizard55-lab/58GEMSDOE/contents/README.md?ref=3302a91ab36a50b59cd52fd900097c5fcfd29f74 ; https://api.github.com/repos/buffedlizard55-lab/58GEMSDOE/pages (status `built`, source `main /`, URL https://buffedlizard55-lab.github.io/58GEMSDOE/) ; https://api.github.com/repos/buffedlizard55-lab/58GEMSDOE/contents/index.html?ref=3302a91ab36a50b59cd52fd900097c5fcfd29f74 returns HTTP 200. The configured Pages path therefore has an HTML entry point (mechanically `app`). No browser, runtime, download, or organizer-portal check was performed."
     },
     "59GEMSDOE": {
-      "title": "59GEMSDOE — Intensity Lane (H59-J)",
+      "title": "59GEMSDOE — Intensity Lane (H59-I2)",
       "category": "Science & ML Research",
       "kind": "app",
-      "description": "DOE GEMS Prize intensity lane. Its README reports download OK and submit OK for the current candidate, described as unique, format-valid and registry-clear, and states that the expected public score of 0.24–0.29 is “a PROJECTION, not a measurement”. It quotes leaderboard context it labels ORGANIZER-CONFIRMED (#1 0.4133, #8 DARD 0.3195, #23 extradr19 0.2778) and states that no weekly slot has been spent by the project. The directory repeats the repository’s own labels and does not verify the leaderboard.",
+      "description": "DOE GEMS Prize intensity lane. Its README reports download OK and submit OK for the current candidate (verdict 'promote', 0 weekly slots spent automatically) and labels its headline 4-fold pooled holdout score 0.166789 [0.153242, 0.179658] as HOLDOUT-DTI rather than an organizer-confirmed competition score, stating that the lower 95% CI bound exceeds the previously published all-lane best's upper bound. It also reports a monotonically increasing 1 km block decile calibration over 52,309 footprint blocks (78.25% of withheld pixels in the top 3 deciles), a leakage canary with 0 flags across 31 covariates, and a uniqueness audit against 695 rasters plus its predecessor lane. The directory repeats the repository's own labels and numbers and does not verify them.",
       "flags": [
-        "The README states the 0.24–0.29 expectation is a projection rather than a measurement, and that no weekly submission slot has been spent by this project."
+        "The README labels its headline score HOLDOUT-DTI (evaluated on withheld data pooled across folds), not an organizer-confirmed competition score; the directory repeats the label and makes no independent claim about research validity or competition acceptance."
       ],
-      "lastVerified": "2026-10-11T02:54:23Z",
-      "verifiedAtSha": "42f736fdcd47bc080f764424294adc08aaf456ef",
-      "verifiedBasis": "READ 2026-10-11T02:54:23Z at current default-branch head 42f736fdcd47bc080f764424294adc08aaf456ef (latest commit timestamp 2026-10-11T02:26:10Z as returned by the official commits API). README.md at this head is titled “59GEMSDOE” and states, verbatim or in substance: Status (2026-10-11): DOWNLOAD OK · SUBMIT OK (format + uniqueness clear, no slot spent). Expected public score 0.24–0.29 is a PROJECTION, not a measurement. The directory repeats the repository’s own status wording and makes no independent claim about research validity, competition acceptance, or any score. Official sources: https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/README.md?ref=42f736fdcd47bc080f764424294adc08aaf456ef ; https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/pages (status `built`, source `main /`, URL https://buffedlizard55-lab.github.io/59GEMSDOE/) ; https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/index.html?ref=42f736fdcd47bc080f764424294adc08aaf456ef returns HTTP 200. The configured Pages path therefore has an HTML entry point (mechanically `app`). No browser, runtime, download, or organizer-portal check was performed."
+      "lastVerified": "2026-10-11T04:59:39Z",
+      "verifiedAtSha": "37dc3d4",
+      "verifiedBasis": "RE-READ 2026-10-11T04:59:39Z at current default-branch head 37dc3d41c34c28e1c13d7afbcbe1318873da17fa (2026-10-11T04:58:40Z). The previous description quoted an earlier session's leaderboard context numbers (0.4133 / 0.3195 / 0.2778) that no longer appear in README.md at this head, and tools/audit_descriptions.py flagged those tokens as unsupported; the description was therefore rewritten from the README.md fetched at this head rather than patched. README.md fetched raw via https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/README.md?ref=37dc3d41c34c28e1c13d7afbcbe1318873da17fa ; repository metadata https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE ; Pages settings https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/pages . The live page body was NOT fetched (this sandbox cannot reach *.github.io)."
     },
     "5GEMSDOE": {
       "title": "5GEMSDOE — GEMS Leaderboard-Inversion & Scarp-Channel Workspace",
@@ -1052,16 +1052,17 @@
       "verifiedAtSha": "66d9c9b"
     },
     "MALTASUPPLEMENTAL": {
-      "title": "MALTASUPPLEMENTAL — Malta Trip Guide (Thunderpick World Championship window)",
-      "category": "Travel & Event Dossiers",
+      "title": "MALTASUPPLEMENTAL — Malta Trip Guide (Source-Linked)",
+      "category": "Travel & Korea Trip",
       "kind": "app",
-      "description": "Mobile-friendly, source-linked Malta guide for the traveller-supplied 13–19 October 2026 trip window, based at a Qawra hotel: eight active pages covering transport candidates, food and cafés, activities and sights, an everyday guide for a U.S. traveller, AM/FM/DAB+ radio leads, an expense planner whose budget rows start blank and save only in the local browser, and a sources-and-status log. The README states its evidence boundaries explicitly — the official event page lists the window and Malta, not a confirmed attendee address, ticket, door time or entrance — and keeps unresolved questions (route diversions, radio reception, the hotel-tax threshold wording) in an open-questions log rather than resolving them.",
+      "description": "Source-linked Malta trip guide for the traveller-supplied 13–19 October 2026 window, based at a Qawra hotel: eight pages (overview, transport, food and cafés, activities and sights, an everyday guide for a U.S. traveller, sports radio, an expense planner with blank budget rows and local-only autosave, and a sources/status log). Its own README states the event's ticketing listing names the venue, address, 14–18 October dates, doors, age limit and free tickets, and that a full event day has no listed bus return, so it recommends a taxi or ride-hailing return; it also labels itself a dated research and planning aid, not a booking, fare or reception guarantee, and keeps the remaining uncertainties (exact entrance, door-to-door route, radio carriage, winter fare changeover) in an open-questions log with a claim-by-claim source log.",
       "flags": [
-        "README: event access/venue, event-day transit, radio carriage and the hotel-tax threshold wording remain open questions, and the repository states that a full fresh re-verification of every historical claim is not complete."
+        "README states the guide is a dated research and planning aid — not a booking, admission, fare, service, radio-reception or programme-carriage guarantee — and that several questions (exact entrance, door-to-door routing, Malta radio carriage of a named match, the 2026/27 winter fare changeover) remain open.",
+        "Fares and timetables are quoted as read from the operator's own pages on 2026-10-11 and are date-sensitive; the directory repeats the repository's figures and does not re-check them."
       ],
-      "lastVerified": "2026-10-11T04:09:42Z",
-      "verifiedBasis": "RE-READ 2026-10-11T04:09:42Z at the snapshot head 81930befa7315968559c266fdf10ad0932aabfa0 (commit time 2026-10-11T02:58:20Z), resolving FL-12: the previous description carried from the 2026-09-24 pass (twelve pages, Type G 230 V, seven transport modes) and the numeric-token lint could not find `230` in the README at this head. The official README read at https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/readme?ref=81930be (8,385 bytes) is already the rewritten “Malta Trip Guide” and is the sole source of the new summary: its page table, its evidence boundaries (official event page confirms the window and Malta only) and its open-questions list. The former page-count and voltage details were withdrawn rather than softened because they are not re-derivable from this README. GET https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/pages reported `built` for the snapshot. No browser or live-HTTP check was performed; no uptime, booking, reception or access guarantee is claimed. The repository head has since moved (4ed9c5a, 2026-10-11T03:31:22Z) and the next full build will fold that in; this entry is deliberately stamped at the snapshot head so `proseStale` continues to mean exactly “prose behind the API record”.",
-      "verifiedAtSha": "81930befa7315968559c266fdf10ad0932aabfa0"
+      "lastVerified": "2026-10-11T14:52:34Z",
+      "verifiedAtSha": "de3303f",
+      "verifiedBasis": "RE-READ 2026-10-11T14:52:34Z at the repository's current default-branch head de3303f (committer time 2026-10-11T05:57:06Z). The earlier description still described this guide as a twelve-page supplement and carried the token '230' that tools/audit_descriptions.py could not find in the README at head; README.md at this head (17,904 bytes, fetched via https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/readme?ref=de3303f) documents an eight-page guide and is the sole source of this summary: its page table, its key-findings bullets (ticket listing, the bus-return gap, operator-read fares dated 2026-10-11, DAB+/FM radio leads, and the Kalshi eligibility caveat) and its explicit not-a-guarantee framing. Repository metadata https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL ; Pages settings https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/pages . The live page body was NOT fetched by this audit (the sandbox cannot reach *.github.io); no uptime, booking, fare or reception claim is made."
     },
     "MasterSelfLearn": {
       "title": "MasterSelfLearn — Autonomous Evidence-First Research Engine",
@@ -2760,6 +2761,33 @@
       "severity": "warning",
       "title": "Six entries were published as README-only stubs after the repositories had already gained root index.html files",
       "detail": "GEMSDOE22-GEMSDOE27 were carried as `kind: stub` with prose saying the configured root had no index.html. audit_kind.py re-derived all six at 2026-10-11T03:13Z and found `main //index.html` HTTP 200 for each. The stronger check run afterwards settles when the file appeared: contents/index.html?ref=<snapshot head> returns HTTP 200 for all six at the head recorded in the 2026-10-11T03:01:01Z snapshot (9648109, ebf8fb2, 07345ea, cc90c1a, ba071a3, 3dc3a6b), so the stored classification and the 'no index.html' sentence were already false as published - not a change that happened after the snapshot. Each entry was re-read at its current head and rewritten with kind `app`, a fresh description, flags and a verifiedBasis citing both probes. One further naming irregularity was observed while reading them: GEMSDOE22's README heading reads '22GEMSDOE' and its 297-byte root index.html carries the title '19GEMSDOE'. This is the second consecutive pass in which a re-derivation caught repositories changing shape (compare IRR-130), which is why `kind` is now re-derived every pass rather than trusted. Sources: https://api.github.com/repos/buffedlizard55-lab/GEMSDOE22/contents/index.html ; tools/last_kind_audit.json ; tools/audit_kind.py ."
+    },
+    {
+      "id": "IRR-139",
+      "severity": "critical",
+      "repo": "tools/build_data.py",
+      "field": "atomic write",
+      "reason": "Found while refreshing: main() wrote data/sites.js BEFORE running its own integrity asserts, so the run that failed the accounting check (31 listed + 1 unlisted != 146 because /pages calls were being 403-blocked) still replaced the published snapshot with that partial 31-site file. The snapshot is now serialized first, every assert runs, and only then is the file written; a failed run leaves the previous snapshot untouched. The partial file was discarded, not committed.",
+      "source": "https://api.github.com/rate_limit",
+      "status": "fixed"
+    },
+    {
+      "id": "IRR-140",
+      "severity": "warn",
+      "repo": "tools/build_data.py",
+      "field": "API pressure",
+      "reason": "The generator read GET /repos/{owner}/{repo}/pages twice per repository (once for the account census, once for the entry). That endpoint is the one GitHub throttles hardest: after several full refreshes in one session the endpoint began answering HTTP 403 with a secondary-rate-limit body while /rate_limit still reported 5000/5000 core calls remaining. The reads are now cached per repository (one call instead of two), 403 rate-limit responses are retried with backoff instead of being recorded as 'not a Pages site', and the run fails closed rather than publishing a short list.",
+      "source": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "status": "mitigated"
+    },
+    {
+      "id": "IRR-141",
+      "severity": "warn",
+      "repo": "NFLInjuryReport",
+      "field": "pagesStatus",
+      "reason": "Pages status is 'errored' at the 2026-10-11T15:10:01Z API snapshot, while the same repository published 'built' in the earlier 2026-10-11 snapshot. It is the second non-built entry in the directory (GEMSDOE53 keeps GEMSDOE53 company). The generator re-read the status five times with 6-second gaps before recording it, so this is not a mid-deploy transient; the directory publishes the API value as-is and makes no claim that the site is down.",
+      "source": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": "open"
     }
   ],
   "excluded": [
@@ -2793,7 +2821,15 @@
     "2026-10-01 API census: seven new repository names GEMSDOE21–GEMSDOE27 were found and reviewed at their current full commit SHAs; GEMSDOE21's README describes a historical GEMS fault-discovery submission hub, while GEMSDOE22–27 each contain only a title heading and no configured root index, so they are recorded as neutral placeholders rather than described from their names. LiveScoringErrors now redirects by HTTP 301 to the canonical ErrorsLive slug for the same repository ID; its README and root redirect were re-read and the directory entry now uses the canonical URL (IRR-127, IRR-128).",
     "2026-10-01: MasterSite’s own README and UI were re-read at the current main SHA; the stale 68-site description was replaced with a count-free summary. At the same audit snapshot the official Pages endpoint/build list remained in state building for the latest deployment, and the sandbox could not fetch the hosted body; this unresolved status is recorded as IRR-129 rather than described as uptime failure.",
     "2026-10-01 follow-up kind audit: 13GEMSDOE and 16GEMSDOE–20GEMSDOE gained configured root index.html files after the prior snapshot. The current README and root entry point for each were re-read at the full current default-branch SHA; all six descriptions and `kind` values were updated, with three redirecting root files explicitly noted. HTML entry-point classification is not a browser/runtime or research-result validation (IRR-130).",
-    "2026-10-11 (session 96e82e25): MALTASUPPLEMENTAL re-read at the snapshot head 81930be to close FL-12. The human-facing verification note for what was withdrawn (page count, 230 V token, transport-mode count) is in the entry's verifiedBasis; the entry is no longer in the PROSE-STALE queue because the stamp now matches the snapshot head."
+    "2026-10-11 (session 96e82e25): MALTASUPPLEMENTAL re-read at the snapshot head 81930be to close FL-12. The human-facing verification note for what was withdrawn (page count, 230 V token, transport-mode count) is in the entry's verifiedBasis; the entry is no longer in the PROSE-STALE queue because the stamp now matches the snapshot head.",
+    {
+      "repo": "MALTASUPPLEMENTAL",
+      "note": "RE-READ 2026-10-11 at head de3303f: description rewritten again after the repository advanced from 4ed9c5a (the head this session first read) to de3303f. The twelve-page supplement wording and the '230' token are gone; the new text repeats the README's own page table and key-findings labels only. Sixth entry in the PROSE-STALE re-read queue cleared by this session."
+    },
+    {
+      "repo": "59GEMSDOE",
+      "note": "Description rewritten 2026-10-11 from README at head 37dc3d4: the quoted leaderboard-context numbers (0.4133/0.3195/0.2778) are gone from the README, so the description now repeats the README's own HOLDOUT-DTI figures instead. Recurrence of the IRR-128 class (prose outliving its source)."
+    }
   ],
   "acceptedDescriptionExceptions": {
     "__doc__": "Numeric tokens that tools/audit_descriptions.py will not find in the repository's README, with the reason each one is nevertheless verified. Anything NOT listed here is an unresolved flag and must be confirmed or deleted before publishing.",

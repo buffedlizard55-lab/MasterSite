@@ -328,6 +328,53 @@
   <!-- Toast Notification Container -->
   <div id="toast" class="toast-notification" style="display: none;" role="status" aria-live="polite"></div>
 
+  <!-- Review trail: every claim on this page can be re-checked by hand from these files and endpoints. -->
+  <section id="sources-section" class="panel sources-panel" aria-labelledby="sources-heading">
+    <div class="wrap">
+      <h2 id="sources-heading">Sources &amp; audit trail — check any row by hand</h2>
+      <p class="panel-intro">
+        Every published field is read from GitHub's official REST API or from the repository's own files at the commit
+        named on the record. Nothing here is estimated, and GitHub's public APIs expose no visit count, so no "last used"
+        date is ever shown — <strong>Last commit</strong> is the newest committer timestamp on the default branch.
+      </p>
+      <div class="sources-grid">
+        <div class="source-card">
+          <h3>This snapshot</h3>
+          <ul>
+            <li><a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/data/sites.js" target="_blank" rel="noopener">data/sites.js</a> — the generated data this page renders</li>
+            <li><a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/tools/overlay.json" target="_blank" rel="noopener">tools/overlay.json</a> — curated titles, descriptions and flags</li>
+            <li><a href="https://github.com/buffedlizard55-lab/MasterSite/tree/main/data/sites" target="_blank" rel="noopener">data/sites/</a> — one JSON record per site, with its source links</li>
+          </ul>
+        </div>
+        <div class="source-card">
+          <h3>Official API endpoints quoted</h3>
+          <ul>
+            <li><a href="https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&amp;page=1" target="_blank" rel="noopener">Account repository census</a> (and <a href="https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&amp;page=2" target="_blank" rel="noopener">page 2</a>)</li>
+            <li><a href="https://api.github.com/users/kanlerxz87-cyber/repos?per_page=100&amp;page=1" target="_blank" rel="noopener">kanlerxz87-cyber census</a> — 0 public repositories, therefore 0 Pages sites</li>
+            <li><code>GET /repos/buffedlizard55-lab/&lt;repo&gt;/pages</code> — Pages URL, build status and publish path, once per repository</li>
+            <li><code>GET /repos/buffedlizard55-lab/&lt;repo&gt;/commits?sha=&lt;branch&gt;</code> — commit totals and first/latest timestamps</li>
+          </ul>
+        </div>
+        <div class="source-card">
+          <h3>Audit records &amp; review queue</h3>
+          <ul>
+            <li><a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">VERIFICATION.md</a> — per-entry dates, SHAs and links</li>
+            <li><a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/FLAGGED.md" target="_blank" rel="noopener">FLAGGED.md</a> — open irregularities, stale descriptions, unverified fields</li>
+            <li><a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/TASKS.md" target="_blank" rel="noopener">TASKS.md</a> · <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/HANDOFF.md" target="_blank" rel="noopener">HANDOFF.md</a> — work queue and session handoff</li>
+          </ul>
+        </div>
+        <div class="source-card">
+          <h3>What this page does not claim</h3>
+          <ul>
+            <li>No uptime, rendering or interactivity check: <code>pagesStatus: built</code> is API metadata, and live page bodies were not fetched by the audit that generated this snapshot.</li>
+            <li>No site usage: the APIs expose no visits or "last used" date.</li>
+            <li>Private repositories are out of scope; the census reads public endpoints only.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="wrap footer-content">

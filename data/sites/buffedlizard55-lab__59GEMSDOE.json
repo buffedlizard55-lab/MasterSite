@@ -1,11 +1,11 @@
 {
   "owner": "buffedlizard55-lab",
   "repo": "59GEMSDOE",
-  "title": "59GEMSDOE — Intensity Lane (H59-J)",
+  "title": "59GEMSDOE — Intensity Lane (H59-I2)",
   "category": "Science & ML Research",
   "family": "gems-prize-lanes",
   "kind": "app",
-  "description": "DOE GEMS Prize intensity lane. Its README reports download OK and submit OK for the current candidate, described as unique, format-valid and registry-clear, and states that the expected public score of 0.24–0.29 is “a PROJECTION, not a measurement”. It quotes leaderboard context it labels ORGANIZER-CONFIRMED (#1 0.4133, #8 DARD 0.3195, #23 extradr19 0.2778) and states that no weekly slot has been spent by the project. The directory repeats the repository’s own labels and does not verify the leaderboard.",
+  "description": "DOE GEMS Prize intensity lane. Its README reports download OK and submit OK for the current candidate (verdict 'promote', 0 weekly slots spent automatically) and labels its headline 4-fold pooled holdout score 0.166789 [0.153242, 0.179658] as HOLDOUT-DTI rather than an organizer-confirmed competition score, stating that the lower 95% CI bound exceeds the previously published all-lane best's upper bound. It also reports a monotonically increasing 1 km block decile calibration over 52,309 footprint blocks (78.25% of withheld pixels in the top 3 deciles), a leakage canary with 0 flags across 31 covariates, and a uniqueness audit against 695 rasters plus its predecessor lane. The directory repeats the repository's own labels and numbers and does not verify them.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/59GEMSDOE/",
   "repoUrl": "https://github.com/buffedlizard55-lab/59GEMSDOE",
   "created": "2026-10-08T18:05:00Z",
@@ -18,23 +18,23 @@
   "defaultBranch": "main",
   "pagesStatus": "built",
   "pagesSource": "main /",
-  "sizeKb": 98691,
+  "sizeKb": 99195,
   "flags": [
-    "The README states the 0.24–0.29 expectation is a projection rather than a measurement, and that no weekly submission slot has been spent by this project."
+    "The README labels its headline score HOLDOUT-DTI (evaluated on withheld data pooled across folds), not an organizer-confirmed competition score; the directory repeats the label and makes no independent claim about research validity or competition acceptance."
   ],
-  "verified": false,
-  "verifiedAt": "2026-10-11T02:54:23Z",
-  "verifiedAtSha": "42f736fdcd47bc080f764424294adc08aaf456ef",
+  "verified": true,
+  "verifiedAt": "2026-10-11T04:59:39Z",
+  "verifiedAtSha": "37dc3d4",
   "snapshotHeadSha": "37dc3d4",
-  "proseStale": true,
-  "verifiedBasis": "READ 2026-10-11T02:54:23Z at current default-branch head 42f736fdcd47bc080f764424294adc08aaf456ef (latest commit timestamp 2026-10-11T02:26:10Z as returned by the official commits API). README.md at this head is titled “59GEMSDOE” and states, verbatim or in substance: Status (2026-10-11): DOWNLOAD OK · SUBMIT OK (format + uniqueness clear, no slot spent). Expected public score 0.24–0.29 is a PROJECTION, not a measurement. The directory repeats the repository’s own status wording and makes no independent claim about research validity, competition acceptance, or any score. Official sources: https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/README.md?ref=42f736fdcd47bc080f764424294adc08aaf456ef ; https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/pages (status `built`, source `main /`, URL https://buffedlizard55-lab.github.io/59GEMSDOE/) ; https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/index.html?ref=42f736fdcd47bc080f764424294adc08aaf456ef returns HTTP 200. The configured Pages path therefore has an HTML entry point (mechanically `app`). No browser, runtime, download, or organizer-portal check was performed.",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ 2026-10-11T04:59:39Z at current default-branch head 37dc3d41c34c28e1c13d7afbcbe1318873da17fa (2026-10-11T04:58:40Z). The previous description quoted an earlier session's leaderboard context numbers (0.4133 / 0.3195 / 0.2778) that no longer appear in README.md at this head, and tools/audit_descriptions.py flagged those tokens as unsupported; the description was therefore rewritten from the README.md fetched at this head rather than patched. README.md fetched raw via https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/README.md?ref=37dc3d41c34c28e1c13d7afbcbe1318873da17fa ; repository metadata https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE ; Pages settings https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/pages . The live page body was NOT fetched (this sandbox cannot reach *.github.io).",
   "sourceLinks": [
     "https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE",
     "https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/pages",
     "https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/commits?sha=main",
     "https://buffedlizard55-lab.github.io/59GEMSDOE/"
   ],
-  "snapshot": "2026-10-11T05:12:27Z",
+  "snapshot": "2026-10-11T15:06:10Z",
   "unverifiedFields": [],
   "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
 }

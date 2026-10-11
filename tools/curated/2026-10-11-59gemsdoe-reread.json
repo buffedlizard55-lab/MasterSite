@@ -1,0 +1,25 @@
+{
+  "batch": "2026-10-11-59gemsdoe-reread",
+  "session": "arena-d98d5339",
+  "entries": {
+    "59GEMSDOE": {
+      "title": "59GEMSDOE — Intensity Lane (H59-I2)",
+      "category": "Science & ML Research",
+      "kind": "app",
+      "description": "DOE GEMS Prize intensity lane. Its README reports download OK and submit OK for the current candidate (verdict 'promote', 0 weekly slots spent automatically) and labels its headline 4-fold pooled holdout score 0.166789 [0.153242, 0.179658] as HOLDOUT-DTI rather than an organizer-confirmed competition score, stating that the lower 95% CI bound exceeds the previously published all-lane best's upper bound. It also reports a monotonically increasing 1 km block decile calibration over 52,309 footprint blocks (78.25% of withheld pixels in the top 3 deciles), a leakage canary with 0 flags across 31 covariates, and a uniqueness audit against 695 rasters plus its predecessor lane. The directory repeats the repository's own labels and numbers and does not verify them.",
+      "flags": [
+        "The README labels its headline score HOLDOUT-DTI (evaluated on withheld data pooled across folds), not an organizer-confirmed competition score; the directory repeats the label and makes no independent claim about research validity or competition acceptance."
+      ],
+      "lastVerified": "2026-10-11T04:59:39Z",
+      "verifiedAtSha": "37dc3d4",
+      "verifiedBasis": "RE-READ 2026-10-11T04:59:39Z at current default-branch head 37dc3d41c34c28e1c13d7afbcbe1318873da17fa (2026-10-11T04:58:40Z). The previous description quoted an earlier session's leaderboard context numbers (0.4133 / 0.3195 / 0.2778) that no longer appear in README.md at this head, and tools/audit_descriptions.py flagged those tokens as unsupported; the description was therefore rewritten from the README.md fetched at this head rather than patched. README.md fetched raw via https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/contents/README.md?ref=37dc3d41c34c28e1c13d7afbcbe1318873da17fa ; repository metadata https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE ; Pages settings https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE/pages . The live page body was NOT fetched (this sandbox cannot reach *.github.io)."
+    }
+  },
+  "irregularities": [],
+  "descriptionNotes": [
+    {
+      "repo": "59GEMSDOE",
+      "note": "Description rewritten 2026-10-11 from README at head 37dc3d4: the quoted leaderboard-context numbers (0.4133/0.3195/0.2778) are gone from the README, so the description now repeats the README's own HOLDOUT-DTI figures instead. Recurrence of the IRR-128 class (prose outliving its source)."
+    }
+  ]
+}

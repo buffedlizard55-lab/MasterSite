@@ -1,0 +1,26 @@
+{
+  "batch": "2026-10-11-pipeline-fixes",
+  "session": "arena-d98d5339",
+  "entries": {},
+  "irregularities": [
+    {
+      "id": "IRR-139",
+      "severity": "critical",
+      "repo": "tools/build_data.py",
+      "field": "atomic write",
+      "reason": "Found while refreshing: main() wrote data/sites.js BEFORE running its own integrity asserts, so the run that failed the accounting check (31 listed + 1 unlisted != 146 because /pages calls were being 403-blocked) still replaced the published snapshot with that partial 31-site file. The snapshot is now serialized first, every assert runs, and only then is the file written; a failed run leaves the previous snapshot untouched. The partial file was discarded, not committed.",
+      "source": "https://api.github.com/rate_limit",
+      "status": "fixed"
+    },
+    {
+      "id": "IRR-140",
+      "severity": "warn",
+      "repo": "tools/build_data.py",
+      "field": "API pressure",
+      "reason": "The generator read GET /repos/{owner}/{repo}/pages twice per repository (once for the account census, once for the entry). That endpoint is the one GitHub throttles hardest: after several full refreshes in one session the endpoint began answering HTTP 403 with a secondary-rate-limit body while /rate_limit still reported 5000/5000 core calls remaining. The reads are now cached per repository (one call instead of two), 403 rate-limit responses are retried with backoff instead of being recorded as 'not a Pages site', and the run fails closed rather than publishing a short list.",
+      "source": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "status": "mitigated"
+    }
+  ],
+  "descriptionNotes": []
+}

@@ -1,0 +1,26 @@
+{
+  "batch": "2026-10-11-malta-reread-de3303f",
+  "session": "arena-d98d5339",
+  "entries": {
+    "MALTASUPPLEMENTAL": {
+      "title": "MALTASUPPLEMENTAL — Malta Trip Guide (Source-Linked)",
+      "category": "Travel & Korea Trip",
+      "kind": "app",
+      "description": "Source-linked Malta trip guide for the traveller-supplied 13–19 October 2026 window, based at a Qawra hotel: eight pages (overview, transport, food and cafés, activities and sights, an everyday guide for a U.S. traveller, sports radio, an expense planner with blank budget rows and local-only autosave, and a sources/status log). Its own README states the event's ticketing listing names the venue, address, 14–18 October dates, doors, age limit and free tickets, and that a full event day has no listed bus return, so it recommends a taxi or ride-hailing return; it also labels itself a dated research and planning aid, not a booking, fare or reception guarantee, and keeps the remaining uncertainties (exact entrance, door-to-door route, radio carriage, winter fare changeover) in an open-questions log with a claim-by-claim source log.",
+      "flags": [
+        "README states the guide is a dated research and planning aid — not a booking, admission, fare, service, radio-reception or programme-carriage guarantee — and that several questions (exact entrance, door-to-door routing, Malta radio carriage of a named match, the 2026/27 winter fare changeover) remain open.",
+        "Fares and timetables are quoted as read from the operator's own pages on 2026-10-11 and are date-sensitive; the directory repeats the repository's figures and does not re-check them."
+      ],
+      "lastVerified": "2026-10-11T14:52:34Z",
+      "verifiedAtSha": "de3303f",
+      "verifiedBasis": "RE-READ 2026-10-11T14:52:34Z at the repository's current default-branch head de3303f (committer time 2026-10-11T05:57:06Z). The earlier description still described this guide as a twelve-page supplement and carried the token '230' that tools/audit_descriptions.py could not find in the README at head; README.md at this head (17,904 bytes, fetched via https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/readme?ref=de3303f) documents an eight-page guide and is the sole source of this summary: its page table, its key-findings bullets (ticket listing, the bus-return gap, operator-read fares dated 2026-10-11, DAB+/FM radio leads, and the Kalshi eligibility caveat) and its explicit not-a-guarantee framing. Repository metadata https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL ; Pages settings https://api.github.com/repos/buffedlizard55-lab/MALTASUPPLEMENTAL/pages . The live page body was NOT fetched by this audit (the sandbox cannot reach *.github.io); no uptime, booking, fare or reception claim is made."
+    }
+  },
+  "irregularities": [],
+  "descriptionNotes": [
+    {
+      "repo": "MALTASUPPLEMENTAL",
+      "note": "RE-READ 2026-10-11 at head de3303f: description rewritten again after the repository advanced from 4ed9c5a (the head this session first read) to de3303f. The twelve-page supplement wording and the '230' token are gone; the new text repeats the README's own page table and key-findings labels only. Sixth entry in the PROSE-STALE re-read queue cleared by this session."
+    }
+  ]
+}
