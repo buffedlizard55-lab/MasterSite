@@ -929,3 +929,22 @@ immediately before work began.
    and `SABERENGY`'s null smoke-test title (FL-15).
 4. If another session needs a fresh detailed inventory, run the complete API refresh and its audits
    under `AGENTS.md` §4; the account-level census guard alone is not a substitute.
+
+---
+
+## Session update — 2026-10-11T15:50:07Z (parallel T-004 PR superseded this branch)
+
+- While PR #42 was open, parallel PR [#41](https://github.com/buffedlizard55-lab/MasterSite/pull/41)
+  merged at **2026-10-11T15:47:15Z**. It adds `OWNER-DECISIONS.md`, marks T-004 done as a
+  **record-delivery task**, and keeps FL-03 open because explicit owner intent is still pending.
+  Its source-linked conclusion is to keep the four historical records frozen and visible until the
+  owner chooses keep, restore, or confirm retirement.
+- This branch's overlapping PR [#42](https://github.com/buffedlizard55-lab/MasterSite/pull/42) was
+  closed at **2026-10-11T15:49:48Z** as superseded, not merged. Its duplicate re-check added no
+  different conclusion, and its pre-merge `blocked` task status must not replace the authoritative
+  `main` status (`T-004: done`, owner confirmation still required).
+- **Current source of truth:** follow `main` and `OWNER-DECISIONS.md`; do not reopen T-004 or interpret
+  the directory's safe default as an owner-confirmed retirement.
+- **Next:** T-002 remains claimed by `session=96e82e25`; its task-table summary still says 40 stale
+  descriptions while the 2026-10-11T15:06:10Z snapshot records 51, so that owning session should
+  reconcile the count. T-006 remains an unclaimed owner-decision task.
