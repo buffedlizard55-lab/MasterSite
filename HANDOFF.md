@@ -1127,3 +1127,65 @@ them is a duplicate and should be closed by the owner.**
 2. **T-002 (in progress):** Re-read the 51 stale prose entries against current repository heads.
 3. **T-006 (unclaimed / owner decision):** Record owner position regarding `6GEMSDOE` / GEMS repository lanes.
 4. **Duplicate PR cleanup:** PR #44 (unmerged parallel session branch) and PR #42 (duplicate T-004 PR).
+
+---
+
+## Session `arena-684e8d09` — T-016: weekly read-only audit scheduling (2026-10-11, 16:58Z → 17:03Z)
+
+**Branch:** `arena/684e8d09-mastersite` (Arena-pinned branch). **Claim:** `TASKS.md` T-016,
+`session=arena-684e8d09 at=2026-10-11T16:58:10Z`; claim-only commit `9a008e7` was pushed immediately.
+
+### What this session did
+
+- Added [`.github/workflows/weekly-audits.yml`](.github/workflows/weekly-audits.yml): every Monday at
+  **08:13 UTC** (plus `workflow_dispatch`), always checking out the repository's default branch. It runs
+  `verify_live.py`, `audit_kind.py`, `audit_descriptions.py`, and `audit_provenance.py` in one serial job,
+  with a 90-minute per-auditor timeout and a 180-minute job ceiling. The serial order respects the tools'
+  API request throttles.
+- Added [`tools/run_scheduled_audits.py`](tools/run_scheduled_audits.py) to capture each log and fresh JSON
+  report, assess completion independently from exit codes, and retain evidence in a 30-day Actions artifact.
+  **Any incomplete audit, hard mismatch, volatile snapshot drift, description-review item, provenance
+  finding, or `{path}` citation template is a review item**; the workflow opens/updates one
+  `weekly-audit-review` issue, closes it after recovery, and ends red while review is needed. Expected
+  volatile drift is described as a refresh prompt, not asserted to be a semantic defect. No snapshot is
+  rebuilt or committed by automation.
+- Added six offline verdict tests in `tests/test_weekly_audits.py` and registered them in the PR test
+  workflow. Documented cadence, issue behavior, and limitations in `AGENTS.md` §4. T-016 is marked done in
+  the task table in this PR.
+
+### Verification
+
+- `python3 -m unittest discover -s tests -p 'test_*.py' -v`: **20 tests passed** (14 existing Pages-smoke
+  tests and 6 new scheduler tests).
+- `python3 scripts/validate`: **PASS, 5,419 checks**, with 102 existing/expected review notices.
+- `npm run check`: **PASS**; Python `py_compile`: **PASS**; `git diff --check`: **PASS**.
+- Parsed the workflow YAML with PyYAML and ran `bash -n` on its embedded issue-management script: **PASS**.
+- No full live API audit was run in this task; this change schedules the audits rather than claiming a new
+  source verification. The local Playwright suite was not run because browser binaries are unavailable in
+  this sandbox; the PR workflow installs them.
+
+### What is blocked or still needs work
+
+- The newest **published** data snapshot remains `2026-10-11T15:06:10Z`. T-017's later independent
+  `15:53:41Z` census found 145 listed sites / 146 public repositories (one permanently excluded as `ProjX`)
+  and `kanlerxz87-cyber` at 0 public repositories, but that read was not republished; it also reported a
+  GitHub secondary-rate-limit block on attempted follow-up audits. This session did not make a fresh census
+  or claim the master list is current at 17:03Z.
+- The scheduled workflow is not operational until this PR is merged. After merge, use `workflow_dispatch`
+  for the first full run (or wait for Monday 08:13 UTC); a 401/403/transport failure must remain visibly
+  INCOMPLETE, not be reported as a data pass. The existing `FL-18` citation-template finding can keep the
+  review issue open until T-002 replaces those non-openable `{path}` recipes with concrete endpoints.
+- **T-015 was completed while this session was in progress** (session `arena-050ee3b9`, merged PR #48);
+  the rebase retained its new provenance status in `VERIFICATION.md`. Still-open follow-ups are **T-002**
+  (the published snapshot's 51-entry prose-stale queue and `FL-18`; it remains another session's claim),
+  and **T-006** (owner decision about the `6GEMSDOE` recommendation). `GEMSDOE53` Pages `errored` and
+  `NFLInjuryReport`'s volatile status remain flagged; only an official re-read can settle them.
+
+### Next
+
+1. This branch has been rebased onto the current `origin/main` after PR #48 merged; open the T-016 pull
+   request, wait for PR CI, then merge it.
+2. Trigger the workflow from default `main`; inspect the artifact and managed issue, and record whether all
+   four auditors completed or which official endpoints were blocked.
+3. Continue T-002 source re-reads and owner decisions in their own sessions. Refresh and republish the
+   census separately before claiming the directory is complete at a newer timestamp; T-015 is now done.
