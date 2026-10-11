@@ -1482,3 +1482,17 @@ them is a duplicate and should be closed by the owner.**
 - Profile: `https://api.github.com/users/kanlerxz87-cyber` (public_repos: 0)
 - Spot-check Pages: `https://api.github.com/repos/buffedlizard55-lab/{repo}/pages` for each repo listed above
 - Frozen repos: `https://api.github.com/repos/buffedlizard55-lab/{JobSearchSF,MALTA,MALTA-LAWS,MALTA2}` (all HTTP 404)
+
+### Post-merge record (session arena-bc4c1eec, after PR #57 landed)
+
+- **PR #57 merged 2026-10-11T18:37Z**, merge commit **`2047b64`** on `main`. Rebase absorbed two mid-flight main movements (PR #53 from `arena-ab56fdfd` T-022 and `arena-7c23badb` census check); the only conflicts were append-order in `TASKS.md`/`HANDOFF.md`, resolved by keeping both other sessions' entries verbatim and appending this session's rows after them. Main also had duplicate T-023/T-024 rows from its own merge — those were de-duplicated during the TASKS.md rebase (unique rows preserved).
+- **What shipped:** floating back-to-top button (bottom-right, 400px scroll threshold, smooth scroll, throttled handler, accessible, fade animation); CSS card polish (word-break, metrics separator, action wrapping, hero link styling).
+- **Verification:** `node --check app.js` PASS, `npm run check` PASS, `scripts/validate` 5,420 checks PASS (102 tracked warnings, all expected PROSE-STALE/placeholder).
+- **Census at 2026-10-11T18:25Z:** 146 public repos = 145 listed + 1 excluded (ProjX). `kanlerxz87-cyber` 0 public repos. No unlisted public repositories.
+- **Status changes detected:** `NFLInjuryReport` is now `built` (previously `errored`/`building` per FL-17 — a push at 2026-10-11T18:22:44Z triggered a successful rebuild). `GEMSDOE53` still `errored` (FL-05 unchanged). Four frozen repos still 404 (FL-03 unchanged).
+- **What the next session inherits:**
+  1. **NFLInjuryReport** needs its data record refreshed — the next `build_data.py` run will pick up `built`. FL-17 can then be closed.
+  2. **T-002 (claimed by 96e82e25):** 51 stale descriptions, FL-18 `{path}` template citations.
+  3. **Owner decisions:** T-006 (GEMS consolidation), frozen repos (OWNER-DECISIONS.md).
+  4. **PR #44:** still open, was `CONFLICTING` — needs its own session to rebase.
+  5. **T-023/T-024/T-025** from `arena-ab56fdfd` are the next scheduled-audit work (budget token request, ledger surfacing, per-item review detail carryover).
