@@ -1,0 +1,143 @@
+name: Live Pages smoke audit
+
+on:
+  pull_request:
+    paths:
+      - 'data/sites/**'
+      - 'tools/smoke_pages.py'
+      - 'tests/test_smoke_pages.py'
+      - '.github/workflows/pages-smoke.yml'
+  schedule:
+    - cron: '43 6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+      - name: Offline regression tests
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Observe every published Pages URL
+        id: smoke
+        # Keep findings visible without skipping the evidence-publishing steps.
+        continue-on-error: true
+        run: >-
+          python3 tools/smoke_pages.py
+          --output-dir .work/pages-smoke
+          --revision '${{ github.event.pull_request.head.sha || github.sha }}'
+          --run-url '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+      - name: Publish full report and separately flagged fields
+        if: always() && steps.smoke.outcome != 'skipped'
+        run: |
+          if [ -f .work/pages-smoke/report.md ]; then
+            cat .work/pages-smoke/report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'No HTTP report was produced. This run does not verify any URL.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always() && steps.smoke.outcome != 'skipped'
+        with:
+          name: pages-smoke-${{ github.run_id }}
+          path: .work/pages-smoke/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish reviewable evidence on this repository's PR
+        # Never expose a write token to a fork PR. No pull_request_target usage.
+        if: >-
+          always() && steps.smoke.outcome != 'skipped' &&
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          report = Path('.work/pages-smoke/report.md')
+          text = report.read_text() if report.exists() else 'No report produced; no URLs verified.\n'
+          # GitHub comments cap at 65,536 chars. Use a conservative UTF-8 byte cap,
+          # split only at row boundaries, and repeat the table header for review.
+          header = ('| Repository | Checked (UTC) | HTTP | Title | Outcome / reason | Exact requested source | Final response URL |\n'
+                    '|---|---|---|---|---|---|---|\n')
+          prefix = 'Live HTTP observations (not API build status): ' + os.environ['RUN_URL'] + '\n\n'
+          chunks, current = [], prefix
+          for line in text.splitlines(keepends=True):
+              if len((current + line).encode('utf-8')) > 48000:
+                  chunks.append(current)
+                  current = prefix + header
+              current += line
+          chunks.append(current)
+          for i, chunk in enumerate(chunks, 1):
+              Path('.work/pages-smoke/comment-%02d.md' % i).write_text(chunk)
+          PY
+          for report in .work/pages-smoke/comment-*.md; do
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file "$report"
+          done
+      - name: Track scheduled findings without editing source data
+        if: >-
+          always() && steps.smoke.outcome != 'skipped' &&
+          github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OUTCOME: ${{ steps.smoke.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -eu
+          mkdir -p .work/pages-smoke
+          gh label create pages-smoke --color d93f0b --description 'Live HTTP observations requiring review' --force
+          EXISTING="$(gh issue list --label pages-smoke --state open --json number --jq '.[0].number')"
+          if [ "$OUTCOME" != success ]; then
+            {
+              echo "Live HTTP observations require review: $RUN_URL"
+              echo
+              if [ -f .work/pages-smoke/FLAGGED.md ]; then
+                cat .work/pages-smoke/FLAGGED.md
+              else
+                echo 'No report produced: this run verifies nothing. Inspect the workflow logs.'
+              fi
+              echo
+              echo 'Full JSON/Markdown evidence is retained in the run artifact for 30 days. Do not infer site downtime from a transport failure, or change descriptions from this HTTP-only check.'
+            } > .work/pages-smoke/issue.md
+            # Stay below GitHub's issue-body limit even if every title is enormous.
+            python3 - <<'PY'
+          from pathlib import Path
+          path = Path('.work/pages-smoke/issue.md')
+          text = path.read_text()
+          if len(text.encode('utf-8')) > 48000:
+              path.write_text(text.encode('utf-8')[:47000].decode('utf-8', errors='ignore')
+                              + '\n\nTruncated: see the full report in the linked run artifact.\n')
+          PY
+            if [ -n "$EXISTING" ]; then
+              gh issue comment "$EXISTING" --body-file .work/pages-smoke/issue.md
+            else
+              gh issue create --title 'Pages HTTP smoke audit: observations require review' --label pages-smoke --body-file .work/pages-smoke/issue.md
+            fi
+          elif [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "All published URLs returned 2xx HTML with a title in this observation: $RUN_URL. This is not a continuing uptime or functionality guarantee."
+            gh issue close "$EXISTING"
+          fi
+      - name: Fail visibly on incomplete or flagged observations
+        if: always() && steps.smoke.outcome != 'success'
+        run: |
+          echo 'HTTP observations were flagged or did not complete; inspect the report, not Pages build status.'
+          exit 1

@@ -12,6 +12,40 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 >
 > **Multi-session work:** [`TASKS.md`](TASKS.md) carries the claim protocol and open queue, [`FLAGGED.md`](FLAGGED.md) the fields that cannot be verified officially, [`HANDOFF.md`](HANDOFF.md) the session log, and `scripts/validate` mechanically enforces that every record ships official source links.
 
+## Live HTTP observations (separate from API status)
+
+[![Live Pages smoke audit](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/pages-smoke.yml/badge.svg)](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/pages-smoke.yml)
+
+The [HTTP smoke workflow](.github/workflows/pages-smoke.yml) reads **every published
+`data/sites/<owner>__<repo>.json` record** without editing the master snapshot. It
+runs daily at 06:43 UTC (scheduled execution can be delayed), on relevant PRs, and
+on manual dispatch. Each URL gets one HTTPS GET with a timeout; results record the
+exact requested and final URLs, HTTP status, HTML title, check timestamp, source
+revision, and the record's snapshot timestamp. Frozen/excluded repositories are
+not tested. No token is sent to a site.
+
+- **Review:** open the [workflow runs](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/pages-smoke.yml).
+  The job summary and `pages-smoke-<run-id>` artifact contain `report.json`,
+  `report.md`, and a separate `FLAGGED.md`; artifacts expire after **30 days**.
+  Same-repository PRs also receive the full source-linked table in comments.
+  Scheduled/manual findings open or update a `pages-smoke` issue.
+- **Interpretation:** `ok` means a 2xx HTML response with a complete title at the
+  recorded time, **not** functioning JavaScript, correct content, continuing
+  uptime, or last use. Redirects are followed only over HTTPS; JavaScript and
+  meta-refresh redirects are not executed. At most 2 MiB of HTML is read.
+- **Unknowns stay null:** transport failures do not establish a site is down.
+  Missing/non-HTML titles require review rather than invented titles. These
+  observations never overwrite `pagesStatus`, descriptions, or verification
+  stamps. See [FL-02](FLAGGED.md) and [T-003](TASKS.md).
+
+Local/offline regression tests:
+
+```sh
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+# Run only where github.io egress is available:
+python3 tools/smoke_pages.py --output-dir .work/pages-smoke
+```
+
 ## Current audit status — API snapshot `2026-10-11T03:01:01Z` (UTC)
 
 | Metric | Snapshot result |
