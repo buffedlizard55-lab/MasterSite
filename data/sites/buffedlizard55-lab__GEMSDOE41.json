@@ -3,6 +3,7 @@
   "repo": "GEMSDOE41",
   "title": "GEMSDOE41 — Walker Lane Structural Transfer",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize Walker Lane structural-transfer lane publishing an H42 submission GeoTIFF with a NaN-outside twin and a machine-readable gate receipt on its Pages site. Its README states that the file passes the standing blocked-holdout gate and is slot-eligible but has never been scored. The directory repeats that limitation and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE41/",

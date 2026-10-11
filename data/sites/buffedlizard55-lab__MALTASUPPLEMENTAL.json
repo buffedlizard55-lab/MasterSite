@@ -3,6 +3,7 @@
   "repo": "MALTASUPPLEMENTAL",
   "title": "MALTASUPPLEMENTAL — Malta Trip Guide (Thunderpick World Championship window)",
   "category": "Travel & Event Dossiers",
+  "family": null,
   "kind": "app",
   "description": "Mobile-friendly, source-linked Malta guide for the traveller-supplied 13–19 October 2026 trip window, based at a Qawra hotel: eight active pages covering transport candidates, food and cafés, activities and sights, an everyday guide for a U.S. traveller, AM/FM/DAB+ radio leads, an expense planner whose budget rows start blank and save only in the local browser, and a sources-and-status log. The README states its evidence boundaries explicitly — the official event page lists the window and Malta, not a confirmed attendee address, ticket, door time or entrance — and keeps unresolved questions (route diversions, radio reception, the hotel-tax threshold wording) in an open-questions log rather than resolving them.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/MALTASUPPLEMENTAL/",

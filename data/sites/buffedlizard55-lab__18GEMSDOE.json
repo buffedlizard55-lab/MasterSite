@@ -3,6 +3,7 @@
   "repo": "18GEMSDOE",
   "title": "18GEMSDOE — GEMS Prize Research, Validation & Submission Hub",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "GEMS Prize research and submission hub with a public home page and linked executive summary, validation, audit, and source pages. Its results and validation notes are repository-authored and are not independently verified by MasterSite.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/18GEMSDOE/",

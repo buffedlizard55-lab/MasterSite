@@ -1,0 +1,14 @@
+{
+  "note": "Family membership is a READABILITY GROUPING, not a verified relationship. It is derived mechanically from the official repository 'name' field returned by the GitHub REST API (GET /users/{login}/repos, GET /repos/{owner}/{repo}). Nothing here is curated prose and nothing here asserts that two repositories share code, an author, a competition, or any API-visible relationship. A family groups repositories whose official names share a contiguous string so the directory's Family view can keep 145 entries readable. Every factual claim about an individual repository remains in tools/overlay.json and carries its own verifiedBasis; the family label adds none.",
+  "rule": "A repository belongs to a family when the family's nameToken appears as a case-insensitive contiguous substring of the official repository name. If more than one token matches, the family listed first in 'families' wins. A repository matching no token is ungrouped (family: null) and the Family view groups it under its curated category instead. Membership is computed by tools/build_data.py and independently re-derived by scripts/validate; it is never hand-listed, so a newly named repository joins its family automatically at the next build.",
+  "ungroupedLabel": "Other sites",
+  "categoryFallback": true,
+  "families": [
+    {
+      "id": "gemsdoe",
+      "label": "GEMSDOE family",
+      "nameToken": "GEMSDOE",
+      "basis": "Every member's official repository name contains the contiguous string GEMSDOE (verified by the mechanical rule above against the API 'name' field). These are separate repositories/competition lanes that the TASKS.md work queue itself calls the 'GEMSDOE-family'; the grouping asserts only the shared name token. What each repository contains is described only in that entry's own sourced description and verifiedBasis."
+    }
+  ]
+}

@@ -3,6 +3,7 @@
   "repo": "13GEMSDOE",
   "title": "13GEMSDOE — Competition Download & Auditable Fault Research",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS project with a competition submission download, explicit upload steps, and an auditable fault-research record. The README cautions that local GeoTIFF checks do not prove DrivenData accepted the current file; this directory does not validate its research results.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/13GEMSDOE/",

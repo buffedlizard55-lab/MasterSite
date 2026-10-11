@@ -537,3 +537,100 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
 4. **Claim races:** before claiming, run `git fetch origin '+refs/heads/*:refs/remotes/origin/*'` and
    read `TASKS.md` on every branch. Alternatively, land claims through a tiny PR to `main` so they
    become visible to everyone at once.
+
+---
+
+## Session `arena-d678d633` — 2026-10-11 (census re-verification + T-007: family view)
+
+**Branch:** `arena/d678d633-mastersite` (pinned Arena session branch; claim commit pushed before any
+work, per the protocol; rebased twice onto `main` as T-011/T-003/T-005/T-009 and then T-008 landed
+in parallel).
+
+### What was done
+
+- **Census re-verified against the official API before claiming anything** (AGENTS.md §1: treat
+  completeness as a claim to re-verify every pass). `GET /users/buffedlizard55-lab` →
+  `public_repos: 146`; `GET /users/kanlerxz87-cyber` → `public_repos: 0`; the paginated
+  `GET /users/buffedlizard55-lab/repos` set-difference against `data/sites/` is exactly `{ProjX}`
+  (the permanent owner exclusion) — **145 listed + 1 excluded = 146, zero missing, zero extra**
+  at ~2026-10-11T05:0xZ. This independently reproduces T-009's result; no new records and no new
+  FLAGGED rows were needed.
+- **T-007 delivered (claimed `session=arena-d678d633 at=2026-10-11T05:04:07Z`).** The directory now
+  has a third layout, **`view=family`**, alongside Cards and Table:
+  - **Grouping rule is data, not code and not a list.** New `tools/families.json` defines one
+    `nameToken` per family; membership is the documented mechanical rule — case-insensitive
+    contiguous substring of the official repository `name` field, first matching definition wins,
+    `null` otherwise. `tools/build_data.py` publishes each record's `family` plus a `families`
+    metadata block (labels, rule text, basis, counts) at the dataset root, and `scripts/validate`
+    **independently re-derives every membership** from the definition file (section K) so the
+    grouping can never drift from its rule or hand-list repositories. A newly named `GEMSDOE*`
+    repository joins the family automatically at the next build — no family analogue of the
+    silent coverage gap.
+  - **Readability result:** the **63 `GEMSDOE`-family lanes** collapse into one collapsible section
+    (first, with a derived rollup: 63 sites · N HTML entry points · M stubs) and the remaining 82
+    sites are sectioned by curated category (12 sections, largest first): 145 flat entries become
+    13 labelled sections of compact rows (title, repo slug, status/type/prose badges, created, last
+    commit, commits, category, Live/Repo/API/Inspect links).
+  - **Honesty constraints preserved.** Every family label, rule line and caveat in the UI is
+    rendered from `data/sites.js`; the legend states in plain words that the grouping is a
+    name-string match, **not a relationship claim**, and the inspector repeats the note per entry.
+    No GitHub API field is claimed for families. No repository list exists in `index.html` or
+    `app.js` (the no-hardcoded-lists rule).
+  - **Contracts untouched.** URL state stays exactly `{q, category, kind, prose, sort, view}` (only
+    `view` gained the value `family`); the table DOM contract (nine labelled cells, colspan-9 empty
+    state, Pages status in cell 4) is unchanged; JSON/CSV exports stay layout- and
+    density-independent (CSV gained a `Family` column — data, not view state); density variables
+    now also tune family rows.
+  - **Tests:** 6 new Playwright cases plus the inspector loop extended to all three layouts —
+    every site listed exactly once, name-token family kept together with membership derived from
+    the snapshot (no hardcoded repositories), category-fallback sections, legend/data agreement,
+    URL round-trip + reload, search hiding empty sections, official review links per row, 375px
+    no-overflow with ≥28px targets. Verified offline in a throwaway jsdom harness (30 assertions,
+    pass) because browser binaries cannot download in this sandbox; **CI is the execution
+    environment of record** and `browser-tests` must be green before merge.
+  - **Data regenerated, not hand-edited:** `build_data.py --overlay-only` (family fields + `families`
+    block + `counts.families: {gemsdoe: 63}`) then `export_site_records.py` (145 per-site files
+    gained `family`). Because T-011 landed mid-session, the generated data was rebuilt from
+    `main`'s `tools/overlay.json` after the first rebase so both passes' output coexists:
+    `scripts/validate` **PASS, 5,053 checks** (including T-011's fails-closed inline-endpoint rule
+    and the new family re-derivation), `export_site_records.py --check` in sync, `npm run check`,
+    `py_compile`, and `python3 -m unittest discover -s tests` (14 tests) all pass.
+- Docs updated in the same PR: README (features, file map), AGENTS.md (family rule, export step in
+  the §4 workflow, `view` values), TASKS.md (T-007 → done), this entry.
+
+### What is blocked
+
+- Nothing new from this session. Standing blockers are unchanged: owner decisions (T-004 frozen
+  404s, T-006 GEMS consolidation, `FL-13` category call, `FL-05` `GEMSDOE53` rebuild) and local
+  browser binaries (CI runs suites).
+
+### What is next — suggestions and limitations for the owner
+
+1. **T-002 is the last content task and the highest-accuracy risk:** 40 `PROSE-STALE` descriptions
+   at the snapshot, and `FL-14` shows the real queue is 41 (`MALTASUPPLEMENTAL`'s head moved after
+   the snapshot). The GEMS lanes push several times a day, so the queue regrows while it drains;
+   re-read one at a time at head and update `description` + `lastVerified` + `verifiedBasis` +
+   `verifiedAtSha` together. `FL-13` (`62GEMSDOE` category — now with T-008's live evidence
+   attached) folds into the next re-read.
+2. **`FL-15` (`SABERENGY` title-less redirect) is the one open live finding.** Per that session's
+   own instruction the smoke audit must stay visibly red while it exists — expect the **Live Pages
+   smoke audit** check to be red on any PR touching `data/sites/**` (including this one); the
+   report is posted on the PR as evidence. Do not weaken the criterion for green CI; a
+   browser-followed check or an upstream `<title>` fix closes it.
+3. **Owner decisions needed:** the four frozen 404 repositories (keep/restore/drop — T-004); the
+   `6GEMSDOE` "delete the others" recommendation (T-006); `62GEMSDOE`'s category (FL-13);
+   `GEMSDOE53`'s `errored` Pages build (FL-05/T-005).
+4. **After T-002 drains, the queue is essentially maintenance:** the daily census guard (T-010)
+   and the pages-smoke workflow cover the two failure modes that bit this account (silent coverage
+   gaps, live-serving regressions); the T-005 build-health cadence covers the rest. A scheduled
+   prose-staleness report would be the natural next automation.
+5. **Optional family follow-ups (not claimed):** add more nameTokens to `tools/families.json` only
+   where a shared name string genuinely helps scanning (e.g. the four `*ENGY` research sites) —
+   the rule and validator already support it and no generator change is needed; a per-family
+   rollup page is not worth building until T-006 settles the GEMS consolidation question.
+6. **Limitations to keep in mind:** family membership proves only a shared name string;
+   `counts.families` is derived at the snapshot, not live; the jsdom smoke harness is throwaway and
+   not committed (CI's Playwright suite is the test environment of record); the API snapshot
+   remains `2026-10-11T03:01:01Z` — this session deliberately did **not** re-run the full network
+   build (a full refresh churns all 145 telemetry records and forces a T-001-style docs pass; the
+   census above re-verified completeness separately with ~6 API calls).

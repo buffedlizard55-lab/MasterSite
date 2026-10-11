@@ -3,6 +3,7 @@
   "repo": "NHL-SCOREBOARD",
   "title": "NHL Scoreboard — Official-API Scores Back to 1917",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Scoreboard for every NHL game from the league's first game on 1917-12-19 to today, built only from the NHL's official public API: today's scoreboard, any historical date, full play-by-play and box scores, standings, a season browser covering all 32 clubs for the current and previous seasons, and a score archive with official scoring summaries. A scheduled workflow rebuilds a committed JSON snapshot about every 5 minutes because the official API sends no CORS headers and both public pass-through relays tested were down; the browser prefers the snapshot, then the API, then relays, and the status bar always shows which path served. The snapshot at this head holds 11 detailed games, 120 archive dates and complete 32-team season indexes for both seasons, all counted here. Executed here: the build-pipeline and app-logic Node suites both pass end to end.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NHL-SCOREBOARD/",

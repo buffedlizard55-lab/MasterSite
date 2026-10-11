@@ -3,6 +3,7 @@
   "repo": "6GEMSDOE",
   "title": "6GEMSDOE — Canonical Single-Entry GEMS Submission Site",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "Self-contained DOE GEMS Prize entry that designates itself the account's single canonical repository and published site: a gradient-boosting classifier over sampled pixels on 88 derived channels rather than a GPU network, with a hard submission gate that refuses any file violating the format rules, metric code re-implemented from the published formula and checked against the official worked example, sha256-pinned official rasters, and a content-addressed download whose committed report records gate_ok true. The shipped placement's blocked-CV proxy is 0.1698 mean DTI against the public catalogue versus 0.1119 for the previous placement; both are proxies measured on held-out spatial blocks, not leaderboard values. Its ACCOUNT_STATUS.md audits the hosting account (11 GEMS-named repositories, Pages built on all) and recommends keeping this repository as the only entry — flagged for owner review because that recommendation contradicts a sibling repository's multi-site submission plan (IRR-119). Executed here: pytest reports 44 passed.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/6GEMSDOE/",

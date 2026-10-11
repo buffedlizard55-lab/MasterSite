@@ -3,6 +3,7 @@
   "repo": "GEMSDOE38",
   "title": "GEMSDOE38 — Measured-Data Research (Slot Gate Closed)",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize measured-data fault-discovery repository whose README closes the slot gate: the published GeoTIFF is described as a unique, locally format-checked research artifact rather than an approved competition submission, with portal acceptance untested and hidden-fault performance unknown. The directory repeats that limitation instead of presenting the file as submission-ready.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE38/",

@@ -3,6 +3,7 @@
   "repo": "GEMSDOE51",
   "title": "GEMSDOE51 — Two-Stage Candidate (H53-SR), Not Yet Uploaded",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize fault-discovery repository whose current decision names an H53-SR two-stage artifact as the recommended upload candidate after every local gate passed, while stating that the file has not been uploaded and that portal acceptance and any organizer score are unproven. A parallel session’s experiments in the same repository are labelled research-only and must not be submitted.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE51/",

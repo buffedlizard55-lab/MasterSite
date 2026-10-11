@@ -3,6 +3,7 @@
   "repo": "GEMSDOE45",
   "title": "GEMSDOE45 — Kaplan–Meier Fault-Zone and Tip-Survival Workstreams",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize repository holding two workstreams, each with its own site, submission GeoTIFF and evidence: an unscored H51 Kaplan–Meier fault-zone candidate with 37,654 dots, 30 distinct realised extension lengths and 309 priors compared with 0 identical, and an H48b fault-tip survival candidate under HOLD with 40,000 dots, unique against 69 prior rasters (maximum Jaccard 0.017). The README states plainly that no score in the repository is an organizer receipt.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE45/",

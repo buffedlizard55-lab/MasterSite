@@ -3,6 +3,7 @@
   "repo": "GEMSDOE21",
   "title": "GEMSDOE21 — GEMS Fault-Discovery Research & Submission Hub",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "GEMS fault-discovery research and submission site documenting a historical H19-4 GeoTIFF and its format, download, and evidence records. The README says the referenced predictions are historical and not a newly validated model.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE21/",

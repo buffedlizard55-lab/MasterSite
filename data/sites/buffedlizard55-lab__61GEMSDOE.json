@@ -3,6 +3,7 @@
   "repo": "61GEMSDOE",
   "title": "61GEMSDOE — Buried-Structure Lane (Gravity-Inversion Depth Steps)",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize buried-structure lane deriving basement-depth steps from gravity inversion. Its README status table states that the newest file is safe to download and upload because it is format-valid and unique with 19 validator checks passing, and also states that “it is still a negative result for a slot”, because the shipped raster scores below named comparators whose live scores the README lists. The directory preserves that distinction rather than reporting the file as submission-ready.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/61GEMSDOE/",

@@ -3,6 +3,7 @@
   "repo": "ScoringDiscrepNHL",
   "title": "ScoringDiscrepNHL — NHL Scoring-Discrepancy Database & Detector",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "NHL scoring-discrepancy database and continuous detector covering goals changed to no-goals and back, scorer and assist corrections, and in-game, intermission and post-game corrections, with the original and corrected state preserved for every record. Its README states that the database holds 1,470 records — 1,449 live Situation Room records of which 1,396 are verified by statement plus play-by-play agreement and 53 are flagged for a human, 3 verified announcements, and 17 retired rows kept and marked rather than silently deleted — and that its own validate command reports 1,470 records. The directory repeats the repository’s stated counts and does not re-verify them.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/ScoringDiscrepNHL/",

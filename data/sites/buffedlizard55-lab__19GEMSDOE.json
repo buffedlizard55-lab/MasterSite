@@ -3,6 +3,7 @@
   "repo": "19GEMSDOE",
   "title": "19GEMSDOE — DOE GEMS Geothermal Fault-Discovery Research",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS geothermal fault-discovery research repository describing a multi-line physical-corroboration approach and GeoTIFF submission downloads. Its technical results are repository-reported, not independently validated by MasterSite.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/19GEMSDOE/",

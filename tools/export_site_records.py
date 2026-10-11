@@ -86,6 +86,10 @@ def build_records(d):
             "repo": repo,
             "title": site.get("title"),
             "category": site.get("category"),
+            # Readability grouping derived mechanically from the official
+            # repository name (tools/families.json). null = no family token
+            # matched; this is a derived value, not an unverified one.
+            "family": site.get("family"),
             "kind": site.get("kind"),
             "description": site.get("description"),
             "pagesUrl": site.get("pagesUrl"),

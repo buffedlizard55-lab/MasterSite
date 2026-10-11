@@ -3,6 +3,7 @@
   "repo": "8GEMSDOE",
   "title": "8GEMSDOE — Apex Geothermal Fault Discovery & Submission Hub",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize fault-discovery and submission hub with executive, research, strategy, results, and data pages. Its README warns that key competition rasters and test dependencies are missing from the documented checkout, so older measurements are not freshly reproducible.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/8GEMSDOE/",

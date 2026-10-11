@@ -3,6 +3,7 @@
   "repo": "GRANTWRITING",
   "title": "Federal Research Grant Intelligence Platform",
   "category": "Science & ML Research",
+  "family": null,
   "kind": "app",
   "description": "Federal research-grant intelligence dashboard with a searchable opportunity catalog, source and status context, and documented verification limits for public funding records.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GRANTWRITING/",

@@ -3,6 +3,7 @@
   "repo": "SportsPred",
   "title": "SportsPred — 22-Sport Scoreboard & Prediction Hub",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Multi-sport prediction engine and scoreboard covering 22 international sports (football, snooker, golf, greyhounds, GAA, darts, volleyball) with 95 verified league registries.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/SportsPred/",

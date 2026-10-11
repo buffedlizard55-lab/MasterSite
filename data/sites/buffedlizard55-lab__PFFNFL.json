@@ -3,6 +3,7 @@
   "repo": "PFFNFL",
   "title": "PFFNFL — Pro Football Focus Reverse Engineering",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "stub",
   "description": "Research repository analyzing Pro Football Focus (PFF.com) public data schemas; GitHub Pages renders the repository documentation README.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/PFFNFL/",

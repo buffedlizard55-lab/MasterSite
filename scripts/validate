@@ -37,6 +37,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "sites.js")
 OVERLAY = os.path.join(ROOT, "tools", "overlay.json")
+FAMILIES = os.path.join(ROOT, "tools", "families.json")
 FLAGGED = os.path.join(ROOT, "FLAGGED.md")
 TASKS = os.path.join(ROOT, "TASKS.md")
 LEDGER = os.path.join(ROOT, "VERIFICATION.md")
@@ -233,6 +234,64 @@ def main():
     check(counts.get("proseUnstamped") == len(sites) - stamped,
           "counts.proseUnstamped=%r but %d records lack lastVerified"
           % (counts.get("proseUnstamped"), len(sites) - stamped))
+
+    # ---- K. family grouping (readability aid) ------------------------------------
+    # tools/families.json defines a mechanical name-token rule. This section
+    # re-implements that rule from the definition file and compares it with the
+    # published `family` fields and the MASTERDATA.families block, so the grouping
+    # can never drift from its documented derivation (and can never hand-list repos).
+    if check(os.path.isfile(FAMILIES), "tools/families.json is missing"):
+        fam = json.load(open(FAMILIES, encoding="utf-8"))
+        fam_defs = fam.get("families") or []
+        def_ids = [d.get("id") for d in fam_defs]
+        check(len(def_ids) == len(set(def_ids)), "tools/families.json has duplicate family ids")
+        for d in fam_defs:
+            for field in ("id", "label", "nameToken", "basis"):
+                check(bool(str(d.get(field, "")).strip()),
+                      "tools/families.json: family %r is missing %s" % (d.get("id"), field))
+
+        def rederive(repo_name):
+            upper = (repo_name or "").upper()
+            for d in fam_defs:
+                if str(d.get("nameToken", "")).upper() in upper:
+                    return d.get("id")
+            return None
+
+        derived_counts = {}
+        for s in sites:
+            want = rederive(s.get("repo"))
+            check(s.get("family") == want,
+                  "%s: published family %r disagrees with the name-token rule (expected %r)"
+                  % (s.get("repo"), s.get("family"), want))
+            if want:
+                derived_counts[want] = derived_counts.get(want, 0) + 1
+            if s.get("family") is not None:
+                check(s.get("family") in def_ids,
+                      "%s: family %r is not defined in tools/families.json"
+                      % (s.get("repo"), s.get("family")))
+
+        block = data.get("families") or {}
+        check(block.get("note") == fam.get("note"),
+              "MASTERDATA.families.note disagrees with tools/families.json")
+        check(block.get("rule") == fam.get("rule"),
+              "MASTERDATA.families.rule disagrees with tools/families.json")
+        published_groups = {g.get("id"): g for g in block.get("groups") or []}
+        for d in fam_defs:
+            g = published_groups.get(d.get("id"))
+            check(g is not None,
+                  "MASTERDATA.families.groups is missing family %r" % d.get("id"))
+            if g:
+                for field in ("label", "nameToken", "basis"):
+                    check(g.get(field) == d.get(field),
+                          "MASTERDATA.families.groups[%s].%s disagrees with tools/families.json"
+                          % (d.get("id"), field))
+                check(g.get("count") == derived_counts.get(d.get("id"), 0),
+                      "MASTERDATA.families.groups[%s].count=%r but the rule derives %d member(s)"
+                      % (d.get("id"), g.get("count"), derived_counts.get(d.get("id"), 0)))
+        check(block.get("counts") == dict(sorted(derived_counts.items(), key=lambda kv: (-kv[1], kv[0]))),
+              "MASTERDATA.families.counts disagrees with the name-token derivation")
+        check(counts.get("families") == block.get("counts"),
+              "counts.families disagrees with MASTERDATA.families.counts")
 
     # ---- H. FLAGGED.md + TASKS.md ------------------------------------------------
     check(os.path.isfile(FLAGGED), "FLAGGED.md is missing")

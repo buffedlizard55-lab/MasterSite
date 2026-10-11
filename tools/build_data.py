@@ -30,6 +30,7 @@ from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OVERLAY_PATH = os.path.join(ROOT, "tools", "overlay.json")
+FAMILIES_PATH = os.path.join(ROOT, "tools", "families.json")
 OUT_PATH = os.path.join(ROOT, "data", "sites.js")
 
 API = "https://api.github.com"
@@ -45,6 +46,78 @@ def sha_matches(stamp, head):
     if len(stamp) < 7 or len(head) < 7:
         return False
     return stamp.startswith(head) or head.startswith(stamp)
+
+
+def load_families():
+    """Read the readability-grouping rules from tools/families.json.
+
+    Families are a display aid (the directory's Family view), never a factual
+    claim about a relationship between repositories. Definitions are validated
+    here so a malformed label can never reach the published dataset.
+    """
+    fam = json.load(open(FAMILIES_PATH, encoding="utf-8"))
+    defs = fam.get("families")
+    if not isinstance(defs, list) or not defs:
+        raise SystemExit("tools/families.json: 'families' must be a non-empty list")
+    seen = set()
+    for d in defs:
+        if not isinstance(d, dict):
+            raise SystemExit("tools/families.json: each family must be an object")
+        for field in ("id", "label", "nameToken", "basis"):
+            value = d.get(field)
+            if not isinstance(value, str) or not value.strip():
+                raise SystemExit("tools/families.json: family %r needs a non-empty %s"
+                                 % (d.get("id"), field))
+        if d["id"] in seen:
+            raise SystemExit("tools/families.json: duplicate family id %r" % d["id"])
+        seen.add(d["id"])
+    return fam
+
+
+def family_for(name, fam):
+    """Mechanical name-token rule (see tools/families.json 'rule').
+
+    A repository belongs to the first family whose nameToken is a
+    case-insensitive contiguous substring of the official repository name.
+    Returns None when no token matches (the site is ungrouped). Membership is
+    recomputed from names on every build — never hand-listed — so a newly named
+    repository joins its family automatically.
+    """
+    upper = (name or "").upper()
+    for d in fam.get("families", []):
+        if d["nameToken"].upper() in upper:
+            return d["id"]
+    return None
+
+
+def family_metadata(sites, fam):
+    """Build the MASTERDATA.families block: definitions plus live membership counts.
+
+    Published at the dataset root so the Family view renders its labels, rule text
+    and caveats from data instead of hardcoding any of them.
+    """
+    counts = {}
+    for s in sites:
+        fid = s.get("family")
+        if fid:
+            counts[fid] = counts.get(fid, 0) + 1
+    groups = []
+    for d in fam.get("families", []):
+        groups.append({
+            "id": d["id"],
+            "label": d["label"],
+            "nameToken": d["nameToken"],
+            "basis": d["basis"],
+            "count": counts.get(d["id"], 0),
+        })
+    return {
+        "note": fam.get("note"),
+        "rule": fam.get("rule"),
+        "ungroupedLabel": fam.get("ungroupedLabel") or "Other sites",
+        "categoryFallback": bool(fam.get("categoryFallback", True)),
+        "groups": groups,
+        "counts": dict(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))),
+    }
 
 
 def validate_overlay(entries, excluded):
@@ -173,6 +246,7 @@ def render_overlay_only():
     overlay = json.load(open(OVERLAY_PATH, encoding="utf-8"))
     entries = overlay["entries"]
     excluded = set(overlay.get("excluded", []))
+    fam = load_families()
 
     src = open(OUT_PATH, encoding="utf-8").read()
     data = json.loads(src.split("window.MASTERDATA = ", 1)[1].rstrip().rstrip(";"))
@@ -212,6 +286,10 @@ def render_overlay_only():
         site["proseStale"] = bool(site.get("verifiedAtSha")) and not sha_matches(
             site.get("verifiedAtSha"), site.get("headSha")
         )
+        # Derived from the repository's own name via tools/families.json — a
+        # readability grouping, not curated prose. This mode can compute it offline
+        # because the official name is already recorded in the snapshot.
+        site["family"] = family_for(site["repo"], fam)
         if {k: site.get(k) for k in OVERLAY_FIELDS} != before:
             changed.append(site["repo"])
 
@@ -241,6 +319,8 @@ def render_overlay_only():
     c["proseStale"] = sum(1 for s in sites if s.get("proseStale"))
     c["proseStaleRepos"] = sorted(s["repo"] for s in sites if s.get("proseStale"))
     c["proseShaStamped"] = sum(1 for s in sites if s.get("verifiedAtSha"))
+    data["families"] = family_metadata(sites, fam)
+    c["families"] = data["families"]["counts"]
 
     rendered_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     data["overlayRendered"] = rendered_at
@@ -271,6 +351,7 @@ def render_overlay_only():
     print("re-rendered %s (overlay fields only)" % os.path.relpath(OUT_PATH, ROOT))
     print("  sites=%d unchanged API snapshot at %s" % (len(sites), snapshot_at))
     print("  irregularities=%d" % len(data["irregularities"]))
+    print("  families=%s" % json.dumps(data["families"]["counts"]))
     print("  narrative fields changed on %d entries: %s"
           % (len(changed), ", ".join(sorted(changed)) if changed else "(none)"))
     stale = [s for s in sites if s.get("proseStale")]
@@ -300,6 +381,7 @@ def main():
     overlay = json.load(open(OVERLAY_PATH, encoding="utf-8"))
     entries = overlay["entries"]
     excluded = set(overlay.get("excluded", []))
+    fam = load_families()
     validate_overlay(entries, excluded)
 
     print("MasterSite data refresh — reading api.github.com")
@@ -430,6 +512,9 @@ def main():
                 "repo": name,
                 "title": ov["title"],
                 "category": ov["category"],
+                # Readability grouping derived from the official repository name
+                # (tools/families.json); null when no family token matches.
+                "family": family_for(name, fam),
                 "kind": kind,
                 "description": ov["description"],
                 "created": repo.get("created_at"),
@@ -472,6 +557,7 @@ def main():
         categories[s["category"]] = categories.get(s["category"], 0) + 1
 
     now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    families_block = family_metadata(sites, fam)
     excluded_note = (
         "%d public repositories carry a GitHub Pages site; this directory publishes %d of them, and "
         "every other repository is named with the reason it is withheld (%s). %d repo(s) are permanently "
@@ -513,6 +599,10 @@ def main():
             "A matching SHA is provenance, not proof that every sentence is correct.",
             "tools/audit_kind.py independently re-derives the HTML-entry-point vs. stub classification from the "
             "Pages API source path and contents endpoint, then compares it with tools/overlay.json.",
+            "Family grouping for the directory's Family view is derived mechanically from each repository's "
+            "official name via tools/families.json (a family nameToken appears as a case-insensitive contiguous "
+            "substring of the repository name). It is a readability aid that asserts no relationship beyond the "
+            "shared name string; repositories matching no token are grouped by their curated category instead.",
         ],
         "caveats": [
             "Created date is GitHub's repository created_at timestamp. The first commit is a separate observation "
@@ -532,6 +622,9 @@ def main():
             "not a guarantee that the public page responds or works; every entry links to its live site for review.",
             "kanlerxz87-cyber has %s public repositories and therefore zero public GitHub Pages sites."
             % next((a["publicRepos"] for a in accounts_checked if a["login"] == "kanlerxz87-cyber"), 0),
+            "Family labels in the Family view are readability groupings derived from repository names, not "
+            "verified relationships between repositories and not a GitHub API field. What each repository "
+            "contains is stated only in its own sourced description.",
         ],
     }
 
@@ -570,10 +663,12 @@ def main():
             "proseStale": sum(1 for s in sites if s.get("proseStale")),
             "proseStaleRepos": sorted(s["repo"] for s in sites if s.get("proseStale")),
             "proseShaStamped": sum(1 for s in sites if s.get("verifiedAtSha")),
+            "families": families_block["counts"],
         },
         "sites": sites,
         "unreachable": overlay.get("retired", []),
         "irregularities": overlay.get("irregularities", []),
+        "families": families_block,
         "methodology": methodology,
     }
 
@@ -599,6 +694,7 @@ def main():
     print("wrote %s" % os.path.relpath(OUT_PATH, ROOT))
     print("  sites=%d (apps=%d stubs=%d) built=%d commits=%d" % (len(sites), apps, stubs, built, total_commits))
     print("  categories=%s" % json.dumps(categories))
+    print("  families=%s" % json.dumps(families_block["counts"]))
     print("  unreachable=%d excluded=%s" % (len(data["unreachable"]), sorted(excluded)))
     for u in unlisted:
         print("  unlisted=%s (%s)" % (u["repo"], u["reason"]))

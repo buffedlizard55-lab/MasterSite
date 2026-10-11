@@ -3,6 +3,7 @@
   "repo": "FLABSENGY",
   "title": "FLABSENGY — FantasyLabs Projection Reverse Engineering",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Clean-room study of the FantasyLabs DFS projection system plus an original Python engine that rebuilds the metrics the vendor documents publicly — no subscription data, no scraped pages, no proprietary weights, and an explicit record of what was refused. Evidence counted at commit f927bab: docs/ledger.html holds 49 source rows inside an S1-S50 range, research/IRREGULARITIES.md carries 16 flagged items I1-I16, research/REQUIREMENTS.md maps acceptance requirements R1-R17, and engine/fantasylab_engine/metrics.py defines 14 functions covering Plus/Minus, implied points from a salary-expectation fit, Pts/Sal, consistency, upside, duds, bargain rating, opponent Plus/Minus, salary change and percentile rank. `pytest -q` was executed in this audit and returned 79 passed. Where the vendor's own official glossaries disagree — the NFL defines Duds as fewer than half a salary-based expectation while the NBA and MLB glossaries define it as at least half a standard deviation below it — the engine implements both variants and documents which one is the default; where a methodology is not public at all (ownership projection, Pro Trend definitions, salary-regression parameters) it is recorded as unknown rather than guessed.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/FLABSENGY/",

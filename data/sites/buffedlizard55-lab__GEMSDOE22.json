@@ -3,6 +3,7 @@
   "repo": "GEMSDOE22",
   "title": "GEMSDOE22 — Fractal Fault-Population Research & Submission Site",
   "category": "Unclassified & Placeholder",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize repository (DrivenData #306) that publishes a download-first research site: the configured root index.html is a 297-byte redirect to docs/index.html, and the README documents an executive summary with two recommended upload candidates — H22-1, a fractal-clustering prior with a four-line synthesis at a 2.50% budget, and H22-2, a 2.43% budget corroborated synthesis — plus a two-minute upload path. Two naming mismatches are visible in the repository’s own files: the README heading reads “22GEMSDOE” for repository GEMSDOE22, and the root index.html carries the title “19GEMSDOE”. The directory records both as found and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE22/",

@@ -3,6 +3,7 @@
   "repo": "57GEMSDOE",
   "title": "57GEMSDOE — Fault-Zone Anatomy Lane",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize fault-zone-anatomy lane. At the recorded head the README states “Download: OK. Submit to competition: OK.” for a single-band float32 GeoTIFF carrying 38,000 binary dots and reports that all 15 local format/portal checks pass. The same README states that the project never clicks Submit and spends no competition slot, so organizer acceptance and any score remain unproven. The repository publishes download, executive-summary and evidence pages on its Pages site.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/57GEMSDOE/",

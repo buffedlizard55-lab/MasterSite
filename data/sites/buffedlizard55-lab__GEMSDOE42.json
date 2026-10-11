@@ -3,6 +3,7 @@
   "repo": "GEMSDOE42",
   "title": "GEMSDOE42 — Cross-Scale Worming × Topological Persistence",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "stub",
   "description": "DOE GEMS Prize submission repository whose README documents a format-verified, unique GeoTIFF, an eleven-check format audit and a self-calibration finding: across 11 prior submissions the spatially blocked catalogue holdout and the off-catalogue USGS SGMC instrument did not predict the live board, while emitted pixel count alone did (Spearman −0.907, p 0.0001). The generated documentation site is built from registry/*.json; the configured Pages root has no index.html, so the directory records this entry as a documentation stub at the configured path and links the README’s own site path.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE42/",

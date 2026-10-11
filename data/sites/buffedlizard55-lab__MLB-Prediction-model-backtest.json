@@ -3,6 +3,7 @@
   "repo": "MLB-Prediction-model-backtest",
   "title": "MLB Prediction Model & Monte Carlo Backtest",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "stub",
   "description": "Python machine learning research repo implementing correlation-driven input filtering and Monte Carlo baseball game simulations; Pages renders the documentation README.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/MLB-Prediction-model-backtest/",

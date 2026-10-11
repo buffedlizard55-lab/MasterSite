@@ -3,6 +3,7 @@
   "repo": "GEMSDOE40",
   "title": "GEMSDOE40 — Euler Depth-Cluster Fault Prediction",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize Euler depth-cluster fault-prediction repository publishing an H41 GeoTIFF that its README describes as unique against every retrievable prior output and passing every format check on its published bytes, while stating that the file is unverified, that the repository’s own HOLD gate still applies, and that it does not beat one never-scored Euler arm of a sibling repository on the blocked proxy instrument. The directory preserves all three statements together.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE40/",

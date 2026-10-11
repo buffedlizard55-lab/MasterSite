@@ -3,6 +3,7 @@
   "repo": "20GEMSDOE",
   "title": "20GEMSDOE — DOE GEMS Fault-Mapping Research",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS fault-mapping research repository documenting experiments, data sources, metric corrections, and candidate-submission status. Its README says no candidate is currently recommended and no contest upload was made as of 2026-10-01; results are not independently validated here.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/20GEMSDOE/",

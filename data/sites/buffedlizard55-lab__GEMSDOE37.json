@@ -3,6 +3,7 @@
   "repo": "GEMSDOE37",
   "title": "GEMSDOE37 — Research & Submission System (Topological Persistence)",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize research and submission system that uses topological persistence to certify a candidate structure is stable across scales rather than a single-scale artifact, reporting how large a scale range each candidate ridge survives. It preserves its prompt verbatim and keeps a project charter and submission workflow on its Pages site. The directory summarises the stated approach and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE37/",

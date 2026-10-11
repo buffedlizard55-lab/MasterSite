@@ -8,13 +8,17 @@
   }
 
   var OWNER = D.owner || "buffedlizard55-lab";
+  // Layout views. URL state stays exactly {q, category, kind, prose, sort, view};
+  // only the values of `view` grow ("grid" | "table" | "family").
+  var VIEWS = ["grid", "table", "family"];
+  var VIEW_BTN = { grid: "viewGridBtn", table: "viewTableBtn", family: "viewFamilyBtn" };
   var state = {
     q: "",
     category: "All",
     kind: "all",
     prose: "all",
     sort: "updated-desc",
-    view: "grid" // "grid" or "table"
+    view: "grid" // "grid", "table", or "family"
   };
 
   var $ = function (id) {
@@ -52,7 +56,7 @@
     state.prose = Object.keys(PROSE_LABEL).indexOf(params.get("prose")) !== -1 ? params.get("prose") : "all";
     state.sort = Array.from($("sortSelect").options).some(function (o) { return o.value === params.get("sort"); })
       ? params.get("sort") : "updated-desc";
-    state.view = params.get("view") === "table" ? "table" : "grid";
+    state.view = VIEWS.indexOf(params.get("view")) !== -1 ? params.get("view") : "grid";
   }
 
   function directoryURL() {
@@ -136,13 +140,14 @@
     document.querySelectorAll("[data-kind]").forEach(function (btn) {
       btn.setAttribute("aria-pressed", btn.getAttribute("data-kind") === state.kind);
     });
-    ["grid", "table"].forEach(function (view) {
-      var btn = $(view === "grid" ? "viewGridBtn" : "viewTableBtn");
+    VIEWS.forEach(function (view) {
+      var btn = $(VIEW_BTN[view]);
       btn.classList.toggle("active", state.view === view);
       btn.setAttribute("aria-pressed", state.view === view);
     });
     $("sitesGrid").style.display = state.view === "grid" ? "grid" : "none";
     $("sitesTableContainer").style.display = state.view === "table" ? "block" : "none";
+    $("sitesFamilyContainer").style.display = state.view === "family" ? "block" : "none";
     $("resetFiltersBtn").disabled = !state.q && state.category === "All" && state.kind === "all" && state.prose === "all";
   }
 
@@ -516,6 +521,121 @@
     '</tr>';
   }
 
+  // ---------------- Family View (readability grouping) ----------------
+  // Family membership is the mechanical name-token rule published in D.families
+  // (tools/families.json): a repository joins a family when the family's nameToken
+  // appears as a case-insensitive contiguous substring of its official name. That
+  // is a display aid only — it asserts no code, author, competition, or
+  // API-visible relationship — and every label, rule line and caveat below is
+  // rendered from that data rather than hardcoded here (no repository list ever
+  // lives in this script). Sites with no family token fall back to their curated
+  // category as the section heading so every entry stays grouped and readable.
+  var FAMILY_META = D.families || {};
+  var FAMILY_DEFS = {};
+  (FAMILY_META.groups || []).forEach(function (g) {
+    if (g && g.id && g.label) FAMILY_DEFS[g.id] = g;
+  });
+
+  function familyHeading(s) {
+    if (s.family && FAMILY_DEFS[s.family]) {
+      return {
+        key: "family:" + s.family,
+        label: FAMILY_DEFS[s.family].label,
+        kind: "family",
+        basis: FAMILY_DEFS[s.family].basis || ""
+      };
+    }
+    return { key: "category:" + s.category, label: s.category, kind: "category", basis: "" };
+  }
+
+  function familyRollup(items) {
+    var apps = items.filter(function (s) { return s.kind === "app"; }).length;
+    var stubs = items.length - apps;
+    var built = items.filter(function (s) { return s.pagesStatus === "built"; }).length;
+    return items.length + " site" + (items.length === 1 ? "" : "s") +
+      " · " + apps + " HTML entry point" + (apps === 1 ? "" : "s") +
+      " · " + stubs + " README/docs stub" + (stubs === 1 ? "" : "s") +
+      (built !== items.length ? " · " + built + " reporting built" : "");
+  }
+
+  function familyRow(s) {
+    var repoUrl = "https://github.com/" + OWNER + "/" + s.repo;
+    var liveUrl = s.pagesUrl || ("https://" + OWNER + ".github.io/" + s.repo + "/");
+    var apiUrl = "https://api.github.com/repos/" + OWNER + "/" + s.repo + "/pages";
+    var typeBadge = (s.kind === "app")
+      ? '<span class="tag-badge app" title="An index.html exists at the recorded GitHub Pages source path.">HTML Site</span>'
+      : '<span class="tag-badge stub" title="No index.html exists at the recorded GitHub Pages source path; Pages may render the README.">README / Docs Stub</span>';
+    return '<div class="family-row" data-repo="' + esc(s.repo) + '">' +
+      '<div class="family-row-main">' +
+        '<a class="family-title" href="' + esc(liveUrl) + '" target="_blank" rel="noopener" title="' + esc(s.title) + '">' + esc(s.title) + '</a>' +
+        '<span class="family-repo">' + esc(s.repo) + '</span>' +
+        '<span class="family-row-badges">' + pagesBadge(s, true) + typeBadge + proseBadge(s) + '</span>' +
+      '</div>' +
+      '<div class="family-row-meta">' +
+        '<span title="Repo created: ' + esc(s.created) + ' · 1st commit: ' + esc(s.firstCommit) + ' (' + esc(s.firstCommitSha) + ')">Created ' + fmtDate(s.created) + '</span>' +
+        '<span title="Newest committer timestamp on the default branch: ' + esc(s.lastCommit) + ' (' + esc(s.lastCommitSha) + '). This does not measure site visits or use.">Last commit ' + fmtDate(s.lastCommit) + '</span>' +
+        '<span>' + (s.commits || 0) + ' commits on ' + esc(s.defaultBranch || "default branch") + '</span>' +
+        '<span class="category-tag" title="' + esc(s.category) + '">' + esc(s.category) + '</span>' +
+      '</div>' +
+      '<div class="family-row-actions">' +
+        '<a class="action-btn primary row-action-btn" href="' + esc(liveUrl) + '" target="_blank" rel="noopener">Live ↗</a>' +
+        '<a class="action-btn row-action-btn" href="' + esc(repoUrl) + '" target="_blank" rel="noopener">Repo</a>' +
+        '<a class="action-btn row-action-btn" href="' + esc(apiUrl) + '" target="_blank" rel="noopener" title="Official GitHub Pages API record (JSON)">API</a>' +
+        '<button class="action-btn inspect-btn row-action-btn" data-inspect="' + esc(s.repo) + '">Inspect</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderFamilyList(list) {
+    var groups = [];
+    var byKey = {};
+    list.forEach(function (s) {
+      var h = familyHeading(s);
+      if (!byKey[h.key]) {
+        byKey[h.key] = { key: h.key, label: h.label, kind: h.kind, basis: h.basis, items: [] };
+        groups.push(byKey[h.key]);
+      }
+      byKey[h.key].items.push(s);
+    });
+    // Named families first, largest first, then the category-fallback sections,
+    // largest first — so the biggest readability problem (the GEMSDOE lanes) is
+    // always the first section. Members keep the current sort order inside each
+    // section because list is walked in sorted order above.
+    groups.sort(function (a, b) {
+      var rank = { family: 0, category: 1 };
+      if (rank[a.kind] !== rank[b.kind]) return rank[a.kind] - rank[b.kind];
+      if (b.items.length !== a.items.length) return b.items.length - a.items.length;
+      return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
+    });
+    $("sitesFamilyList").innerHTML = groups.map(function (g) {
+      return '<details class="family-group family-' + g.kind + '" open>' +
+        '<summary class="family-summary">' +
+          '<span class="family-label">' + esc(g.label) + '</span>' +
+          '<span class="family-count">' + esc(familyRollup(g.items)) + '</span>' +
+        '</summary>' +
+        (g.basis ? '<p class="family-basis">' + esc(g.basis) + '</p>' : '') +
+        '<div class="family-rows">' + g.items.map(familyRow).join("") + '</div>' +
+      '</details>';
+    }).join("");
+  }
+
+  function renderFamilyLegend() {
+    var el = $("familyLegend");
+    if (!el) return;
+    var total = D.sites.length;
+    var grouped = D.sites.filter(function (s) { return s.family && FAMILY_DEFS[s.family]; }).length;
+    var names = Array.from(new Set(D.sites.map(function (s) { return s.family; }).filter(function (f) {
+      return f && FAMILY_DEFS[f];
+    })));
+    el.innerHTML =
+      '<strong>Family view groups for readability — it is not a relationship claim.</strong> ' +
+      esc(FAMILY_META.rule || "") + ' ' +
+      'The rule currently places <strong>' + grouped + '</strong> of <strong>' + total + '</strong> entries in ' +
+      names.length + ' named famil' + (names.length === 1 ? "y" : "ies") +
+      '; the rest are sectioned by their curated category. ' +
+      'What each repository actually contains is stated only in its own sourced description and review links.';
+  }
+
   // ---------------- Master Directory Render ----------------
   function renderDirectory() {
     var filtered = filterSites();
@@ -540,6 +660,8 @@
       $("sitesGrid").innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:var(--radius-lg);">' +
         '<h3>No matching sites found</h3><p>Use “Reset filters” to clear the search and all filters.</p></div>';
       $("sitesTableBody").innerHTML = '<tr><td colspan="9" style="text-align:center;padding:32px;color:var(--muted);">No matching sites found.</td></tr>';
+      $("sitesFamilyList").innerHTML = '<div class="family-empty">' +
+        '<h3>No matching sites found</h3><p>Use “Reset filters” to clear the search and all filters.</p></div>';
       return;
     }
 
@@ -547,6 +669,7 @@
     $("sitesTableBody").innerHTML = list.map(function (s, idx) {
       return renderTableRow(s, idx);
     }).join("");
+    renderFamilyList(list);
   }
 
   // ---------------- Accounts Breakdown ----------------
@@ -681,6 +804,11 @@
           '<tr><td>Description</td><td>' + esc(site.description) + '</td></tr>' +
           '<tr><td>GitHub Pages Status</td><td><strong>' + esc(site.pagesStatus) + '</strong> (Source: ' + esc(site.pagesSource) + ')</td></tr>' +
           '<tr><td>Published Path Type</td><td>' + (site.kind === "app" ? "HTML entry point exists at the recorded Pages path" : "No HTML entry point at the recorded Pages path; README/documentation stub") + '</td></tr>' +
+          '<tr><td>Family (readability grouping)</td><td>' +
+            (site.family && FAMILY_DEFS[site.family]
+              ? esc(FAMILY_DEFS[site.family].label) + ' — grouped by the shared name string only; not a verified relationship (<code>tools/families.json</code>).'
+              : 'No family name token matches this repository; the Family view sections it under its curated category.') +
+            '</td></tr>' +
           '<tr><td>Repo Created (UTC)</td><td>' + fmtDateTime(site.created) + '</td></tr>' +
           '<tr><td>First Commit (UTC)</td><td>' + fmtDateTime(site.firstCommit) + ' (SHA: ' + esc(site.firstCommitSha) + ')</td></tr>' +
           '<tr><td>Last Commit on Default Branch (UTC)</td><td>' + fmtDateTime(site.lastCommit) + ' (SHA: ' + esc(site.lastCommitSha) + ')</td></tr>' +
@@ -755,6 +883,7 @@
       s.repo,
       s.title,
       s.category,
+      (s.family && FAMILY_DEFS[s.family]) ? FAMILY_DEFS[s.family].label : (s.family || ""),
       s.kind,
       s.pagesStatus,
       s.pagesSource,
@@ -781,6 +910,7 @@
       "Repository",
       "Title",
       "Category",
+      "Family",
       "Kind",
       "Pages_Status",
       "Pages_Source",
@@ -849,8 +979,8 @@
       copyText(directoryURL().href, "Copied link to this directory view!");
     });
 
-    ["grid", "table"].forEach(function (view) {
-      $(view === "grid" ? "viewGridBtn" : "viewTableBtn").addEventListener("click", function () {
+    VIEWS.forEach(function (view) {
+      $(VIEW_BTN[view]).addEventListener("click", function () {
         state.view = view;
         updateDirectory();
       });
@@ -966,6 +1096,7 @@
   renderStats();
   renderVerifyLegend();
   renderChips();
+  renderFamilyLegend();
   readURLState();
   syncControls();
   renderDirectory();

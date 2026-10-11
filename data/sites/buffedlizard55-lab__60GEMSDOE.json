@@ -3,6 +3,7 @@
   "repo": "60GEMSDOE",
   "title": "60GEMSDOE — Knickpoint Lane (Session Verdict Negative)",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize tectono-geomorphic knickpoint lane. At the recorded head its one-click submission table lists four GeoTIFFs and marks the newest, generated in the same 2026-10-11 session (H62-1), as “NO — NEGATIVE verdict (failed gates G2/G3/G4; HOLDOUT-DTI 0.00420 vs 0.08623 best arm)”, the earlier same-day knickpoint run as “NO — NEGATIVE (first test AUC 0.224 < 0.55 stop rule)”, and the registry primary as the group champion whose 0.2778 is labelled owner-reported and already live-scored. The file states that negative results are deliverables and that no submission slot is spent, and that the promotion decision belongs to the selector. The directory repeats the repository’s own verdicts and does not present either figure as an independently verified organizer score.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/60GEMSDOE/",

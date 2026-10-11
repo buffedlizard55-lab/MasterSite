@@ -3,6 +3,7 @@
   "repo": "GEMSDOE26",
   "title": "GEMSDOE26 — Region-First Research with Published Failures",
   "category": "Unclassified & Placeholder",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize research repository whose “Download & evidence” site documents failures alongside artifacts. Its README records the latest tested result (H27-SRCOH-v1) as BLOCKED_DO_NOT_SUBMIT after it failed all 15 fixed promotion rules, with no GeoTIFF exported and no contest upload, and keeps an earlier out-of-fold research mosaic (H27-DILCOND-v1) published as blocked and explicitly not a current candidate.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE26/",

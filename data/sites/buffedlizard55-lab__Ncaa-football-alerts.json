@@ -3,6 +3,7 @@
   "repo": "Ncaa-football-alerts",
   "title": "NCAA Football Scoreboard & Live Alerts",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Zero-dependency, dark-themed college football scoreboard and alert booth tracking live games across ACC, SEC, Big Ten, Big 12, and AAC conferences.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/Ncaa-football-alerts/",

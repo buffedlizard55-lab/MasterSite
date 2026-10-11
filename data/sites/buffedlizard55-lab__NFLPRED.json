@@ -3,6 +3,7 @@
   "repo": "NFLPRED",
   "title": "NFLPRED (README Stub)",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "stub",
   "description": "Single-commit placeholder repository for NFL prediction models; contains only a stub README.md.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NFLPRED/",

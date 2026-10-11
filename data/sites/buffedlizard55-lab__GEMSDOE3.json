@@ -3,6 +3,7 @@
   "repo": "GEMSDOE3",
   "title": "Riftline (GEMSDOE3) — GEMS Submission Research",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "Riftline is a separate DOE GEMS Prize fault-mapping research and submission workspace. It preserves a pinned snapshot of GEMSDOE under legacy/ while its active pipeline trains a distance-aware model using geophysical bands and multiscale context. Its docs/ site offers a direct locally validated GeoTIFF/ZIP, a browser-side file builder, a step-by-step executive submission guide, experiments, research and a dated source-health feed. Its submission manifest explicitly says that this candidate has not been uploaded or competition-scored; leaderboard figures on the site are separately identified as public snapshots rather than this candidate’s result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE3/",

@@ -10,6 +10,15 @@ const snapshot = JSON.parse(JSON.stringify(sandbox.window.MASTERDATA));
 const overlay = JSON.parse(fs.readFileSync(path.join(__dirname, '../tools/overlay.json'), 'utf8'));
 const cards = page => page.locator('#sitesGrid .site-card');
 const rows = page => page.locator('#sitesTableBody tr');
+const familyRows = page => page.locator('#sitesFamilyList .family-row');
+const familySections = page => page.locator('#sitesFamilyList .family-group');
+
+// Family-view expectations are derived from the committed snapshot and the
+// published family rule (tools/families.json) — these tests never hardcode a
+// repository list, just like the UI never hardcodes one.
+const familyDefs = (snapshot.families && snapshot.families.groups) || [];
+const biggestFamily = familyDefs.slice().sort((a, b) => b.count - a.count)[0] || null;
+const familyMembers = id => snapshot.sites.filter(s => s.family === id).map(s => s.repo).sort();
 
 // Synthetic edge cases are served only to the test browser. No fixture is ever
 // written into the published dataset or passed off as verified repository data.
@@ -21,6 +30,10 @@ async function useFixture(page) {
     ...snapshot.sites[0], repo, title: repo,
     description: 'Synthetic test description & <text>',
     category: i < 2 ? 'Science & Tests' : 'Other',
+    // Two synthetic members of the snapshot's largest family and two ungrouped,
+    // so family-view tests exercise both the named-family and the category
+    // fallback sections without inventing any real repository.
+    family: (i < 2 && biggestFamily) ? biggestFamily.id : null,
     kind: i === 1 ? 'stub' : 'app',
     flags: i === 0 ? ['special test flag'] : [],
     defaultBranch: 'release',
@@ -203,11 +216,11 @@ test('recorded build statuses and default branches are truthful in both layouts'
   await expect(page.locator('#verifyLegend')).not.toContainText('right now');
 });
 
-for (const view of ['grid', 'table']) {
+for (const view of ['grid', 'table', 'family']) {
   test(`inspector is keyboard-modal and returns focus in ${view} view`, async ({ page }) => {
     await useFixture(page);
     await page.goto('/?view=' + view);
-    const opener = page.locator(view === 'grid' ? '#sitesGrid [data-inspect]' : '#sitesTableBody [data-inspect]').first();
+    const opener = page.locator(view === 'grid' ? '#sitesGrid [data-inspect]' : view === 'family' ? '#sitesFamilyList [data-inspect]' : '#sitesTableBody [data-inspect]').first();
     await opener.focus();
     await page.keyboard.press('Enter');
     const dialog = page.getByRole('dialog');
@@ -376,5 +389,116 @@ test('table rows keep nine labelled cells and do not overflow a 375px screen', a
 
   // Thumb-sized targets on a phone, whatever the density variable says.
   const box = await page.locator('#sitesTableBody .row-action-btn').first().boundingBox();
+  expect(box.height).toBeGreaterThanOrEqual(28);
+});
+
+// ---- Family view --------------------------------------------------------------
+// A readability grouping published in data (tools/families.json): family members
+// share a name token per the mechanical rule, and everything else is sectioned by
+// its curated category. The guarantees below are derived from the snapshot — no
+// repository list is hardcoded here, matching the UI's no-hardcoded-lists rule.
+
+test('family view lists every site exactly once and keeps each name-token family together', async ({ page }) => {
+  await page.goto('/?view=family');
+  await expect(familyRows(page)).toHaveCount(snapshot.sites.length);
+  const repos = await familyRows(page).evaluateAll(els => els.map(el => el.getAttribute('data-repo')));
+  expect(repos.slice().sort()).toEqual(snapshot.sites.map(s => s.repo).sort());
+  expect(new Set(repos).size).toBe(repos.length);
+
+  await expect(page.locator('#sitesFamilyContainer')).toBeVisible();
+  await expect(page.locator('#sitesGrid')).toBeHidden();
+  await expect(page.locator('#sitesTableContainer')).toBeHidden();
+  await expect(page.locator('#viewFamilyBtn')).toHaveAttribute('aria-pressed', 'true');
+
+  // The largest named family (the GEMSDOE lanes today) sits in one section,
+  // first, with exactly its members.
+  const members = familyMembers(biggestFamily.id);
+  await expect(familySections(page).first().locator('.family-label')).toHaveText(biggestFamily.label);
+  await expect(familySections(page).first().locator('.family-row')).toHaveCount(members.length);
+  const inFirst = await familySections(page).first()
+    .locator('.family-row').evaluateAll(els => els.map(el => el.getAttribute('data-repo')));
+  expect(inFirst.slice().sort()).toEqual(members);
+  await expect(familySections(page).first().locator('.family-count')).toContainText(members.length + ' sites');
+  await expect(familySections(page).first().locator('.family-basis')).toContainText('shared name token');
+});
+
+test('family view sections ungrouped sites by category and states the grouping rule from data', async ({ page }) => {
+  await page.goto('/?view=family');
+  const sectionData = await familySections(page).evaluateAll(els => els.map(el => ({
+    label: (el.querySelector('.family-label') || {}).textContent || null,
+    count: el.querySelectorAll('.family-row').length
+  })));
+  const cats = Array.from(new Set(snapshot.sites.filter(s => !s.family).map(s => s.category)));
+  for (const cat of cats) {
+    const want = snapshot.sites.filter(s => !s.family && s.category === cat).length;
+    const matches = sectionData.filter(g => g.label === cat);
+    expect(matches).toHaveLength(1);
+    expect(matches[0].count).toBe(want);
+  }
+  // The legend quotes the rule and the live grouped count — both from data.
+  const grouped = snapshot.sites.filter(s => s.family).length;
+  await expect(page.locator('#familyLegend')).toContainText(String(grouped));
+  await expect(page.locator('#familyLegend')).toContainText('not a relationship claim');
+});
+
+test('family view survives a reload and layout switches keep filters and sort', async ({ page }) => {
+  await useFixture(page);
+  const query = new URLSearchParams({ q: 'test', category: 'Science & Tests', sort: 'name-desc', view: 'family' });
+  await page.goto('/?' + query);
+  await expect(page.locator('#viewFamilyBtn')).toHaveAttribute('aria-pressed', 'true');
+  await expect(familyRows(page)).toHaveCount(2);
+  await page.reload();
+  await expect(familyRows(page)).toHaveCount(2);
+  await expect(familySections(page).first().locator('.family-label')).toHaveText(biggestFamily.label);
+
+  // Switch to table and back: filters and sort survive every layout.
+  await page.locator('#viewTableBtn').click();
+  await expect(rows(page)).toHaveCount(2);
+  await expect(page.locator('#sitesFamilyContainer')).toBeHidden();
+  await page.locator('#viewFamilyBtn').click();
+  await expect(familyRows(page)).toHaveCount(2);
+  expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({
+    q: 'test', category: 'Science & Tests', sort: 'name-desc', view: 'family'
+  });
+});
+
+test('family view search narrows members, hides empty sections, and shows an empty state', async ({ page }) => {
+  await useFixture(page);
+  await page.goto('/?view=family');
+  await expect(familyRows(page)).toHaveCount(4);
+  // Fixture: the two family members are Alpha/Beta; Gamma/Delta fall back to
+  // their category — the named family section stays first.
+  await expect(familySections(page).first().locator('.family-row')).toHaveCount(2);
+  await expect(familySections(page)).toHaveCount(2);
+
+  await page.locator('#searchInput').fill('zzz-no-such-site');
+  await expect(familyRows(page)).toHaveCount(0);
+  await expect(page.locator('#sitesFamilyList .family-empty')).toBeVisible();
+  await expect(familySections(page)).toHaveCount(0);
+
+  await page.locator('#searchInput').fill('Alpha');
+  await expect(familyRows(page)).toHaveCount(1);
+  await expect(familyRows(page)).toHaveAttribute('data-repo', 'Alpha');
+  await expect(familySections(page)).toHaveCount(1);
+});
+
+test('family rows carry the same official review links and provenance as the table', async ({ page }) => {
+  await page.goto('/?view=family&sort=name-asc');
+  const first = familyRows(page).first();
+  const repo = await first.getAttribute('data-repo');
+  const owner = snapshot.owner;
+  expect(snapshot.sites.some(s => s.repo === repo)).toBe(true);
+  await expect(first.locator('a[href^="https://' + owner + '.github.io/"]')).toHaveCount(1);
+  await expect(first.locator('a[href="https://github.com/' + owner + '/' + repo + '"]')).toHaveCount(1);
+  await expect(first.locator('a[href="https://api.github.com/repos/' + owner + '/' + repo + '/pages"]')).toHaveCount(1);
+  await expect(first.locator('[data-inspect]')).toHaveCount(1);
+  await expect(first.locator('.family-title')).not.toBeEmpty();
+});
+
+test('family rows stack without horizontal overflow on a 375px screen', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/?view=family');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  const box = await familyRows(page).first().locator('.row-action-btn').first().boundingBox();
   expect(box.height).toBeGreaterThanOrEqual(28);
 });

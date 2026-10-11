@@ -3,6 +3,7 @@
   "repo": "GEMSDOE32",
   "title": "GEMSDOE32 — Auditable Fault-Discovery System",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize fault-discovery system (DrivenData competition 306) documenting its hypotheses, gates, source rights and submission artifacts, with stated core values of maximising the probability of winning and owning the outcome. Its README records the competition’s weekly budget of three scored submissions and states that a single file is scored in both prize rounds. The directory summarises the repository’s stated scope and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE32/",

@@ -3,6 +3,7 @@
   "repo": "Insider-trades",
   "title": "Insider Trades — SEC Form 4 Dashboard",
   "category": "Markets & Trading Research",
+  "family": null,
   "kind": "app",
   "description": "SEC EDGAR Form 4 insider transaction dashboard and Python analysis toolkit (MIT); static page displays verified local filing data and backtests insider signal rules.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/Insider-trades/",

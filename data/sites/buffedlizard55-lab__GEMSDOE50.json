@@ -3,6 +3,7 @@
   "repo": "GEMSDOE50",
   "title": "GEMSDOE50 — Earthquake Point Geometry for Omitted-Fault Mapping",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize lane that maps omitted fault traces from earthquake point geometry. Its charter states that a local proxy result is never an organizer score, that three weekly feedback slots must be protected, and that candidates must clear matched-density, random, translation, incumbent, macrofold, bootstrap, format, scientific-validity, rights and uniqueness gates before any submission. It also records that no receipt or hash crosswalk ties the leaderboard scores it displays to any submitted GeoTIFF.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE50/",

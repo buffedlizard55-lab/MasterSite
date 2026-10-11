@@ -3,6 +3,7 @@
   "repo": "GEMSDOE30",
   "title": "GEMSDOE30 — Fault-Discovery Research with Score Ledger",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize fault-discovery research repository whose brief calls for a metric-shaped training loss that matches the competition’s 300 m scoring kernel rather than exact pixel overlap, and requires docs/score-ledger.csv, docs/irregularities.md and the linked official sources to stay in sync whenever a claim is updated. The directory summarises that stated scope and does not validate the repository’s results.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE30/",

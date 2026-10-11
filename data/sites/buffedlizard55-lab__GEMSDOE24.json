@@ -3,6 +3,7 @@
   "repo": "GEMSDOE24",
   "title": "GEMSDOE24 — Evidence Before a Leaderboard Slot",
   "category": "Unclassified & Placeholder",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize repository whose site presents its status as “evidence before a leaderboard slot”. Its README records that an owner decision is required before a weekly slot is spent: the primary candidate (60,069 px, dated 2026-10-02) passes the frozen holdout gates and every format check, but the strict accessibility gate is not passed, and no weekly slot has been spent by the repository.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE24/",

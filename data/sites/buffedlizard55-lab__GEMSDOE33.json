@@ -3,6 +3,7 @@
   "repo": "GEMSDOE33",
   "title": "GEMSDOE33 — Fault Discovery with Bounded Analog-Field Transfer",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize fault-discovery repository (DrivenData competition 306) whose standing directive requires a unique GeoTIFF submission and an easy-to-download file. Its brief asks for ground truth borrowed from better-mapped analog geothermal fields (Dixie Valley, Desert Peak, Brady’s) with the transfer itself bounded by domain-adaptation theory and a measured source-to-target feature divergence before the transfer is trusted. The directory summarises the stated method and asserts no result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE33/",

@@ -3,6 +3,7 @@
   "repo": "GEMSDOE9",
   "title": "GEMSDOE9 — Fault Discovery Beyond the Catalogue",
   "category": "Science & ML Research",
+  "family": "gemsdoe",
   "kind": "app",
   "description": "DOE GEMS Prize research site for fault discovery beyond the public catalogue, with metric and holdout notes plus a submission hub. Its README identifies the downloadable GeoTIFF as a format-check placeholder and says no model has been trained.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE9/",

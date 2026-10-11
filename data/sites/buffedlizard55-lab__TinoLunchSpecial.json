@@ -3,6 +3,7 @@
   "repo": "TinoLunchSpecial",
   "title": "Tino Lunch Special — Cupertino & South Bay Lunch Deals",
   "category": "SF Local Guides",
+  "family": null,
   "kind": "app",
   "description": "Source-backed lunch research directory for Cupertino and nearby cities; the front page has led with lunch deals since 2026-09-11. Pass 25 (2026-09-17) states plainly that 873 research rows are not 873 verified deals: 11 rows carry field-level evidence (five complete, six partial) and the other 862 remain research, backed by a 35-row evidence CSV, a 20-query discovery log and a 100-source failed-attempt log. The 100-new-restaurant goal remains unmet. The September 8, 2026 SF Muni N Judah → Caltrain → VTA transit plan is preserved unchanged on transit.html.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/TinoLunchSpecial/",
