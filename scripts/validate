@@ -378,6 +378,39 @@ def main():
     else:
         check(False, "data/sites/ is missing — run tools/export_site_records.py")
 
+    # ---- L. plain master list (SITES.md) ------------------------------------------
+    # The owner brief asks for one organized, easy-to-read list where every public
+    # Pages site is a single line with its live link, a brief description, the date
+    # created, the date last updated and the official endpoints to review that row.
+    # It is generated from the same snapshot as the page, so it must not drift, it
+    # must cover every published site exactly once, and every row must carry its
+    # official review links. Regenerate with tools/build_sites_md.py after a refresh.
+    sites_md = os.path.join(ROOT, "SITES.md")
+    md_check = subprocess.run(
+        [sys.executable, os.path.join(ROOT, "tools", "build_sites_md.py"), "--check"],
+        capture_output=True, text=True, cwd=ROOT)
+    check(md_check.returncode == 0,
+          "SITES.md is out of sync with data/sites.js — %s"
+          % ((md_check.stdout.strip() or md_check.stderr.strip()) or "no output")[:300])
+    if os.path.isfile(sites_md):
+        md_text = open(sites_md, encoding="utf-8").read()
+        rows = re.findall(r"^\| (\d+) \| ", md_text, flags=re.M)
+        check(len(rows) == len(sites),
+              "SITES.md lists %d numbered row(s) for %d published site(s)"
+              % (len(rows), len(sites)))
+        check(rows == [str(i) for i in range(1, len(rows) + 1)] if rows else True,
+              "SITES.md row numbers are not a contiguous 1..n sequence")
+        for site in sites:
+            repo = site["repo"]
+            pages_url = site.get("pagesUrl") or ""
+            check(bool(pages_url) and ("[%s](%s)" % (repo, pages_url) in md_text
+                                       or ("(%s)" % pages_url) in md_text),
+                  "SITES.md has no row for published site %r" % repo)
+            check("%s/repos/%s/%s/pages" % (API, OWNER, repo) in md_text,
+                  "SITES.md row for %r is missing its official Pages API review link" % repo)
+    else:
+        check(False, "SITES.md is missing — run tools/build_sites_md.py")
+
     # ---- report ------------------------------------------------------------------
     print("checks run: %d" % checks)
     if warnings:
