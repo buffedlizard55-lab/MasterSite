@@ -322,3 +322,76 @@ Fresh official reads at **2026-10-11T05:00:34Z–05:00:36Z**:
    alone (validator currently lists the carried-basis entries as warnings).
 6. Watch the scheduled census guard (05:17 UTC daily) — it will PASS or open a `census-gap`
    issue on its own.
+---
+
+## Session `arena-ff71591b` — 2026-10-11T05:03:02Z (T-003 live Pages observations)
+
+**Branch:** `arena/ff71591b-mastersite` (fixed Arena branch). Pulled/rebased main,
+read the protocol, claimed only T-003, committed/pushed the claim alone.
+
+### What was done
+
+- Reviewed the existing directory rather than replacing it. Official Pages API
+  <https://api.github.com/repos/buffedlizard55-lab/MasterSite/pages> reported
+  `built`, source `main /`, and <https://buffedlizard55-lab.github.io/MasterSite/>.
+- Re-ran the read-only census guard against both official public-repository
+  lists: 146 public repos in `buffedlizard55-lab`, 145 listed + one standing
+  exclusion, and 0 public repos in `kanlerxz87-cyber`. Coverage guard PASS;
+  this does not re-verify all prose/metadata or page responses.
+- Added `tools/smoke_pages.py`, a stdlib-only, four-worker bounded HTTP audit of
+  every per-site JSON file, with separate point-in-time status/title/URLs and
+  null unknowns. Never modifies generated data, prose, API status, or stamps.
+- Added `.github/workflows/pages-smoke.yml`: daily 06:43 UTC, manual dispatch,
+  relevant PRs; full summary/artifact and same-repository PR comments, separate
+  flagged rows, scheduled issue tracking. No site requests carry GitHub tokens.
+- 14 offline regression tests pass (including error/null behavior, body limits,
+  redirects/HTTPS-only policy, untrusted-title escaping). `scripts/validate`
+  PASS, exports in sync, `npm run check` PASS, census self-test PASS. YAML and
+  embedded Bash/Python syntax checked. 84 Playwright cases discovered; CI must
+  run them because this sandbox has no browsers. Full API/prose audits were not
+  rerun: this task changes no snapshot/curation fields or generator templates.
+
+### What is blocked
+
+- No direct `github.io` egress in this sandbox. The first actual HTTP pass must
+  run on the PR's GitHub-hosted runner; do not call the offline fixtures live
+  verification. Actionlint binary download was also blocked at GitHub's release
+  asset host; YAML/Bash/Python syntax checks were performed instead.
+- Existing T-002 description queue remains claimed by another session (40 stale
+  snapshot stamps). Existing frozen repository decisions and last-use limitation
+  remain unresolved. No shared generator/page templates were changed.
+
+### What is next
+
+1. Inspect the PR HTTP audit, persist official runner evidence, and mark T-003
+   done in the same PR once all published URLs have timestamped observations.
+   A 404/transport error is a flag, not a guessed status or a directory deletion.
+2. Continue T-002 only in its owning session; T-007/T-008 remain separate
+   claimable work. HTTP checks do not replace source rereads or browser testing.
+3. Inspect `pages-smoke` issues and artifacts; artifacts expire after 30 days.
+   The directory UI still displays snapshot metadata, not this audit's statuses.
+
+### T-003 completion evidence (same PR #30)
+
+- Actual GitHub-hosted HTTP run [38113546456](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38113546456)
+  completed `2026-10-11T05:03:31Z`: **145/145 HTTP 200**, **144 complete titles**,
+  **0 transport/HTTP errors**, **1 review** (`SABERENGY` root title is null).
+  The workflow is intentionally red for the finding; do not misreport it as green.
+- Official runner comments copied verbatim into
+  `reports/pages-smoke/2026-10-11T050331Z.md`. Automated row/set checks confirm all
+  145 unique record identities appear exactly once, every status is 200, and
+  exactly 144 titles passed. This is a separate evidence file, not a manually
+  edited master list. Original JSON remains in the 30-day artifact.
+- FL-15 added with exact live URL and immutable official source endpoint.
+  `SABERENGY/index.html` at `098615a…` is a title-less meta-refresh to `docs/`;
+  no source change was made in that other repository and no destination title
+  was inferred. A follow-up browser redirect check or upstream title fix remains.
+- Existing browser-tests run [38113546401](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38113546401)
+  passed. T-003 marked done in this PR: observing every URL is complete even
+  though the observed title irregularity remains open. Recurring checks retain
+  their red-on-review behavior; source-verification queues remain unchanged.
+- Rebase encountered only append-only HANDOFF.md conflict with T-009's parallel
+  session; kept both entries and the T-009 completion record intact.
+
+- Final rebase incorporated PR #29 (T-005 completed). Its new FL-14 is retained;
+  this session's SABERENGY finding was renumbered FL-15 to avoid an ID collision.
