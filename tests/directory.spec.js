@@ -62,6 +62,17 @@ test('committed snapshot renders without errors and preserves exclusion/accounti
   expect(errors).toEqual([]);
 });
 
+test('the directory links to the generated plain master list for hand review', async ({ page }) => {
+  // The owner brief also asks for one organized, easy-to-read list outside the UI.
+  // SITES.md is generated from the same snapshot by tools/build_sites_md.py and is
+  // gated by scripts/validate §L, so the page only has to keep it discoverable.
+  await page.goto('/');
+  const masterList = page.locator('.quick-links a', { hasText: 'One-line master list' });
+  await expect(masterList).toHaveAttribute(
+    'href', 'https://github.com/buffedlizard55-lab/MasterSite/blob/main/SITES.md');
+  await expect(masterList).toHaveAttribute('rel', 'noopener');
+});
+
 test('URL restores combined filters, order and table layout after reload', async ({ page }) => {
   await useFixture(page);
   const query = new URLSearchParams({ q: 'test', category: 'Science & Tests', kind: 'app', prose: 'fresh', sort: 'name-desc', view: 'table' });
