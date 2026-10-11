@@ -92,6 +92,10 @@ merged PR).
 - **Final snapshot:** **145 sites** (135 HTML entry points / 10 documentation stubs), 144 `built` + 1
   `errored`, 10,579 commits, **41 prose-stale** (down from 47 after the six re-reads), 138 irregularities.
 
+- **The browser suite was executed after all, in CI.** PR #23's `browser-tests` job installed Chromium, Firefox and WebKit, ran `npm run check` and `npm test`, and **passed** (2m46s, run
+  `38110045438`). This is the first pass where the rendered directory was verified for all 145 rows in real
+  browsers rather than only discovered; the sandbox itself still cannot download browser binaries.
+
 ### What is next
 
 1. **T-002 (highest accuracy risk):** 47 description stamps are behind their heads, up from 38. Re-read
