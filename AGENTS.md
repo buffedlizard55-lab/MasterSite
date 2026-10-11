@@ -61,6 +61,16 @@ Run `build_verification.py` **after** the audit commands so the generated ledger
 
 If GitHub API access is unavailable, `python3 tools/build_data.py --overlay-only` can render curated narrative fields into the existing snapshot without network access. It cannot add repositories or refresh API fields, and it cannot see commits since the snapshot. Do not present an overlay-only render as a fresh API audit or publish it as a replacement for a full build.
 
+**Pages build-health re-check cadence (T-005).** On every refresh or health pass, re-read
+`GET /repos/{owner}/{repo}/pages` for each entry whose `pagesStatus` is not `built` (currently
+`GEMSDOE53`) and record the timestamped result in `FLAGGED.md` (FL-05) with the repository's
+`pushed_at` beside it — a status that is unchanged with no new push needs no data regeneration,
+and FL-05 must not be cleared while the API still reports `errored`. A recovery to `built`
+changes `counts.pagesBuilt` and requires a full `build_data.py` refresh. Also spot-check
+`pushed_at` on spot-touched repositories: a head that moved after the snapshot makes the
+published `proseStale` flag out of date even when the prose was correctly re-read at the
+snapshot head (see FL-14).
+
 ## 5. Documentation and test expectations
 
 - Update the **current** README snapshot counts, audit results, unresolved queue, and limitations after a final refresh. Historical pass notes should be clearly dated and kept separate from current claims.

@@ -19,6 +19,7 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 | Sites listed | **145** — up from 107; the **38 unlisted public Pages repositories** this refresh found are now published |
 | HTML entry points / README-documentation stubs | **135 / 10**; determined only from `index.html` at the configured Pages source path |
 | Pages API status | **144 `built`, 1 `errored`** (`GEMSDOE53`); API status is not uptime or browser behaviour |
+| Pages build health re-check (T-005) | **`GEMSDOE53` still `errored`; `MALTASUPPLEMENTAL` `built`** — re-read 2026-10-11T05:00:34Z–05:00:36Z (session arena-c29c2d14). No push to `GEMSDOE53` since 2026-10-09T02:00:53Z, so the build has not re-triggered and FL-05 stays open; `MALTASUPPLEMENTAL`'s post-snapshot head drift (head now 4ed9c5a vs stamped 81930be) is recorded as FL-14 for the T-002 re-read queue |
 | Default-branch commits | **10,579** across the 145 listed repositories |
 | `buffedlizard55-lab` public repositories / Pages-enabled repositories | **146 / 146**; 145 are listed and `ProjX` remains excluded by owner instruction |
 | `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** (re-verified this pass) |
