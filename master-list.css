@@ -1,0 +1,484 @@
+/* master-list.css — styling for master-list.html, the JavaScript-free master list.
+ *
+ * The page reuses the directory's design tokens from styles.css (colours, radii,
+ * fonts) so it reads as the same product, and adds only what a static long-form
+ * page needs: readable blocks instead of interactive cards, printable spacing,
+ * and tables that scroll rather than clip on narrow screens.
+ *
+ * Scope: every rule is namespaced `ml-` and the body carries .ml-body, so these
+ * styles cannot leak into index.html or executive-summary.html.
+ */
+
+.ml-body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+}
+
+.ml-body .wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------------------------------------------------------------- hero ---- */
+.ml-hero {
+  padding: 28px 0 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+}
+
+.ml-nav {
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.ml-nav a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.ml-nav a:hover { text-decoration: underline; }
+
+.ml-sep {
+  color: var(--line-strong);
+  margin: 0 6px;
+}
+
+.ml-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ml-hero h1 {
+  font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+  line-height: 1.2;
+  margin: 4px 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.ml-tagline {
+  color: var(--ink-secondary);
+  max-width: 72ch;
+  margin: 0 0 18px;
+  font-size: 0.92rem;
+}
+
+.ml-tagline code,
+.ml-panel code,
+.ml-sources code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0 4px;
+}
+
+/* --------------------------------------------------------------- tiles ---- */
+.ml-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin: 0 0 22px;
+}
+
+.ml-tile {
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ml-tile-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.ml-tile-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.ml-tile-note {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+/* -------------------------------------------------------------- panels ---- */
+.ml-panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin: 22px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.ml-panel h2 {
+  font-size: 1.08rem;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.ml-panel h3.ml-sub {
+  font-size: 0.95rem;
+  margin: 18px 0 6px;
+}
+
+.ml-panel-sub {
+  color: var(--ink-secondary);
+  font-size: 0.86rem;
+  margin: 0 0 12px;
+  max-width: 80ch;
+}
+
+.ml-bullets {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.86rem;
+  color: var(--ink-secondary);
+}
+
+.ml-bullets li { margin-bottom: 6px; }
+
+.ml-caveats li { color: var(--muted); }
+
+.ml-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--bg-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 1px 8px;
+  vertical-align: middle;
+}
+
+/* ----------------------------------------------------------- category toc -- */
+.ml-toc {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  margin: 22px 0;
+}
+
+.ml-toc h2 {
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+
+.ml-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.ml-toc-list a { color: var(--primary); text-decoration: none; }
+.ml-toc-list a:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------- a section --- */
+.ml-category {
+  margin: 30px 0 10px;
+}
+
+.ml-category h2 {
+  font-size: 1.05rem;
+  border-bottom: 2px solid var(--primary-border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+/* ---------------------------------------------------------------- a site --- */
+.ml-site {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--primary-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin: 0 0 10px;
+}
+
+.ml-site h3 {
+  font-size: 0.98rem;
+  margin: 0 0 6px;
+  line-height: 1.35;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ml-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  min-width: 2.2em;
+}
+
+.ml-frozen-mark {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--rose);
+  min-width: 2.2em;
+}
+
+.ml-live {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--primary-border);
+}
+
+.ml-live:hover {
+  color: var(--primary-hover);
+  border-bottom-color: var(--primary);
+}
+
+.ml-live-hint {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.ml-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px 2.6em;
+}
+
+.ml-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-subtle);
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.ml-kind-app { background: var(--green-soft); border-color: var(--green-border); color: var(--green); }
+.ml-kind-stub { background: var(--amber-soft); border-color: var(--amber-border); color: var(--amber); }
+.ml-pages-ok { background: var(--green-soft); border-color: var(--green-border); color: var(--green); }
+.ml-pages-warn { background: var(--rose-soft); border-color: var(--rose-border); color: var(--rose); }
+.ml-family { background: var(--primary-soft); border-color: var(--primary-border); color: var(--primary-hover); }
+.ml-stale { background: var(--amber-soft); border-color: var(--amber-border); color: var(--amber); }
+
+.ml-meta {
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  margin: 0 0 8px 2.6em;
+}
+
+.ml-meta a { color: var(--primary); text-decoration: none; }
+.ml-meta a:hover { text-decoration: underline; }
+
+/* dates as a definition row: label above value, wraps on narrow screens */
+.ml-dates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 4px 18px;
+  margin: 0 0 8px 2.6em;
+  font-size: 0.78rem;
+}
+
+.ml-dates dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ml-dates dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ml-none { color: var(--muted); }
+
+.ml-desc {
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  margin: 0 0 8px 2.6em;
+  max-width: 96ch;
+}
+
+.ml-desc-full {
+  border-left: 2px solid var(--line);
+  padding-left: 10px;
+  color: var(--ink-secondary);
+}
+
+.ml-more {
+  margin: 0 0 8px 2.6em;
+  font-size: 0.78rem;
+}
+
+.ml-more summary {
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.ml-more summary:hover { color: var(--primary-hover); }
+
+.ml-stamp,
+.ml-sources {
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin: 0 0 4px 2.6em;
+  word-break: break-word;
+}
+
+.ml-sources a {
+  color: var(--primary);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.ml-sources a:hover { text-decoration: underline; }
+
+.ml-stamp a { color: var(--primary); }
+
+/* --------------------------------------------------------------- frozen --- */
+.ml-panel-frozen .ml-site {
+  border-left-color: var(--rose-border);
+  background: #fffbfc;
+}
+
+/* -------------------------------------------------------------- tables ---- */
+.ml-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.ml-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.ml-table caption {
+  text-align: left;
+  padding: 8px 10px;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.ml-table th,
+.ml-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ml-table thead th {
+  background: var(--bg-subtle);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  position: sticky;
+  top: 0;
+}
+
+.ml-table tbody tr:nth-child(even) { background: var(--card-hover); }
+
+.ml-table a { color: var(--primary); text-decoration: none; }
+.ml-table a:hover { text-decoration: underline; }
+
+.ml-nowrap { white-space: nowrap; }
+
+.ml-account-note td {
+  color: var(--muted);
+  font-size: 0.74rem;
+  background: var(--bg-subtle);
+}
+
+/* -------------------------------------------------------------- footer ---- */
+.ml-footer {
+  border-top: 1px solid var(--line);
+  background: var(--card);
+  padding: 18px 0 30px;
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.ml-footer-sub a { color: var(--primary); text-decoration: none; }
+.ml-footer-sub a:hover { text-decoration: underline; }
+
+/* ---------------------------------------------------------- small screens -- */
+@media (max-width: 720px) {
+  .ml-badges,
+  .ml-meta,
+  .ml-dates,
+  .ml-desc,
+  .ml-more,
+  .ml-stamp,
+  .ml-sources {
+    margin-left: 0;
+  }
+
+  .ml-site { padding: 12px; }
+
+  .ml-table { font-size: 0.74rem; }
+}
+
+/* ---------------------------------------------------------------- print ---
+   A static page is the one that actually gets printed or archived, so make the
+   printed form useful: no navigation chrome, no card borders, rows that do not
+   split across pages, and the full sources line kept next to its site. */
+@media print {
+  .ml-body { background: #fff; }
+
+  .ml-nav,
+  .skip-link,
+  .ml-toc,
+  .ml-footer { display: none; }
+
+  .ml-hero,
+  .ml-panel,
+  .ml-site,
+  .ml-toc {
+    box-shadow: none;
+    border-color: #999;
+    break-inside: avoid;
+  }
+
+  .ml-site { border-left-width: 1px; }
+
+  .ml-live,
+  .ml-sources a,
+  .ml-meta a,
+  .ml-table a { color: #000; border-bottom: 0; }
+
+  .ml-more[open] summary { display: none; }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.68rem;
+    color: #555;
+    word-break: break-all;
+  }
+}
