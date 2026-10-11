@@ -1570,3 +1570,42 @@ immediately, then renumbered twice rather than working around the collisions.
 4. **Keep the daily census guard and the Pages smoke audit running.** They check coverage and
    point-in-time HTTP/title observations respectively; `FL-15` (`SABERENGY`'s meta-refresh title) keeps
    the smoke job red **by design** — `T-027` proposes executing the redirect instead of weakening it.
+
+---
+
+## Session `arena-4b8952c7` — 2026-10-11 (T-031, renumbered from T-026: Executive Summary source-link & staleness integrity + live census/status verification)
+
+**Branch:** `arena/4b8952c7-mastersite` (PR #58). **Claim:** `TASKS.md` **T-031** (claimed as `T-026` at `2026-10-11T18:28:43Z` in commit `435f3ce` / PR #58 before PR #44 merged at `18:33Z` with follow-up rows `T-026`–`T-030`; renumbered to `T-031` on rebase so PR #44's rows stay untouched).
+
+### What was done
+
+1. **Live official GitHub REST API census & build-health spot-checks (`2026-10-11T18:29:31Z`):**
+   - Ran `python3 tools/census_guard.py` → **PASS** (`buffedlizard55-lab` `public_repos=146`, 146 Pages-enabled = 145 listed + 1 permanently excluded; `kanlerxz87-cyber` `public_repos=0`).
+   - Re-checked `GET /repos/buffedlizard55-lab/GEMSDOE53` (`pushed_at=2026-10-09T02:00:53Z`) and `/pages` → HTTP 200, `status=errored` (`FL-05` unchanged; requires owner rebuild or new push).
+   - Re-checked `GET /repos/buffedlizard55-lab/NFLInjuryReport` (`pushed_at=2026-10-11T18:27:07Z`) and `/pages` → HTTP 200, `status=built` (`FL-17` recovered to `built` at `16:58:53Z` snapshot and remains `built`).
+   - Re-checked all four frozen unreachable repositories (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`) at `GET /repos/buffedlizard55-lab/{repo}` and `/pages` → all return **HTTP 404** (`FL-03` / `T-004`).
+
+2. **Fixed silent staleness & missing source links on `executive-summary.html` / `executive-summary.js` (`T-031`):**
+   - **Defect found by line-by-line inspection:** `healthOf(s)` in `executive-summary.js` previously checked only `if (s.flags && s.flags.length > 0) return "review"`. As a result, **10 `proseStale` entries whose `flags` array is empty** (`12GEMSDOE`, `based-loaded-MLB-alert-system`, `ErrorsLive`, `GEMSDOE28`, `GEMSDOE32`, `GRANTWRITING`, `MLB-Live-PBP`, `POSTSEASONMLBALERTS`, `SCORINGDISCREPNFL`, `ScoringDiscrepNHL`) were badged `✓ No flags` (`health-healthy`) on `executive-summary.html`, hiding the fact that their `verifiedAtSha` is behind the recorded snapshot head. Similarly, `healthOf(s)` did not check `s.pagesStatus !== "built"` or missing `lastVerified` / `verifiedAtSha`.
+   - **Fix in `executive-summary.js`:** added `reviewReasonsOf(s)` combining `s.flags`, `PROSE-STALE` (`verifiedAtSha` behind `headSha`), missing verification stamps, and non-`built` `pagesStatus` values. All 10 previously hidden `proseStale` entries now render as `⚠ Review` (`health-review`) with explicit `PROSE-STALE` explanations and are excluded from the `✓ No flags` filter.
+   - **Per-row official review links & provenance stamps:** each row in `executive-summary.html` now includes direct links to `Visit ↗` (`pagesUrl`), `Repo`, `Repo API` (`https://api.github.com/repos/{owner}/{repo}`), `Pages API` (`.../pages`), `Commits API` (`.../commits?sha={defaultBranch}`), and `JSON` (`data/sites/{owner}__{repo}.json`), plus `head: <lastCommitSha>`, `prose: <verifiedAtSha>`, and `init: <firstCommitSha>`.
+   - **Audited accounts & frozen 404 records surfaced:** `executive-summary.html` now renders `#execAccountsGrid` (`buffedlizard55-lab` and `kanlerxz87-cyber` with official User/Repos API links) and `#execUnreachableList` (the 4 frozen 404 repositories with their last verified metadata, 404 check endpoints, and link to `OWNER-DECISIONS.md`).
+   - **Tests added:** `tests/test_executive_summary.py` (7 offline deterministic unit tests verifying all 145 rows, official links, staleness/non-built flagging, filter behavior, accounts/unreachable rendering, exclusion hygiene, and HTML escaping) and `tests/executive-summary.spec.js` (Playwright coverage).
+
+3. **Verification gates:**
+   - `python3 -m unittest discover -s tests -p 'test_*.py' -v` → **67 tests passed**
+   - `python3 scripts/validate` → **PASS (5,421 checks)**
+   - `python3 tools/census_guard.py --self-test` → **PASS**
+   - `npm run check` → **PASS**
+
+### What is blocked
+
+- **Playwright local browser execution:** browser binary downloads from `cdn.playwright.dev` fail with `ECONNRESET` in this sandbox; the PR `browser-tests` workflow runs the full suite across Chromium, Firefox, WebKit, and mobile Chromium in CI.
+- **Direct sandbox egress to `*.github.io`:** blocked by sandbox outbound allowlist; live HTTP status and `<title>` observations are covered by the GitHub-hosted `pages-smoke.yml` workflow (`T-003`).
+- **Owner decisions pending:** `T-004` (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2` frozen 404 disposition), `T-006` (`6GEMSDOE` consolidation stance), `T-028` / `FL-13` (`62GEMSDOE` category), `FL-05` (`GEMSDOE53` `errored` Pages build), and `T-023` (5,000 req/hr token secret for scheduled `audit_provenance`).
+
+### What is next
+
+1. **T-002 (claimed by `96e82e25`):** Re-read the 52 `PROSE-STALE` descriptions at current repository heads and expand the 5 `{path}` template citations (`FL-18`: `Commodities`, `Coupons`, `Elections`, `MLBComp`, `SABERENGY`) to concrete endpoints.
+2. **T-024 / T-025 / T-026 / T-027 / T-029:** Ledger surfacing for scheduled audits, per-item scheduled review detail, Pages status-transition guard in `census_guard.py`, headless-browser redirect following for `SABERENGY` (`FL-15`), and resumable quota-aware refreshes.
+
