@@ -24,7 +24,7 @@
   "verifiedAtSha": "a41566c",
   "snapshotHeadSha": "a41566c",
   "proseStale": false,
-  "verifiedBasis": "Description carried from the 2026-09-20T01:17:26Z audit and NOT re-read this session; safe to carry because the repository is unchanged since (identical latest commit SHA and commit count, re-confirmed by tools/verify_live.py this session). Every API-derived field was independently re-checked.",
+  "verifiedBasis": "Description carried from the 2026-09-20T01:17:26Z audit and NOT re-read this session; safe to carry because the repository is unchanged since (identical latest commit SHA and commit count, re-confirmed by tools/verify_live.py this session). Every API-derived field was independently re-checked. Manual review links for this record: repository metadata API https://api.github.com/repos/buffedlizard55-lab/Ncaa-football-alerts; Pages configuration/status API https://api.github.com/repos/buffedlizard55-lab/Ncaa-football-alerts/pages; first page of default-branch commits API https://api.github.com/repos/buffedlizard55-lab/Ncaa-football-alerts/commits?sha=main&per_page=100&page=1; README API at the recorded prose SHA https://api.github.com/repos/buffedlizard55-lab/Ncaa-football-alerts/readme?ref=a41566c; repository files at that prose SHA https://github.com/buffedlizard55-lab/Ncaa-football-alerts/tree/a41566c; published Pages URL https://buffedlizard55-lab.github.io/Ncaa-football-alerts/. These are review links: adding them did not re-read or semantically validate the description, refresh the API snapshot, or establish site availability.",
   "sourceLinks": [
     "https://api.github.com/repos/buffedlizard55-lab/Ncaa-football-alerts",
     "https://api.github.com/repos/buffedlizard55-lab/Ncaa-football-alerts/pages",

@@ -322,6 +322,7 @@ Fresh official reads at **2026-10-11T05:00:34Z–05:00:36Z**:
    alone (validator currently lists the carried-basis entries as warnings).
 6. Watch the scheduled census guard (05:17 UTC daily) — it will PASS or open a `census-gap`
    issue on its own.
+
 ---
 
 ## Session `arena-ff71591b` — 2026-10-11T05:03:02Z (T-003 live Pages observations)
@@ -395,3 +396,78 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
 
 - Final rebase incorporated PR #29 (T-005 completed). Its new FL-14 is retained;
   this session's SABERENGY finding was renumbered FL-15 to avoid an ID collision.
+
+
+---
+
+## Session `arena-335b0623` — 2026-10-11 (T-011: inline hand-review endpoints)
+
+**Branch:** `arena/335b0623-mastersite` (the session-pinned branch; no branch switch).
+
+### What was done
+
+- Ran `git pull --rebase origin main` before work (then-current `main` was up to date), read
+  `TASKS.md` and `FLAGGED.md`, claimed exactly T-011 at `2026-10-11T04:57:19Z`, and pushed the
+  claim-only commit `f1e06ea` before implementation. Rebased onto `origin/main` at `8a1bb2e`
+  before PR creation, preserving T-005/T-009. After PR #30 (T-003) landed, rebased again onto
+  `cc71a1a`; its live-site evidence remains separate from this data/provenance task.
+- Audited each of the 145 published records against its `tools/overlay.json` basis. Thirty-two
+  bases had no inline API URL for their own repository and depended on the generic links in the
+  generated ledger/UI. Added record-specific repository metadata, Pages, default-branch commit,
+  README-at-prose-SHA, source-tree-at-prose-SHA and Pages-site review URLs to those 32 bases.
+  The appended text explicitly says these links are for review only: no descriptions or
+  verification stamps were changed and no uptime claim was added. The overlay-render timestamp
+  advanced; API-derived snapshot fields remain unchanged. Sources of the recorded fields remain
+  `data/sites.js` and the per-record links in `VERIFICATION.md`.
+- Re-rendered only curated fields using `python3 tools/build_data.py --overlay-only`, then regenerated
+  `data/sites/` and `VERIFICATION.md`. The API snapshot remains `2026-10-11T03:01:01Z`; overlay-only
+  mode made no API calls and did not change the 145-site census or the snapshot's 40-entry stale-prose
+  queue (`data/sites.js`, `tools/build_data.py` output, `VERIFICATION.md`, `FLAGGED.md` FL-10/FL-14).
+- Hardened `scripts/validate`: a carried/re-read basis without an inline API URL for its own repo is
+  now a failure, not a warning. After rebase on current `main`, `scripts/validate` passed with
+  **4,830 checks**; its 83 remaining non-fatal warnings include the existing stale-prose,
+  review-word and alias notices; none are missing inline-endpoint failures.
+  `python3 tools/export_site_records.py --check`, `npm run check`, Python compilation and
+  `git diff --check` also passed.
+- Updated T-011 to `done` in `TASKS.md` for this PR, following the exact claim line above.
+- Opened PR #31 from this branch and rebased it onto `cc71a1a` after PR #30 advanced `main`.
+  On the rebased head, browser-tests passed (run `38114054807`). The separate `observe` job
+  recorded 145/145 HTTP 200, 144 titles, 0 HTTP/transport errors, and the known `SABERENGY`
+  null-title review finding (FL-15); it is intentionally red for that finding
+  (run `38114054818`, comment on PR #31).
+
+### Blocked / limitations
+
+- `npm test` discovered 84 browser cases but all failed before execution because browser binaries are
+  absent in this sandbox; the representative error names the missing Chromium executable in
+  `test-results/directory-committed-snapsh-66f82-usion-accounting-invariants-chromium/error-context.md`.
+  No UI files changed. `.github/workflows/test.yml` installs the browsers; use its PR result as the
+  browser-test result, not this sandbox run.
+- This task intentionally did not refresh the API snapshot: `--overlay-only` retained the
+  `2026-10-11T03:01:01Z` timestamp (`data/sites.js`). This sandbox still cannot reach `*.github.io`,
+  but PR #31's GitHub-hosted run observed 145/145 HTTP 200, 144 titles, 0 HTTP/transport errors,
+  and the `SABERENGY` null-title finding tracked by FL-15 (`2026-10-11T05:12:53Z`, run
+  `38114054818`, PR #31 comment). This point-in-time status does not establish ongoing uptime,
+  browser functionality or site use.
+- The published snapshot still has 40 `PROSE-STALE` entries, and T-005 found a post-snapshot
+  head move for `MALTASUPPLEMENTAL` (FL-14), making the effective current re-read queue 41 until a
+  fresh snapshot or T-002 re-read. The separately claimed T-002 session owns those re-reads; this
+  session changed only review links, not descriptions, `lastVerified` or `verifiedAtSha`
+  (`VERIFICATION.md` stale-first table, `FLAGGED.md` FL-10/FL-14).
+
+### What is next
+
+1. PR #31 is rebased onto `cc71a1a` and pushed. Its current `browser-tests` check passed; the
+   `observe` check is intentionally red only for the known FL-15 null title, with the full
+   145-site report linked on the PR. Attempt the normal merge; do not weaken the smoke criteria or
+   bypass branch rules. The validator gate requires any follow-up basis edit to retain an inline
+   same-repository API URL.
+2. Continue T-002's effective 41 source re-reads at current heads; do not clear staleness by changing
+   only a SHA (`TASKS.md` T-002, `VERIFICATION.md`, `FLAGGED.md` FL-10/FL-14).
+3. Remaining unclaimed work is T-004/T-006 (owner decisions), T-007 (GEMSDOE family view), and
+   T-008 (confirm usable landing pages at the configured paths for the three stub entries). T-003,
+   T-005 and T-009 landed on `main` while this session was working. The live
+   `python3 tools/census_guard.py --self-test` check also passed at about `2026-10-11T05:05Z`:
+   `buffedlizard55-lab` had 146 public repos / 146 Pages-enabled, with 145 listed + `ProjX`
+   excluded; `kanlerxz87-cyber` had 0 public repos. That guard verifies coverage, not every
+   per-record telemetry field, which remains at the `2026-10-11T03:01:01Z` snapshot (`tools/census_guard.py`, `data/sites.js`).
