@@ -422,6 +422,100 @@ def main():
     else:
         check(False, "SITES.md is missing — run tools/build_sites_md.py")
 
+    # ---- M. static JavaScript-free master list (master-list.html) ------------------
+    # The owner brief asks for one organized, easy-to-read list of every public
+    # Pages site. index.html and executive-summary.html build their rows in the
+    # browser, so a reader without JavaScript sees an empty shell; master-list.html
+    # is the same snapshot as *static* HTML and is the artifact that can be read,
+    # printed, archived or crawled without running any code. It must therefore stay
+    # script-free, must cover every published site exactly once, and must keep each
+    # row's official endpoints. Regenerate with tools/build_master_list.py.
+    ml_path = os.path.join(ROOT, "master-list.html")
+    ml_check = subprocess.run(
+        [sys.executable, os.path.join(ROOT, "tools", "build_master_list.py"), "--check"],
+        capture_output=True, text=True, cwd=ROOT)
+    check(ml_check.returncode == 0,
+          "master-list.html is out of sync with data/sites.js — %s"
+          % ((ml_check.stdout.strip() or ml_check.stderr.strip()) or "no output")[:300])
+    if os.path.isfile(ml_path):
+        ml_text = open(ml_path, encoding="utf-8").read()
+        lowered = ml_text.lower()
+        check("<script" not in lowered,
+              "master-list.html contains a <script> element — the page must stay JavaScript-free")
+        check(not re.search(r"<\s*[a-z][^>]*\son[a-z]+\s*=", ml_text, re.I),
+              "master-list.html contains an inline event handler outside escaped text")
+        check(not re.search(r"\b(?:href|src)\s*=\s*[\"']?\s*javascript:", ml_text, re.I),
+              "master-list.html contains a javascript: URL")
+        numbers = re.findall(r'class="ml-num" aria-hidden="true">(\d+)<', ml_text)
+        check(len(numbers) == len(sites),
+              "master-list.html renders %d numbered site block(s) for %d published site(s)"
+              % (len(numbers), len(sites)))
+        check([int(n) for n in numbers] == list(range(1, len(numbers) + 1)),
+              "master-list.html row numbers are not a contiguous 1..n sequence")
+        for s in sites:
+            repo = s["repo"]
+            check('id="site-%s"' % re.sub(r"[^A-Za-z0-9_-]", "-", repo) in ml_text,
+                  "master-list.html has no block for published site %r" % repo)
+            check(s["pagesUrl"] in ml_text,
+                  "master-list.html block for %r is missing its live Pages URL" % repo)
+            check("%s/repos/%s/%s/pages" % (API, OWNER, repo) in ml_text,
+                  "master-list.html block for %r is missing its official Pages API link" % repo)
+            check("%s/repos/%s/%s\"" % (API, OWNER, repo) in ml_text
+                  or "%s/repos/%s/%s<" % (API, OWNER, repo) in ml_text,
+                  "master-list.html block for %r is missing its official repository API link" % repo)
+        for repo in sorted(excluded):
+            check('id="site-%s"' % re.sub(r"[^A-Za-z0-9_-]", "-", repo) not in ml_text,
+                  "master-list.html renders a block for excluded repository %s" % repo)
+            check("github.io/%s/" % repo not in ml_text,
+                  "master-list.html links the live Pages URL of excluded repository %s" % repo)
+    else:
+        check(False, "master-list.html is missing — run tools/build_master_list.py")
+
+    # ---- N. README headline numbers agree with the snapshot -----------------------
+    # The README describes the generated files in prose, so its headline numbers can
+    # rot silently when a refresh lands: on 2026-10-11 the data/sites.js row still
+    # advertised the 05:12:27Z census stamp and 138 irregularities while the
+    # committed snapshot said 15:06:10Z and 141 (three irregularity IDs were added
+    # by later sessions without touching the sentence). Only the descriptive row for
+    # generated data/sites.js is checked, and a missing pattern is a warning rather
+    # than a failure, so rewording the README cannot break the build — but a number
+    # that is present and wrong does.
+    readme_path = os.path.join(ROOT, "README.md")
+    if os.path.isfile(readme_path):
+        readme_text = open(readme_path, encoding="utf-8").read()
+        row_lines = [ln for ln in readme_text.splitlines() if "[`data/sites.js`]" in ln]
+        if not row_lines:
+            warnings.append("README.md has no data/sites.js description row — the headline-number "
+                            "gate (§N) had nothing to check")
+        else:
+            row = " ".join(row_lines)
+            m = re.search(r"(\d+)-site snapshot", row)
+            if m:
+                check(int(m.group(1)) == len(sites),
+                      "README.md says the snapshot holds %s sites; data/sites.js has %d"
+                      % (m.group(1), len(sites)))
+            m = re.search(r"(\d+) irregularities", row)
+            if m:
+                check(int(m.group(1)) == len(data.get("irregularities", [])),
+                      "README.md says the snapshot holds %s irregularities; data/sites.js has %d"
+                      % (m.group(1), len(data.get("irregularities", []))))
+            m = re.search(r"(\w+) unreachable records", row)
+            if m:
+                words = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+                         "eight": 8, "nine": 9, "ten": 10}
+                stated = words.get(m.group(1).lower())
+                if stated is not None:
+                    check(stated == len(data.get("unreachable", [])),
+                          "README.md says the snapshot holds %s unreachable records; data/sites.js has %d"
+                          % (m.group(1), len(data.get("unreachable", []))))
+            m = re.search(r"census at `([0-9T:Z-]+)`", row)
+            if m:
+                check(m.group(1) == data.get("generated"),
+                      "README.md dates the data/sites.js census at %s; the snapshot says %s"
+                      % (m.group(1), data.get("generated")))
+    else:
+        check(False, "README.md is missing")
+
     # ---- report ------------------------------------------------------------------
     print("checks run: %d" % checks)
     if warnings:
