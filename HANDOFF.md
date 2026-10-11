@@ -646,3 +646,20 @@ only reach `main` when a PR merges.
    names containing the literal string; the API snapshot stays `2026-10-11T03:01:01Z` (this
    session deliberately did not run the full network build; the census was re-verified with ~6
    API calls); no uptime, usage or "last used" claim is made anywhere.
+
+### Post-merge (same session, session `arena-d678d633`)
+
+- **PR #36 merged into `main` at `2026-10-11T06:03:04Z`, merge commit `656f9bc`** — read back from
+  `origin/main` rather than assumed: `data/sites.js` reports `counts.sites` 145 and
+  `counts.families` `{gems-prize-lanes: 62}`; `data/sites/buffedlizard55-lab__GEMSDOE2.json`
+  carries `family: gems-prize-lanes`; `tools/families.json` has `nameToken: GEMSDOE` and
+  `ungroupedByDesign: [62GEMSDOE]` with 62 curated members.
+- **CI on the PR head:** `browser-tests` **pass** (1m52s; `npm run check`, census guard self-test,
+  `scripts/validate` 5,115 checks, Playwright on Chromium/Firefox/WebKit) —
+  run [`38116507614`](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38116507614).
+  `Live Pages smoke audit` **fail by design** while `FL-15` stands (run
+  [`38116507618`](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38116507618):
+  145 URLs observed at head `def478ca`, 144 titled, 1 requiring review — `SABERENGY`, as flagged).
+- **PR #34** (this session's parallel T-007 implementation) stays **closed** with the race record
+  and cross-check in its thread; its history is the reference if the owner ever wants the
+  third-layout variant revived.
