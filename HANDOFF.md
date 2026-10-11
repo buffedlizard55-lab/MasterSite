@@ -866,3 +866,66 @@ replaced by a fresh one — see "What went wrong" below, because it is a trap fo
    `export_site_records.py` → `build_verification.py` → `scripts/validate` (+ the two audits). The generator
    now refuses to write when an assert fails, so a red run means "the published data is the previous good
    snapshot", not "the file is broken".
+---
+
+## Session `arena-f4ec7efd` — 2026-10-11 (T-004: frozen repository recheck)
+
+**Branch:** `arena/f4ec7efd-mastersite` (Arena-pinned). Claim-only commit `21f2fc0` was pushed
+immediately before work began.
+
+### What was done
+
+- Reviewed `AGENTS.md`, `README.md`, `TASKS.md`, `FLAGGED.md`, the generated data/export workflow,
+  and the static directory UI. The GitHub Pages directory already exists at
+  <https://buffedlizard55-lab.github.io/MasterSite/>; this session did not change UI templates or
+  generated site records.
+- Ran the live census guard at **2026-10-11T15:39:28Z**. It passed: the official public-repository
+  list contains **146** repositories for `buffedlizard55-lab`, **145** are published and **1** is
+  excluded under the standing `ProjX` owner instruction; `kanlerxz87-cyber` reports **0** public
+  repositories. Sources: <https://api.github.com/users/buffedlizard55-lab/repos> and
+  <https://api.github.com/users/kanlerxz87-cyber/repos>. This guard confirms repository-list coverage
+  against the snapshot; it does **not** refresh every repository's Pages status or metadata. At the
+  time of this guard run the branch still held the `2026-10-11T05:12:27Z` detail snapshot. PR #40
+  (T-013) merged at `2026-10-11T15:43:36Z` with a newer full snapshot (`2026-10-11T15:06:10Z`); after
+  this branch's rebase, that is the latest published detail snapshot (<https://github.com/buffedlizard55-lab/MasterSite/pull/40>).
+- Rechecked the four frozen records with direct official `GET /repos/buffedlizard55-lab/{repo}` calls
+  at **2026-10-11T15:38:20Z**. `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` each returned
+  HTTP **404** / `Not Found`. Exact review endpoints are in `FLAGGED.md` (FL-03); 404 alone does not
+  tell us whether an item is private, deleted, or renamed. The existing records remain frozen and are
+  not counted as current public sites.
+- Re-read the MasterSite Pages endpoint; GitHub reports `status: built`, public URL
+  <https://buffedlizard55-lab.github.io/MasterSite/>, source `main /`:
+  <https://api.github.com/repos/buffedlizard55-lab/MasterSite/pages>. This is build metadata, not a
+  live HTTP or browser test.
+- Updated FL-03 with the timestamped 404 re-check and marked T-004 **blocked** rather than inventing
+  the missing owner decision. No `data/sites.js` or `VERIFICATION.md` hand edits were made.
+- Checks on the rebased branch against the `2026-10-11T15:06:10Z` snapshot: `scripts/validate`
+  **PASS (5,126 checks; 98 tracked warnings)**; `npm run check` **PASS**; Python unit tests
+  **14/14 PASS**; `tools/census_guard.py --self-test` **PASS (3 verdict paths)**. The live census
+  guard also passed at **2026-10-11T15:45:44Z** (146 public repositories, 145 listed + 1 standing
+  exclusion; `kanlerxz87-cyber` 0). Playwright is unavailable locally because this checkout has no
+  `node_modules`/browser installation; PR #42 runs the browser suite in CI.
+
+### What is blocked
+
+- **T-004 cannot be completed without an owner disposition**: keep the four records frozen, restore
+  them to public status, or drop the historical records. The instructions prohibit silently deleting
+  them, and the API does not establish why they return 404. The status is `blocked`; PR #42 is an
+  evidence-only update and explicitly does not mark T-004 complete or claim an owner disposition.
+- The current live census guard does not refresh all 146 per-repository Pages endpoints, build states,
+  commit timestamps, or curated prose. It confirms account-level coverage only. Do not present the
+  `05:12:27Z` detailed metadata snapshot as a full `15:39Z` refresh.
+
+### What is next
+
+1. Obtain the owner's explicit keep/restore/drop disposition for T-004; then update the frozen records
+   and close FL-03 only with the corresponding evidence. Until then, preserve them.
+2. Continue T-002 only in its owning session (`session=96e82e25`). T-013's newer snapshot reports
+   51 prose stamps behind their heads and closes FL-16 by re-reading `59GEMSDOE`; `TASKS.md` still
+   says 40 in the T-002 summary, so the owning session should reconcile that task text without
+   changing its claim.
+3. T-006 still needs an owner decision on the GEMS-family conflict. Other review items include
+   `GEMSDOE53`'s `errored` Pages build (FL-05), `NFLInjuryReport`'s new `errored` build (FL-17),
+   and `SABERENGY`'s null smoke-test title (FL-15).
+4. If another session needs a fresh detailed inventory, run the complete API refresh and its audits
+   under `AGENTS.md` §4; the account-level census guard alone is not a substitute.
