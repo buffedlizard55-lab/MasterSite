@@ -1,5 +1,6 @@
 # TEMPORARY evidence probe for TASKS.md T-008 (session arena-0b9d98b4).
 # Removed from the branch before merge; the run and its PR comment are the record.
+# Run 2: resolves every href (no 10-link cap) so the docs-landing link check is exact.
 #
 # Question: do 62GEMSDOE, GEMSDOE42 and GEMSDOE44 — whose configured Pages source
 # (main /) has no index.html — publish a usable landing page, and do the documentation
@@ -25,7 +26,7 @@ jobs:
       - name: Observe the landing pages and the linked documentation sites
         run: |
           python3 - <<'PY'
-          import datetime, hashlib, html.parser, json, os, urllib.error, urllib.request
+          import datetime, hashlib, html.parser, json, os, urllib.error, urllib.parse, urllib.request
           BASE = "https://buffedlizard55-lab.github.io/"
           URLS = [
               ("62GEMSDOE", "root", BASE + "62GEMSDOE/"),
@@ -76,23 +77,28 @@ jobs:
               except Exception as e:  # transport failure: recorded, never read as "site down"
                   row.update(status=None, error="%s: %s" % (type(e).__name__, e))
               p = Page(); p.feed(body.decode("utf-8", "replace"))
+              # Resolve every href against the served URL (no truncation), then test whether the
+              # page links the repository's documentation landing page itself.
+              resolved = sorted(set(urllib.parse.urljoin(row.get("finalUrl") or url, h).split("#")[0] for h in p.hrefs))
+              docs_targets = {BASE + repo + "/docs/index.html", BASE + repo + "/docs/"}
               row.update(bytes=len(body), sha256=hashlib.sha256(body).hexdigest() if body else None,
                          title=p.title, h1=p.h1, generator=p.generator, linkCount=len(p.hrefs),
-                         docsLinks=sorted(set(h for h in p.hrefs if "docs/" in h))[:10])
+                         docsLinks=[u for u in resolved if "/docs/" in u],
+                         linksDocsLanding=any(u in docs_targets for u in resolved))
               rows.append(row)
 
           run_url = "%s/%s/actions/runs/%s" % (os.environ["GITHUB_SERVER_URL"], os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_RUN_ID"])
           md = ["<!-- t008-landing-probe:v1 -->",
                 "## T-008 landing-page probe — live HTTP observation (not API build status)", "",
                 "Run: %s · event `%s` · head `%s`" % (run_url, os.environ["GITHUB_EVENT_NAME"], os.environ.get("PR_HEAD", "")), "",
-                "| Repo | Role | URL | HTTP | `<title>` | First `<h1>` | `<meta name=generator>` | Links to `docs/` | Bytes | SHA-256 (first 12) |",
-                "|---|---|---|---|---|---|---|---|---|---|"]
+                "| Repo | Role | URL | HTTP | `<title>` | First `<h1>` | `<meta name=generator>` | Links its `docs/` landing page | `docs/` links | Bytes | SHA-256 (first 12) |",
+                "|---|---|---|---|---|---|---|---|---|---|---|"]
           for r in rows:
               esc = lambda s: (s or "—").replace("|", "\\|")
-              md.append("| `%s` | %s | <%s> | %s | %s | %s | %s | %s | %s | `%s` |" % (
+              md.append("| `%s` | %s | <%s> | %s | %s | %s | %s | %s | %d | %s | `%s` |" % (
                   r["repo"], r["role"], r["url"], r.get("status"), esc(r.get("title")), esc(r.get("h1")),
-                  esc(r.get("generator")), esc(", ".join(r.get("docsLinks") or [])) , r.get("bytes"),
-                  (r.get("sha256") or "—")[:12]))
+                  esc(r.get("generator")), "yes" if r.get("linksDocsLanding") else "no", len(r.get("docsLinks") or []),
+                  r.get("bytes"), (r.get("sha256") or "—")[:12]))
           md += ["", "One GET per URL from a GitHub-hosted runner; JavaScript is not executed. A 200 proves the server returned that document at `checkedAt`; it does not prove rendering, interactivity or use.", "",
                  "<details><summary>Full observation (JSON)</summary>", "", "```json", json.dumps({"runUrl": run_url, "rows": rows}, indent=2, ensure_ascii=False), "```", "", "</details>"]
           open("probe-comment.md", "w", encoding="utf-8").write("\n".join(md) + "\n")
