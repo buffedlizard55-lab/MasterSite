@@ -20,7 +20,7 @@ verified, leave it `null` and add a row to `FLAGGED.md` — never guess.
 
 | ID | Task | Status | Claim | Blocked by |
 |---|---|---|---|---|
-| T-001 | Full public-repo census refresh for both accounts; publish every unlisted public Pages repository with sourced prose | unclaimed | — | — |
+| T-001 | Full public-repo census refresh for both accounts; publish every unlisted public Pages repository with sourced prose | **claimed** | session=arena-235d5594 at=2026-10-11T02:53:00Z | — |
 | T-002 | Re-read the `PROSE-STALE` description stamps at current heads (never clear the queue by editing only a SHA) | unclaimed | — | — |
 | T-003 | Live HTTP smoke test of every published Pages URL (status + title), recorded separately from `pagesStatus` | unclaimed | — | Sandbox cannot reach `*.github.io`; needs a runner with general egress |
 | T-004 | Owner decision record: the 4 frozen unreachable repositories (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`) — keep frozen, restore, or drop | unclaimed | — | Owner decision |
