@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render master-list.html — the whole directory as plain, static HTML.
 
-Why this file exists (TASKS.md T-025). ``index.html`` and
+Why this file exists (TASKS.md T-032, claimed as T-025). ``index.html`` and
 ``executive-summary.html`` build every row in the browser from ``data/sites.js``,
 so a reader without JavaScript — a crawler, a print-out, ``curl``, an archived
 copy, or anyone whose ``data/sites.js`` request fails — sees an empty shell.

@@ -1688,8 +1688,11 @@ only by the merge of this session's PR).
   `TASKS.md` and `FLAGGED.md` were read in full, and the live remote was checked for in-flight work:
   44 `arena/*` branches, four other open tasks (T-021 census + UI review #54, T-022 budgeted audit
   runner #53, T-020 review pass #44, T-024 ledger surfacing unclaimed), and a fifth session
-  (`arena/7c23badb`) pushing a run at 18:24Z. T-025 was verified free by scanning `gh pr list --state
-  all` **and every remote branch's `TASKS.md`** for the ID in the same minute as the claim.
+  (`arena/7c23badb`) pushing a run at 18:24Z. `T-025` was verified free by scanning `gh pr list --state
+  all` **and every remote branch's `TASKS.md`** for the ID in the same minute as the claim — and it
+  was still taken: concurrent sessions created their own `T-025` row and landed `T-026`…`T-031` on
+  `main` while this PR was open, so on rebase this row was renumbered to the next free ID, **T-032**,
+  per the protocol rule that a claimant renumbers their own row and never edits another session's.
 - **An independent ground-truth census, at no cost to the shared rate budget.** `GET /users/
   buffedlizard55-lab/repos` (3 pages) → **146 public repositories**, all 146 with `has_pages`, no
   `*.github.io` user-site repository, and `GET /users/kanlerxz87-cyber` → **0 public repositories**.

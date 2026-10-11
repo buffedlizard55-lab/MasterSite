@@ -1,4 +1,4 @@
-"""Offline tests for the JavaScript-free master list (tools/build_master_list.py, T-025).
+"""Offline tests for the JavaScript-free master list (tools/build_master_list.py, T-032).
 
 Every test here runs with no network access: the generator is a pure function of
 the committed snapshot file. The tests pin the two guarantees the page exists for
