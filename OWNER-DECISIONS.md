@@ -48,3 +48,11 @@ into the generated snapshot and directory UI.
 
 Until one of those owner decisions is documented, `FL-03` remains open and the four records remain
 frozen. This is the only conclusion supported by the current official sources.
+
+## Owner question (2026-10-11) — scope of "all public sites"
+
+**Recorded:** 2026-10-11 (UTC), session `arena-7c23badb`.
+
+The owner brief asks for a complete list of all public GitHub Pages sites. The live census (`GET /users/buffedlizard55-lab/repos?type=public`, then `GET /repos/{owner}/{repo}/pages` per repo) finds 146 public Pages repositories; 145 are listed and one is excluded by the standing owner instruction recorded in AGENTS.md §2. `kanlerxz87-cyber` has 0 public repositories.
+
+**Decision needed:** keep the standing exclusion (no change), or lift it and publish the excluded repository. Until the owner answers, the exclusion stays in force, and the excluded repository's details are intentionally not repeated here.
