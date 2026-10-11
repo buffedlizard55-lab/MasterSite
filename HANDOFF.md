@@ -1482,3 +1482,91 @@ them is a duplicate and should be closed by the owner.**
 - Profile: `https://api.github.com/users/kanlerxz87-cyber` (public_repos: 0)
 - Spot-check Pages: `https://api.github.com/repos/buffedlizard55-lab/{repo}/pages` for each repo listed above
 - Frozen repos: `https://api.github.com/repos/buffedlizard55-lab/{JobSearchSF,MALTA,MALTA-LAWS,MALTA2}` (all HTTP 404)
+
+---
+
+## Session `arena-200c157f` — 2026-10-11 (T-020: full census + independent line-by-line re-verification)
+
+**Branch:** `arena/200c157f-mastersite`, rebased onto `main` at `2403397` (PRs #40/#41/#43) after two
+task-ID collisions. Read `TASKS.md` + `FLAGGED.md` first, claimed one task, pushed the claim
+immediately, then renumbered twice rather than working around the collisions.
+
+### What was done
+
+- **Task-ID collisions, recorded rather than hidden.** This session first claimed **T-013** at
+  `15:38:00Z`; session `arena-d98d5339` had claimed T-013 in `d8a5377` at `14:52:14Z`, and session
+  `arena-e0d89b5c` then took **T-014** at `15:41:00Z`. Neither claim was visible on `main` when the
+  pull happened, because a claim is committed to a *session branch* and only becomes visible when its
+  PR merges. The work was re-claimed as **T-020** and the protocol fix is filed as `T-030`.
+- **Full census refresh, snapshot `2026-10-11T16:58:53Z`.** Both accounts re-read from the official
+  API: `buffedlizard55-lab` **146 public repositories / 146 Pages-enabled**, `kanlerxz87-cyber`
+  **0 / 0**. **No repository appeared or vanished** and the coverage arithmetic balances exactly
+  (145 listed + 1 permanently excluded = 146 public). **14 default-branch heads moved**, adding
+  **180 commits** (10,863 → 11,043): `58GEMSDOE`, `60GEMSDOE`, `61GEMSDOE`, `Commodities`,
+  `GRANTWRITING`, `MALTASUPPLEMENTAL`, `MasterSite`, `NBAInjuryReport`, `NFLInjuryReport`, `NFLMAIN`,
+  `PRICINGEXPERT`, `SCORINGDISCREPNFL`, `ScoringDiscrepNBA`, `ScoringDiscrepNHL`.
+- **Every audit re-run against this snapshot, serially, and every one clean:**
+  `verify_live.py` **1,913 checks / 0 hard mismatches / 47 volatile drifts**, with `listedNotInApi`
+  and `unlistedInApi` both empty; `audit_kind.py` **145/145, 0 disagreements, 0 unresolved**;
+  `audit_descriptions.py` **145/145, 0 needing review** after clearing the README cache and
+  re-fetching every README; `audit_provenance.py` **145/145 entries, 1,019 reproduced citations,
+  0 hard findings** ([report](reports/provenance/2026-10-11T172639Z.md)). `scripts/validate` **PASS**,
+  `npm run check` PASS, Python compilation and 14 unit tests pass.
+- **Offline record-parity audit — clean, 145/145,** run with no network access: 1:1 set parity between
+  `data/sites.js` and the per-site exports; per entry a non-empty description, a `pagesUrl` on
+  `*.github.io` ending in its own repository name, a repository API URL **and** a `/pages` URL in
+  `sourceLinks`, a boolean `verified` flag, `created <= lastUpdated`, and a matching snapshot stamp.
+  All four frozen records still hold `lastUpdated: null`. Three descriptions contain “TBD”; each was
+  opened by hand and each quotes the **source repository's own** TBD data (MLB broadcast listings, an
+  NHLComp data source, a Spring-Training kickoff date), so none is an unfilled field here.
+- **The four frozen 404 records and the exclusion re-checked by hand:**
+  `GET /repos/buffedlizard55-lab/{JobSearchSF,MALTA,MALTA-LAWS,MALTA2}` → HTTP **404** each, none in
+  the 146-repository census; `MALTA user:buffedlizard55-lab` → `total_count` 1, the live
+  `MALTASUPPLEMENTAL`; `GET /repos/buffedlizard55-lab/ProjX` → HTTP **200** and still excluded from
+  every published field. No overlay change was warranted (`FL-03`, `T-004`).
+- **`FL-17` strengthened, not duplicated.** `NFLInjuryReport`'s `errored` status was already
+  registered (`IRR-141`); this pass added what a status alone cannot show —
+  `GET .../pages/builds` returned **four consecutive `Page build failed.` builds** (commits `99cbf87`,
+  `05c0d85`, `3e2c4f6`, `965da0b`, created `15:57:44Z`–`16:02:22Z`) while
+  `contents/index.html?ref=905ada6` returned **HTTP 200**, so the entry point existed and the fault was
+  on the build side. It then **recovered to `built`** during the independent verify.
+- **`FL-05` re-read a third time:** `GEMSDOE53` still `errored`, `pushed_at` still
+  `2026-10-09T02:00:53Z` — stalled for two days while the rest of the account moved, so only an owner
+  push or rebuild clears it.
+- **Local preview served** at `:8080` (`python3 -m http.server`) against the regenerated data, for
+  eyeballing the directory UI; the deployed Pages build itself is CI/GitHub's, not this sandbox's.
+
+### What is blocked
+
+- **One access block was hit and recovered from.** From **16:10Z** every request returned **HTTP 403
+  “API rate limit exceeded”** while `GET /rate_limit` still reported `5000/5000` — the `IRR-140`
+  signature, where a rate-limit 403 is an **access block**, never evidence about a repository. The
+  running refresh read 13 of 145 repositories, stopped on `58GEMSDOE`, and **the published snapshot was
+  not replaced** (`data/sites.js` still read `15:06:10Z` and `scripts/validate` still passed) — the
+  first live confirmation of the atomic-write fix from `IRR-139`. The quota window reset at
+  `16:37:31Z`, the block lifted at `16:46Z`, and the full pass was then completed.
+- **Probable cause, recorded so it is not repeated:** a background `verify_live.py` ran **while**
+  `audit_kind.py` and `audit_descriptions.py` ran in the foreground, so the effective request rate
+  exceeded the documented ~1-second-per-request politeness floor. The tools are individually paced and
+  must also be run **serially**. (Probable, not proven.)
+- **Two things this sandbox still cannot do:** reach `*.github.io` (`curl` → HTTP 000 for the
+  project's own Pages URL) or install Playwright browser binaries (`ECONNRESET` from the browser CDN).
+  CI remains the execution environment of record for both; `browser-tests` passed on this PR.
+- **No uptime, rendering, interactivity or last-use claim is made anywhere.** GitHub's public API
+  exposes none of them (`FL-01`), and a Pages status is a live state machine, not a property — this
+  pass watched one repository go `errored` → `built` and another sit `errored` for two days.
+
+### What is next
+
+1. **`T-002` owns the largest queue: 52 stale description stamps.** Re-read the prose at current heads,
+   one entry at a time, and never clear a flag by changing only a SHA; `MALTASUPPLEMENTAL` is the most
+   recently moving candidate.
+2. **Owner actions no session can perform:** re-trigger the `GEMSDOE53` Pages build (`FL-05`); confirm
+   intent for the four frozen 404 repositories (`T-004`); decide the `62GEMSDOE` category (`FL-13`,
+   `T-028`); settle the GEMS-family consolidation question (`T-006`).
+3. **Adopt `T-030` before the next parallel session starts**, so two sessions cannot claim the same ID
+   again; `T-026` (watch `pagesStatus` transitions) and `T-029` (quota-aware, resumable refresh) are
+   the two operational gaps this pass exposed.
+4. **Keep the daily census guard and the Pages smoke audit running.** They check coverage and
+   point-in-time HTTP/title observations respectively; `FL-15` (`SABERENGY`'s meta-refresh title) keeps
+   the smoke job red **by design** — `T-027` proposes executing the redirect instead of weakening it.
