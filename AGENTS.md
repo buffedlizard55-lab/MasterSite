@@ -78,6 +78,6 @@ snapshot head (see FL-14).
 - Run `npm run check` and the Playwright suite when browser binaries are available. `.github/workflows/test.yml` installs Chromium, Firefox, and WebKit and runs the suite on pull requests. A sandbox browser-download failure is a blocked test, not a pass; report it accurately.
 - The deployed app is static (`index.html`, CSS, JavaScript, and `data/sites.js`). Do not hardcode repository lists in UI markup/scripts.
 - Preserve the table DOM contract asserted by `tests/directory.spec.js`: fixed cell count/order, row repository slug, Pages status position, and matching empty-state colspan. Responsive layout should remain CSS-driven.
-- Density is a local reading preference, not a filter or URL parameter. Keep URL state limited to the documented search/category/type/prose/sort/view fields, and keep JSON/CSV output independent of density.
+- Density is a local reading preference, not a filter or URL parameter. Keep URL state limited to the documented search/category/type/prose/sort/view fields, and keep JSON/CSV output independent of density. Family grouping (`tools/families.json`, rendered by the grid view only) follows the same rule: a per-browser preference that never enters the URL, never changes the table's nine-cell rows, and never infers membership from a repository name — every member's curated description must document the family's project or competition.
 
 For the latest counts, status, source limits, and remaining review work, see [`README.md`](README.md).

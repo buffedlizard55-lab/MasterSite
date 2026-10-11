@@ -124,6 +124,51 @@
     applyDensity();
   }
 
+  // ---- Family grouping (grid view) -------------------------------------------
+  // Like row density, this is a local reading preference, not directory state:
+  // it deliberately lives outside `state` and outside directoryURL(), so a shared
+  // link still carries only {q, category, kind, prose, sort, view} and "Reset
+  // filters" never changes how somebody likes to read the grid. It sections the
+  // grid by the curated `family` field (tools/families.json); the table view keeps
+  // its nine-cell contract untouched. Sites without a family are listed after the
+  // family sections, in their sorted order.
+  var FAMILY_KEY = "masterSite.familyGroup";
+
+  function readFamilyGroup() {
+    try {
+      return window.localStorage.getItem(FAMILY_KEY) === "flat" ? "flat" : "family";
+    } catch (error) {
+      // Storage blocked (file://, strict private mode): the grouped default stands.
+      return "family";
+    }
+  }
+
+  var familyGroup = readFamilyGroup();
+
+  function applyFamilyGroupButton() {
+    var btn = $("familyGroupBtn");
+    if (btn) {
+      btn.setAttribute("aria-pressed", String(familyGroup === "family"));
+      btn.title = familyGroup === "family"
+        ? "Grouping: Family (the default) — the grid is sectioned by curated project families (for example the DOE GEMS Prize lanes) so long lists stay readable. Click for a flat grid. Remembered in this browser only; not part of the shareable URL."
+        : "Grouping: Flat — every card is listed in one grid. Click to section the grid by curated project families. Remembered in this browser only; not part of the shareable URL.";
+    }
+    var label = $("familyLabel");
+    if (label) label.textContent = familyGroup === "family" ? "Grouping: Family" : "Grouping: Flat";
+  }
+
+  function toggleFamilyGroup() {
+    familyGroup = familyGroup === "family" ? "flat" : "family";
+    try {
+      window.localStorage.setItem(FAMILY_KEY, familyGroup);
+    } catch (error) {
+      // Apply it for this page view even when it cannot be remembered.
+      console.warn("MasterSite: could not remember the family grouping preference.", error);
+    }
+    applyFamilyGroupButton();
+    renderDirectory();
+  }
+
   function syncControls() {
     $("searchInput").value = state.q;
     $("clearSearchBtn").style.display = state.q ? "block" : "none";
@@ -517,6 +562,49 @@
   }
 
   // ---------------- Master Directory Render ----------------
+  // Grid markup, optionally sectioned by curated family. Grouping is purely a
+  // layout choice: every site keeps its own card in the DOM, in the same sort
+  // order inside each section, so card counts and card content never change.
+  function gridHTML(list) {
+    var grouped = familyGroup === "family" && list.some(function (s) { return s.family; });
+    if (!grouped) return list.map(renderCard).join("");
+    var meta = {};
+    (D.families || []).forEach(function (f) { meta[f.id] = f; });
+    var order = [];
+    var byFam = {};
+    var rest = [];
+    list.forEach(function (s) {
+      if (s.family) {
+        if (!byFam[s.family]) {
+          byFam[s.family] = [];
+          order.push(s.family);
+        }
+        byFam[s.family].push(s);
+      } else {
+        rest.push(s);
+      }
+    });
+    function section(fid, label, summary, members) {
+      return '<section class="family-group" data-family="' + esc(fid) + '">' +
+        '<header class="family-header">' +
+          '<h3>' + esc(label) +
+            '<span class="family-count">' + members.length + ' site' + (members.length === 1 ? '' : 's') + '</span>' +
+          '</h3>' +
+          (summary ? '<p class="family-summary">' + esc(summary) + '</p>' : '') +
+        '</header>' +
+        '<div class="family-cards">' + members.map(renderCard).join("") + '</div>' +
+      '</section>';
+    }
+    var html = order.map(function (fid) {
+      var f = meta[fid] || { label: fid, summary: "" };
+      return section(fid, f.label, f.summary, byFam[fid]);
+    }).join("");
+    if (rest.length) {
+      html += section("", "Other sites", "", rest);
+    }
+    return html;
+  }
+
   function renderDirectory() {
     var filtered = filterSites();
     var list = sortSites(filtered);
@@ -543,7 +631,7 @@
       return;
     }
 
-    $("sitesGrid").innerHTML = list.map(renderCard).join("");
+    $("sitesGrid").innerHTML = gridHTML(list);
     $("sitesTableBody").innerHTML = list.map(function (s, idx) {
       return renderTableRow(s, idx);
     }).join("");
@@ -859,6 +947,7 @@
     // Not updateDirectory(): density changes no data, no filter and no URL, so it must
     // not push a history entry either — Back should still undo filters, not padding.
     $("densityToggleBtn").addEventListener("click", toggleDensity);
+    $("familyGroupBtn").addEventListener("click", toggleFamilyGroup);
 
     $("categoryChips").addEventListener("click", function (e) {
       var btn = e.target.closest("[data-cat]");
@@ -963,6 +1052,7 @@
 
   // ---------------- Initialization ----------------
   applyDensity();
+  applyFamilyGroupButton();
   renderStats();
   renderVerifyLegend();
   renderChips();

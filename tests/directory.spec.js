@@ -21,6 +21,7 @@ async function useFixture(page) {
     ...snapshot.sites[0], repo, title: repo,
     description: 'Synthetic test description & <text>',
     category: i < 2 ? 'Science & Tests' : 'Other',
+    family: null,
     kind: i === 1 ? 'stub' : 'app',
     flags: i === 0 ? ['special test flag'] : [],
     defaultBranch: 'release',
@@ -331,6 +332,80 @@ test('reset filters clears the query but preserves the density preference', asyn
   await expect(rows(page)).toHaveCount(4);
   await expect(page.locator('html')).toHaveAttribute('data-density', 'roomy');
   expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({ view: 'table' });
+});
+
+// Family grouping (T-007) is a layout preference like density: it sections the
+// grid by the curated `family` field, keeps every card in the DOM, never enters
+// the URL, and never touches the table's nine-cell rows. Synthetic families are
+// test fixtures only — the published families live in tools/families.json.
+
+async function useFamilyFixture(page) {
+  const data = JSON.parse(JSON.stringify(snapshot));
+  data.families = [
+    { id: 'fam-a', label: 'Family Alpha', summary: 'Synthetic family for layout tests.', basis: 'test fixture', count: 2 },
+    { id: 'fam-b', label: 'Family Beta', summary: 'Second synthetic family.', basis: 'test fixture', count: 1 }
+  ];
+  data.sites = ['Alpha', 'Beta', 'Gamma', 'Delta'].map((repo, i) => ({
+    ...snapshot.sites[0], repo, title: repo,
+    description: 'Synthetic family-grouping description.',
+    category: 'Science & Tests',
+    family: ['fam-a', 'fam-a', 'fam-b', null][i],
+    kind: 'app', flags: [], defaultBranch: 'release', pagesStatus: 'built',
+    lastVerified: '2026-09-21T00:00:00Z', verifiedAtSha: 'a'.repeat(40), headSha: 'a'.repeat(40),
+    proseStale: false, lastCommit: `2026-09-${21 - i}T00:00:00Z`, commits: 10 + i
+  }));
+  data.counts.proseLatestPass = '2026-09-21T00:00:00Z';
+  data.counts.proseUnstamped = 0;
+  await page.route('**/data/sites.js', route => route.fulfill({
+    contentType: 'application/javascript', body: 'window.MASTERDATA = ' + JSON.stringify(data) + ';'
+  }));
+  return data;
+}
+
+test('family grouping sections the grid by curated family and can be turned off', async ({ page }) => {
+  await useFamilyFixture(page);
+  await page.goto('/');
+  // Grouped by default: two family sections plus one "Other sites" section.
+  await expect(page.locator('#sitesGrid .family-group')).toHaveCount(3);
+  await expect(page.locator('#sitesGrid .family-group[data-family="fam-a"]')).toContainText('Family Alpha');
+  await expect(page.locator('#sitesGrid .family-group[data-family="fam-a"] .site-card')).toHaveCount(2);
+  await expect(page.locator('#sitesGrid .family-group[data-family="fam-b"] .site-card')).toHaveCount(1);
+  await expect(page.locator('#sitesGrid .family-group[data-family=""] .site-card')).toHaveCount(1);
+  await expect(cards(page)).toHaveCount(4);
+  await expect(page.locator('#familyGroupBtn')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#familyLabel')).toHaveText('Grouping: Family');
+
+  // Flat: the same four cards, no sections, and the preference flips.
+  await page.locator('#familyGroupBtn').click();
+  await expect(page.locator('#sitesGrid .family-group')).toHaveCount(0);
+  await expect(cards(page)).toHaveCount(4);
+  await expect(page.locator('#familyGroupBtn')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#familyLabel')).toHaveText('Grouping: Flat');
+
+  // Grouping never enters the shared URL and never adds a history entry.
+  expect(new URL(page.url()).search).toBe('');
+
+  // And back to grouped.
+  await page.locator('#familyGroupBtn').click();
+  await expect(page.locator('#sitesGrid .family-group')).toHaveCount(3);
+});
+
+test('family grouping is remembered across a reload and reset filters leaves it alone', async ({ page }) => {
+  await useFamilyFixture(page);
+  await page.goto('/?view=grid&q=Alpha');
+  await page.locator('#familyGroupBtn').click();
+  await expect(page.locator('#familyLabel')).toHaveText('Grouping: Flat');
+  const historyBefore = await page.evaluate(() => window.history.length);
+
+  await page.reload();
+  await expect(page.locator('#familyLabel')).toHaveText('Grouping: Flat');
+  await expect(page.locator('#sitesGrid .family-group')).toHaveCount(0);
+  expect(await page.evaluate(() => window.history.length)).toBe(historyBefore);
+
+  await page.locator('#resetFiltersBtn').click();
+  await expect(cards(page)).toHaveCount(4);
+  await expect(page.locator('#familyLabel')).toHaveText('Grouping: Flat');
+  expect(Object.fromEntries(new URL(page.url()).searchParams)).toEqual({});
 });
 
 test('the density preference does not change either export', async ({ page }) => {
