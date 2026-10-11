@@ -1,52 +1,1036 @@
 {
-  "snapshotGenerated": "2026-10-11T03:01:01Z",
-  "generatedOffsetVsLive": "2026-10-11T03:01:01Z",
+  "snapshotGenerated": "2026-10-11T05:12:27Z",
+  "generatedOffsetVsLive": "2026-10-11T05:12:27Z",
   "status": "complete",
   "complete": true,
-  "checks": 1901,
-  "okCount": 1898,
-  "driftCount": 3,
+  "checks": 1921,
+  "okCount": 1836,
+  "driftCount": 85,
   "hardMismatchCount": 0,
   "mismatches": [
     {
-      "entry": "sites[]/59GEMSDOE",
+      "entry": "sites[]/58GEMSDOE",
       "field": "pushedAt",
-      "committed": "2026-10-11T02:42:44Z",
-      "live": "2026-10-11T03:00:56Z"
+      "committed": "2026-10-11T04:59:53Z",
+      "live": "2026-10-11T05:26:16Z"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T04:01:12Z",
+      "live": "2026-10-11T05:26:21Z"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "sizeKb",
+      "committed": 8526,
+      "live": 8637
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "commits",
+      "committed": 35,
+      "live": 37
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T04:01:08Z",
+      "live": "2026-10-11T05:26:16Z"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "addaece",
+      "live": "217e85c"
+    },
+    {
+      "entry": "sites[]/59GEMSDOE",
+      "field": "sizeKb",
+      "committed": 98691,
+      "live": 99195
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "pushedAt",
+      "committed": "2026-10-11T04:58:26Z",
+      "live": "2026-10-11T05:37:44Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T04:58:31Z",
+      "live": "2026-10-11T05:37:48Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "sizeKb",
+      "committed": 160655,
+      "live": 177834
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "commits",
+      "committed": 44,
+      "live": 53
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T04:58:26Z",
+      "live": "2026-10-11T05:37:43Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "2b45b76",
+      "live": "55ad47b"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "pushedAt",
+      "committed": "2026-10-11T04:52:30Z",
+      "live": "2026-10-11T06:00:07Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T02:37:45Z",
+      "live": "2026-10-11T05:38:28Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "sizeKb",
-      "committed": 3115,
-      "live": 4439
+      "committed": 4528,
+      "live": 5074
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "commits",
+      "committed": 25,
+      "live": 38
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T02:37:40Z",
+      "live": "2026-10-11T05:38:23Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "8ffc2db",
+      "live": "baedfec"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "pushedAt",
+      "committed": "2026-10-11T01:34:22Z",
+      "live": "2026-10-11T06:04:49Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "updatedAt",
+      "committed": "2026-10-11T01:34:25Z",
+      "live": "2026-10-11T06:04:52Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "commits",
+      "committed": 196,
+      "live": 197
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "lastCommit",
+      "committed": "2026-10-11T01:34:20Z",
+      "live": "2026-10-11T06:04:47Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "lastCommitSha",
+      "committed": "fddf20e",
+      "live": "2e8e29c"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "pushedAt",
+      "committed": "2026-10-10T21:50:51Z",
+      "live": "2026-10-11T05:57:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "updatedAt",
+      "committed": "2026-10-10T21:50:55Z",
+      "live": "2026-10-11T05:57:56Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "commits",
+      "committed": 62,
+      "live": 63
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "lastCommit",
+      "committed": "2026-10-10T21:50:51Z",
+      "live": "2026-10-11T05:57:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "lastCommitSha",
+      "committed": "cc90c1a",
+      "live": "56d30a3"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "pushedAt",
+      "committed": "2026-10-11T03:25:15Z",
+      "live": "2026-10-11T05:44:59Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "updatedAt",
+      "committed": "2026-10-11T03:25:19Z",
+      "live": "2026-10-11T05:45:02Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "commits",
+      "committed": 499,
+      "live": 500
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "lastCommit",
+      "committed": "2026-10-11T03:25:15Z",
+      "live": "2026-10-11T05:44:58Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "lastCommitSha",
+      "committed": "35dccfa",
+      "live": "190536d"
     },
     {
       "entry": "sites[]/KalshiPaperSim",
+      "field": "pushedAt",
+      "committed": "2026-10-11T03:08:37Z",
+      "live": "2026-10-11T05:39:18Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "updatedAt",
+      "committed": "2026-10-11T03:08:42Z",
+      "live": "2026-10-11T05:39:23Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "commits",
+      "committed": 606,
+      "live": 607
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "lastCommit",
+      "committed": "2026-10-11T03:08:31Z",
+      "live": "2026-10-11T05:39:13Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "lastCommitSha",
+      "committed": "6b0a604",
+      "live": "39cf957"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "pushedAt",
+      "committed": "2026-10-11T05:07:30Z",
+      "live": "2026-10-11T05:57:06Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "updatedAt",
+      "committed": "2026-10-11T03:31:27Z",
+      "live": "2026-10-11T05:57:11Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "sizeKb",
-      "committed": 252225,
-      "live": 262532
+      "committed": 1536,
+      "live": 2395
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "commits",
+      "committed": 101,
+      "live": 124
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "lastCommit",
+      "committed": "2026-10-11T03:31:22Z",
+      "live": "2026-10-11T05:57:06Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "lastCommitSha",
+      "committed": "4ed9c5a",
+      "live": "de3303f"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "pushedAt",
+      "committed": "2026-10-11T05:07:42Z",
+      "live": "2026-10-11T06:09:07Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "updatedAt",
+      "committed": "2026-10-11T05:03:54Z",
+      "live": "2026-10-11T06:09:12Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "sizeKb",
+      "committed": 1459,
+      "live": 1452
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "commits",
+      "committed": 68,
+      "live": 89
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommit",
+      "committed": "2026-10-11T05:03:49Z",
+      "live": "2026-10-11T06:09:07Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommitSha",
+      "committed": "8a1bb2e",
+      "live": "cc6b5d2"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "pushedAt",
+      "committed": "2026-10-10T22:35:55Z",
+      "live": "2026-10-11T05:57:10Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "updatedAt",
+      "committed": "2026-10-10T22:35:59Z",
+      "live": "2026-10-11T05:57:15Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "commits",
+      "committed": 175,
+      "live": 176
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "lastCommit",
+      "committed": "2026-10-10T22:35:54Z",
+      "live": "2026-10-11T05:57:08Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "lastCommitSha",
+      "committed": "ea6f96f",
+      "live": "3c6101b"
+    },
+    {
+      "entry": "sites[]/NFLInjuryReport",
+      "field": "sizeKb",
+      "committed": 240836,
+      "live": 241400
+    },
+    {
+      "entry": "sites[]/NFLMAIN",
+      "field": "sizeKb",
+      "committed": 5286,
+      "live": 5293
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "pushedAt",
+      "committed": "2026-10-10T21:55:55Z",
+      "live": "2026-10-11T06:02:11Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "updatedAt",
+      "committed": "2026-10-10T21:56:01Z",
+      "live": "2026-10-11T06:02:16Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "commits",
+      "committed": 137,
+      "live": 138
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "lastCommit",
+      "committed": "2026-10-10T21:55:52Z",
+      "live": "2026-10-11T06:02:07Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "lastCommitSha",
+      "committed": "aae69bf",
+      "live": "2f7c004"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "addaece",
+      "live": "217e85c"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T04:01:08Z",
+      "live": "2026-10-11T05:26:16Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "2b45b76",
+      "live": "55ad47b"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T04:58:26Z",
+      "live": "2026-10-11T05:37:43Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "8ffc2db",
+      "live": "879955d"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T02:37:40Z",
+      "live": "2026-10-11T06:15:00Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "finalHeadSha",
+      "committed": "fddf20e",
+      "live": "2e8e29c"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T01:34:20Z",
+      "live": "2026-10-11T06:04:47Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "finalHeadSha",
+      "committed": "cc90c1a",
+      "live": "56d30a3"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "finalLastCommit",
+      "committed": "2026-10-10T21:50:51Z",
+      "live": "2026-10-11T05:57:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "finalHeadSha",
+      "committed": "35dccfa",
+      "live": "190536d"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T03:25:15Z",
+      "live": "2026-10-11T05:44:58Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "finalHeadSha",
+      "committed": "6b0a604",
+      "live": "39cf957"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T03:08:31Z",
+      "live": "2026-10-11T05:39:13Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "finalHeadSha",
+      "committed": "4ed9c5a",
+      "live": "de3303f"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T03:31:22Z",
+      "live": "2026-10-11T05:57:06Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalHeadSha",
+      "committed": "8a1bb2e",
+      "live": "cc6b5d2"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T05:03:49Z",
+      "live": "2026-10-11T06:09:07Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "finalHeadSha",
+      "committed": "ea6f96f",
+      "live": "3c6101b"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-10T22:35:54Z",
+      "live": "2026-10-11T05:57:08Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "finalHeadSha",
+      "committed": "aae69bf",
+      "live": "2f7c004"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "finalLastCommit",
+      "committed": "2026-10-10T21:55:52Z",
+      "live": "2026-10-11T06:02:07Z"
     }
   ],
   "unlistedInApi": [],
   "listedNotInApi": [],
   "volatileDrift": [
     {
-      "entry": "sites[]/59GEMSDOE",
+      "entry": "sites[]/58GEMSDOE",
       "field": "pushedAt",
-      "committed": "2026-10-11T02:42:44Z",
-      "live": "2026-10-11T03:00:56Z"
+      "committed": "2026-10-11T04:59:53Z",
+      "live": "2026-10-11T05:26:16Z"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T04:01:12Z",
+      "live": "2026-10-11T05:26:21Z"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "sizeKb",
+      "committed": 8526,
+      "live": 8637
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "commits",
+      "committed": 35,
+      "live": 37
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T04:01:08Z",
+      "live": "2026-10-11T05:26:16Z"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "addaece",
+      "live": "217e85c"
+    },
+    {
+      "entry": "sites[]/59GEMSDOE",
+      "field": "sizeKb",
+      "committed": 98691,
+      "live": 99195
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "pushedAt",
+      "committed": "2026-10-11T04:58:26Z",
+      "live": "2026-10-11T05:37:44Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T04:58:31Z",
+      "live": "2026-10-11T05:37:48Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "sizeKb",
+      "committed": 160655,
+      "live": 177834
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "commits",
+      "committed": 44,
+      "live": 53
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T04:58:26Z",
+      "live": "2026-10-11T05:37:43Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "2b45b76",
+      "live": "55ad47b"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "pushedAt",
+      "committed": "2026-10-11T04:52:30Z",
+      "live": "2026-10-11T06:00:07Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T02:37:45Z",
+      "live": "2026-10-11T05:38:28Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "sizeKb",
-      "committed": 3115,
-      "live": 4439
+      "committed": 4528,
+      "live": 5074
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "commits",
+      "committed": 25,
+      "live": 38
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T02:37:40Z",
+      "live": "2026-10-11T05:38:23Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "8ffc2db",
+      "live": "baedfec"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "pushedAt",
+      "committed": "2026-10-11T01:34:22Z",
+      "live": "2026-10-11T06:04:49Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "updatedAt",
+      "committed": "2026-10-11T01:34:25Z",
+      "live": "2026-10-11T06:04:52Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "commits",
+      "committed": 196,
+      "live": 197
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "lastCommit",
+      "committed": "2026-10-11T01:34:20Z",
+      "live": "2026-10-11T06:04:47Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "lastCommitSha",
+      "committed": "fddf20e",
+      "live": "2e8e29c"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "pushedAt",
+      "committed": "2026-10-10T21:50:51Z",
+      "live": "2026-10-11T05:57:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "updatedAt",
+      "committed": "2026-10-10T21:50:55Z",
+      "live": "2026-10-11T05:57:56Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "commits",
+      "committed": 62,
+      "live": 63
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "lastCommit",
+      "committed": "2026-10-10T21:50:51Z",
+      "live": "2026-10-11T05:57:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "lastCommitSha",
+      "committed": "cc90c1a",
+      "live": "56d30a3"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "pushedAt",
+      "committed": "2026-10-11T03:25:15Z",
+      "live": "2026-10-11T05:44:59Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "updatedAt",
+      "committed": "2026-10-11T03:25:19Z",
+      "live": "2026-10-11T05:45:02Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "commits",
+      "committed": 499,
+      "live": 500
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "lastCommit",
+      "committed": "2026-10-11T03:25:15Z",
+      "live": "2026-10-11T05:44:58Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "lastCommitSha",
+      "committed": "35dccfa",
+      "live": "190536d"
     },
     {
       "entry": "sites[]/KalshiPaperSim",
+      "field": "pushedAt",
+      "committed": "2026-10-11T03:08:37Z",
+      "live": "2026-10-11T05:39:18Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "updatedAt",
+      "committed": "2026-10-11T03:08:42Z",
+      "live": "2026-10-11T05:39:23Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "commits",
+      "committed": 606,
+      "live": 607
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "lastCommit",
+      "committed": "2026-10-11T03:08:31Z",
+      "live": "2026-10-11T05:39:13Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "lastCommitSha",
+      "committed": "6b0a604",
+      "live": "39cf957"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "pushedAt",
+      "committed": "2026-10-11T05:07:30Z",
+      "live": "2026-10-11T05:57:06Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "updatedAt",
+      "committed": "2026-10-11T03:31:27Z",
+      "live": "2026-10-11T05:57:11Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "sizeKb",
-      "committed": 252225,
-      "live": 262532
+      "committed": 1536,
+      "live": 2395
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "commits",
+      "committed": 101,
+      "live": 124
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "lastCommit",
+      "committed": "2026-10-11T03:31:22Z",
+      "live": "2026-10-11T05:57:06Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "lastCommitSha",
+      "committed": "4ed9c5a",
+      "live": "de3303f"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "pushedAt",
+      "committed": "2026-10-11T05:07:42Z",
+      "live": "2026-10-11T06:09:07Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "updatedAt",
+      "committed": "2026-10-11T05:03:54Z",
+      "live": "2026-10-11T06:09:12Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "sizeKb",
+      "committed": 1459,
+      "live": 1452
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "commits",
+      "committed": 68,
+      "live": 89
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommit",
+      "committed": "2026-10-11T05:03:49Z",
+      "live": "2026-10-11T06:09:07Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommitSha",
+      "committed": "8a1bb2e",
+      "live": "cc6b5d2"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "pushedAt",
+      "committed": "2026-10-10T22:35:55Z",
+      "live": "2026-10-11T05:57:10Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "updatedAt",
+      "committed": "2026-10-10T22:35:59Z",
+      "live": "2026-10-11T05:57:15Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "commits",
+      "committed": 175,
+      "live": 176
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "lastCommit",
+      "committed": "2026-10-10T22:35:54Z",
+      "live": "2026-10-11T05:57:08Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "lastCommitSha",
+      "committed": "ea6f96f",
+      "live": "3c6101b"
+    },
+    {
+      "entry": "sites[]/NFLInjuryReport",
+      "field": "sizeKb",
+      "committed": 240836,
+      "live": 241400
+    },
+    {
+      "entry": "sites[]/NFLMAIN",
+      "field": "sizeKb",
+      "committed": 5286,
+      "live": 5293
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "pushedAt",
+      "committed": "2026-10-10T21:55:55Z",
+      "live": "2026-10-11T06:02:11Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "updatedAt",
+      "committed": "2026-10-10T21:56:01Z",
+      "live": "2026-10-11T06:02:16Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "commits",
+      "committed": 137,
+      "live": 138
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "lastCommit",
+      "committed": "2026-10-10T21:55:52Z",
+      "live": "2026-10-11T06:02:07Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "lastCommitSha",
+      "committed": "aae69bf",
+      "live": "2f7c004"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "addaece",
+      "live": "217e85c"
+    },
+    {
+      "entry": "sites[]/58GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T04:01:08Z",
+      "live": "2026-10-11T05:26:16Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "2b45b76",
+      "live": "55ad47b"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T04:58:26Z",
+      "live": "2026-10-11T05:37:43Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "8ffc2db",
+      "live": "879955d"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T02:37:40Z",
+      "live": "2026-10-11T06:15:00Z"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "finalHeadSha",
+      "committed": "fddf20e",
+      "live": "2e8e29c"
+    },
+    {
+      "entry": "sites[]/ErrorsLive",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T01:34:20Z",
+      "live": "2026-10-11T06:04:47Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "finalHeadSha",
+      "committed": "cc90c1a",
+      "live": "56d30a3"
+    },
+    {
+      "entry": "sites[]/GEMSDOE25",
+      "field": "finalLastCommit",
+      "committed": "2026-10-10T21:50:51Z",
+      "live": "2026-10-11T05:57:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "finalHeadSha",
+      "committed": "35dccfa",
+      "live": "190536d"
+    },
+    {
+      "entry": "sites[]/GEMSDOE52",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T03:25:15Z",
+      "live": "2026-10-11T05:44:58Z"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "finalHeadSha",
+      "committed": "6b0a604",
+      "live": "39cf957"
+    },
+    {
+      "entry": "sites[]/KalshiPaperSim",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T03:08:31Z",
+      "live": "2026-10-11T05:39:13Z"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "finalHeadSha",
+      "committed": "4ed9c5a",
+      "live": "de3303f"
+    },
+    {
+      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T03:31:22Z",
+      "live": "2026-10-11T05:57:06Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalHeadSha",
+      "committed": "8a1bb2e",
+      "live": "cc6b5d2"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T05:03:49Z",
+      "live": "2026-10-11T06:09:07Z"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "finalHeadSha",
+      "committed": "ea6f96f",
+      "live": "3c6101b"
+    },
+    {
+      "entry": "sites[]/MLBSCORINGCHANGE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-10T22:35:54Z",
+      "live": "2026-10-11T05:57:08Z"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "finalHeadSha",
+      "committed": "aae69bf",
+      "live": "2f7c004"
+    },
+    {
+      "entry": "sites[]/SelfLearn",
+      "field": "finalLastCommit",
+      "committed": "2026-10-10T21:55:52Z",
+      "live": "2026-10-11T06:02:07Z"
     }
   ],
   "hardMismatches": []
