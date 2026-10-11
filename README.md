@@ -40,7 +40,7 @@ not tested. No token is sent to a site.
 
 **First recorded live pass — 2026-10-11T05:03:31Z:** all **145** published URLs
 returned HTTP **200**; **144** had a complete HTML title. `SABERENGY`'s root
-response had no title (left `null`, [FL-14](FLAGGED.md)); its source is a
+response had no title (left `null`, [FL-15](FLAGGED.md)); its source is a
 meta-refresh redirect that this HTTP-only audit does not execute. The audit is
 intentionally red for that review finding, not for a site outage. Review the
 [historical full table](reports/pages-smoke/2026-10-11T050331Z.md) and

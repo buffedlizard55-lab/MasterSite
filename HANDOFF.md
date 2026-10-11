@@ -366,7 +366,7 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
 1. Inspect the PR HTTP audit, persist official runner evidence, and mark T-003
    done in the same PR once all published URLs have timestamped observations.
    A 404/transport error is a flag, not a guessed status or a directory deletion.
-2. Continue T-002 only in its owning session; T-005/T-007/T-008 remain separate
+2. Continue T-002 only in its owning session; T-007/T-008 remain separate
    claimable work. HTTP checks do not replace source rereads or browser testing.
 3. Inspect `pages-smoke` issues and artifacts; artifacts expire after 30 days.
    The directory UI still displays snapshot metadata, not this audit's statuses.
@@ -382,7 +382,7 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
   145 unique record identities appear exactly once, every status is 200, and
   exactly 144 titles passed. This is a separate evidence file, not a manually
   edited master list. Original JSON remains in the 30-day artifact.
-- FL-14 added with exact live URL and immutable official source endpoint.
+- FL-15 added with exact live URL and immutable official source endpoint.
   `SABERENGY/index.html` at `098615a…` is a title-less meta-refresh to `docs/`;
   no source change was made in that other repository and no destination title
   was inferred. A follow-up browser redirect check or upstream title fix remains.
@@ -392,3 +392,6 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
   their red-on-review behavior; source-verification queues remain unchanged.
 - Rebase encountered only append-only HANDOFF.md conflict with T-009's parallel
   session; kept both entries and the T-009 completion record intact.
+
+- Final rebase incorporated PR #29 (T-005 completed). Its new FL-14 is retained;
+  this session's SABERENGY finding was renumbered FL-15 to avoid an ID collision.
