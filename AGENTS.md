@@ -40,6 +40,8 @@ Run from the repository root:
 
 ```bash
 python3 tools/build_data.py
+python3 tools/export_site_records.py
+python3 tools/build_sites_md.py
 python3 tools/verify_live.py
 python3 tools/audit_provenance.py
 python3 tools/audit_kind.py
@@ -55,6 +57,7 @@ python3 tools/build_verification.py
 
 Run `build_verification.py` **after** the audit commands so the generated ledger cites reports for the same snapshot. Its audit-status table distinguishes completed, stale, incomplete, authorization-blocked, and rate-limit-blocked reports. Re-read any `PROSE-STALE` entry whose description will be presented as current; never clear the queue by changing only its SHA. If a repository moves during the pass, refresh and rerun the independent checks. `verify_live.py` mismatches are not repaired by hand in generated data—refresh the generator and recheck. HTTP 401 is an authorization failure, not a repository mismatch or a missing README; reconnect GitHub and rerun. HTTP 403 whose body identifies an API rate limit is an access block, not 403 field drift; rerun after the documented reset rather than treating it as a data mismatch.
 
+- `tools/build_sites_md.py` renders `SITES.md`, the plain one-row-per-site master list (live link, sourced description, creation date, last default-branch commit, description stamp, official review endpoints). It reads `data/sites.js` and writes nothing else; rerun it after **every** refresh, because `scripts/validate` §L fails when it does not match the published snapshot, when a published site has no row, or when a row lacks its official Pages API link. It never invents a value: a missing date prints as `—`, never as a guess.
 - `tools/verify_live.py` is read-only and compares API fields to the generated snapshot.
 - `tools/audit_provenance.py` is read-only and audits the *citations* rather than the fields: for every published entry it re-resolves each recorded SHA (`verifiedAtSha`, `firstCommitSha`, `lastCommitSha`, `headSha`) through `GET /repos/{owner}/{repo}/commits/{sha}`, re-issues every `api.github.com` URL cited inside that entry's own `verifiedBasis` (README reads must return 200; the cited `index.html` read must agree with the entry's `kind`; a cited root listing must contain `index.html` when `kind` is `app`; a cited `/pages` read must report the published `pagesUrl`), and re-checks the description's numeric tokens against the README at the recorded provenance SHA — the SHA the record actually claims — instead of at the head. It writes `tools/last_provenance_audit.json` plus a per-entry hand-review report in `reports/provenance/`. Reproducing a citation is **not** proof that a sentence is true or current; a 401/403/transport failure aborts the run and is reported INCOMPLETE, never as a pass. It never writes `data/sites.js`.
 - `tools/audit_kind.py` is read-only. HTTP 200 at the configured `index.html` path means HTML entry point; HTTP 404 means no entry point. Other status codes are unresolved, **not** stubs, and the audit must fail so an API problem cannot silently change a classification.
