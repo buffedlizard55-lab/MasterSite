@@ -21,7 +21,7 @@ verified, leave it `null` and add a row to `FLAGGED.md` — never guess.
 | ID | Task | Status | Claim | Blocked by |
 |---|---|---|---|---|
 | T-001 | Full public-repo census refresh for both accounts; publish every unlisted public Pages repository with sourced prose | **done** | session=arena-235d5594 at=2026-10-11T02:53:00Z · done 2026-10-11 · snapshot `2026-10-11T03:01:01Z`, audits re-run `03:54Z` | — |
-| T-002 | Re-read the `PROSE-STALE` description stamps at current heads (never clear the queue by editing only a SHA). **41 of 145 are stale as of the 2026-10-11 snapshot**, and `FL-12` names one whose numeric token no longer appears at head | unclaimed | — | — |
+| T-002 | Re-read the `PROSE-STALE` description stamps at current heads (never clear the queue by editing only a SHA). **40 of 145 are stale as of the 2026-10-11 snapshot**; `FL-12` (`MALTASUPPLEMENTAL`) was closed in this session's first slice, the remaining 40 are re-read one at a time | claimed | session=96e82e25 at=2026-10-11T04:12:40Z · slice 1: `MALTASUPPLEMENTAL` re-read at `81930be`, FL-12 closed, stale queue 41 → 40 | — |
 | T-003 | Live HTTP smoke test of every published Pages URL (status + title), recorded separately from `pagesStatus` | unclaimed | — | Sandbox cannot reach `*.github.io`; needs a runner with general egress |
 | T-004 | Owner decision record: the 4 frozen unreachable repositories (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`) — keep frozen, restore, or drop | unclaimed | — | Owner decision |
 | T-005 | Confirm Pages build health for the non-`built` entries (`GEMSDOE53` `errored`, `MALTASUPPLEMENTAL` `building`) and re-check each refresh | unclaimed | — | Upstream GitHub Pages builds |
