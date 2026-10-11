@@ -1050,6 +1050,49 @@
     });
   }
 
+  // ---------------- Back to Top Button ----------------
+  // Fixed-position button that appears after the user scrolls past the hero section.
+  // Provides quick navigation on a 145-site directory without manual scrolling.
+  (function () {
+    var btn = $("backToTopBtn");
+    if (!btn) return;
+    var SHOW_THRESHOLD = 400; // pixels of scroll before showing
+
+    function onScroll() {
+      if (window.scrollY > SHOW_THRESHOLD) {
+        btn.classList.add("visible");
+        btn.style.display = "flex";
+      } else {
+        btn.classList.remove("visible");
+        // Keep display:flex during the fade-out transition, then hide.
+        setTimeout(function () {
+          if (!btn.classList.contains("visible")) {
+            btn.style.display = "none";
+          }
+        }, 250);
+      }
+    }
+
+    btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Throttle scroll handler for performance on long pages.
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          onScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Check initial scroll position on load.
+    onScroll();
+  })();
+
   // ---------------- Initialization ----------------
   applyDensity();
   applyFamilyGroupButton();
