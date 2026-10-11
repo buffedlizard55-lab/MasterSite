@@ -10,6 +10,7 @@ the documentation can never drift from the data the site actually renders.
 
 import json
 import os
+import re
 import subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -311,14 +312,23 @@ def main():
             status = "stale report"
             result = "Report refers to `%s`, not `%s`." % (report.get("snapshotGenerated"), gen)
         elif report.get("status") in ("blocked_auth", "blocked_rate_limit") or report.get("accessBlocked"):
-            http = (report.get("error") or {}).get("httpStatus") or report.get("accessBlockStatus") or "?"
-            if http == "?" and report.get("accessBlockReason"):
-                reason = str(report.get("accessBlockReason"))
+            http = (report.get("error") or {}).get("httpStatus") or report.get("accessBlockStatus")
+            if not http and report.get("accessBlockReason"):
+                # audit_provenance.py records a block only as the reason string
+                # ("HTTP 403 — …" / "transport error: …"); parse the code out of it
+                # instead of reading an accessBlockStatus field the tool never writes.
+                m = re.search(r"HTTP\s+(\d{3})", str(report.get("accessBlockReason")))
+                http = int(m.group(1)) if m else None
+            if report.get("accessBlocked"):
+                status = "blocked — HTTP %s" % http if http else "blocked — access failure"
+                result = ("%s/%s entries audited before the block (%s). An access block is not a citation "
+                          "failure; restore GitHub API access and rerun this audit."
+                          % (report.get("entriesAudited", 0), report.get("entriesTotal", "?"),
+                             report.get("accessBlockReason") or "an access failure stopped the run"))
             else:
+                status = "blocked — HTTP %s" % http if http else "blocked"
                 action = "wait for the GitHub API rate limit to reset" if http == 403 else "restore GitHub authorization"
-                reason = "%s and rerun this audit" % action
-            status = "blocked — HTTP %s" % http if http != "?" else "blocked"
-            result = "No completed field comparisons; %s." % reason
+                result = "No completed field comparisons; %s and rerun this audit." % action
         elif report.get("complete"):
             status = "complete"
             if label == "`verify_live.py`":
@@ -329,10 +339,17 @@ def main():
                     report.get("checkedEntries", 0), report.get("totalEntries", 0),
                     len(report.get("disagreements", [])), len(report.get("unresolved", [])))
             elif label == "`audit_provenance.py`":
-                result = "%s/%s entries checked (%s checks); %s unresolved findings; %s template citations." % (
+                # A complete run writes reports/provenance/<startedAt>.md (unless --no-report):
+                # link it only when the file is actually on disk, never as a dead link.
+                stamp = (report.get("startedAt") or "").replace(":", "")
+                rpt = os.path.join(ROOT, "reports", "provenance", "%s.md" % stamp)
+                link = (" Per-entry report: [`reports/provenance/%s.md`](reports/provenance/%s.md)."
+                        % (stamp, stamp)) if stamp and os.path.isfile(rpt) else ""
+                n_findings = len(report.get("findings", []))
+                result = "%s/%s entries checked (%s checks); %s unresolved finding%s; %s template citations.%s" % (
                     report.get("entriesAudited", 0), report.get("entriesTotal", 0),
-                    report.get("checksPerformed", 0), len(report.get("findings", [])),
-                    len(report.get("templateCitations", [])))
+                    report.get("checksPerformed", 0), n_findings, "" if n_findings == 1 else "s",
+                    len(report.get("templateCitations", [])), link)
             else:
                 result = "%s/%s entries checked; %s needing review; %s API errors." % (
                     report.get("checkedEntries", 0), report.get("totalEntries", 0),

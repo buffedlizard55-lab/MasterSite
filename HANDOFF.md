@@ -1200,3 +1200,90 @@ them is a duplicate and should be closed by the owner.**
   the directory data).
 - The scheduled workflow has not yet been manually dispatched, so no new full live audit result is claimed.
   The next operational step is to dispatch it and review its artifact and issue outcome.
+
+---
+
+## Session `arena-93b92b02` — 2026-10-11 (T-018, a T-015 follow-up: the §4b provenance row fails closed and renders every state faithfully)
+
+**Branch:** `arena/93b92b02-mastersite`. **Claim:** `TASKS.md` **T-018**, `session=arena-93b92b02 at=2026-10-11T17:08:35Z`.
+
+### The T-015 double-claim, recorded honestly
+
+- This session read `TASKS.md` at ~16:59Z with T-015 unclaimed, claimed it at **16:59:23Z** (claim
+  committed alone and pushed to its branch, per protocol), and implemented it.
+- Session `arena-050ee3b9` claimed the same row at **16:59:49Z** — 26 seconds later — and its PR
+  **#48 merged to main first**. This session discovered the merge only at rebase time (~17:05Z),
+  which is the exact contention window the TASKS.md preamble warns about: a claim is only visible to
+  others once it is on `main` or an open PR, and neither existed in those 26 seconds.
+- Response, following the T-013/T-014 collision precedent: **their merged row and implementation were
+  left untouched.** This session discarded its duplicate generator implementation, reset its branch to
+  `origin/main`, requeued the genuinely complementary remainder as a new row **T-018** (ID checked
+  against `gh pr list --state all`, `TASKS.md`/`HANDOFF.md`/`README.md` and `git ls-remote` first),
+  claimed it, and shipped only that.
+- Lesson for the next session (cheap to repeat, worth internalizing): after committing a claim, **open
+  the PR immediately** — even before the work exists — so `gh pr list` shows the claim to everyone in
+  the window between commit and merge. Both T-015 claimants pushed branches; only one opened a PR in time.
+
+### What was done (T-018 scope only, on top of #48)
+
+- **`scripts/validate` §B fail-closed guard:** the regenerated ledger's §4b table must contain the
+  `audit_provenance.py` row (and a missing §4b table itself warns). Check count moved **5,419 → 5,420**
+  (exactly +1, verified by stash/run/pop); validator **PASS**. Negative-tested by deleting the rendered
+  row: exit 1 with the regenerate hint.
+- **Blocked-state branch fixed in `tools/build_verification.py`:** the merged T-015 code read
+  `report.get("accessBlockStatus")`, a field `audit_provenance.py` never writes (its artifact carries
+  `accessBlocked` + `accessBlockReason` only — confirmed against `tools/last_provenance_audit.json` and
+  the writer in `audit_provenance.py`), so a real 403 block would render as a bare "blocked" with the
+  cite-audit-incorrect phrase "No completed field comparisons". The branch now parses the HTTP code out
+  of `accessBlockReason` (`HTTP 403 — …` → `blocked — HTTP 403`; `transport error: …` →
+  `blocked — access failure`), reports `entriesAudited/entriesTotal` progress, and says an access block
+  is not a citation failure. **`verify_live.py`'s existing `blocked_auth`/`blocked_rate_limit`
+  rendering was regression-tested byte-identical** (403, 401, and missing-`httpStatus` variants).
+- **Complete rows link the per-entry report** `reports/provenance/<startedAt>.md` **only when the file
+  exists on disk** (a complete `--no-report` run cannot produce a dead link), and findings pluralize
+  ("1 unresolved finding" / "2 unresolved findings").
+- **Regenerated `VERIFICATION.md`:** the diff is exactly the one §4b row (report link appended); no
+  other line moved. The published snapshot stays `2026-10-11T15:06:10Z`; no data was republished.
+- **`AGENTS.md` §4** documents the §4b row, its states, and the validator guard next to the
+  `audit_provenance.py` bullet. `TASKS.md` T-018 marked done in this PR.
+
+### Verification (this session, on this tree)
+
+- Nine state branches tested against doctored report copies in a `/tmp` scratch tree (real artifacts
+  untouched): blocked-403, blocked-transport, incomplete-no-block, stale-snapshot, not-available,
+  0/1/2 findings, complete-with-report-file-absent.
+- `scripts/validate` **PASS** (5,420 checks; 102 pre-existing expected warnings). `npm run check` PASS.
+  `py_compile` clean for all six tools + `scripts/validate`. Python unit suite **14/14 OK**.
+  `census_guard.py --self-test` **3/3 verdict paths PASS**, and its live leg re-verified coverage at
+  ~17:0xZ: **146 public repos = 145 listed + 1 excluded (`ProjX`), 146/146 Pages census,
+  `kanlerxz87-cyber` 0 public repos** — no coverage gap as of this session.
+- **Playwright remains blocked in this sandbox** (package not installed; browser CDN outside the
+  sandbox allowlist). This change touches generated markdown, the validator, and docs only — no DOM,
+  CSS, JS or `data/sites.js` — so the PR workflow (`test.yml`) is the browser execution environment of
+  record; check the run attached to this PR.
+
+### What is blocked / limitations
+
+- Nothing blocks T-018. Standing items: 51-entry PROSE-STALE queue (T-002, claimed by `96e82e25`);
+  `FL-05` (`GEMSDOE53` `errored`) and `FL-17` (`NFLInjuryReport`, volatile `errored`→`building`) need
+  a push/rebuild or owner action; four frozen 404 repos and T-006 need owner decisions; `FL-15` keeps
+  `pages-smoke` red by design; PR #44 (docs-only) is `CONFLICTING` with main and needs its own session
+  to rebase it.
+- The blocked-branch parsing assumes `accessBlockReason` keeps its current `"HTTP <code> — …"` /
+  `"transport error: …"` shapes; if the writer changes format, the row still renders (`blocked —
+  access failure`) but loses the HTTP code. If a future `accessBlockStatus` field is ever added to the
+  artifact, the branch already prefers it.
+
+### What is next
+
+1. **T-016 completed while this session was in flight** (session `arena-684e8d09`, PR #49): the weekly
+   Monday 08:13 UTC workflow runs all four read-only audits and keys off the same report-JSON contract
+   §4b renders (`complete` / `accessBlocked` / `snapshotGenerated`). Trigger its first full run via
+   `workflow_dispatch` rather than waiting for Monday; its review issue can legitimately stay open on
+   `FL-18` until T-002 lands.
+2. **T-002 (claimed):** 51 stale descriptions; FL-18's five `{path}` template citations belong to that
+   pass.
+3. **Owner decisions:** T-006 (GEMS consolidation stance), frozen-repo confirmations (OWNER-DECISIONS.md).
+4. **PR #44** (docs-only) still needs its own session to rebase it out of `CONFLICTING`.
+5. **Protocol tweak worth adopting (no code needed):** open the PR at claim time, per the double-claim
+   lesson above.
