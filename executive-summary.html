@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GitHub Pages Directory — Executive Summary · MasterSite</title>
-  <meta name="description" content="Executive summary of public GitHub Pages repositories with source-linked descriptions, latest default-branch commit, category, build snapshot, and review flags.">
+  <meta name="description" content="Executive summary of public GitHub Pages repositories for buffedlizard55-lab and kanlerxz87-cyber, with source-linked descriptions, creation and latest default-branch commit dates, official API review links, and review flags.">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="executive-summary.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>📊</text></svg>">
@@ -17,7 +17,15 @@
       <nav class="exec-nav" aria-label="Breadcrumb">
         <a href="index.html" class="back-link">← Full directory</a>
         <span class="exec-nav-sep" aria-hidden="true">·</span>
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/SITES.md" target="_blank" rel="noopener">One-line master list (SITES.md)</a>
+        <span class="exec-nav-sep" aria-hidden="true">·</span>
         <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">Audit ledger</a>
+        <span class="exec-nav-sep" aria-hidden="true">·</span>
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/FLAGGED.md" target="_blank" rel="noopener">Flagged items</a>
+        <span class="exec-nav-sep" aria-hidden="true">·</span>
+        <a href="#exec-accounts-section">Audited accounts</a>
+        <span class="exec-nav-sep" aria-hidden="true">·</span>
+        <a href="#exec-unreachable-section">Unreachable</a>
       </nav>
       <div class="hero-eyebrow">
         <span class="badge-pill verified">✓ Source-Linked Directory</span>
@@ -26,8 +34,12 @@
       </div>
       <h1>GitHub Pages Directory — Executive Summary</h1>
       <p class="tagline">
-        One row per site. <strong>Name → Live link → Latest default-branch commit</strong> come first,
-        followed by type, recorded Pages build status, activity, creation date, and review flags.
+        One row per public GitHub Pages site for
+        <a href="https://github.com/buffedlizard55-lab" target="_blank" rel="noopener"><strong>buffedlizard55-lab</strong></a>
+        and
+        <a href="https://github.com/kanlerxz87-cyber" target="_blank" rel="noopener"><strong>kanlerxz87-cyber</strong></a>.
+        <strong>Name → Live &amp; official API review links → Latest default-branch commit</strong> come first,
+        followed by category, type, recorded Pages build status, activity, creation date, and review state.
         A present <code>index.html</code> is classified as an HTML-entry-point site; it does not prove the page is interactive.
         Snapshot taken <span id="execGenerated">—</span>.
       </p>
@@ -42,7 +54,7 @@
           <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
           </svg>
-          <input id="execSearch" type="search" placeholder="Search name, repository, category…" aria-label="Search sites" autocomplete="off">
+          <input id="execSearch" type="search" placeholder="Search name, repository, description, category, or flags…" aria-label="Search sites" autocomplete="off">
           <button id="execClearSearch" class="clear-btn" aria-label="Clear search" title="Clear search" style="display:none;">&times;</button>
         </div>
         <div class="exec-filters">
@@ -84,8 +96,8 @@
         <thead>
           <tr>
             <th scope="col" class="col-site">Website</th>
-            <th scope="col" class="col-link">Live link</th>
-            <th scope="col" class="col-updated" title="Newest committer timestamp on the default branch; not a record of page visits or use.">Last commit</th>
+            <th scope="col" class="col-link" title="Live GitHub Pages URL, source repository, and official GitHub REST API endpoints for manual review.">Live &amp; Review Links</th>
+            <th scope="col" class="col-updated" title="Newest committer timestamp on the default branch plus description provenance SHA; not a record of page visits or use.">Last commit</th>
             <th scope="col">Category</th>
             <th scope="col">Type</th>
             <th scope="col">Build</th>
@@ -98,31 +110,58 @@
       </table>
     </div>
 
+    <section id="exec-accounts-section" class="panel exec-note-panel" aria-label="Audited GitHub accounts">
+      <div class="panel-header">
+        <div class="panel-icon">👥</div>
+        <div>
+          <h2>Audited GitHub Accounts</h2>
+          <p class="panel-subtitle">
+            Official public-repository census verified via the GitHub REST API at snapshot <span id="execAccountsDate">—</span>.
+          </p>
+        </div>
+      </div>
+      <div id="execAccountsGrid" class="accounts-grid"></div>
+    </section>
+
+    <section id="exec-unreachable-section" class="panel panel-alert exec-note-panel" hidden aria-label="Unreachable entries needing owner review">
+      <div class="panel-header">
+        <div class="panel-icon">⚠️</div>
+        <div>
+          <h2>Unreachable Entries — Needs Owner Review</h2>
+          <p class="panel-subtitle">
+            Previously published sites whose repository currently returns HTTP 404 on the official GitHub REST API.
+            They remain frozen with their last independently verified values rather than being silently deleted.
+            <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/OWNER-DECISIONS.md" target="_blank" rel="noopener">Read the owner decision record ↗</a>.
+          </p>
+        </div>
+      </div>
+      <div id="execUnreachableList" class="unreachable-list"></div>
+    </section>
+
     <section class="panel exec-note-panel" aria-label="How to read this summary">
       <div class="panel-header">
         <div class="panel-icon">📖</div>
         <div>
           <h2>How to read this summary</h2>
-          <p class="panel-subtitle">The first three columns answer “what, where, how fresh” — the rest answer “should I worry?”</p>
+          <p class="panel-subtitle">The first three columns answer “what, where, how fresh” — the rest answer “should I review it?”</p>
         </div>
       </div>
       <div class="exec-legend-grid">
         <div>
           <h3>First 3 columns</h3>
           <ul>
-            <li><strong>Website</strong> — display name, repository id, and a one-line description.</li>
-            <li><strong>Live link</strong> — direct link to the published site (tap <em>Visit ↗</em>). The small <em>Repo</em> link goes to the source.</li>
-            <li><strong>Last commit</strong> — newest committer timestamp on the default branch, with a plain-English age. This is not a last-use or visit timestamp; newest first by default.</li>
+            <li><strong>Website</strong> — display name, repository id, and a sourced description from the repository’s own files.</li>
+            <li><strong>Live &amp; Review Links</strong> — direct link to the published site (<em>Visit ↗</em>), the source repository (<em>Repo</em>), and the official GitHub REST API endpoints (<em>Repo API</em>, <em>Pages API</em>, <em>Commits API</em>, plus the per-site <em>JSON</em> record in <code>data/sites/</code>) for manual line-by-line review.</li>
+            <li><strong>Last commit</strong> — newest committer timestamp on the default branch, with a plain-English age relative to the snapshot and the description verification stamp (<code>prose: &lt;sha&gt;</code>). GitHub’s public API exposes no site visits or last-use timestamp.</li>
           </ul>
         </div>
         <div>
           <h3>Stats &amp; flags after that</h3>
           <ul>
-            <li><strong>Category / Type / Build</strong> — what it is, whether an <code>index.html</code> exists at the configured Pages path, and the recorded Pages status.</li>
-            <li><strong>Commits</strong> — total default-branch commits: a quick proxy for how actively built it is.</li>
-            <li><strong>Created</strong> — repository age.</li>
-            <li><strong>Review state</strong> — <span class="health health-healthy">✓ No flags</span> means no per-entry audit flag is recorded (not an uptime check);
-              <span class="health health-review">⚠ Review</span> means an audit flag is present;
+            <li><strong>Category / Type / Build</strong> — curated category, whether an <code>index.html</code> exists at the configured Pages path, and the recorded Pages build status.</li>
+            <li><strong>Commits / Created</strong> — default-branch commit count and repository <code>created_at</code> date (with initial commit SHA).</li>
+            <li><strong>Review state</strong> — <span class="health health-healthy">✓ No flags</span> means the description stamp matches the recorded head, Pages status is <code>built</code>, and no per-entry audit flag is recorded (not an uptime check);
+              <span class="health health-review">⚠ Review</span> means an audit flag is present, the description SHA is behind the recorded head (<code>PROSE-STALE</code>), the stamp is missing, or Pages status is not <code>built</code>;
               <span class="health health-stub">📝 Stub</span> means no HTML entry point exists at the configured Pages path.</li>
           </ul>
         </div>
@@ -131,7 +170,9 @@
         Data source: the same verified snapshot as the full directory (<code>data/sites.js</code>, generated <span id="execGenerated2">—</span>).
         Timestamps are UTC. Build status is the recorded snapshot value, not a live uptime check; GitHub does not expose site visits/last use.
         For source bases, full telemetry, per-entry audit flags and the irregularity register, see the
-        <a href="index.html">full directory</a>.
+        <a href="index.html">full directory</a>,
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/SITES.md" target="_blank" rel="noopener">SITES.md</a>, and
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">VERIFICATION.md</a>.
       </p>
     </section>
   </main>
@@ -141,6 +182,8 @@
       <p><strong>MasterSite Executive Summary</strong> · Generated on <span id="execGenStamp"></span></p>
       <p class="footer-sub">
         <a href="index.html">Full directory</a> ·
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/SITES.md" target="_blank" rel="noopener">SITES.md</a> ·
+        <a href="https://github.com/buffedlizard55-lab/MasterSite/blob/main/VERIFICATION.md" target="_blank" rel="noopener">VERIFICATION.md</a> ·
         Repository: <a href="https://github.com/buffedlizard55-lab/MasterSite" target="_blank" rel="noopener">buffedlizard55-lab/MasterSite</a>
       </p>
     </div>
