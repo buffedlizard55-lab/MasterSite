@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "SABERENGY",
+  "title": "SABERENGY — SaberSim Reverse Engineering",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Open-source Python rebuild of SaberSim's Monte Carlo DFS stack — play-by-play game simulation, percentile projections, field-based ownership, contest simulation, Sim and Optimizer lineup modes, late swap and contest flashback — sourced only from official league feeds and documented claim by claim. VERIFICATION.md at commit 098615a is an 89-line document describing the mechanism rather than the 24-line claim log it was at the previous read; the machine-readable claim log now lives in src/data/claims.json, which holds 25 claims (19 verified, 5 flagged, 1 not_verified). LIMITATIONS.md records 17 numbered gaps across three sections (4 data it could not get, 7 model limits, 6 pieces of code it labels a sketch) plus 5 open items. src/saberengy/ holds 15 modules (data_sources, simulation, projections, ownership, contest_sim, optimizer, late_swap, flashback, demo, scoring, roster, pipeline, mlb_model, nfl_model, nfl_data). The unittest suite was executed here: saberengy.tests.test_core ran 10 tests and passed, while saberengy.tests.test_nfl_forward ran 2 tests and skipped both (no reachable 2026 weekly player file), and tests/test_simulation.py is a plain script that prints a schematic pipeline smoke test rather than a unittest module. src/data/sources_verified.json is the machine-readable registry: 29 sources (13 fetched_live, 5 github_api, 11 carried_over and explicitly treated as unverified) plus 4 removed_or_downgraded. Vendor facts are recorded with their sources rather than asserted: VERIFICATION.md row V17 quotes the 97, 197 and 297 USD monthly tiers with a 7 USD seven-day trial, V19 lists the 13 contest types verbatim from the pricing page, V4 defines projections as the mean across simulations with floor at the 10th-25th percentile and ceiling at the 85th-95th, and V20 quotes the homepage's own '18 sports. 4 sites. 1 platform.' claim. Pages publishes from the repository root with index.html a 146-byte meta-refresh to docs/, whose docs/index.html is 16,189 bytes.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/SABERENGY/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/SABERENGY",
+  "created": "2026-09-22T18:20:21Z",
+  "firstCommit": "2026-09-22T18:20:22Z",
+  "lastUpdated": "2026-09-22T23:38:15Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-22T23:38:15Z",
+  "updatedAt": "2026-09-22T23:38:20Z",
+  "commits": 9,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 138,
+  "flags": [
+    "The published site is reached through a redirect: root index.html is a 146-byte meta-refresh to docs/, where the real 49,007-byte page lives. An index.html does exist at the published path main /, which is why this entry classifies as app, but the root file is a pointer rather than the site.",
+    "The repository corrected its own Pages documentation while this audit was reading it. Commit f874c69 ('docs: correct GitHub Pages instructions to match actual live config (root / + redirect; settings API returns 403 for token)') replaced an instruction to set the Pages folder to /docs with the checked live configuration — folder / at the branch root plus the redirect — and records that the repository token receives HTTP 403 when changing Pages settings. The earlier README at commit cec4391 still told readers to use /docs, which contradicted GET /repos/buffedlizard55-lab/SABERENGY/pages.",
+    "Executable coverage is one test function. The README's own roadmap lists 'Unit tests for simulation.py' as P0 work, so the 33-row verification log is documentation-level evidence about the vendor's published claims, not proof of this engine's numerics.",
+    "Every approximation is flagged in LIMITATIONS.md rather than presented as parity: the coaching tendency model is proxied with nflverse EPA with the gap estimated at 5-10 percent, field ownership uses public projections instead of the vendor's private industry aggregate and may be 2-5 percent off for low-owned punts, SaberScore is a proxy formula (projection times ceiling-over-mean times one plus leverage), live flagship ownership cannot be provided without a partnership, and only NFL, NBA and MLB are fully implemented with PGA, MMA, NASCAR and the esports titles stubbed.",
+    "Two official-source caveats are recorded from the vendor's own data layer: the statsapi.mlb.com root and docs.statsapi.mlb.com now present an Okta login wall although the public JSON endpoints still work keyless, and the bare NHL API root 404s so endpoint paths must be used."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "098615a",
+  "snapshotHeadSha": "098615a",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head 098615a after 2 commits (compare 8eeaa79...098615a: README.md changed, 24 files, +3254/-1191), executed rather than quoted. `grep -c '^| V[0-9]' VERIFICATION.md` == 33 master claim rows, but the file is now 89 lines whose opening section is a mechanism description, so the row count alone would misdescribe it. LIMITATIONS.md no longer uses '### N.' headings; counting its numbered items gives 4 under 'Data we could not get', 7 under 'Model limits' and 6 under 'Code that is a sketch', plus 5 bullets under 'Still open'. `ls src/saberengy/*.py` lists 15 modules plus __init__.py. `PYTHONPATH=src python3 -m unittest saberengy.tests.test_core` printed 'Ran 10 tests ... OK'; `PYTHONPATH=src python3 -m unittest saberengy.tests.test_nfl_forward` printed 'Ran 2 tests ... OK (skipped=2)' after numpy/pandas/scipy were installed; src/saberengy/tests/test_simulation.py has no unittest TestCase, so `python3 -m unittest saberengy.tests.test_simulation` collects 0 tests while running it directly prints the schematic pipeline smoke test. src/data/claims.json holds 25 claims with statuses {verified 19, flagged 5, not_verified 1}; src/data/sources_verified.json holds 29 sources with verification markers {fetched_live 13, github_api 5, carried_over 11} and 4 removed_or_downgraded. `wc -c` gives index.html 146 bytes and docs/index.html 16,189 bytes. V17, V19, V4 and V20 are quoted verbatim from VERIFICATION.md at this ref. Pages classification from GET https://api.github.com/repos/buffedlizard55-lab/SABERENGY/pages (status built, build_type legacy, source main /) plus HTTP 200 on GET .../contents/index.html?ref=main. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/SABERENGY/contents/{path}?ref=098615a.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/SABERENGY",
+    "https://api.github.com/repos/buffedlizard55-lab/SABERENGY/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/SABERENGY/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/SABERENGY/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

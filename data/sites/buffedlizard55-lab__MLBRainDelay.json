@@ -1,0 +1,41 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "MLBRainDelay",
+  "title": "MLB Rain Delay — Live Scoreboard with Weather & Delay Tracking",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Dependency-free static MLB rain-delay and postponement tracker that cross-references the public MLB StatsAPI schedule with official NWS point, hourly forecast and alerts JSON (or the Environment Canada equivalent for Toronto) plus stadium roof facts from venue.fieldInfo.roofType, and labels every game's delay risk by a published rule rather than a guess. It covers the full official gameStatus registry — all 210 status codes captured verbatim in the fixtures — maps status.detailedState / statusCode / reason to High / Moderate / Low / None / Covered / Unknown with thresholds spelled out in RISK_RULES so a reviewer can re-derive every label. The social/headline layer is explicitly a flag-for-review aid that only fires when a news headline's verbatim title or description contains a word from the documented DELAY_WORDS / WEATHER_WORDS lists, recording the matched word, and it never asserts a delay. IRREGULARITY: the repository's own test suites have grown past the figures its documentation still prints. Executed here with node: tools/delays-test.mjs 32 passed, tools/weather-test.mjs 25 passed and tools/render-test.mjs 9 passed (66 across the three suites this entry's previous version named), with tools/news-test.mjs 25 passed and tools/match-test.mjs 18 passed also green — while docs/verification.md still reports '67 assertions across four suites (26 + 24 + 11 + 6)' and README.md still reports '100+ passing assertions' (IRR-103). WITHDRAWN this pass: the previous entry's '13 club pages with 11 named deficiencies', two-mode retrospective recall/precision design and 'not a validated operational delay-forecasting model' sentence appear in no file at this head, and the commit they were read at no longer exists upstream, so they are deleted here rather than softened (IRR-115).",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/MLBRainDelay/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/MLBRainDelay",
+  "created": "2026-09-21T02:00:24Z",
+  "firstCommit": "2026-09-21T02:00:25Z",
+  "lastUpdated": "2026-09-22T07:08:36Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-22T07:08:37Z",
+  "updatedAt": "2026-09-22T07:08:41Z",
+  "commits": 24,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 469,
+  "flags": [
+    "Repository logs its own irregularities rather than resolving them silently: docs/verification.md sections 8 and 9.2 record four live findings from the 2026-09-21 pass (gameStatus N-family row reorder with identical 210-row membership, the registry endpoint ignoring fields=, fields= combined with hydrate= returning empty hydrated objects, and live box scores carrying more info[] labels than the captured fixture), plus six bugs found and fixed in section 9.3.",
+    "By design it does not scan Twitter/X, Facebook, Instagram, Reddit or news sites — the repository states a keyless static page has no verifiable way to read them — and instead links official club news, @MLB_PR, NWS and SPC pages under a Manual review heading. Its own Limitations section also records that browser CORS for the Environment Canada endpoint is still unverified and that some special-event venues have no coordinates.",
+    "Created 2026-09-21T02:00:24Z, the youngest entry in this directory, and pushed to three times on its first day — treat every count in this description as a point-in-time read."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-26T00:20:58Z",
+  "verifiedAtSha": "364b250",
+  "snapshotHeadSha": "364b250",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head 364b250 (merge PR #10, 2026-09-22T07:08:36Z): the prior stamp d7b6f41 no longer exists upstream (422 'No commit found', 0 occurrences in the main history), so no diff from it is reproducible and every claim was re-derived (IRR-115). Quoted from README.md at this ref: the 210-code registry row, the NWS-or-Environment-Canada source pair, the roofType row and the 100+ assertions line (line 188); RISK_RULES is exported from assets/js/weather.js (line 722); DELAY_WORDS is defined in tools/news-scan.mjs. Executed: delays-test 32 passed, weather-test 25 passed, render-test 9 passed, news-test 25 passed, match-test 18 passed. Searched the whole tree: no 'deficiencies', no recall/precision retrospective, no validated-model sentence — the three withdrawn claims are gone with the dangling commit. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/MLBRainDelay/contents/README.md?ref=364b250.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/MLBRainDelay",
+    "https://api.github.com/repos/buffedlizard55-lab/MLBRainDelay/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/MLBRainDelay/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/MLBRainDelay/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

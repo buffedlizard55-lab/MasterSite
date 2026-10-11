@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "FUTURESCOMMODITIES",
+  "title": "FUTURESCOMMODITIES — Commodity Futures Paper-Trading Competition",
+  "category": "Markets & Trading Research",
+  "kind": "app",
+  "description": "Live engine, one strategy roster, twenty explicit instruments and one venue family, with no simulation anywhere. engine/strategies/index.mjs registers exactly 20 strategies and usernames: 9 Kalshi event contracts, 2 Kalshi perpetuals, 5 exchange commodity futures (MOEX FORTS), 1 FX, 1 equity index, 1 interest-rate and 1 cross-venue instrument, each with its declared data source, granularity, time horizon, risk model and sizing rule. config/competition.json fixes the season window 2026-09-22 to 2027-09-22, a $100,000 starting bankroll, 130 ms between engine ticks, a 12-hour history refresh, a 100-series candle cap, taker fills at 25% of visible depth, a 6-hour maker TTL and 0.001 perp participation, with MOEX gates at 10-minute volume, 20-minute open interest, 2% price and 5% open interest. data/reports/summary.json (2026-09-23T00:52:33Z) reports the first live run: 5 ticks, the last with 1,900 instruments, 107 quotes, 26 trades, 3 intents, 181 requests and 0 settlements, with all 20 leaderboard rows equity_complete true at $100,000.00 — an opening equity of 99,839.83, -0.16% — 13 of them carrying open positions and 0 closed trades, 0 fees and 0 slippage. data/verification/report.json checks 132 trades against the official APIs: 98 fully verified, 34 anomalies (28 instrument-universe, 6 cross-venue basis), across 107 instruments (45 kalshi, 12 kalshi_margin, 50 moex_forts), with fill tiers 94 quote-based, 38 ladder and 0 modelled maker. data/reports/backtests.json records 6 backtests and 817 simulated trades, of which moex-metals-trend-10d carries 674 at -9.4448% and moex-metal-breakout-20-10 carries 143 at -4.5481% while the four Kalshi runs each ran 0 trades; 4 strategies are marked unavailable_for_backtesting. MOEX fees are quoted at ISS USD/RUB 84.72 and the repo discloses no depth, slippage or participation model.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/FUTURESCOMMODITIES/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/FUTURESCOMMODITIES",
+  "created": "2026-09-22T18:21:03Z",
+  "firstCommit": "2026-09-22T18:21:04Z",
+  "lastUpdated": "2026-10-11T00:23:25Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-10-11T00:23:27Z",
+  "updatedAt": "2026-10-11T00:23:33Z",
+  "commits": 99,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 21696,
+  "flags": [
+    "Catalog and competition state disagree because the repository moved while it was being read. Commit a64a347 ('Expand to 17 strategies, re-enable cross-venue basis on verified contract data, add research backtests and live-desk/research site sections', 2026-09-22T23:04:47Z) added five strategies and re-enabled @basis-hunter, but the tick it sits on top of was generated at 23:03:54Z and still reports coverage.strategies == 12 with a 12-row leaderboard. Both numbers are published here with the file each came from instead of being reconciled. IRR-75.",
+    "All 10 verification anomalies are the same check, instrument_present_in_published_universe — instruments that settled and dropped out of the universe file. They are reported on the site and never silently corrected.",
+    "Of the 6 documented backtest rules only two recorded any trades at all (Metals Settlement Trend 674 and Channel Breakout 20/10 on MOEX metals 143); the other four recorded 0. The 817 total is the sum of total_trades_recorded across the six, and the file's own caveat states that a backtest 'is never a track record and never a season trade'. Its fills are at published daily prices with no depth, no slippage, no participation cap and no queue position.",
+    "Where an exchange blocks scripted access — CME Group, ICE, LME, Eurex, JPX, SGX, B3 — contract specifications are cited from official pages but no price is simulated, and the strategy is labelled unavailable for backtesting rather than filled from a proxy.",
+    "This is a returns-only simulator by design: strategies are deliberately not risk-managed because the competition is scored on returns alone, and the only hard constraints are real liquidity from the published order books and a one-position-per-instrument rule."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "5389b9a",
+  "snapshotHeadSha": "62085c6",
+  "proseStale": true,
+  "verifiedBasis": "RE-READ at head 5389b9a after 3 commits (compare 7c84f3c...5389b9a: README.md unchanged, 12 files, +6089/-1504), so this is a file-only revision that corrects the previous entry's stale headline. engine/strategies/index.mjs was counted directly: 20 registered strategies/usernames split 9 Kalshi event / 2 Kalshi perp / 5 MOEX FORTS commodity futures / 1 FX / 1 equity index / 1 interest-rate / 1 cross-venue. config/competition.json's parameters were read field by field (season 2026-09-22→2027-09-22, startBankroll 100000, tickSpacingMs 130, historyRefreshHours 12, maxCandleSeries 100, takerDepthShare 0.25, makerTtlHours 6, perpParticipation 0.001, MOEX gates 10/20/2/5). data/reports/summary.json (generated 2026-09-23T00:52:33Z) reports ticks 5 and a lastTick block with 1900 instruments / 107 quotes / 26 trades / 3 intents / 181 requests / 0 settlements; its 20-row leaderboard all read equity_complete true with opening_equity 100000.00, current_equity 99839.83 and return_pct -0.16, 13 with openPositions non-empty and 0 closedTrades, fees 0 and slippage 0. data/verification/report.json reports tradesChecked 132, fullyVerified 98, anomalies 34 (28 instrument-universe, 6 cross-venue basis), coverage 107 instruments split 45 / 12 / 50, and fillTiers {quote-based 94, ladder 38, 'modelled maker' 0}. data/reports/backtests.json holds 6 runs and 817 simulated trades in total, with the two MOEX winners carrying 674 trades at -9.4448 percent and 143 at -4.5481 percent, four Kalshi runs at 0 trades, and 4 strategies unavailable_for_backtesting. The previous version of this entry reported '37 strategies', '5 live ticks, 1,503 instruments, 95 quotes, 34 trades, 0 settlements, 0 fills' and 'all 37 rows sit at $100,000.00'; the roster is 20, not 37, and the tick counts are as quoted above. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/FUTURESCOMMODITIES/contents/data/reports/summary.json?ref=5389b9a.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/FUTURESCOMMODITIES",
+    "https://api.github.com/repos/buffedlizard55-lab/FUTURESCOMMODITIES/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/FUTURESCOMMODITIES/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/FUTURESCOMMODITIES/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

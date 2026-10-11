@@ -1,0 +1,42 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "NFLComp",
+  "title": "NFLComp — Autonomous NFL Betting Strategy Research & Competition",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Autonomous NFL betting-strategy research, backtesting, forward-testing and paper-trading competition platform, explicitly a paper-trading research prototype rather than a production betting system. State read from the repository's own data/summary.json at commit 7ec80df: 70 strategy personas across 17 categories, 23 of them carrying a version lineage and every one flat-staking a $10,000 paper bankroll; 7,548 tracked games of which 7,308 are completed and 240 upcoming, spanning 1999 to 2026 with the current week at 3 of the 2026 season; a simulated ledger of 97,218 wagers carrying a total competition simulated PnL of -$531,192.71 (a net loss across all personas), 646 upcoming bets and 326 open positions; and 16,343 Kalshi trade prints of which 1,463 are published on the site. The published ledger window is 2020-2026, holding 31,502 bets at -$221,808.53, against the all-time 97,218 bets at -$531,192.71. The top performer is now @AnalyticsCoach_ATS_v1 at +$3,839.32 and a +4.16% ROI; @AltSpread_Value_v2, which this directory's previous entry named as the top persona at +27.15% ROI and +$145,992.37, now shows 0 bets and is listed as n/a (open) in the forward-test column, so that claim is superseded rather than carried. Strategy development is the declared main loop and is quoted from the README: declare the hypothesis, required source fields, market, side and threshold in code before reading the holdout result; develop on 2000-2019, validate on 2020-2022 and evaluate once on a 2023-2025 holdout without threshold tuning; keep failures archived unchanged; and promote only to prospective paper testing when the gate passes — at least 100 development, 40 validation and 40 holdout bets with positive ROI in all three windows — because, as the README puts it, a positive holdout is not a profit guarantee. The 33-control audit was executed here and all 33 pass.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/NFLComp/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/NFLComp",
+  "created": "2026-09-20T18:37:22Z",
+  "firstCommit": "2026-09-20T18:37:23Z",
+  "lastUpdated": "2026-09-23T17:27:37Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-23T17:28:00Z",
+  "updatedAt": "2026-09-23T17:27:44Z",
+  "commits": 29,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 17733,
+  "flags": [
+    "CRITICAL CORRECTION, 2026-09-21: the entry previously published here claimed 28 personas across 14 disciplines, 55,974 wagers, a total PnL of +$2,434,194.80 and a top persona of @Elo_Model_Quant_v3 at +59.18% ROI. Every one of those figures is now wrong, and the headline PnL has changed sign from a large profit to a -$353,618.85 loss. Rewritten from data/summary.json at f815a41 (IRR-65).",
+    "The repository records a correction of its own: STRAT_REST_TNF_005_v3 moved to HOLDOUT_FAILED (48.75% win rate, -7.25% ROI) after an away->home spread sign error in games.csv was fixed, and it is archived without tuning rather than deleted.",
+    "data/bets_ledger.json exports 33,458 rows, not the full 134,255 wagers; the 134,255 figure is the summed total_bets across the 60 leaderboard rows (independently re-summed in this audit) and the committed JSON is a capped export. Do not read the ledger file's length as the wager count.",
+    "Three commits landed during this audit adding an explicit evidence policy: docs/DATA_TRUTH.md defines SOURCE_DATA, DERIVED_DATA, MODEL_OUTPUT, FORWARD_TEST and UNVERIFIED classes and four settlement gates, states that the loader preserves a missing side price as null and never supplies a conventional -110, and records that historical player props are flagged and excluded rather than settled from a model probability. docs/OPERATIONAL_STATUS.md lists what is actually executable today."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "7ec80df",
+  "snapshotHeadSha": "af4b853",
+  "proseStale": true,
+  "verifiedBasis": "RE-READ at head 7ec80df after 2 commits (compare 2e89d47...7ec80df: README.md changed, 5 files, +8737/-7871). Quoted from the repository's own data/summary.json at this ref: total_strategies 70, total_games_tracked 7548, completed_games 7308, upcoming_games 240, total_simulated_bets 97218, total_simulated_pnl -531192.71, total_upcoming_bets 646, total_open_positions 326, total_kalshi_trades 16343, kalshi_trades_published 1463, ledger_published_bets 31502, ledger_published_pnl -221808.53, ledger_all_time_bets 97218, ledger_all_time_pnl -531192.71, ledger_published_window {from_season 2020, to_season 2026}, season_first 1999, season_last 2026, current_season 2026, current_week 3, top_performing_strategy '@AnalyticsCoach_ATS_v1', top_pnl 3839.32, top_roi 4.16, current_week_slice {season 2026, week 3, signals 326, games 16}. README line 105 gives '70 personas across 17 categories, 23 of them carrying a version lineage, every one flat-staking a $10,000 paper bankroll'. The development/validation/holdout windows are quoted from README lines 80-84 (development 2000-2019, holdout 2023-2025) and line 76 (the 100/40/40 gate); line 55 gives the declare-first rule and line 59 the 'positive holdout is not a profit guarantee' sentence. README line 206 shows STRAT_ALT_SPREAD_023_v2 / @AltSpread_Value_v2 as 'n/a (open)' with 0 bets in the FORWARD_TEST column, which is the evidence for withdrawing the previous entry's top-persona claim. Audit executed: `python3 -c \"import json; d=json.load(open('data/audit_checks.json')); print(len(d), sum(1 for x in d if x.get('passed')))\"` printed 33 33. The previous version of this entry published '60 strategy personas', '7,293 completed and 255 upcoming', '134,255 wagers', '-$353,618.85' and '@AltSpread_Value_v2 +27.15% ROI'; all five are superseded. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/NFLComp/contents/data/summary.json?ref=7ec80df.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/NFLComp",
+    "https://api.github.com/repos/buffedlizard55-lab/NFLComp/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/NFLComp/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/NFLComp/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

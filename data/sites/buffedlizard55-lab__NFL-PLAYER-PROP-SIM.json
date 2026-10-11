@@ -1,0 +1,42 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "NFL-PLAYER-PROP-SIM",
+  "title": "NFL-PLAYER-PROP-SIM — Empty Placeholder Repository",
+  "category": "Directory & Meta",
+  "kind": "stub",
+  "description": "Empty placeholder repository created 2026-09-22T23:52:54Z with a single initial commit (0807ee5, 'Initial commit'). Its entire tree is one blob: a README.md of 21 bytes whose whole content is the heading '# NFL-PLAYER-PROP-SIM'. There is no index.html — GET /repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM/contents/index.html returns HTTP 404 — no application code and no data, and the repository reports a size of 0 KB, so GitHub Pages (status built, source main /) serves Jekyll's default render of that one-line README. No statement is made here about what the repository is intended to become, because the repository does not say: its name suggests an NFL player-proposition simulator and that inference is deliberately not published, which is the rule IRR-71 set for exactly this case.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/NFL-PLAYER-PROP-SIM/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/NFL-PLAYER-PROP-SIM",
+  "created": "2026-09-22T23:52:54Z",
+  "firstCommit": "2026-09-22T23:52:55Z",
+  "lastUpdated": "2026-09-22T23:52:55Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-22T23:52:56Z",
+  "updatedAt": "2026-09-22T23:52:59Z",
+  "commits": 1,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 0,
+  "flags": [
+    "Created 2026-09-22T23:52:54Z — four minutes before this audit's GitHub credentials expired (IRR-85) and eleven hours after the pass began — and discovered by the full build_data.py refresh that ran once credentials were restored. It is the eleventh repository to appear during this pass and the fourth to be created while an audit was running (IRR-88).",
+    "GitHub Pages reports status built even though there is nothing to build: with no index.html and one 21-byte README, the published URL serves Jekyll's render of that README. A 'built' badge on this entry is therefore evidence about the deployment, not about a working site, which is the distinction IRR-53 and the site's own verification legend exist to keep apart.",
+    "One of two placeholder entries in the directory whose descriptions deliberately say nothing about intent (the other is PRICINGEXPERT). Both are the same shape — one commit, one README blob holding only the repository name, size 0 KB, no index.html — and IRR-84 records what happened the last time two repositories in exactly this state were published as placeholders: 25 hours later both were full applications and both entries had to be written from scratch.",
+    "Its category is provisional and is not an inference from the name. The repository holds one commit and a 21-byte README containing only the heading '# NFL-PLAYER-PROP-SIM' — no code, no data and no prose to classify — so it sits in 'Directory & Meta' as an unclassified placeholder rather than being filed under a subject guessed from its slug. When it gains content, re-read it and move it on evidence; this directory has now watched seven empty placeholders become real projects within hours (IRR-42, IRR-64, IRR-72, IRR-84, IRR-90, IRR-94)."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T02:35:00Z",
+  "verifiedAtSha": "0807ee5",
+  "snapshotHeadSha": "0807ee5",
+  "proseStale": false,
+  "verifiedBasis": "Sourced entirely from API reads at the repository's only commit, with no inference from its name. GET https://api.github.com/repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM gives created_at 2026-09-22T23:52:54Z, pushed_at 23:52:56Z, size 0, default_branch main and description null; GET .../commits?per_page=5 returns exactly one commit, 0807ee5 'Initial commit' at 23:52:55Z, and the pagination Link header names page 1 as the last page, which is the independent confirmation that the count is 1; GET .../git/trees/main?recursive=1 returns truncated false with a single entry, blob README.md, size 21; GET .../contents/README.md with Accept: application/vnd.github.raw returns exactly '# NFL-PLAYER-PROP-SIM'; GET .../contents/index.html returns HTTP 404; GET .../pages returns status built with source branch main and path /; GET .../branches/main gives head 0807ee5. Reproduce: curl -s -H 'Accept: application/vnd.github.raw' https://api.github.com/repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM/contents/README.md | wc -c  # 21",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM",
+    "https://api.github.com/repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/NFL-PLAYER-PROP-SIM/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

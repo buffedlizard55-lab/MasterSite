@@ -1,0 +1,41 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "DrugAnalysis",
+  "title": "DrugAnalysis — FDA Decisions & Biotech Reactions",
+  "category": "Markets & Trading Research",
+  "kind": "app",
+  "description": "Biopharma decision engine tracking publicly traded companies against FDA drug decisions, verified stock-price reactions and clinical-pipeline success rates, rendered as a dependency-free static site with no build step. The project is now at v29 (2026-09-22) and the whole-table census has landed: the official Drugs@FDA Submissions.txt holds 193,810 rows, and the boundary the project defends holds over all of them — 0 rows are dated between the FD&C Act (1938-06-25) and 1938-12-31. That census also contradicted two of the project's own v28 working hypotheses and v29 publishes the contradictions verbatim rather than smoothing them: the before-1939 window holds 1 row rather than 0 (ApplNo 060904, ORIG 1, AP, dated 1900-01-01, a pre-statute placeholder published as FLAG-PRE-STATUTE-DATE with counted_as_fda_decision false), the undated window holds 8 rows (1 ORIG on 009658 plus 7 SUPPL) enumerated as FLAG-UNDATED-ROW, and the arithmetic 193,810 = 1 + 8 + 193,801 is stated in the artifact. The status census over the complete table is AP 192,604 / TA 1,205 / empty 1 — not the AP-only census v28 expected — with TA defined verbatim from FDA's own Drugs@FDA glossary as a tentative approval that does not allow marketing, so the project's wording was refined from 'approval actions only' to 'approval-family actions only (AP, TA)'; the type census is ORIG 27,862 / SUPPL 165,948 and the builder now aborts on any status outside {AP, TA, empty}. ApplNos 060904 and 009658 have no row in the official Applications table in either publication, appear in no committed window and in no project table, and render no application section on their official overview pages — no cause is inferred. Two corrections are recorded as corrections, not as footnotes: v28 wrote that NDA000159 was already counted in data/pre1965_fda_decisions.csv, which was false (that table holds NME-comparable rows only, earliest 1942, and NDA000159 is row PRE1965AUDIT-1939-02 of the pre-1965 originals audit table), and the same error class had already been caught for NDA000004 in v28. A runner defect that made Actions runs 32 and 33 fail was found and fixed: zip_extract re-downloaded the official ZIP on every run and overwrote the SHA-pinned window extracts, so every SHA-gated builder aborted and the workflow's if: always() commit step pushed the drifted payloads to the feature branch after the PR had merged; zip_extract now honours skip_existing and a run that produces only skipped-existing stubs leaves manifest.json byte-identical, and a failed page-0 fetch in the paged openFDA kinds no longer writes a 0-record payload with status 200 over the committed file. The layers the previous version of this entry described still stand and are re-quoted: 1,215 rows in the full 1938-1964 submission register (850 ORIG/AP originals plus 365 SUPPL/AP supplements, every one of them submission_status AP — 0 RE and 0 W rows, because the official Submissions.txt publishes approval actions only and refused/withdrawn decisions are simply not obtainable from that source for any year, so the project's non-approval evidence is FDA's separate 458-letter CRL database), and the v26 census of 535 original approvals for 1939-1964 cross-checked against the full official database map of 29,336 applications with 0 absent, 0 application-type mismatches and 0 holder mismatches. scripts/validate_data.py was executed here and reports PASS: schema, IDs, dates, ranges and source URL checks succeeded.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/DrugAnalysis/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/DrugAnalysis",
+  "created": "2026-09-10T21:10:50Z",
+  "firstCommit": "2026-09-10T21:10:51Z",
+  "lastUpdated": "2026-09-22T17:12:38Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-22T17:12:38Z",
+  "updatedAt": "2026-09-22T17:12:48Z",
+  "commits": 161,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 59494,
+  "flags": [
+    "Moving faster than this directory can snapshot: DrugAnalysis advanced v21.1 -> v26 -> v27 across three of this audit's own build passes, the last landing while the audit was running. Every count here is a point-in-time read at commit 0d2dbcd.",
+    "The repository publishes verified negatives as first-class results rather than omissions: 1938 gets a row in data/pre1938_determination.csv recording that 1,216 official submission rows were searched and 0 exist for that year, and FDA's own series publishes 1938-40 only combined.",
+    "Five pre-1965 irregularities remain flagged and deliberately uncorrected (NDA008592, NDA010028, NDA009149, NDA012265, NDA012486), where a later application appears to precede an earlier original — one of them identified as a source coverage gap rather than a data error."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "6c03bbc",
+  "snapshotHeadSha": "6c03bbc",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head 6c03bbc after 1 commit (compare 15d454e...6c03bbc: README.md changed, 14 files, +66176/-2687), a full re-read of the v29 section rather than a token-level check. Quoted from the README's v29 headline and table at this ref: the 193,810-row census, the 0 rows between 1938-06-25 and 1938-12-31, the 1 before-1939 row (ApplNo 060904, ORIG 1, AP, 1900-01-01, FLAG-PRE-STATUTE-DATE, counted_as_fda_decision False), the 8 undated rows (1 ORIG on 009658 + 7 SUPPL, FLAG-UNDATED-ROW), the 1 + 8 + 193,801 arithmetic, the status census AP 192,604 / TA 1,205 / empty 1 with the TA glossary definition quoted from EV-14, the type census ORIG 27,862 / SUPPL 165,948, the builder's abort on any status outside {AP, TA, empty}, the orphan-row observation for 060904 and 009658 with 'no cause is inferred', the zip_extract skip_existing fix and the 0-record-payload fix for Actions runs 32/33, and the NDA000159 correction. The 1,215-row register (850 ORIG/AP + 365 SUPPL/AP, 0 RE and 0 W) is quoted from README line 125, the 535-row v26 census and the 29,336-app cross-check with 0/0/0 mismatches from README lines 139-141, and the 458 CRL letters from README line 65. Executed: `python3 scripts/validate_data.py` printed 'PASS: schema, IDs, dates, ranges, and source URL checks succeeded.' along with 1,751 flagged-for-manual-review warnings (12 printed lines plus a '1739 more' truncation line, the validator's D3xx review queue rather than failures), which are the repository's own review queue rather than failures. The previous version of this entry was written against v27 (2026-09-21) and published '1,000 new verified FDA decision rows', '27 committed SHA-checked openFDA payload files holding 2,969 decisions', 'a 1,933-row decision engine analysis table', 'a 485-row company success-rate scorecard', 'a 2,848-row stock-price verified index' and '90.6% Phase 1 to 2 on n=1453'; those row counts are not re-derivable from the current tree and are withdrawn rather than carried forward. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/DrugAnalysis/contents/README.md?ref=6c03bbc.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/DrugAnalysis",
+    "https://api.github.com/repos/buffedlizard55-lab/DrugAnalysis/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/DrugAnalysis/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/DrugAnalysis/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

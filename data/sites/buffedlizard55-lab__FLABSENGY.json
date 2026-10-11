@@ -1,0 +1,42 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "FLABSENGY",
+  "title": "FLABSENGY — FantasyLabs Projection Reverse Engineering",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Clean-room study of the FantasyLabs DFS projection system plus an original Python engine that rebuilds the metrics the vendor documents publicly — no subscription data, no scraped pages, no proprietary weights, and an explicit record of what was refused. Evidence counted at commit f927bab: docs/ledger.html holds 49 source rows inside an S1-S50 range, research/IRREGULARITIES.md carries 16 flagged items I1-I16, research/REQUIREMENTS.md maps acceptance requirements R1-R17, and engine/fantasylab_engine/metrics.py defines 14 functions covering Plus/Minus, implied points from a salary-expectation fit, Pts/Sal, consistency, upside, duds, bargain rating, opponent Plus/Minus, salary change and percentile rank. `pytest -q` was executed in this audit and returned 79 passed. Where the vendor's own official glossaries disagree — the NFL defines Duds as fewer than half a salary-based expectation while the NBA and MLB glossaries define it as at least half a standard deviation below it — the engine implements both variants and documents which one is the default; where a methodology is not public at all (ownership projection, Pro Trend definitions, salary-regression parameters) it is recorded as unknown rather than guessed.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/FLABSENGY/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/FLABSENGY",
+  "created": "2026-09-22T18:18:43Z",
+  "firstCommit": "2026-09-22T18:18:44Z",
+  "lastUpdated": "2026-09-22T18:50:51Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-22T18:50:51Z",
+  "updatedAt": "2026-09-22T18:50:56Z",
+  "commits": 7,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 89,
+  "flags": [
+    "Two of the README's headline counts are off against the files they describe. Its table says '50 sources' where docs/ledger.html holds 49 rows — the ledger states in terms that 'Missing ID S15 is reserved (not used)' — and 'All 19 publicly documented metrics' where docs/metrics.html carries 20 metric rows. This entry publishes the counted values 49 and 20; the disagreement is IRR-74.",
+    "The refusals are the substance of the audit, not an omission from it: I1-I3 record that the request to rebuild whatever sits behind the paywall would be paywall circumvention and reproduction of copyrighted subscription content, and that the Terms governing fantasylabs.com ban scraping, robots and reverse engineering of source code. The repository therefore limited itself to a handful of direct public page reads and wrote the engine from published metric definitions.",
+    "Two live findings about the vendor are reported and deliberately not exploited: fantasylabs.com/articles-new/ is publicly reachable and labelled '(Test)' in a search index (I10), and a search index surfaced a raw JSON player-news API path that appeared to need no authentication (I11). The endpoint was not interrogated further and is not consumed.",
+    "FanDuel scoring is taken from the operator's own rules page against secondary DFS guides that claim FanDuel has no yardage bonuses (I12); the engine trusts official pages only and excludes the secondary tables from its config."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-22T23:50:00Z",
+  "verifiedAtSha": "f927bab",
+  "snapshotHeadSha": "f927bab",
+  "proseStale": false,
+  "verifiedBasis": "Written from a clone at commit f927bab, the repository's head at read time. Counted, not quoted: `grep -c 'class=\"ledger-row\"' docs/ledger.html` == 49 and the same file states 'Missing ID S15 is reserved (not used)'; `grep -c '^| \\*\\*I[0-9]' research/IRREGULARITIES.md` == 16 (I1-I16, no gaps); docs/metrics.html contains 20 `<tr class=\"metric-row\">` elements, whose first cells are Plus/Minus, Implied Points, Projected Plus/Minus, Pts/Sal, Consistency, Upside/Breakout, Duds, Bargain Rating, Opponent Plus/Minus (Allowed), Salary Change, ML%, Ceiling (NFL), Floor (NFL), Ceiling/Floor (NBA), Pro Trends, Trends outputs, Model R-squared, Vegas Score, Unique Players and PER; research/REQUIREMENTS.md carries R1 through R17; `grep -c '^def ' engine/fantasylab_engine/metrics.py` == 14 (13 public plus the private _resid_sd). The 79-test figure was executed rather than trusted: pytest was installed into the sandbox and `python3 -m pytest -q` in engine/ printed '79 passed in 21.15s', agreeing with `grep -rc 'def test_' engine/tests/*.py` == 79 across eight test modules. The Duds and Upside/Breakout definition conflicts, I10, I11 and I12 are quoted from research/IRREGULARITIES.md at this commit. Reproduce: git clone https://github.com/buffedlizard55-lab/FLABSENGY.git && grep -c 'class=\"ledger-row\"' docs/ledger.html. Hand-review endpoints for this record: the description above was read at f927bab and has NOT been re-read since, so these endpoints serve the CURRENT state, which may be newer than the prose. Repository: https://api.github.com/repos/buffedlizard55-lab/FLABSENGY . Pages settings and status: https://api.github.com/repos/buffedlizard55-lab/FLABSENGY/pages . Default-branch commits: https://api.github.com/repos/buffedlizard55-lab/FLABSENGY/commits?per_page=1 . README at the current head: https://api.github.com/repos/buffedlizard55-lab/FLABSENGY/contents/README.md . Published site: https://buffedlizard55-lab.github.io/FLABSENGY/",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/FLABSENGY",
+    "https://api.github.com/repos/buffedlizard55-lab/FLABSENGY/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/FLABSENGY/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/FLABSENGY/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

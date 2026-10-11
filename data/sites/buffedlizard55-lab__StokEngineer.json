@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "StokEngineer",
+  "title": "StokEngineer — Stokastic Reverse Engineering",
+  "category": "Sports Data & Scoreboards",
+  "kind": "stub",
+  "description": "Zero-network, dependency-free DFS projection and optimizer rebuild of Stokastic's public methodology, self-contained and re-runnable offline, that separates official sources (DraftKings scoring rules, FanDuel, MLB Stats API, nflverse, NBA stats endpoints), reverse-engineered vendor methodology and independent analysis, and ships its own multi-sport projection engine: src/projection_engine/ holds 8 modules — data_sources, nba_projections, nfl_projections, mlb_projections, ownership_model, boom_bust, top_stacks and simulation_engine — with a deterministic optimizer that adds a stack constraint, ownership leverage, diversity, exposure and what-if lineups to the base knobs. The project's honest boundary is explicit: Stokastic's exact projection weights, sigma model and ownership coefficients are not public, so nothing claims them. VERIFICATION.md at commit 7dedfea is an 89-line document describing the mechanism rather than the 24-line claim log it was at the previous read, and the machine-readable claim log now lives in src/data/claims.json, which holds 25 claims (19 verified, 5 flagged, 1 not_verified). src/data/sources_verified.json is the machine-readable source registry: 29 sources (13 fetched_live in session, 5 github_api, 11 carried_over and explicitly treated as unverified) plus 4 removed_or_downgraded, and src/stokengineer/provenance.py refuses to use a source id that is not in it while tools/check_links.py re-walks every URL. IRREGULARITY: the repository's own test suite fails at this head — `PYTHONPATH=. python3 -m pytest tests -rA` gives 84 passed, 3 skipped and 1 FAILED (tests/test_optimizer.py::test_stack_constraint_produces_a_qb_stack, which raises _BudgetedOut: no legal lineup exists under these constraints), while `python -m src.stokengineer.cli verify` still reports OK (IRR-100). The previous version of this entry published '38 source entries across six categories', '155 verified badges' and 'a 24-line claim log'; none of those figures, nor the 71,004-byte site or the 7 flagged irregularities it also cited, is re-derivable from the current tree.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/StokEngineer/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/StokEngineer",
+  "created": "2026-09-22T17:54:25Z",
+  "firstCommit": "2026-09-22T17:54:26Z",
+  "lastUpdated": "2026-09-23T01:42:41Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-23T01:42:41Z",
+  "updatedAt": "2026-09-23T01:42:47Z",
+  "commits": 17,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 288,
+  "flags": [
+    "No index.html exists at the published path: GET /repos/buffedlizard55-lab/StokEngineer/pages reports build_type legacy with source main / and the root contents listing has no index.html, so the Pages URL renders the README through Jekyll while the built site is docs/index.html. Commit 00d0616 ('ci: restrict Pages deploys to main (github-pages env is main-only)') landed during this audit. Classified stub on the mechanical rule. IRR-76.",
+    "The repository caught a false claim about itself and recorded it. PASSES.md's Session 2 states that the demo returned roughly 21,000 percent Sim ROI and that PASSES.md had claimed this was fixed when it was not; the root cause was field lineups generated from a player pool the same size as the roster, so every 'field' lineup was a permutation of all players and tied the user lineup. Field generation was rewritten so the pool exceeds the roster, an illustrative GPP payout curve with documented rake was added, a guard now raises when pool size equals lineup size, and the ad-hoc covariance was replaced with a PSD projection.",
+    "An earlier README claimed '40+ verified sources' for a registry that held 38 entries. Commit 1842144 ('fix: re-verify all sources live; fix ROI-understated bug, pricing labels, dead links') removed the numeric claim and re-verified the registry, which at this head also carries 7 irregularities instead of 4 — including four source URLs from earlier builds that now redirect to a homepage, and DraftKings how-to-play and DK Network scoring pages that moved or 404. The counted 38 is what this entry publishes.",
+    "Everything proprietary is labelled inference rather than reproduced: exact projection weights are not published and the engine uses minutes 40 percent, usage 25 percent, matchup 20 percent, recent form 10 percent and other 5 percent; historical ownership is private and proxied with optimal percent plus salary; the correlation matrix is a heuristic (0.6 QB-WR, 0.3 WR-WR) rather than a measured joint distribution; the demo simulator's contest payout curve is illustrative; and the pricing page is coupon-gated and seasonally dynamic, so both toggles were recorded on 2026-09-22 with a note that a manual reviewer should re-fetch it live.",
+    "There is no test suite. The repository ships tools/check_links.py, which resolves every cited URL and exits 1 on a definitively dead link (treating 403/405/406/429/418 as bot-blocked but alive), but no unit tests, so the 24-line log is documentation-level evidence."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "7dedfea",
+  "snapshotHeadSha": "7dedfea",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head 7dedfea after 8 commits (compare f75e4bb...7dedfea: README.md changed, 16 files, +184/-384). VERIFICATION.md now has 89 lines and opens with a mechanism description; `grep -c '^|' VERIFICATION.md` == 11, so the '24-line claim log' framing of the previous entry no longer describes the file. `ls src/projection_engine/` lists 8 modules (boom_bust.py, data_sources.py, mlb_projections.py, nba_projections.py, nfl_projections.py, ownership_model.py, simulation_engine.py, top_stacks.py), matching the eight named in the previous entry. src/data/claims.json holds 25 claims with statuses {verified 19, flagged 5, not_verified 1}; the five flagged ones are pricing, tier ceilings, FanDuel's missing roster/salary-cap publication, the DraftKings lobby endpoint and ESPN's scoreboard odds, and the single not_verified one is 'Stokastic's exact projection weights, sigma model and ownership coefficients are NOT public'. src/data/sources_verified.json holds 29 sources with verification markers {fetched_live 13, github_api 5, carried_over 11} and a removed_or_downgraded array of 4. `PYTHONPATH=. python3 -m src.stokengineer.cli verify` printed 'verify: OK'. `PYTHONPATH=. python3 -m pytest tests -rA` printed 84 PASSED, 3 SKIPPED and 1 FAILED — tests/test_optimizer.py::test_stack_constraint_produces_a_qb_stack failing with src.stokengineer.optimizer._BudgetedOut: no legal lineup exists under these constraints (searched the whole slate) — which is IRR-100 and is published rather than smoothed. The five literals the previous entry cited ('38 source', '71,004', '155 verified', '24-line', '7 flagged') return 0 hits across the whole clone, which is the evidence that they are withdrawn rather than carried forward. docs/index.html is 11,928 bytes at this head and contains the string 'verified' 3 times. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/StokEngineer/contents/VERIFICATION.md?ref=7dedfea.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/StokEngineer",
+    "https://api.github.com/repos/buffedlizard55-lab/StokEngineer/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/StokEngineer/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/StokEngineer/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

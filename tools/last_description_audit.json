@@ -151,15 +151,7 @@
     "WoWForever": "0264b0e"
   },
   "numericTokenLintOnly": true,
-  "unresolved": [
-    {
-      "repo": "MALTASUPPLEMENTAL",
-      "why": "numeric tokens not found in README",
-      "tokens": [
-        "230"
-      ]
-    }
-  ],
+  "unresolved": [],
   "apiErrors": [],
   "accepted": {
     "GEMSDOE": "Every numeric token is quoted from STATUS.md at commit cf20e1b, which the README itself supersedes and directs readers to, so the tokens legitimately do not appear in README.md: session 23's 532,174-byte submission_field.bin for 259,549 runs and 17 named checks, session 21's three raster sizes (418,912,844 B / 425,830 B / 1,599,597 B) and sha256 pin 9f2577cff20d... and its 3292x3730 / 19-band / EPSG:32611 / 100 m prepare_data pass and 8 validate_submission checks, the fold gaps +0.0114 / -0.0070 / +0.0139 / +0.0093 with mean +0.006904 and spread 0.020935, the 0.099859 selection statistic, the 0.197183 held-out DTI, the 122,652-pixel union (60,988 + 61,664) and the P = 0.916 interval spanning zero on 8 scoreable blocks, and the 0.2854 leaderboard bar as of 2026-09-21. The $300,000 / $50,000 / $250,000 prize split, the 2026-12-03 11:59 p.m. UTC end date and the 19-band stack are quoted from README.md lines 15 and 68. The 467 / 32 / 1 test tokens are the executed `python3 -m pytest tests -q -rA` result, whose single failure is tests/test_site_pages.py::test_the_build_reproduces_the_committed_pages (IRR-102); STATUS.md session 23 claims 445 passed and 1 skipped, which does not match the executed run. The previous entry's session-19 framing and 430+2 test figure are superseded. Verified 2026-09-23.",
