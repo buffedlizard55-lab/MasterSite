@@ -7,44 +7,85 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 > **How to read the dates and status:** GitHub's public repository/Pages APIs do not expose site visits or last use. “Last commit” is the newest committer timestamp on the default branch, not evidence of site use. The “HTML entry point” label means `index.html` exists at the configured Pages source path; it does not establish that the page is interactive, works in a browser, or is reachable over HTTP. Pages status `built` is GitHub API metadata, not an uptime check.
 >
 > **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.
+>
+> **Multi-session work:** [`TASKS.md`](TASKS.md) carries the claim protocol and open queue, [`FLAGGED.md`](FLAGGED.md) the fields that cannot be verified officially, [`HANDOFF.md`](HANDOFF.md) the session log, and `scripts/validate` mechanically enforces that every record ships official source links.
 
-## Current audit status — API snapshot `2026-10-01T23:59:25Z` (UTC)
+## Current audit status — API snapshot `2026-10-11T03:01:01Z` (UTC)
 
 | Metric | Snapshot result |
 |---|---|
-| Sites listed | **107** |
-| HTML entry points / README-documentation stubs | **94 / 13**; determined only from `index.html` at the configured Pages source path |
-| Pages API status | **106 `built`, 1 `building`** (`MasterSite`) at the snapshot; API status is not uptime or browser behavior |
-| Default-branch commits | **6,380** across the 107 listed repositories |
-| `buffedlizard55-lab` public repositories / Pages-enabled repositories | **108 / 108**; 107 are listed and `ProjX` remains excluded by owner instruction |
-| `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** |
-| Description provenance | **107 / 107** entries have a source commit SHA; **38** are behind their snapshot heads and remain a visible re-read queue, not proof the prose is false |
-| Latest prose pass | **6 re-read / 101 carried** at `2026-10-01T23:46:40Z` |
-| `verify_live.py` | **1,407 checks; 0 hard mismatches; 1 volatile drift** (`GEMSDOE24.pushedAt` changed after the snapshot; no default-branch-head mismatch) |
-| `audit_kind.py` | **107 checked; 0 disagreements; 0 unresolved** |
-| `audit_descriptions.py` | **107 checked; 0 needing review; 42 documented numeric-token exceptions**. This is a lint, not semantic proof |
-| Local code checks | `npm run check` and Python syntax compilation pass. `npm test -- --list` discovered **84** Playwright cases, but discovery is not execution: no browser tests ran because browser installation failed with TLS `ECONNRESET` from `cdn.playwright.dev` |
-| Irregularities / description notes | **130 / 27** (`IRR-01` … `IRR-130`) |
-| Categories | **13** — Sports Data & Scoreboards (34), Science & ML Research (25), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (8), Unclassified & Placeholder (6), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Travel & Event Dossiers (1), Reference & Archives (1), Health & Personal Guides (1), Social & Creator Data (1) |
-| Pages source paths | **106** from `main /`; **1** (`GOLD`) from `main /docs` |
-| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all returned HTTP 404 in the latest API checks and remain preserved |
-
-### Official manual-review links
-
-The generated [`VERIFICATION.md`](VERIFICATION.md) has a row for every listed repository with its live Pages URL, repository, Pages API, commits API, Pages settings, date/SHA evidence, curated-source basis, and any irregularity. The account census can be reviewed directly via GitHub's official REST API: [`buffedlizard55-lab` repositories, page 1](https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&page=1), [page 2](https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&page=2), and [`kanlerxz87-cyber` repositories](https://api.github.com/users/kanlerxz87-cyber/repos?per_page=100&page=1). The pagination matters: the first account currently has more than 100 public repositories.
+| Sites listed | **145** — up from 107; the **38 unlisted public Pages repositories** this refresh found are now published |
+| HTML entry points / README-documentation stubs | **135 / 10**; determined only from `index.html` at the configured Pages source path |
+| Pages API status | **144 `built`, 1 `errored`** (`GEMSDOE53`); API status is not uptime or browser behaviour |
+| Default-branch commits | **10,579** across the 145 listed repositories |
+| `buffedlizard55-lab` public repositories / Pages-enabled repositories | **146 / 146**; 145 are listed and `ProjX` remains excluded by owner instruction |
+| `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** (re-verified this pass) |
+| Description provenance | **145 / 145** entries carry a source commit SHA and a pass stamp; **41** are behind their snapshot heads and remain a visible re-read queue, not proof the prose is false |
+| Latest prose pass | **45 read / 100 carried** — 38 new entries at `2026-10-11T02:54:23Z`, one re-read at `2026-10-11T03:01:21Z` (`60GEMSDOE` committed to main mid-pass) and six re-reads at `2026-10-11T03:54:54Z` (`GEMSDOE22`–`GEMSDOE27`, re-classified under `IRR-138`) |
+| `verify_live.py` | **1,901 checks; 0 hard mismatches; 3 volatile drifts** (`59GEMSDOE.pushedAt`, `61GEMSDOE.sizeKb`, `KalshiPaperSim.sizeKb` — fields GitHub recomputes asynchronously) |
+| `audit_kind.py` | **145 checked; 0 disagreements; 0 unresolved** — re-derived from the Pages source path and the configured-path contents endpoint |
+| `audit_descriptions.py` | **145 checked; 1 needing review (the token `230` in `MALTASUPPLEMENTAL`, tracked as FL-12); 42 documented numeric-token exceptions**. This is a lint, not semantic proof |
+| `scripts/validate` | **PASS** — every record cites official endpoints, no unfilled values, counts and overlay agree (see below) |
+| Local code checks | `npm run check` and Python syntax compilation pass locally. **The Playwright suite passed in CI on this PR** — `npx playwright install --with-deps chromium firefox webkit` succeeded and `npm test` was green ([run 38110045438](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38110045438), job `browser-tests`, 2m46s). Browser binaries cannot be downloaded inside this sandbox (`ECONNRESET`), so CI is the execution environment of record for layout and keyboard behavior |
+| Irregularities / description notes | **138 / 27** (`IRR-01` … `IRR-138`) |
+| Categories | **13** — Science & ML Research (60), Sports Data & Scoreboards (37), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (8), Unclassified & Placeholder (6), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Health & Personal Guides (1), Reference & Archives (1), Social & Creator Data (1), Travel & Event Dossiers (1) |
+| Pages source paths | **144** from `main /`; **1** (`GOLD`) from `main /docs` |
+| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all returned HTTP 404 again on 2026-10-11 and remain frozen with their last verified values |
+| Validator | `scripts/validate` is the mechanical gate for the rules in [`TASKS.md`](TASKS.md): source links present, no unverified values, overlay and published records in 1:1 agreement |
 
 ### Findings and limitations from this refresh
 
-- **Six GEMS repositories are now classified as HTML entry-point sites:** `13GEMSDOE`, `16GEMSDOE`, `17GEMSDOE`, `18GEMSDOE`, `19GEMSDOE`, and `20GEMSDOE`. The classification uses current root HTML evidence and does not claim that the pages run correctly or validate research results (`IRR-130`). Root files in `16GEMSDOE`, `19GEMSDOE`, and `20GEMSDOE` redirect to `docs/index.html`; `13GEMSDOE` and `17GEMSDOE` are download landing pages; `18GEMSDOE` has a home page.
-- **`GEMSDOE22`–`GEMSDOE27` remain neutral placeholders.** Their Pages API status is `built`, but at their recorded heads each README is title-only and the configured root has no `index.html` (`IRR-128`). The `built` label alone is not evidence of a useful landing page.
-- **`LiveScoringErrors` resolves to canonical repository `ErrorsLive`** (same repository ID); its current README heading retains the older name (`IRR-127`).
-- **`MasterSite` still reports Pages status `building`** in the latest API snapshot. The last recorded build is for commit `3cda9250f12b3cd48ef85687bf4405591633a4c2`, created/updated `2026-09-29T23:23:35Z`, from `main /`. A direct Pages fetch from this sandbox ended in TLS/SSL EOF; that does not establish that the public site is down (`IRR-129`).
-- GitHub's public APIs do not show visits or last use. The displayed latest default-branch commit is a repository timestamp only; it must not be presented as site usage. `pagesStatus: built` likewise does not establish uptime, rendering, or interactivity.
-- **Remaining review work:** the 38 stale description stamps still need source re-reading before those descriptions can be represented as current. Keep their stale flags visible; never clear them by changing only a SHA. The numeric-token lint checks only README token presence, not what claims mean.
-- **Browser-suite limitation:** Playwright's 84 cases were discovered but not executed locally because `cdn.playwright.dev` could not be reached for browser downloads (`ECONNRESET`). The PR workflow installs the browser engines; report its actual result rather than treating discovery as a pass. Local Python/JavaScript checks are not a substitute for those browser runs.
-- The independent API audit had one volatile drift: `GEMSDOE24`'s repository-level `pushedAt` advanced from `2026-10-01T23:57:20Z` to `2026-10-02T00:00:26Z` after the snapshot. Its default-branch content matched; no hard mismatch was recorded.
+- **The directory was 38 sites behind, and nothing would have said so.** The account went from 108 to 146 public repositories between the 2026-10-01 snapshot and 2026-10-11 while the published count stayed at 107. `build_data.py` skips any repository with no curated entry by design, so the gap was silent: 35 GEMSDOE competition lanes and 3 scoring-discrepancy repositories were live with no entry here (`IRR-131`, `FL-11`). All 38 are published; **T-010** proposes a scheduled census that fails loudly when `counts.publicRepos` exceeds listed + excluded.
+- **A latent generator bug blocked exactly this work and is fixed (`IRR-137`).** `api_get()` passed raw file bodies through `json.loads`, so `has_entry_point()` could never see a successful probe's HTTP 200 and the build aborted on the first entry without an explicit `kind`. All 107 earlier entries carried one, so the path had never run. Regression-visible only by reverting the guard.
+- **`GEMSDOE22`–`GEMSDOE27` were published as README-only stubs after they had already become HTML entry points** (`IRR-138`). `audit_kind.py` reported six disagreements, and the follow-up probe settles when the file appeared: `contents/index.html?ref=<snapshot head>` returns HTTP 200 for all six at the heads recorded in this snapshot, so the stored `stub` label and the “configured root has no `index.html`” sentence were **already false as published** — not a change that happened afterwards. All six were re-read at their current heads and re-classified. Second pass in a row where re-derivation caught repositories changing shape (`IRR-130`), which is exactly why `kind` is re-derived every pass instead of trusted.
+- **`GEMSDOE53` is the only non-`built` Pages status** (`errored`), while its own README labels its artifact `OK TO SUBMIT` (`IRR-132`, `FL-05`). Those describe different objects — a failed site build and a locally gated GeoTIFF — so the directory publishes the API value and makes no reachability claim.
+- **The GEMS family alone is now 40+ lanes of one competition, several stating mutually exclusive conclusions.** `58GEMSDOE` blocks its own submission while its neighbour `57GEMSDOE` records download and submit as OK; `6GEMSDOE` recommends deleting the other GEMS repositories (`IRR-119`). Each verdict is scoped to its own lane, so the directory publishes all of them and takes no position (`IRR-135`, `T-006`).
+- **A transient status was captured and corrected rather than published.** A mid-pass census read saw `MALTASUPPLEMENTAL` as `building` three minutes after a push; the final build recorded `built`, which is what ships (`IRR-133`). A status without a timestamp is not a fact.
+- **GitHub does not expose site visits or last use through its public API.** The displayed “Last commit” is the newest committer timestamp on the default branch; `pagesStatus: built` is build metadata. Neither is uptime, rendering, interactivity or usage.
+- **Remaining review work:** the 41 stale description stamps still need source re-reading before those descriptions can be represented as current; keep their flags visible and never clear one by changing only a SHA. The numeric-token lint checks only whether a number appears in the README, not what it means.
+- **Live HTTP checks are impossible from this sandbox** (`curl` returns HTTP 000 for every Pages URL, including this project's own), so no entry claims the page serves. **T-003** tracks a smoke test from a machine with general egress.
+- **Browser tests were not executed locally** (browser CDN connection reset). The PR workflow installs the engines; report its actual result rather than treating discovery as a pass.
 
-## Historical audit journal (through 2026-09-26)
+## Historical audit journal (newest first)
+
+### What changed in the 2026-10-11 pass — **38 missing public Pages sites published, a latent generator bug fixed, and the multi-session protocol files added**
+
+The account grew from **108 to 146 public repositories**, all 146 with Pages enabled, between the
+2026-10-01 snapshot and this refresh — but the directory still listed 107. **Thirty-eight public Pages
+sites were live on the web with no entry, no description and no source row here** (`IRR-131`, `FL-11`).
+The mechanism was silent rather than broken: `build_data.py` deliberately skips any repository without a
+curated `tools/overlay.json` entry, so nothing was wrong — thirty-eight things were absent. All 38 are now
+published with prose read from each repository's own `README.md` at its recorded head SHA, a flag for every
+self-reported caveat, and a `verifiedBasis` naming the README, Pages and configured-path endpoints.
+
+- **Thirty-five of the newcomers are GEMSDOE competition lanes** (DrivenData #306, the DOE GEMS Prize),
+  created 2026-10-02 → 2026-10-08, and three are scoring-discrepancy research repositories
+  (`SCORINGDISCREPNFL`, `ScoringDiscrepNBA`, `ScoringDiscrepNHL`). They are published with the verdict each
+  repository states about itself — `OK TO SUBMIT`, `NEGATIVE`, `NOT OK TO SUBMIT`, "PROXY GATE PASSED —
+  NOT SUBMITTED" — and the directory asserts no competition score of its own (`IRR-135`).
+- **`tools/build_data.py` could not derive a site kind at all (`IRR-137`, latent since before this pass).**
+  `api_get()` sent raw file bodies through `json.loads`, so `has_entry_point()` lost the status of a
+  successful probe and the build aborted on the first entry with no explicit `kind`. All 107 pre-existing
+  entries happened to carry one, so the path had never run. Fixed, and `audit_kind.py` re-derives every kind
+  independently.
+- **Prose provenance is now clickable in every record.** 47 bases cited accurate but unclickable
+  `GET /repos/...` paths and 8 carried a read note with no endpoint; all now carry full official URLs, with
+  the original wording preserved and an explicit note that the prose was **not** re-read there.
+- **New: `TASKS.md`, `FLAGGED.md`, `HANDOFF.md` and `scripts/validate`.** The multi-session protocol asks for
+  a claimable task queue, a null-field/unresolved register, a session log, and a validator enforcing that
+  every record ships official source links. `scripts/validate` checks schema, sources, hygiene, stamps,
+  overlay-vs-published parity, exclusions, counts, flagged items and the ledger's per-record
+  Live/Pages-API/Commits-API links; it currently passes.
+- **The four frozen 404 repositories were re-checked, not dropped.** `JobSearchSF`, `MALTA`, `MALTA-LAWS`
+  and `MALTA2` all still return HTTP 404 and remain absent from the 146-repository public list. One caveat
+  worth recording: the search API returns **one** match for `MALTA` — that match is the live
+  `MALTASUPPLEMENTAL`, a prefix match, not the retired repository.
+- **`GEMSDOE53` is the only non-`built` Pages status** (`errored`), while its own README labels its artifact
+  `OK TO SUBMIT`. Those describe different objects — a failed site build and a locally gated GeoTIFF — so the
+  directory publishes the API value and infers nothing about reachability (`IRR-132`, `FL-05`).
+- **A transient status was captured and corrected rather than published.** A mid-pass census read saw
+  `MALTASUPPLEMENTAL` as `building` three minutes after a push; the final build recorded `built`, which is
+  what ships. The episode is kept in `IRR-133` as a worked example of why a status needs a timestamp.
 
 ### What changed in the 2026-09-26 pass — **eleven new sites listed, eight dangling SHA stamps caught and re-read, and one GEMS repository recommending the deletion of the other ten**
 
@@ -289,9 +330,9 @@ For each listed site, the directory shows:
 - **Last commit (UTC)** from the newest committer timestamp on the default branch, plus its commit SHA. GitHub's public APIs do not expose the last time a site was visited or used.
 - **Pages status and deployment source** as returned by GitHub at the snapshot. `built` is not a live uptime result.
 - **Site type** derived from whether `index.html` exists at the configured Pages source path. It does not mean the page is interactive or functional.
-- **Default-branch commit count, repository size, description-verification state, and per-entry flags.** Thirty-five description stamps are behind the current repository head in this snapshot; those entries are explicitly marked for review.
+- **Default-branch commit count, repository size, description-verification state, and per-entry flags.** Forty-one description stamps are behind the current repository head in this snapshot; those entries are explicitly marked for review.
 - **Official manual-review links** — live URL, repository, Pages API, commits API, Pages settings, and the recorded README/source reference as applicable.
-- **Unreachable history and irregularities** — four currently missing repositories remain visible with their last recorded state; the 124-item irregularities register includes reproduction details and source links.
+- **Unreachable history and irregularities** — four currently missing repositories remain visible with their last recorded state; the 137-item irregularities register includes reproduction details and source links.
 
 ---
 
@@ -444,7 +485,7 @@ the deletion or privacy change.
 
 ## Known Limitations
 
-1. **Thirty-five descriptions are behind their recorded repository head.** The
+1. **Forty-one descriptions are behind their recorded repository head.** The
    UI and ledger mark these entries as a re-read queue. A new commit does not by
    itself prove a description is false, but this status is not a current-head
    semantic verification. Review the cited repository files before carrying or
@@ -469,7 +510,7 @@ the deletion or privacy change.
    semantic accuracy; repository files can contradict their own README, and the
    irregularities register records known cases without claiming exhaustiveness.
 6. **The account can change during and after a snapshot.** Current API values
-   are independently checked, and 35 prose stamps already lag the current head.
+   are independently checked, and 41 prose stamps already lag the current head.
    Re-run the refresh and audits before relying on a later reading.
 7. **Four previously listed repositories are currently 404** and await owner
    review, while `ProjX` remains intentionally excluded. The other named
@@ -485,7 +526,7 @@ the deletion or privacy change.
 
 | Priority | Follow-up | Why |
 |---|---|---|
-| High | Re-read the **35 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
+| High | Re-read the **41 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
 | High | Confirm the pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect before merging | Local browser binaries were unavailable in this sandbox |
 | Owner review | Resolve `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` (restore or confirm retirement) | Their repositories currently return HTTP 404; only the owner can establish intent |
 | Medium | Add scheduled API/prose/kind audits that open a review PR when results drift | The catalog changes over time; a repeatable schedule shortens the snapshot-to-review interval |

@@ -92,7 +92,19 @@ def api_get(path, accept="application/vnd.github+json"):
         req.add_header("Authorization", "Bearer " + token)
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
-            return resp.status, json.loads(resp.read().decode("utf-8"))
+            text = resp.read().decode("utf-8", "replace")
+            # A raw file read (api_get_raw, used by has_entry_point) returns the file
+            # body, not JSON. Decoding it with json.loads raised before this fix, which
+            # sent a successful HTTP 200 read into the `except Exception` branch below and
+            # reported status 0 — so has_entry_point() could only ever see 404 or a
+            # transport error. Every overlay entry happened to carry an explicit `kind`,
+            # so the derivation path was never exercised until a repository without one
+            # (55GEMSDOE, 2026-10-11) hard-failed the whole build. Keep the status and
+            # return the text when the body is not JSON.
+            try:
+                return resp.status, json.loads(text)
+            except json.JSONDecodeError:
+                return resp.status, text
     except urllib.error.HTTPError as e:
         try:
             body = json.loads(e.read().decode("utf-8"))
