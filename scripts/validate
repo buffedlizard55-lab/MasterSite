@@ -29,6 +29,8 @@ Checks performed
   K. families: published family fields, MASTERDATA.families and counts.families agree
                with the curated tools/families.json member list; nameToken coverage
                warnings surface uncurated name-matches for review
+  O. scheduled: the generated ledger surfaces the committed scheduled-run outcome,
+                per-audit verdicts, and last explicit clean-pass column
 """
 
 import json
@@ -195,6 +197,24 @@ def main():
         if data.get("generated") and data["generated"] not in ledger:
             warnings.append("VERIFICATION.md does not quote the current snapshot timestamp %s — "
                             "regenerate it with tools/build_verification.py" % data["generated"])
+
+        # T-024: scheduled-run verdicts used to exist only in an Actions summary,
+        # PR comment and issue. The generated ledger must keep the durable status
+        # surface, including the explicit last-clean column, without converting a
+        # missing or NOT-RUN result into a pass.
+        if "## 4c. Scheduled Audit Layer" in ledger:
+            scheduled = ledger.split("## 4c. Scheduled Audit Layer", 1)[1].split("\n## ", 1)[0]
+            check("Last recorded clean pass (`PASS`)" in scheduled,
+                  "VERIFICATION.md §4c scheduled-audit table has no last-clean column — "
+                  "regenerate it with tools/build_verification.py")
+            for audit_name in ("audit_kind", "audit_descriptions", "verify_live", "audit_provenance"):
+                check("`%s`" % audit_name in scheduled,
+                      "VERIFICATION.md §4c scheduled-audit table has no %s row — "
+                      "regenerate it with tools/build_verification.py" % audit_name)
+        else:
+            check(False,
+                  "VERIFICATION.md has no §4c Scheduled Audit Layer section — "
+                  "regenerate it with tools/build_verification.py")
     else:
         warnings.append("VERIFICATION.md is absent — no generated evidence ledger to check")
 

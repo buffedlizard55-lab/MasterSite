@@ -8,6 +8,7 @@ the documentation can never drift from the data the site actually renders.
     python3 tools/build_data.py && python3 tools/build_verification.py
 """
 
+import glob
 import json
 import os
 import re
@@ -33,12 +34,180 @@ def ts(iso):
     return (iso or "").replace("T", " ").replace("Z", "")
 
 
+SCHEDULED_AUDIT_DIR = os.path.join(ROOT, "reports", "scheduled-audit")
+SCHEDULED_AUDITS = (
+    "audit_kind",
+    "audit_descriptions",
+    "verify_live",
+    "audit_provenance",
+)
+
+
 def load_report(name):
     try:
         with open(os.path.join(ROOT, "tools", name), encoding="utf-8") as fh:
             return json.load(fh)
     except (OSError, json.JSONDecodeError):
         return None
+
+
+def _scheduled_report_time(report):
+    """Return the runner's recorded finish time without inventing one."""
+    return ((report.get("run") or {}).get("finishedAt") or "") if isinstance(report, dict) else ""
+
+
+def load_scheduled_audit_history():
+    """Load committed scheduled-run reports in their recorded time order.
+
+    The scheduled workflow intentionally has no contents-write permission, so its
+    ephemeral artifact cannot update this generated ledger by itself. A run is
+    therefore visible here only after its exact ``report.json`` is preserved under
+    ``reports/scheduled-audit/`` by a follow-up publication pass. Invalid or
+    incomplete files are ignored rather than turned into a verdict.
+
+    The returned paths are repository-relative and are suitable for Markdown links;
+    no network read or current-state inference happens here.
+    """
+    history = []
+    pattern = os.path.join(SCHEDULED_AUDIT_DIR, "*.json")
+    for path in glob.glob(pattern):
+        try:
+            with open(path, encoding="utf-8") as fh:
+                payload = json.load(fh)
+        except (OSError, json.JSONDecodeError):
+            continue
+        run = payload.get("run") if isinstance(payload, dict) else None
+        results = payload.get("results") if isinstance(payload, dict) else None
+        if not isinstance(run, dict) or not isinstance(results, list) or not _scheduled_report_time(payload):
+            continue
+        history.append({
+            "path": os.path.relpath(path, ROOT).replace(os.sep, "/"),
+            "payload": payload,
+        })
+    return sorted(history, key=lambda item: (_scheduled_report_time(item["payload"]), item["path"]))
+
+
+def scheduled_audit_summary(history):
+    """Summarize only the verdicts recorded by committed runner reports.
+
+    ``latest`` is the newest preserved run. ``latestByAudit`` keeps the newest
+    observation for each audit, including NOT-RUN. ``lastCleanByAudit`` keeps the
+    newest explicit PASS observation; it never treats a CLEAN run or a missing
+    result as a pass. The shape is deliberately made from the report's own values
+    so the ledger cannot silently claim that an audit ran.
+    """
+    latest_by_audit = {}
+    last_clean_by_audit = {}
+    for item in history:
+        payload = item["payload"]
+        run = payload.get("run") or {}
+        for result in payload.get("results") or []:
+            if not isinstance(result, dict):
+                continue
+            audit = result.get("audit")
+            if audit not in SCHEDULED_AUDITS:
+                continue
+            observation = {"report": item, "run": run, "result": result}
+            latest_by_audit[audit] = observation
+            if result.get("verdict") == "PASS":
+                last_clean_by_audit[audit] = observation
+    latest = history[-1] if history else None
+    return {
+        "latest": latest,
+        "latestByAudit": latest_by_audit,
+        "lastCleanByAudit": last_clean_by_audit,
+    }
+
+
+def _md_value(value):
+    """Keep report-controlled values from breaking the generated Markdown table."""
+    if value is None or value == "":
+        return "—"
+    return str(value).replace("|", "\\|").replace("\n", " ")
+
+
+def _scheduled_report_link(item):
+    if not item:
+        return "—"
+    path = item.get("path") or ""
+    return "[`report.json`](%s)" % path if path else "—"
+
+
+def _scheduled_observation_at(observation):
+    result = observation.get("result") or {}
+    run = observation.get("run") or {}
+    return result.get("finishedAt") or run.get("finishedAt") or ""
+
+
+def render_scheduled_audit_section(summary, snapshot):
+    """Render the durable scheduled-audit status surface for VERIFICATION.md."""
+    lines = []
+    A = lines.append
+    A("## 4c. Scheduled Audit Layer — Last Recorded Run\n")
+    A("This section is generated from committed `report.json` evidence under "
+      "[`reports/scheduled-audit/`](reports/scheduled-audit/). It reports the runner's "
+      "mechanical verdicts only; it is not a claim about prose accuracy, site uptime, "
+      "interactivity, visits or last use. The scheduled workflow itself remains read-only "
+      "and does not make a report durable until a follow-up publication pass preserves it.\n")
+    latest = summary.get("latest")
+    if not latest:
+        A("**No committed scheduled-audit report is available.** No scheduled verdict is "
+          "claimed in this ledger.\n")
+    else:
+        payload = latest["payload"]
+        run = payload.get("run") or {}
+        results = [r for r in payload.get("results") or []
+                   if isinstance(r, dict) and r.get("audit") in SCHEDULED_AUDITS]
+        requested = run.get("requested") or []
+        covered = [r for r in results if r.get("verdict") != "NOT-RUN"]
+        skipped = [r.get("audit") for r in results if r.get("verdict") == "NOT-RUN"]
+        run_snapshot = run.get("snapshot") or ""
+        relation = "matches this API snapshot" if run_snapshot == snapshot else \
+            "is older than this API snapshot" if run_snapshot else "has no recorded API snapshot"
+        report_link = _scheduled_report_link(latest)
+        run_url = run.get("runUrl") or ""
+        run_link = " · [Actions run](%s)" % run_url if run_url.startswith("https://") else ""
+        A("**Latest committed run:** outcome **`%s`** · finished `%s` · %s%s.\n" % (
+            _md_value(run.get("outcome")), _md_value(run.get("finishedAt")), report_link, run_link))
+        A("It covered **%d of %d requested audit(s)**; %s. Published snapshot audited: `%s` (%s).\n" % (
+            len(covered), len(requested) or len(SCHEDULED_AUDITS),
+            "`NOT-RUN`: " + ", ".join("`%s`" % a for a in skipped)
+            if skipped else "no audit was marked `NOT-RUN`",
+            _md_value(run_snapshot), relation))
+        A("| Audit | Latest verdict in this report | Last recorded clean pass (`PASS`) | Evidence / hand review |")
+        A("|---|---|---|---|")
+        for audit in SCHEDULED_AUDITS:
+            observation = summary["latestByAudit"].get(audit)
+            clean = summary["lastCleanByAudit"].get(audit)
+            if observation:
+                result = observation["result"]
+                verdict = _md_value(result.get("verdict"))
+                observed_at = _scheduled_observation_at(observation)
+                latest_cell = "**%s** at `%s`" % (verdict, _md_value(observed_at))
+                evidence = _scheduled_report_link(observation["report"])
+                review_endpoint = result.get("reviewEndpoint")
+                if review_endpoint:
+                    evidence += " · review `%s`" % _md_value(review_endpoint)
+                reason = result.get("reason")
+                if reason:
+                    latest_cell += " — %s" % _md_value(reason)
+            else:
+                latest_cell = "not present in latest report (not scheduled)"
+                evidence = "—"
+            if clean:
+                clean_at = _scheduled_observation_at(clean)
+                clean_cell = "`%s` (%s)" % (_md_value(clean_at),
+                                             _scheduled_report_link(clean["report"]))
+            else:
+                clean_cell = "**none recorded**"
+            A("| `%s` | %s | %s | %s |" % (audit, latest_cell, clean_cell, evidence))
+        A("")
+        A("A `PASS` cell is the last explicit clean result for that audit, even when the "
+          "overall run was `PARTIAL`; it is not a clean result for audits marked `NOT-RUN`. "
+          "Reports whose audited snapshot differs from `%s` are historical evidence and need "
+          "a fresh scheduled run before being read as current.\n" % snapshot)
+    A("---\n")
+    return "\n".join(lines)
 
 
 def main():
@@ -55,6 +224,7 @@ def main():
     kind_audit = load_report("last_kind_audit.json")
     live_audit = load_report("last_live_verify.json")
     provenance_audit = load_report("last_provenance_audit.json")
+    scheduled_summary = scheduled_audit_summary(load_scheduled_audit_history())
 
     L = []
     A = L.append
@@ -372,6 +542,9 @@ def main():
         A("| %s | **%s** | %s |" % (label, status, result.replace("|", "\\|")))
     A("")
     A("---\n")
+
+    # ---------------- 4c. Scheduled audit status ----------------
+    L.extend(render_scheduled_audit_section(scheduled_summary, gen).split("\n"))
 
     # ---------------- 5. Reproduction ----------------
     A("## 5. Reproduction Commands for Independent Manual Review\n")

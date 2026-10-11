@@ -1817,3 +1817,37 @@ buffedlizard55-lab/arena/8d79b057-mastersite`). Read back from `origin/main` ins
 - `GEMSDOE53` still errored (FL-05, 4-day stall).
 - Playwright browser tests cannot run locally.
 - Sandbox cannot reach *.github.io.
+
+---
+
+## Session `arena-d4015d21` — 2026-10-11 (T-024: surface scheduled-audit verdicts in the generated ledger)
+
+**Branch:** `arena/d4015d21-mastersite`. The claim was committed alone and pushed at
+`2026-10-11T23:54:40Z` before implementation began.
+
+### What was done
+
+- Reviewed `TASKS.md` and `FLAGGED.md` after `git pull --rebase origin main`; checked all PRs and remote `arena/*` refs before claiming T-024.
+- Extended `tools/build_verification.py` to read the committed `reports/scheduled-audit/*.json` history without network access. It renders new generated `VERIFICATION.md` §4c with the latest preserved run outcome, each audit's latest recorded verdict, the last explicit `PASS` timestamp per audit, the evidence report link, the runner's hand-review endpoint, and a historical-snapshot warning when `run.snapshot` differs from the current API snapshot. `NOT-RUN` and `PARTIAL` are kept visibly distinct from clean passes.
+- Regenerated `VERIFICATION.md`. The currently preserved runner evidence is the Sunday `2026-10-11T17:57:28Z` `PARTIAL` report against snapshot `2026-10-11T15:06:10Z`: `audit_kind` and `audit_descriptions` are `PASS`; `verify_live` and `audit_provenance` are `NOT-RUN` for budget. No newer result was invented.
+- Added `tests/test_scheduled_ledger.py` with five offline tests covering historical last-clean selection, explicit NOT-RUN behavior, PARTIAL rendering, no-report behavior, and committed report loading.
+- Added `scripts/validate` §O so the generated ledger must retain the §4c status surface and all four registered audit rows. Documented the preservation workflow and its limitations in `AGENTS.md` and `README.md`.
+
+### Verification
+
+- `python3 -m unittest discover -s tests -p 'test_*.py' -v`: **103 tests passed**.
+- `python3 scripts/validate`: **6,019 checks, PASS** (120 existing tracked review warnings).
+- `npm run check`: **PASS**.
+- Playwright was not run locally because `node_modules/.bin/playwright` and browser binaries are unavailable in this sandbox; CI remains the browser authority.
+
+### Blocked / limitations
+
+- The scheduled workflow intentionally has `contents: read` only, so its artifact cannot update the generated ledger automatically. A follow-up must preserve the exact `.work/scheduled-audit/report.json` under `reports/scheduled-audit/` and regenerate §4c. Until then, the ledger remains at the last committed evidence report.
+- The committed report is older than the current `data/sites.js` snapshot, and its two budget-skipped audits have no recorded clean pass. This is labeled historical rather than presented as current verification. `T-023` remains the owner-side token/budget limitation for a full provenance slot.
+- Existing accuracy/owner queues remain unchanged: T-002/FL-19 description re-reads, FL-05 `GEMSDOE53`, the four frozen 404 decisions, and the volatile Pages-status follow-up.
+
+### Next
+
+1. Preserve the next scheduled workflow artifact when one is available and rerun `python3 tools/build_verification.py`; §4c will automatically select it and retain older explicit PASS history per audit.
+2. Rebase this branch on the latest `main`, rerun the offline gates, open the T-024 PR, and keep the task completion and this handoff entry in the same PR.
+3. The next accuracy session should continue T-002/FL-19; the owner still needs to resolve T-023 and the frozen/errored repository decisions.
