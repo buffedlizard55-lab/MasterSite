@@ -53,6 +53,7 @@ def main():
     description_audit = load_report("last_description_audit.json")
     kind_audit = load_report("last_kind_audit.json")
     live_audit = load_report("last_live_verify.json")
+    provenance_audit = load_report("last_provenance_audit.json")
 
     L = []
     A = L.append
@@ -62,7 +63,7 @@ def main():
     A("**Generated:** `%s` by `tools/build_data.py` + `tools/build_verification.py`; API telemetry is fetched automatically, while titles/categories/descriptions are curated from repository-owned files in `tools/overlay.json`. No user-supplied entry data was needed." % gen)
     A("**Audited Accounts:** `buffedlizard55-lab`, `kanlerxz87-cyber`")
     A("**Scope:** Public repositories and Pages deployments visible through GitHub's official API for both named accounts. Every discovered omission, permanent exclusion, or unreachable record is identified separately; private repositories are outside scope.")
-    A("**Integrity Standard:** API-derived fields are tied to the recorded snapshot; the latest independent `verify_live.py`, kind, and numeric-token checks are reported below as complete, incomplete, blocked, or stale. Each curated description records its source basis and commit SHA; stale SHA stamps are exposed rather than called current. The numeric-token description audit is a lint, not semantic proof.\n")
+    A("**Integrity Standard:** API-derived fields are tied to the recorded snapshot; the latest independent `verify_live.py`, kind, numeric-token, and provenance checks are reported below as complete, incomplete, blocked, or stale. Each curated description records its source basis and commit SHA; stale SHA stamps are exposed rather than called current. The numeric-token description audit is a lint, not semantic proof.\n")
     A("**Live Directory:** <https://%s.github.io/MasterSite/>\n" % owner)
     A("---\n")
 
@@ -299,6 +300,7 @@ def main():
         ("`verify_live.py`", live_audit),
         ("`audit_kind.py`", kind_audit),
         ("`audit_descriptions.py`", description_audit),
+        ("`audit_provenance.py`", provenance_audit),
     ]
     A("| Audit | Status for this snapshot | Result |")
     A("|---|---|---|")
@@ -308,11 +310,15 @@ def main():
         elif report.get("snapshotGenerated") != gen:
             status = "stale report"
             result = "Report refers to `%s`, not `%s`." % (report.get("snapshotGenerated"), gen)
-        elif report.get("status") in ("blocked_auth", "blocked_rate_limit"):
-            http = (report.get("error") or {}).get("httpStatus", "?")
-            status = "blocked — HTTP %s" % http
-            action = "wait for the GitHub API rate limit to reset" if http == 403 else "restore GitHub authorization"
-            result = "No completed field comparisons; %s and rerun this audit." % action
+        elif report.get("status") in ("blocked_auth", "blocked_rate_limit") or report.get("accessBlocked"):
+            http = (report.get("error") or {}).get("httpStatus") or report.get("accessBlockStatus") or "?"
+            if http == "?" and report.get("accessBlockReason"):
+                reason = str(report.get("accessBlockReason"))
+            else:
+                action = "wait for the GitHub API rate limit to reset" if http == 403 else "restore GitHub authorization"
+                reason = "%s and rerun this audit" % action
+            status = "blocked — HTTP %s" % http if http != "?" else "blocked"
+            result = "No completed field comparisons; %s." % reason
         elif report.get("complete"):
             status = "complete"
             if label == "`verify_live.py`":
@@ -322,21 +328,28 @@ def main():
                 result = "%s/%s entries checked; %s disagreements; %s unresolved." % (
                     report.get("checkedEntries", 0), report.get("totalEntries", 0),
                     len(report.get("disagreements", [])), len(report.get("unresolved", [])))
+            elif label == "`audit_provenance.py`":
+                result = "%s/%s entries checked (%s checks); %s unresolved findings; %s template citations." % (
+                    report.get("entriesAudited", 0), report.get("entriesTotal", 0),
+                    report.get("checksPerformed", 0), len(report.get("findings", [])),
+                    len(report.get("templateCitations", [])))
             else:
                 result = "%s/%s entries checked; %s needing review; %s API errors." % (
                     report.get("checkedEntries", 0), report.get("totalEntries", 0),
                     len(report.get("unresolved", [])), len(report.get("apiErrors", [])))
         else:
             status = "incomplete"
-            errors = report.get("apiErrors", []) or report.get("unresolved", [])
+            errors = report.get("findings", []) or report.get("apiErrors", []) or report.get("unresolved", [])
             if report.get("error"):
                 errors = [report["error"]]
             first = errors[0] if errors else {}
             http = first.get("httpStatus", first.get("status")) if isinstance(first, dict) else None
             reason = (first.get("message") or first.get("endpoint") or first.get("field")
-                      if isinstance(first, dict) else str(first)) or "check did not finish"
-            progress = "%s/%s attempted" % (report.get("checkedEntries", report.get("partialChecks", 0)),
-                                              report.get("totalEntries", "?"))
+                      if isinstance(first, dict) else str(first)) or report.get("accessBlockReason") or "check did not finish"
+            progress = "%s/%s attempted" % (
+                report.get("entriesAudited", report.get("checkedEntries", report.get("partialChecks", 0))),
+                report.get("entriesTotal", report.get("totalEntries", "?")),
+            )
             result = "%s; not a completed audit%s." % (
                 progress, " (HTTP %s: %s)" % (http, reason) if http else " (%s)" % reason)
         A("| %s | **%s** | %s |" % (label, status, result.replace("|", "\\|")))
@@ -373,6 +386,10 @@ def main():
     A("# 6b. Independently re-check every entry's app-vs-stub classification against the")
     A("#     published path (read-only; reports disagreements, writes nothing)")
     A("python3 tools/audit_kind.py")
+    A("")
+    A("# 6c. Independently re-check every entry's provenance citations and SHAs")
+    A("#     (read-only; reports findings and template citations, writes nothing to data/sites.js)")
+    A("python3 tools/audit_provenance.py")
     A("")
     A("# 7. Confirm the published totals against the data file")
     A('grep -c \'"repo":\' data/sites.js                      # expected %d' % len(sites))

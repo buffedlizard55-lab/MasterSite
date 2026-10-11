@@ -1093,3 +1093,37 @@ them is a duplicate and should be closed by the owner.**
   `audit_descriptions.py`, `audit_provenance.py`) once GitHub's secondary rate limit clears; the
   largest accuracy queue is the **51-entry** stale-description list (`T-002`, 53 at the `15:53:41Z`
   read), and the duplicate `T-004` PRs (#41/#42) still need one of them closed.
+
+---
+
+## Session `arena-050ee3b9` — 2026-10-11 (T-015: surface provenance audit in generated ledger `VERIFICATION.md` §4b)
+
+**Branch:** `arena/050ee3b9-mastersite`. **Claim:** `TASKS.md` **T-015**, `session=arena-050ee3b9 at=2026-10-11T16:59:49Z`.
+
+### What was done
+
+- **T-015 completed:** taught `tools/build_verification.py` to read `tools/last_provenance_audit.json` alongside `last_live_verify.json`, `last_kind_audit.json`, and `last_description_audit.json`.
+- **Surfaced in `VERIFICATION.md` §4b audit-status table:** `audit_provenance.py` report status is now parsed and rendered across complete (`145/145 entries checked (1019 checks); 0 unresolved findings; 5 template citations.`), stale (`Report refers to <snap>, not <curr>`), blocked (`blocked — HTTP 403` / `blocked`), and incomplete states.
+- **Surfaced in `VERIFICATION.md` §5 reproduction commands:** added step 6c (`python3 tools/audit_provenance.py`) so manual reviewers have the exact command to re-verify provenance citations.
+- **Regenerated `VERIFICATION.md`** using `python3 tools/build_verification.py` (706 lines, 145 ledger rows, 141 irregularities).
+- **README.md updated:** remaining work table updated to mark T-015 done.
+- **Verification and gates:**
+  - `python3 tools/census_guard.py` **PASS** (146 public = 145 listed + 1 excluded; `kanlerxz87-cyber` 0).
+  - `python3 tools/build_sites_md.py --check` in sync (145 rows, 51 `⚠`).
+  - `python3 tools/export_site_records.py --check` in sync (145 per-site records in sync).
+  - `python3 scripts/validate` **PASS** (5,419 checks, 102 expected warnings).
+  - `npm run check` **PASS**.
+  - `python3 -m py_compile ...` **PASS** on all tools.
+
+### What is blocked / limitations
+
+- **Playwright local execution:** browser binaries are not installed in the sandbox due to CDN connection reset; CI runs the browser suite on PR.
+- **Direct sandbox access to `*.github.io`:** cannot resolve `*.github.io` from sandbox; live HTTP status is monitored via GitHub Actions smoke workflow.
+- **GitHub API secondary rate limits:** heavy full passes must respect rate limits and backoffs.
+
+### What is next
+
+1. **T-016 (unclaimed):** Schedule weekly read-only workflow running `verify_live.py`, `audit_kind.py`, `audit_descriptions.py`, and `audit_provenance.py`.
+2. **T-002 (in progress):** Re-read the 51 stale prose entries against current repository heads.
+3. **T-006 (unclaimed / owner decision):** Record owner position regarding `6GEMSDOE` / GEMS repository lanes.
+4. **Duplicate PR cleanup:** PR #44 (unmerged parallel session branch) and PR #42 (duplicate T-004 PR).
