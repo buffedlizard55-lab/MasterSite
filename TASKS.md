@@ -29,7 +29,7 @@ verified, leave it `null` and add a row to `FLAGGED.md` — never guess.
 | T-007 | Family view: group the 40+ `GEMSDOE`-family competition lanes so 145 entries stay readable (UI feature, generator owner session only) | unclaimed | — | T-001 |
 | T-008 | Verify the three new repositories with no root `index.html` (`62GEMSDOE`, `GEMSDOE42`, `GEMSDOE44`) publish a usable landing page at the configured path | unclaimed | — | Live egress (see T-003) |
 | T-009 | Confirm `kanlerxz87-cyber` stays at 0 public repositories in every refresh and keep the census note current | unclaimed | — | — |
-| T-010 | Close the coverage-detection gap: the account grew 108 → 146 public repos (38 unlisted Pages sites) between 2026-10-01 and 2026-10-11 with nothing to warn anyone. Add a scheduled refresh workflow (or a cheap census-only check) that fails loudly when `counts.publicRepos` exceeds `counts.sites + excluded` | unclaimed | — | — |
+| T-010 | Close the coverage-detection gap: the account grew 108 → 146 public repos (38 unlisted Pages sites) between 2026-10-01 and 2026-10-11 with nothing to warn anyone. Add a scheduled refresh workflow (or a cheap census-only check) that fails loudly when `counts.publicRepos` exceeds `counts.sites + excluded` | **done** | session=arena-631565b3 at=2026-10-11T04:17:45Z · done 2026-10-11 · `tools/census_guard.py` + daily `.github/workflows/census.yml` (opens/updates a `census-gap` issue on failure, closes it on recovery) | — |
 | T-011 | Backfill inline hand-review endpoints where a basis still relies on the ledger row alone, and keep `scripts/validate` green as new entries land | unclaimed | — | — |
 
 `Status` values: `unclaimed` · `claimed` · `in review` · `blocked` · `done`.

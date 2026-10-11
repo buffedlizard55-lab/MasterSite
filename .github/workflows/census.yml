@@ -1,0 +1,78 @@
+# Census coverage guard (T-010).
+#
+# Why this exists: between the 2026-10-01 and 2026-10-11 snapshots the account
+# grew from 108 to 146 public repositories and 38 public Pages sites were live
+# on the web with no directory entry — nothing compared the live census to the
+# published snapshot, so the gap was silent for up to nine days (IRR-131,
+# FL-11). This workflow runs that comparison every day and fails loudly.
+#
+# It only ever needs: the two account profiles + the paginated public repo
+# lists + one Pages probe per *missing* repository (normally zero), so it stays
+# far inside the authenticated rate limit and never writes to the repository.
+
+name: Census guard
+
+on:
+  schedule:
+    # Daily at 05:17 UTC — an off-peak minute, staggered from the top of the
+    # hour to avoid the scheduled-workload rush.
+    - cron: "17 5 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run the census coverage guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          python3 tools/census_guard.py 2>&1 | tee census-guard-output.txt
+
+      - name: Open or update an issue on failure (loud failure, not a quiet red run)
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          # Re-run capture: the previous step's tee output is on disk only if the
+          # guard started; handle the missing-file case too.
+          BODY="$(cat census-guard-output.txt 2>/dev/null || echo 'census guard produced no output — see the failed run')"
+          {
+            echo "The scheduled census guard failed on $(date -u +%Y-%m-%dT%H:%M:%SZ)."
+            echo
+            echo '```'
+            echo "$BODY"
+            echo '```'
+            echo
+            echo "Remediation is the documented workflow in [\`AGENTS.md\`](../blob/main/AGENTS.md) §4: curate \`tools/overlay.json\` from each missing repository's own files, then re-run \`tools/build_data.py\`, the audits, \`scripts/validate\` and \`tools/build_verification.py\`."
+            echo
+            echo "_This issue is managed by the census-guard workflow; it closes itself when the guard passes again._"
+          } > issue-body.md
+          gh label create "census-gap" --color b60205 --description "Census guard detected unlisted public repositories" 2>/dev/null || true
+          EXISTING="$(gh issue list --label census-gap --state open --json number --jq '.[0].number' || true)"
+          if [ -n "${EXISTING}" ]; then
+            gh issue comment "${EXISTING}" --body-file issue-body.md
+          else
+            gh issue create --title "Census coverage gap: public repositories are missing from the directory" \
+              --body-file issue-body.md --label census-gap
+          fi
+
+      - name: Close the issue when the guard passes again
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          EXISTING="$(gh issue list --label census-gap --state open --json number --jq '.[0].number' || true)"
+          if [ -n "${EXISTING}" ]; then
+            gh issue comment "${EXISTING}" --body "Census guard passed on $(date -u +%Y-%m-%dT%H:%M:%SZ): coverage is complete again. Closing."
+            gh issue close "${EXISTING}"
+          fi

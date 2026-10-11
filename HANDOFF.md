@@ -188,3 +188,33 @@ dropped commit contained no data, overlay or generated work — only the pre-pro
   40 stale descriptions remain and are listed stale-first in `VERIFICATION.md`. Run
   `python3 tools/export_site_records.py` after every `build_data.py` — `scripts/validate` fails if
   the committed `data/sites/` export drifts from the snapshot.
+
+---
+
+
+---
+
+## Session `arena-631565b3` — 2026-10-11 (parallel T-001 cross-check + T-010 census guard)
+
+**Branch:** `arena/631565b3-mastersite` (pinned Arena session branch; satisfies the own-branch rule).
+
+### What was done
+
+- **This session ran the census refresh in parallel without seeing session `arena-235d5594`'s claim** (both sessions created protocol files independently; theirs reached `main` first via PR #23/#24 and is the canonical one). Before discovering the merge, this session independently: read both accounts via the official API (**146 public repos / 146 Pages-enabled** for `buffedlizard55-lab`, **0** for `kanlerxz87-cyber` — identical to T-001), identified the same 38 missing repositories, curated all 38 from their own READMEs at recorded head SHAs with whitespace-flexible phrase verification, found and fixed the same latent `api_get`/raw-JSON generator defect, and ran a complete `verify_live.py` pass (**1,913 checks, 0 hard mismatches**, 53 volatile-drift items across 11 repositories that moved after the 03:04Z snapshot read, including `MasterSite` itself when PR #23/#24 landed mid-verification).
+- **After the discovery, the duplicate census work was dropped rather than re-landed.** The branch was reset onto `main` (`66251b1`); the merged T-001 data is the published record. What survived is what `main` did not already have, below.
+- **Independent cross-check of the published 38 entries (zero factual disagreements).** This session's parallel curation of the same 38 repositories was compared field-by-field against the merged `tools/overlay.json`. Every caveat-sensitive claim agrees: `GEMSDOE53`'s `errored` Pages build vs its artifact's own OK-to-submit label, `59GEMSDOE`'s projection-not-measurement score, `ScoringDiscrepNBA`'s first-three/latest-twenty retention limitation, `62GEMSDOE`/`GEMSDOE42`/`GEMSDOE44`'s no-root-`index.html` stub classification, `GEMSDOE45`'s two workstreams, `56GEMSDOE`'s self-superseded uniqueness classification. One judgment difference was found and registered as **`FL-13`** (`62GEMSDOE` published as `Science & ML Research` where the directory's own GEMSDOE26/27 precedent for the identical placeholder pattern is `Unclassified & Placeholder`). Two independent sessions reading the same 38 repositories reached the same facts — that is the strongest provenance this directory has had for a pass.
+- **T-010 delivered (claimed 2026-10-11T04:17:45Z):** `tools/census_guard.py` — a read-only, stdlib-only, ~8-API-call guard that reads both accounts' public repository lists, compares them with the published `sites[] + excluded[]`, probes the official Pages endpoint only for missing repositories, and exits 0/1/2 for pass / coverage-gap / API-failure (an API block is never reported as a gap — verified live when a flapping secondary-rate-limit 403 correctly produced exit 2, not a false alarm). The guard carries `--self-test`, an offline deterministic check of all three verdict paths (complete→0, gap→1 naming the synthetic repo with its Pages probe, api-failure→2), runnable without network. Plus `.github/workflows/census.yml`: daily 05:17 UTC + manual dispatch, which on failure opens (or comments on) a `census-gap` issue and closes it automatically once the guard passes again. README carries the workflow badge. The PR test workflow now also runs the guard self-test and `scripts/validate` on every pull request, so the no-unverified-values rule is mechanically enforced in CI, not just locally.
+- **Politeness throttles added to all four API tools** (`build_data.py`, `verify_live.py`, `audit_kind.py`, `audit_descriptions.py`): a 1.0 s floor between requests. Both sessions independently documented the same failure mode — GitHub's secondary (abuse-detection) rate limit returns 403 `rate limit exceeded` per endpoint family (`/pages`, `/users`, `/contents`) while the hourly quota is untouched, and unthrottled 146-repository bursts trigger it within minutes. The throttle changes no verification semantics; a full `verify_live.py` run now takes ~15–18 min instead of ~90 s.
+- `scripts/validate`, `npm run check`, and Python compilation pass locally.
+
+### What is blocked
+
+- **Secondary rate limit still flapping at session end.** The guard's first live run got exit 2 (by design) because `GET /users/.../repos` page 2 was 403-blocked minutes after the last burst; a clean PASS run should be trivial once the endpoint family cools down (the guard makes ~8 calls total). The daily workflow will record the first scheduled PASS/FAIL on its own.
+- Same owner decisions as T-001 left them: the four frozen 404 repositories (T-004), the GEMS-family consolidation question (T-006), and `GEMSDOE53`'s `errored` build health (T-005).
+
+### What is next
+
+1. **T-002 remains the highest-accuracy risk:** 41 stale description stamps (and climbing — the GEMS lanes push several times a day). `FL-12` (`MALTASUPPLEMENTAL`'s `230` token) and `FL-13` (`62GEMSDOE`'s category) can be folded into that re-read pass.
+2. **T-003/T-008:** live HTTP smoke test of all 145 Pages URLs from a runner with general egress (GitHub Actions can do this — the guard workflow proves scheduled runs work; a follow-up workflow could fetch every `pagesUrl` and record status + title, keeping it separate from `pagesStatus` as T-003 requires).
+3. **T-007:** family view for the 40+ GEMSDOE lanes; 145 flat entries is at the edge of readable.
+4. The first scheduled census-guard run (05:17 UTC daily) will either PASS or open a `census-gap` issue — watch <https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/census.yml>.
