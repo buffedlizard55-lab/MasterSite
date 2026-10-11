@@ -169,3 +169,22 @@ dropped commit contained no data, overlay or generated work — only the pre-pro
 2. **T-007 family view** and **T-010 census workflow** are unchanged and still unclaimed.
 3. Keep running `python3 tools/export_site_records.py` after every `build_data.py` — `scripts/validate`
    will fail if the committed export drifts.
+
+### Post-merge (same session, after this PR landed)
+
+- **`FL-12` closure and the per-site export merged into `main` at `2026-10-11T04:17:32Z`** — PR
+  [#25](https://github.com/buffedlizard55-lab/MasterSite/pull/25), merge commit `0e15234`. Read back
+  from `origin/main:data/sites.js` after the merge rather than assumed: `counts.proseStale` **40**,
+  `counts.sites` 145, `counts.apps` 135, `counts.stubs` 10, `irregularities` 138; the
+  `MALTASUPPLEMENTAL` record reads `proseStale: false` with `verifiedAtSha` `81930be…`.
+- **CI on the PR head was green** before the merge: `browser-tests` run
+  [`38110945436`](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38110945436)
+  (Chromium, Firefox, WebKit; `npm run check` + `npm test`). `scripts/validate` passed locally with
+  4,670 checks, and `tools/export_site_records.py --check` reported the export in sync.
+- **Rebase note:** the PR was opened against `43c827f` and rebased onto `66251b1` (the parallel
+  session's post-merge commit, PR #24) before merge; the only conflict was this file and it was
+  resolved by keeping both entries.
+- **What the next session inherits:** `T-002` is claimed by `session=96e82e25` with slice 1 landed;
+  40 stale descriptions remain and are listed stale-first in `VERIFICATION.md`. Run
+  `python3 tools/export_site_records.py` after every `build_data.py` — `scripts/validate` fails if
+  the committed `data/sites/` export drifts from the snapshot.
