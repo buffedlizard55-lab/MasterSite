@@ -754,3 +754,33 @@ immediately, per the protocol.
    #32/#36–#37 the T-008 landing-page evidence and the T-007 family view). They touch the same narrative
    files and the generator, which is why this branch was rebased and its snapshot re-rendered with the
    new `tools/families.json` support before the PR was opened.
+
+### Post-merge (same session, after PR #33 landed)
+
+- **T-012 merged into `main` at `2026-10-11T06:24Z`** — PR
+  [#33](https://github.com/buffedlizard55-lab/MasterSite/pull/33), merge commit **`ad0e34f`**. The PR was
+  rebased twice while three parallel sessions landed PRs #31, #32, #34/#36 and #37 on top of the
+  `05:12:27Z` refresh; the final rebase also picked up the curated `tools/families.json` family view, so
+  the snapshot was re-rendered with the **family-aware** generator (`build_data.py --overlay-only`),
+  re-exported and re-validated before the merge.
+- **Read back from `origin/main:data/sites.js` after the merge rather than assumed:** `sites` 145,
+  `apps` 135, `stubs` 10, `pagesBuilt` 144, `commits` 10,663 (snapshot `2026-10-11T05:12:27Z`),
+  `publicRepos` 146, `proseStale` 45, `families` = `gems-prize-lanes` (62), `excluded` `['ProjX']`;
+  `MALTASUPPLEMENTAL` now reads `proseStale: true` (head `4ed9c5a`, prose stamp `81930be`, `FL-14`
+  absorbed), and `59GEMSDOE` carries head `37dc3d4` against prose stamp `42f736f` with `FL-16` open in
+  `FLAGGED.md`. `TASKS.md` shows T-012 `done`.
+- **CI on the PR head was green where it matters:** `browser-tests` (Chromium, Firefox, WebKit +
+  `npm run check`) **passed in 2m27s** —
+  [run 38117748602](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38117748602). The only
+  red check was `observe` in the *Live Pages smoke audit*, which **fails by design while `FL-15`
+  (`SABERENGY`) stands** (it has been red on every PR since that finding was registered at 05:03Z, on
+  both branch and `main` runs). Local evidence before the merge: `scripts/validate` **PASS (5,120
+  checks)**, `npm run check`, `py_compile`, the census-guard self-test (3/3 paths) and 14 Python unit
+  tests.
+- **What the next session inherits:** `main` is current as of the `05:12:27Z` census and now carries the
+  family-aware generator, so any future `build_data.py` run must be followed by
+  `export_site_records.py` + `build_verification.py` + `scripts/validate` exactly as `AGENTS.md` §4 says.
+  The two audits that matter for accuracy are complete for this snapshot (`verify_live.py` 1,921 checks /
+  0 hard mismatches; `audit_descriptions.py` 145/145 with 1 unresolved). The largest open item is still
+  **T-002's 45-entry prose re-read queue**, whose newest lead is `FL-16` (`59GEMSDOE`): its description's
+  five numbers are not re-derivable from the README at head.
