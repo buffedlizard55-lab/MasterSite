@@ -682,7 +682,7 @@ These summaries distinguish a completed check from a request that could not be m
 | `verify_live.py` | **complete** | 1913 checks; 0 hard mismatches; 48 drift. |
 | `audit_kind.py` | **complete** | 145/145 entries checked; 0 disagreements; 0 unresolved. |
 | `audit_descriptions.py` | **complete** | 145/145 entries checked; 0 needing review; 0 API errors. |
-| `audit_provenance.py` | **complete** | 145/145 entries checked (1019 checks); 0 unresolved findings; 5 template citations. |
+| `audit_provenance.py` | **complete** | 145/145 entries checked (1019 checks); 0 unresolved findings; 5 template citations. Per-entry report: [`reports/provenance/2026-10-11T160219Z.md`](reports/provenance/2026-10-11T160219Z.md). |
 
 ---
 
