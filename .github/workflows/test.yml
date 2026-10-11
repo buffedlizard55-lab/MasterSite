@@ -27,6 +27,8 @@ jobs:
       # Offline, deterministic check of the census guard's three verdict paths
       # (pass / coverage-gap / api-failure-is-never-a-gap). No network needed.
       - run: python3 tools/census_guard.py --self-test
+      # Offline verdict rules for the scheduled audit issue lifecycle.
+      - run: python3 -m unittest discover -s tests -p 'test_weekly_audits.py' -v
       # Mechanical validator: every published record carries official source
       # links and no unverified values (see scripts/validate).
       - run: python3 scripts/validate
