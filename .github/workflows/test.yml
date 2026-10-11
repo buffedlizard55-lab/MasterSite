@@ -24,6 +24,12 @@ jobs:
           python-version: '3.11'
       - run: npm ci
       - run: npm run check
+      # Offline, deterministic check of the census guard's three verdict paths
+      # (pass / coverage-gap / api-failure-is-never-a-gap). No network needed.
+      - run: python3 tools/census_guard.py --self-test
+      # Mechanical validator: every published record carries official source
+      # links and no unverified values (see scripts/validate).
+      - run: python3 scripts/validate
       - run: npx playwright install --with-deps chromium firefox webkit
       # tee keeps the full reporter output for the failure steps below; pipefail makes
       # sure the step still fails on a test failure rather than on tee's exit code.

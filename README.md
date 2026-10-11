@@ -4,6 +4,8 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 
 **Live directory:** <https://buffedlizard55-lab.github.io/MasterSite/>
 
+[![Census guard](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/census.yml/badge.svg)](https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/census.yml) — a daily scheduled census ([`tools/census_guard.py`](tools/census_guard.py)) now fails loudly when any public repository of either account is neither listed nor explicitly excluded, so a repeat of the 38-site coverage gap (2026-10-01 → 2026-10-11, `IRR-131`/`FL-11`) cannot be silent again.
+
 > **How to read the dates and status:** GitHub's public repository/Pages APIs do not expose site visits or last use. “Last commit” is the newest committer timestamp on the default branch, not evidence of site use. The “HTML entry point” label means `index.html` exists at the configured Pages source path; it does not establish that the page is interactive, works in a browser, or is reachable over HTTP. Pages status `built` is GitHub API metadata, not an uptime check.
 >
 > **Scope:** `ProjX` is deliberately excluded under a standing owner instruction. Four previously listed repositories returned HTTP 404 in the latest live API audit; they remain visible in the Unreachable panel and ledger with their last verified values rather than being silently dropped. Private repositories are outside the public API census.

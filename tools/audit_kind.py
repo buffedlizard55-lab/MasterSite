@@ -15,6 +15,7 @@ import json
 import os
 import urllib.error
 import urllib.request
+import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://api.github.com"
@@ -22,6 +23,12 @@ OWNER = "buffedlizard55-lab"
 
 
 def api_get(path, accept="application/vnd.github+json"):
+    # Politeness floor between requests: sustained unthrottled bursts across a
+    # 146-repository census trip GitHub's secondary (abuse-detection) rate limit,
+    # which returns HTTP 403 "rate limit exceeded" while the hourly quota is
+    # untouched — observed repeatedly on 2026-10-11 (see HANDOFF.md, session
+    # arena-235d5594 and arena-631565b3). This changes no semantics.
+    time.sleep(1.0)
     req = urllib.request.Request(API + path, headers={
         "Accept": accept, "User-Agent": "MasterSite-kind-audit",
         "X-GitHub-Api-Version": "2022-11-28"})
