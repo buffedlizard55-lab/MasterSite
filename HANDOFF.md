@@ -915,3 +915,83 @@ implementation. The implementation commit is `ba01ecb`.
 3. Keep the daily census guard and separate Pages smoke audit running. They check coverage and
    point-in-time HTTP/title observations respectively; neither proves site use, ongoing uptime,
    browser functionality, or owner intent.
+
+---
+
+## Session `arena-e0d89b5c` — T-014: provenance reproducibility audit (2026-10-11, 15:41Z → 16:15Z)
+
+### What this session did
+
+- **Claimed a task without colliding.** `git pull --rebase origin main` first (clean). T-013 looked free in
+  `TASKS.md`, so it was claimed and the claim pushed immediately — then the remote branch list showed session
+  `arena-d98d5339` had claimed T-013 at `14:52:11Z` (PR #40) and already marked it done, so this session
+  **renumbered its own row to T-014** in a second commit rather than touching another session's task. T-004 was
+  claimed twice in the same window (#41 merged, #42 closed). Main moved twice under this session (#40 T-013 at
+  `15:43:36Z`, #41 T-004 at `15:47Z`); the branch was rebased onto `acaac59` before any analysis was published.
+- **New read-only tool: [`tools/audit_provenance.py`](tools/audit_provenance.py).** It audits *citations*, not
+  fields — the gap the other three audits leave open. For every published entry it (1) resolves each recorded
+  SHA (`verifiedAtSha`, `firstCommitSha`, `lastCommitSha`, `headSha`) through
+  `GET /repos/{owner}/{repo}/commits/{sha}`, (2) re-issues every `api.github.com` URL inside that entry's own
+  `verifiedBasis` at the recorded ref, applying kind rules (cited README must be 200; a cited `index.html` read
+  must agree with `kind`; a cited root listing must contain `index.html` when `kind` is `app`; a cited `/pages`
+  read must report the published `pagesUrl`), and (3) re-checks the description's numeric tokens against the
+  README **at the provenance SHA** — the SHA the record actually claims — instead of at head. Request memoization
+  plus a bounded worker pool with a global 0.45 s spacing keeps the run at ~6 minutes for 145 entries; a
+  `--repo` spot check never overwrites the canonical artifacts, so a partial run cannot look like a pass.
+- **Result at the `15:06:10Z` snapshot: 145/145 entries, 1,019 checks, 0 unresolved findings** — 580 recorded
+  SHA stamps all resolve to real commits, and all 429 distinct cited URLs reproduce. Artifacts:
+  [`tools/last_provenance_audit.json`](tools/last_provenance_audit.json) and
+  [`reports/provenance/2026-10-11T160219Z.md`](reports/provenance/2026-10-11T160219Z.md) (per-entry table with
+  the exact hand-review URL for each check).
+- **Two prose-level findings, both reported rather than patched.**
+  1. **Four citations are deliberately negative** and now reproduce their own documented status: the three stub
+     entries (`62GEMSDOE`, `GEMSDOE42`, `GEMSDOE44`) and `SocialMediaComp`, whose basis documents that its
+     previous stamp `03d8db1` no longer exists upstream — the API still answers HTTP 422 *“No commit found”*.
+     The tool's **first pass flagged that 422 as a failure**; reading the sentence by hand showed the prose
+     asserts it, so the rule was corrected to parse a documented status and require the live answer to match.
+     That first-pass report was deleted rather than shipped: superseded, not a pass.
+  2. **Five entries close their basis with a `Reproduce:` line containing a literal `{path}` placeholder**
+     (`Commodities`, `Coupons`, `Elections`, `MLBComp`, `SABERENGY`). Issued literally that URL answers 404: it
+     is a recipe, not an endpoint a reviewer can open. Registered as **`FL-18`** for the prose owner (T-002);
+     no prose was rewritten by this audit.
+- **`AGENTS.md` refreshed.** §1 still described the superseded `05:12:27Z` pass after PR #40 merged (138
+  irregularities, 144 `built`, 45 stale, 1,921 checks, one `errored`) — it now states the current snapshot
+  (`15:06:10Z`; 141 irregularities, 143 `built` with **two** `errored` — `GEMSDOE53` and the new
+  `NFLInjuryReport`, 51 stale, 1,913 checks / 0 hard mismatches / 48 drifts, kind audit 145/145, description
+  lint 0 unresolved). §3/§4 document the new tool, its command in the workflow, its shared README cache, and
+  what it can and cannot prove.
+- **Census re-checked, not assumed:** `tools/census_guard.py` **PASS at 15:57:53Z** — `buffedlizard55-lab` 146
+  public = 145 listed + 1 excluded (`ProjX`), `kanlerxz87-cyber` still 0 public repositories.
+- **Local gates before the PR:** `scripts/validate` **PASS** (92 review notices, unchanged class),
+  `npm run check`, `python3 -m py_compile` over every tool, the census-guard self-test (3/3 verdict paths) and
+  `PYTHONPATH=. python3 tests/test_smoke_pages.py` → **14 tests OK**. Playwright still cannot run here (no
+  browser binaries); CI is the browser environment of record.
+
+### What is blocked or deliberately not done
+
+- **No `*.github.io` egress from this sandbox**, so no entry here claims a page serves; the GitHub-hosted
+  T-003/T-008 runner audits remain the HTTP observations of record.
+- **T-002's stale queue (51 entries) was not touched** — it is another session's claimed task. `FL-18` is
+  handed to it.
+- **`build_verification.py` was not re-run.** It is a shared generator that another session had just edited
+  (PR #40); regenerating the ledger would have mixed this session's artifacts into someone else's diff. Wiring
+  `tools/last_provenance_audit.json` into its audit-status table is recorded as a follow-up in `README.md`.
+- **`verify_live.py` was deliberately not re-run** at the end of this session: a complete, newer field-level
+  verification for the same `15:06:10Z` snapshot (`1,913 checks / 0 hard mismatches / 48 drifts`) was already
+  committed by the T-013 session, and a fresh 30-minute run would have added load without adding evidence. The
+  run this session did start was against the older `05:12:27Z` snapshot and was therefore **not** committed.
+
+### What is next
+
+1. **T-002 — the 51-entry prose queue**, now with two concrete leads: `FL-18`'s five template `Reproduce:`
+   lines, and the entries whose heads moved after the `15:06:10Z` snapshot (a `verify_live.py` run re-reads
+   them; this session's own run against the older `05:12:27Z` snapshot printed ~35 repositories whose heads had
+   advanced, `MasterSite` among them, and was superseded by the T-013 session's committed run).
+2. **Owner decisions still open:** T-004 is recorded in [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) as *keep
+   frozen pending explicit confirmation*; **T-006** (`6GEMSDOE` recommending the deletion of the other GEMS
+   repositories) still needs an owner position and is unclaimed.
+3. **Pages build health (T-005):** two entries now report `errored` — `GEMSDOE53` (no push since
+   `2026-10-09T02:00:53Z`, `FL-05`) and `NFLInjuryReport` (`FL-17`, new). Neither is a directory defect, and
+   neither is checked for reachability by the API.
+4. **Run `audit_provenance.py` after every prose re-read and every refresh** — it is now the only check that
+   proves a record's named source still answers at the SHA the record names.
