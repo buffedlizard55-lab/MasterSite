@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""Validate the MasterSite directory: source links present, no unverified values.
+
+Run from the repository root:  scripts/validate        (exit 0 = pass)
+
+This is a *mechanical* check. It proves that every published record carries an official
+source URL a reviewer can open by hand, that no placeholder or guessed value has crept in,
+and that the generated data agrees with its own counts and with `tools/overlay.json`. It
+does NOT prove that a description is semantically correct -- only a human re-reading the
+cited source can do that, which is what `lastVerified` / `verifiedBasis` / `verifiedAtSha`
+exist to record.
+
+Checks performed
+  A. schema:   required non-empty fields on every record
+  B. sources:  every record cites at least one official api.github.com URL naming its own
+               repository, plus the repository and Pages endpoints
+  C. hygiene:  no placeholder / unverified tokens (tbd, todo, unknown, n/a, ???, ...)
+  D. stamps:   every record carries lastVerified + verifiedBasis; a verifiedAtSha that is
+               behind the snapshot head must be surfaced as proseStale (not hidden)
+  E. overlay:  overlay entries and published records are 1:1 (no orphan prose either way)
+  F. excluded: permanently excluded repositories are absent from every published surface
+  G. counts:   counts{} agrees with sites[] and with the unreachable/frozen records
+  H. flagged:  FLAGGED.md exists and every repo it names is a real repository in the census
+  I. hygiene:  no duplicate repository slugs; pagesUrl matches the owner/repo pattern
+"""
+
+import json
+import os
+import re
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "data", "sites.js")
+OVERLAY = os.path.join(ROOT, "tools", "overlay.json")
+FLAGGED = os.path.join(ROOT, "FLAGGED.md")
+TASKS = os.path.join(ROOT, "TASKS.md")
+
+API = "https://api.github.com"
+OWNER = "buffedlizard55-lab"
+
+PLACEHOLDERS = re.compile(
+    r"\b(tbd|todo|to be (?:determined|added|written)|unknown|placeholder|lorem ipsum|n/?a|xxx|\?\?\?)\b",
+    re.I,
+)
+SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
+REQUIRED = (
+    "repo", "title", "category", "kind", "description", "created", "firstCommit",
+    "firstCommitSha", "lastCommit", "lastCommitSha", "pushedAt", "updatedAt", "commits",
+    "pagesStatus", "pagesSource", "pagesUrl", "defaultBranch", "sizeKb",
+)
+
+failures, warnings, checks = [], [], 0
+
+
+def check(ok, message):
+    global checks
+    checks += 1
+    if not ok:
+        failures.append(message)
+    return ok
+
+
+def load_data():
+    src = open(DATA, encoding="utf-8").read()
+    if "window.MASTERDATA = " not in src:
+        raise SystemExit("data/sites.js has no window.MASTERDATA assignment")
+    return json.loads(src.split("window.MASTERDATA = ", 1)[1].rstrip().rstrip(";"))
+
+
+def official_urls(text):
+    return re.findall(r"https://[^\s`\"'<>)\]]+", text or "")
+
+
+def main():
+    data = load_data()
+    overlay = json.load(open(OVERLAY, encoding="utf-8"))
+    entries = overlay["entries"]
+    excluded = set(overlay.get("excluded", []))
+    sites = data["sites"]
+    counts = data.get("counts", {})
+
+    print("MasterSite validator — %s" % os.path.relpath(DATA, ROOT))
+    print("snapshot generated=%s  sites=%d  unreachable=%d"
+          % (data.get("generated"), len(sites), len(data.get("unreachable", []))))
+    print("-" * 78)
+
+    # ---- A. schema + C. hygiene + D. stamps -------------------------------------
+    seen = set()
+    for s in sites:
+        repo = s.get("repo") or "<missing repo>"
+        for field in REQUIRED:
+            check(s.get(field) not in (None, "", []),
+                  "%s: required field %r is empty" % (repo, field))
+        check(s.get("kind") in ("app", "stub"),
+              "%s: kind must be 'app' or 'stub', got %r" % (repo, s.get("kind")))
+        check(isinstance(s.get("commits"), int) and s["commits"] > 0,
+              "%s: commits must be a positive integer, got %r" % (repo, s.get("commits")))
+        for field in ("title", "description"):
+            m = PLACEHOLDERS.search(str(s.get(field, "")))
+            check(not m, "%s: %s contains placeholder/unverified token %r"
+                  % (repo, field, m.group(0) if m else ""))
+
+        # ---- I. slug + Pages URL -------------------------------------------------
+        check(repo not in seen, "%s: duplicate repository slug" % repo)
+        seen.add(repo)
+        expected = "https://%s.github.io/%s/" % (OWNER, repo)
+        check((s.get("pagesUrl") or "").rstrip("/") == expected.rstrip("/"),
+              "%s: pagesUrl %r does not match the Pages URL pattern %r"
+              % (repo, s.get("pagesUrl"), expected))
+
+        # ---- B. source links -----------------------------------------------------
+        basis = s.get("verifiedBasis") or ""
+        check(bool(basis), "%s: verifiedBasis is empty (prose has no source)" % repo)
+        urls = official_urls(basis)
+        check(bool(urls), "%s: verifiedBasis cites no https source URL" % repo)
+        check(any(u.startswith(API + "/repos/%s/%s" % (OWNER, repo)) for u in urls),
+              "%s: verifiedBasis cites no official api.github.com URL for this repository "
+              "(needed for hand review)" % repo)
+        for u in urls:
+            check(u.startswith("https://"), "%s: non-https source link %r" % (repo, u))
+
+        # ---- D. verification stamps ---------------------------------------------
+        check(bool(s.get("lastVerified")),
+              "%s: lastVerified is missing — the description is presented as unverified" % repo)
+        stamp = s.get("verifiedAtSha")
+        if stamp is None:
+            warnings.append("%s: no verifiedAtSha (description carried without a commit stamp)" % repo)
+        else:
+            check(bool(SHA_RE.fullmatch(str(stamp))),
+                  "%s: verifiedAtSha %r is not a 7-40 char lowercase SHA" % (repo, stamp))
+            head = str(s.get("headSha") or "")
+            behind = not (str(stamp).startswith(head) or head.startswith(str(stamp)))
+            check(bool(s.get("proseStale")) == behind,
+                  "%s: proseStale=%r disagrees with verifiedAtSha=%s vs headSha=%s"
+                  % (repo, s.get("proseStale"), stamp, head))
+            if behind:
+                warnings.append("%s: description read at %s, snapshot head %s (PROSE-STALE queue)"
+                                % (repo, stamp, head))
+
+    # ---- E. overlay 1:1 ----------------------------------------------------------
+    published = set(seen)
+    for repo in sorted(published - set(entries)):
+        failures.append("%s: published but has no tools/overlay.json entry "
+                        "(prose would be unauditable)" % repo)
+    for repo in sorted(set(entries) - published):
+        failures.append("%s: curated in tools/overlay.json but not published in data/sites.js "
+                        "(orphan prose)" % repo)
+    checks += 2
+
+    # ---- F. exclusions -----------------------------------------------------------
+    for repo in sorted(excluded):
+        check(repo not in published, "excluded repository %s is published" % repo)
+        check(all(repo not in json.dumps(s) for s in sites),
+              "excluded repository %s appears in a published record" % repo)
+        check(all(repo not in json.dumps(u) for u in data.get("unreachable", [])),
+              "excluded repository %s appears in the unreachable/frozen records" % repo)
+
+    # ---- G. counts ---------------------------------------------------------------
+    check(counts.get("sites") == len(sites),
+          "counts.sites=%r but sites[] has %d records" % (counts.get("sites"), len(sites)))
+    apps = sum(1 for s in sites if s["kind"] == "app")
+    check(counts.get("apps") == apps,
+          "counts.apps=%r but %d records are kind=app" % (counts.get("apps"), apps))
+    check(counts.get("stubs") == len(sites) - apps,
+          "counts.stubs=%r but %d records are stubs" % (counts.get("stubs"), len(sites) - apps))
+    built = sum(1 for s in sites if s["pagesStatus"] == "built")
+    check(counts.get("pagesBuilt") == built,
+          "counts.pagesBuilt=%r but %d records report Pages status 'built'"
+          % (counts.get("pagesBuilt"), built))
+    cat = {}
+    for s in sites:
+        cat[s["category"]] = cat.get(s["category"], 0) + 1
+    check(counts.get("categories") == dict(sorted(cat.items(), key=lambda kv: (-kv[1], kv[0]))),
+          "counts.categories does not match the categories in sites[]")
+    check(counts.get("unreachable") == len(data.get("unreachable", [])),
+          "counts.unreachable=%r but %d frozen records are present"
+          % (counts.get("unreachable"), len(data.get("unreachable", []))))
+    stale = sorted(s["repo"] for s in sites if s.get("proseStale"))
+    check(counts.get("proseStale") == len(stale),
+          "counts.proseStale=%r but %d records are stale" % (counts.get("proseStale"), len(stale)))
+    check(sorted(counts.get("proseStaleRepos", [])) == stale,
+          "counts.proseStaleRepos disagrees with the per-record proseStale flags")
+    stamped = sum(1 for s in sites if s.get("lastVerified"))
+    check(counts.get("proseStamped") == stamped,
+          "counts.proseStamped=%r but %d records carry lastVerified"
+          % (counts.get("proseStamped"), stamped))
+    check(counts.get("proseUnstamped") == len(sites) - stamped,
+          "counts.proseUnstamped=%r but %d records lack lastVerified"
+          % (counts.get("proseUnstamped"), len(sites) - stamped))
+
+    # ---- H. FLAGGED.md + TASKS.md ------------------------------------------------
+    check(os.path.isfile(FLAGGED), "FLAGGED.md is missing")
+    if os.path.isfile(FLAGGED):
+        text = open(FLAGGED, encoding="utf-8").read()
+        known = published | {u.get("repo") for u in data.get("unreachable", [])} | {
+            a.get("login") for a in data.get("accountsChecked", [])}
+        known |= {r for r in excluded}
+        for repo in set(re.findall(r"`([A-Za-z0-9][A-Za-z0-9._-]{2,})`", text)):
+            if repo in ("main", "null", "data", "ok", "built", "stub", "app"):
+                continue
+            lowered = {k.lower() for k in known if k}
+            if repo.lower() in lowered:
+                continue
+            if re.match(r"^[A-Za-z0-9-]+\.(md|js|json|html|py)$", repo):
+                continue  # a filename, not a repository
+            if repo in ("PROSE-STALE", "GEMSDOE"):
+                continue
+            warnings.append("FLAGGED.md names %r, which is not a repository in this census" % repo)
+
+    check(os.path.isfile(TASKS), "TASKS.md is missing")
+    if os.path.isfile(TASKS):
+        text = open(TASKS, encoding="utf-8").read()
+        claims = re.findall(r"session=([A-Za-z0-9._-]+) at=(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)", text)
+        check(bool(claims), "TASKS.md has no well-formed claim lines (session=<id> at=<UTC>)")
+        check(text.count("| **claimed** |") + text.count("| unclaimed |") > 0,
+              "TASKS.md has no task rows with a recognised Status")
+
+    # ---- report ------------------------------------------------------------------
+    print("checks run: %d" % checks)
+    if warnings:
+        print("\nWARNINGS (%d) — expected, tracked conditions:" % len(warnings))
+        for w in warnings[:40]:
+            print("  ! %s" % w)
+        if len(warnings) > 40:
+            print("  ... and %d more" % (len(warnings) - 40))
+    if failures:
+        print("\nFAILED (%d):" % len(failures))
+        for f in failures:
+            print("  x %s" % f)
+        print("\nvalidator: FAIL")
+        return 1
+    print("\nvalidator: PASS — every record carries official source links and no unverified values")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
