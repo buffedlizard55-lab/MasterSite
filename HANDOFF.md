@@ -1754,3 +1754,15 @@ only by the merge of this session's PR).
   Cheapest possible way to satisfy it is the one command; it needs no credentials and no network.
 - PR #44 (T-020) was `CONFLICTING` with `main` earlier today and PR #53/#54 were still open when this
   session merged; whichever session owns them should rebase before merging.
+
+**Rebase note (same session, after the merge of PR #44 / T-020).** `main` moved to `2ada714` while
+this PR was open, republishing the snapshot at `2026-10-11T16:58:53Z` (145 sites, 141 irregularities,
+4 frozen, 145 + 1 excluded = 146 Pages sites). The rebase was mechanical except for this file
+(append-order: session `arena-200c157f`'s entry kept verbatim above, this entry last). Two consequences
+worth recording because both are the gates doing their job:
+`master-list.html` was regenerated for the new snapshot (52 `proseStale` badges — one more than before),
+and **`scripts/validate` §N immediately failed on the new `main`**: the README's `data/sites.js` row
+still dated the census `2026-10-11T15:06:10Z` after the refresh published `16:58:53Z`. The stamp is
+corrected in this PR as well, which is the second time in this session that the new gate caught the same
+class of drift — prose advertising a superseded census. Any future refresh must rerun
+`python3 tools/build_master_list.py` (no network, no credentials) and update that one README sentence.
