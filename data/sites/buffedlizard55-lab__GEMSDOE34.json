@@ -3,6 +3,7 @@
   "repo": "GEMSDOE34",
   "title": "GEMSDOE34 — Auditable Fault-Discovery System (Inverted-Instrument Finding)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "Auditable DOE GEMS Prize fault-discovery system with a one-click submission GeoTIFF of 37,654 isolated single pixels whose uniqueness gate is recorded as ALLOWED and whose projected score the README gives as 0.2346 ± 0.0275, explicitly not predicted to beat 0.2778. Its findings document records that the family’s spatially blocked catalogue holdout is an inverted instrument when the catalogue is treated as truth, and the README retracts an earlier over-emission claim.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE34/",

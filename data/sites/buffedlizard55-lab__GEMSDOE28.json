@@ -3,6 +3,7 @@
   "repo": "GEMSDOE28",
   "title": "GEMSDOE28 — Great Basin Fault Mapping",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize research repository for Great Basin fault mapping (DrivenData competition 306), documenting its experiment protocol, hypothesis register and submission workflow. Its standing brief requires candidates to beat the current holdout best on a spatially blocked holdout set before a weekly submission slot is spent, and requires claims to be verified line by line from official sources with links for manual review and irregularities logged in registry/irregularities.json. The directory summarises those stated process requirements and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE28/",

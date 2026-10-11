@@ -3,6 +3,7 @@
   "repo": "GEMSDOE10",
   "title": "GEMSDOE10 — Evidence-First Fault Discovery",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize hidden-fault discovery workspace with a submission hub, experiment records, research artifacts, and reproducibility checks. Its README says a file-format pass alone is not enough to recommend a new submission.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE10/",

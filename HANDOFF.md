@@ -555,3 +555,94 @@ read the protocol, claimed only T-003, committed/pushed the claim alone.
 **Verification:** `./scripts/validate` PASS; `data/sites/` exporter `--check` in sync (family is not a record field, no churn); `npm run check` clean; family data spot-checked in `data/sites.js` (62 grouped, `62GEMSDOE` null, counts consistent). Playwright browsers remain unavailable in this sandbox (cdn.playwright.dev blocked — same as T-001's note), so the new cases are `node --check`-clean and CI-enforced only. Sites.js was regenerated via `--overlay-only`; the API-verified fields are unchanged from the 03:01:01Z snapshot.
 
 **For the owner:** none of the family's judgments block the site — with the toggle off (or on a fresh browser) the grid is exactly the flat 145-card layout. If `62GEMSDOE` is intended as a real GEMS lane despite its placeholder prose, one line in `tools/families.json` plus a `--overlay-only` build promotes it; the inverse does nothing. The next UI-worthy family is the NFL family (`NFLComp`, `NFLCOMPPREDICTIONS`, `NFLComp2026`…), which has not been curated because three descriptions are explicitly stale/unknown (T-002).
+
+---
+
+## Session `arena-d678d633` — 2026-10-11 (census re-verification; T-007 race — duplicate dropped, integrity deltas landed)
+
+**Branch:** `arena/d678d633-mastersite` (pinned Arena session branch). **Read this entry as the
+worked example of a task race:** two sessions legitimately claimed the same task because claims
+only reach `main` when a PR merges.
+
+### What was done
+
+- **Census re-verified against the official API before claiming anything** (AGENTS.md §1).
+  `GET /users/buffedlizard55-lab` → `public_repos: 146`; `GET /users/kanlerxz87-cyber` →
+  `public_repos: 0`; the paginated repo list set-difference against `data/sites/` is exactly
+  `{ProjX}` — **145 listed + 1 excluded = 146, zero missing, zero extra** (~05:0xZ), independently
+  reproducing T-009.
+- **The race.** This session claimed T-007 at `2026-10-11T05:04:07Z` (claim commit pushed before any
+  work) and implemented a **mechanical name-token family grouping** (`tools/families.json` with a
+  `nameToken` rule; membership = case-insensitive contiguous substring of the official repository
+  name; `scripts/validate` independently re-deriving every membership; a third `view=family`
+  layout with category fallback sections and compact rows; 6 Playwright cases). Session
+  `arena-6878f251` claimed T-007 at `05:29:22Z` — **25 minutes later, without seeing this claim**
+  (it was still only on this branch, not on `main`) — and merged their **curated member-list**
+  implementation first (PR #35). Their claim became `main`'s record.
+- **Independent cross-check of the two implementations: zero factual disagreements.** The
+  mechanical rule derived **63** members (every published repository whose official name contains
+  `GEMSDOE`); the curated list holds **62** — the difference is exactly `62GEMSDOE`, which their
+  `families.json` basis excludes **deliberately** as a title-only placeholder (matching `FL-13` /
+  the directory's own placeholder precedent). Two sessions, two different methods (name-string
+  derivation vs per-README curation at recorded SHAs), identical membership otherwise. That is the
+  strongest provenance the family grouping has had.
+- **The duplicate T-007 implementation was dropped rather than re-landed** — the same precedent
+  session `arena-631565b3` set when its duplicate census was superseded ("what survived is what
+  `main` did not already have"). PR #34 (the mechanical implementation) was closed with the
+  cross-check recorded; the full implementation is preserved in that PR's history and was patched
+  out to `/tmp` during the session. **What survived are the deltas `main` did not have:**
+  1. **`scripts/validate` section K — family-grouping integrity.** Published `family` fields,
+     `MASTERDATA.families` and `counts.families` must agree with the curated
+     `tools/families.json` member list (membership parity, metadata parity, count parity,
+     duplicate/orphan detection, members must be published sites). **PASS: 5,115 checks.**
+  2. **A coverage-gap warning for the curated-list model.** `tools/families.json` gained an
+     explicitly non-membership `nameToken` plus `ungroupedByDesign` (currently `62GEMSDOE`):
+     when a published site's official name matches the token but the site is neither curated in
+     nor deliberately excluded, `scripts/validate` warns for review — so tomorrow's new GEMS lane
+     (this account publishes several per week) cannot sit ungrouped forever without anyone
+     noticing. Membership assignment stays strictly curated; the token only surfaces candidates.
+     Mechanically confirmed on this snapshot: exactly one name-match without membership
+     (`62GEMSDOE`, suppressed as designed) and exact set equality curated ↔ published (62 = 62).
+  3. **`family` in the per-site protocol export** (`tools/export_site_records.py` → all 145
+     `data/sites/<owner>__<repo>.json` regenerated) so the file-per-site records carry the
+     grouping alongside `category`.
+  4. **Docs accuracy:** README's `data/sites.js` re-render stamp corrected to `05:40:15Z` (it
+     still said `04:09:48Z` after PR #35's regeneration), validator/file-map rows updated,
+     AGENTS.md §5 documents the family gate.
+- Gates run on the final tree: `scripts/validate` PASS, `export_site_records.py --check` in sync,
+  `npm run check`, `py_compile`, `python3 -m unittest discover -s tests` (14 tests). Playwright
+  runs in CI (browser binaries cannot download in this sandbox); the smoke audit stays red while
+  `FL-15` is open, by that audit's design.
+
+### What is blocked
+
+- Nothing new. Standing: owner decisions (T-004, T-006, `FL-13`, `FL-05`), `FL-15` upstream
+  `<title>`, local browser binaries.
+
+### What is next — suggestions and limitations for the owner
+
+1. **Protocol suggestion (the race cost a full duplicate implementation).** Claims currently reach
+   `main` only with the finished PR, so a second session cannot see them. Two cheap fixes for
+   future sessions: (a) push the claim commit **and** open a tiny claim-only PR immediately
+   (merge within minutes), or (b) keep a claim registry in a single `CLAIMS.md` that sessions
+   push to `main` via a one-line PR before starting work. Until then, re-read `TASKS.md` **and**
+   the remote branches/PR list before claiming (`gh pr list` would have shown PR #34).
+2. **T-002 is the last content task:** 40 `PROSE-STALE` descriptions at the snapshot (`FL-14`
+   shows 41 counting `MALTASUPPLEMENTAL`'s post-snapshot head move). Re-read one at a time at
+   head; update `description` + `lastVerified` + `verifiedBasis` + `verifiedAtSha` together;
+   fold `FL-13` in. The T-005 cadence in AGENTS.md §4 applies on every refresh.
+3. **`FL-15` (`SABERENGY`)** — keep the pages-smoke audit visibly red until the upstream `<title>`
+   exists or a browser-followed check closes it. Do not weaken the criterion for green CI.
+4. **Owner decisions:** T-004 (four frozen 404s), T-006 (GEMS consolidation — it would also
+   simplify the family grouping), `FL-13` (`62GEMSDOE` category — and whether it should join the
+   family once its README has content), `FL-05` (`GEMSDOE53` rebuild).
+5. **Family follow-ups (optional):** if a `GEMSDOE`-named repository is ever retired out of
+   `sites[]`, `build_data.py`'s `load_families` fails closed until `families.json` is edited —
+   correct behaviour, but worth knowing; a per-family rollup page waits on T-006; the "Other
+   sites" grid section currently holds 83 ungrouped entries (readable enough with the grouped
+   default, but a category fallback inside it is the natural next UI refinement).
+6. **Limitations:** family membership is curated from each member's own README at its recorded
+   SHA — it proves documented purpose, not code sharing; the coverage nameToken warns only about
+   names containing the literal string; the API snapshot stays `2026-10-11T03:01:01Z` (this
+   session deliberately did not run the full network build; the census was re-verified with ~6
+   API calls); no uptime, usage or "last used" claim is made anywhere.

@@ -3,6 +3,7 @@
   "repo": "GEMSDOE4",
   "title": "GEMSDOE4 — New-Fault-First GEMS Submission Line",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "Copy of the GEMSDOE tree (413 files) pursuing a new-fault-first strategy: both prize phases score withheld new faults, so it supervises with an independent fault compilation, gives the classifier lineament geometry instead of raw pixels, unions structurally different detectors and selects the combination rule on held-out geography. The adopted candidate at this head is the k = 2 of 5 union (suggested Note nff-union-5), measuring proxy DTI 0.1897 on the measurement fold against 0.1747 for the 4-member union it replaces (paired block bootstrap probability 0.957 of beating it over 9 blocks, which the README calls a COARSE interval); the deep ensemble member alone scores 0.0999. The landing page and executive summary open with an in-browser submission builder that writes the exact single-band float32 GeoTIFF the competition dialog asks for, re-reads its own bytes and hands over the download with a unique file name and suggested Note; the root index.html redirects to the docs/ site on legacy main / Pages. Its charter table records all 16 standing asks as done and measured with pull requests merged and a green make-submission run; uploading still needs a DrivenData login this kind of sandbox lacks, and no score is claimed anywhere — every number is the SGMC surrogate, not the scored set.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE4/",

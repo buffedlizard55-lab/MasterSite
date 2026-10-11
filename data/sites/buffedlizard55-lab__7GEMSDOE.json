@@ -3,6 +3,7 @@
   "repo": "7GEMSDOE",
   "title": "7GEMSDOE — Fault Discovery Lab",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize fault-discovery research lab with executive-summary, experiment, research, data, results, metric, and submission-guide pages.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/7GEMSDOE/",

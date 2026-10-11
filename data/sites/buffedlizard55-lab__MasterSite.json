@@ -3,6 +3,7 @@
   "repo": "MasterSite",
   "title": "MasterSite — Master GitHub Pages Directory",
   "category": "Directory & Meta",
+  "family": null,
   "kind": "app",
   "description": "Source-linked static directory of public GitHub Pages repositories for buffedlizard55-lab, with a public-repository and Pages census for kanlerxz87-cyber. It combines repository-sourced summaries, GitHub timestamps and Pages metadata, review links, snapshot status, and visible flags; it does not track site visits or claim uptime.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/MasterSite/",

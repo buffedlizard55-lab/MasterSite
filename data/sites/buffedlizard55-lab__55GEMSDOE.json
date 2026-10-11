@@ -3,6 +3,7 @@
   "repo": "55GEMSDOE",
   "title": "55GEMSDOE — Tensor-Dimensionality Lane (Audit-Only, Negative)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize tensor-dimensionality lane (DrivenData competition 306) that publishes an H57 tensor-lane GeoTIFF for audit and review. Its README executive status states “Download for audit/review: YES. Submit to DrivenData: NO.”, records that the NaN-outside primary passes the strict local format validator but that an expanded one-sided uniqueness scan finds a duplicate-stop and that the matched-mass scientific holdout is negative, and states the checkout holds no organizer-confirmed score or receipt. The directory repeats the repository’s own verdict and asserts no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/55GEMSDOE/",

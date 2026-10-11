@@ -3,6 +3,7 @@
   "repo": "ScoringDiscrepNBA",
   "title": "ScoringDiscrepNBA — NBA Scoring-Discrepancy Monitor",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "NBA scoring-discrepancy database and monitoring system with a Pages site, alerting documentation and a repository review. Its README records a preservation limitation — the compact investigation ledger keeps the first three and latest twenty observations rather than every intermediate observation or original HTTP body — and states that full immutable evidence storage remains a requirement rather than a completed feature. It also reports 100 passing tests in the integrated active suite and warns that neither a successful deployment nor a passing suite proves live notification delivery or complete source coverage.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/ScoringDiscrepNBA/",

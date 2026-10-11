@@ -3,6 +3,7 @@
   "repo": "GEMSDOE53",
   "title": "GEMSDOE53 — Research Workspace (H8 Status; Pages Build Errored)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize research workspace whose H8 session status labels one GeoTIFF “OK TO SUBMIT” with a run-card verdict of `promote` and publishes a template-conformant twin alongside it. Its own core values state that a successful file write is not proof of scientific validity or organizer acceptance. GitHub reports the repository’s Pages build as `errored` in this snapshot, so the directory records the build state as reported and makes no claim about whether the landing page is reachable.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE53/",

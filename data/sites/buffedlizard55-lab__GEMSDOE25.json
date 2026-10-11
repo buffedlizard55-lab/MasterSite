@@ -3,6 +3,7 @@
   "repo": "GEMSDOE25",
   "title": "GEMSDOE25 — Designed-Factorial Fault Discovery",
   "category": "Unclassified & Placeholder",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize repository (DrivenData #306) publishing a download-first “Start here” site for a format-validated, not slot-approved candidate. Its README records the file as single-band float32, EPSG:32611, 3730 × 3292 at 100 m, with 44,090 emitted pixels and status “format-validated; unscored; not slot-approved”, a weekly limit of three submissions and an end date of 3 December 2026, and it flags its own deadline ambiguity between the competition page and the rules (its IR-25-DEADLINE).",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE25/",

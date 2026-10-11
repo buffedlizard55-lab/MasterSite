@@ -3,6 +3,7 @@
   "repo": "GEMSDOE36",
   "title": "GEMSDOE36 — Two Independent Candidate Lines (Anderson-PINN + Off-Catalogue H6)",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize repository publishing two unique, locally validated candidate GeoTIFFs — an Anderson-PINN primary line and an off-catalogue H6 gate-passed candidate — from which the owner selects the single final file for both prize rounds. Its README records the public-leaderboard target as 0.3195 with a 0.2778 historical baseline. The directory publishes no selection and no competition result.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE36/",

@@ -86,6 +86,10 @@ def build_records(d):
             "repo": repo,
             "title": site.get("title"),
             "category": site.get("category"),
+            # Curated readability grouping (tools/families.json); null when the
+            # repository is deliberately or currently ungrouped. Derived from the
+            # published snapshot, never hand-edited here.
+            "family": site.get("family"),
             "kind": site.get("kind"),
             "description": site.get("description"),
             "pagesUrl": site.get("pagesUrl"),

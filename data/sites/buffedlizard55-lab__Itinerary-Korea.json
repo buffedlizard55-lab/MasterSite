@@ -3,6 +3,7 @@
   "repo": "Itinerary-Korea",
   "title": "Korea Compass — Master Trip Planner",
   "category": "Travel & Korea Trip",
+  "family": null,
   "kind": "app",
   "description": "Production release of Korea Compass for Nov 1–22, 2026: 30 verified 21-night itineraries across Seoul–Daejeon–Busan and Seoul–Cheonan–Busan corridors with source citations.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/Itinerary-Korea/",

@@ -3,6 +3,7 @@
   "repo": "KoreaHotels",
   "title": "South Korea Hotel Shortlist & Price Tables",
   "category": "Travel & Korea Trip",
+  "family": null,
   "kind": "app",
   "description": "Verified hotel comparison tables across three stay windows in Seoul and Busan, featuring exact fetched Booking.com rate snapshots and Agoda verified-source links.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/KoreaHotels/",

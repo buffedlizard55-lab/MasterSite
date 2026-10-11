@@ -3,6 +3,7 @@
   "repo": "THUNDERPICK-WC-2026",
   "title": "THUNDERPICK WC 2026 — Counter-Strike 2 Tournament Expert Hub",
   "category": "Gaming & Guides",
+  "family": null,
   "kind": "app",
   "description": "Eight-page source-linked knowledge base for the Thunderpick World Championship 2026 Counter-Strike 2 finals (BLAST Studios Malta, 14–18 October 2026, $1,000,000): tournament and circuit overview, the eight finalists with full rosters, dated VRS and HLTV ranking snapshots, a 26-entry roster-change timeline, stats and form with an explicit boundary around unavailable event statistics, a betting framework that invents no odds, a CS2 primer, and a master-list ledger of 20 research entries each checked against a public source before publication. Its own integrity script was executed in a clean clone at the head commit recorded in verifiedAtSha: python3 scripts/verify_site.py → “OK: 8 teams, 40 players, 8 coaches, bench/reserve fields, 20 verified ledger entries, and local links”.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/THUNDERPICK-WC-2026/",

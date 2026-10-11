@@ -3,6 +3,7 @@
   "repo": "WoWForever",
   "title": "WoW Forever Hub — Source-Verified World of Warcraft Guide",
   "category": "Gaming & Guides",
+  "family": null,
   "kind": "app",
   "description": "Source-verified information site for World of Warcraft: Forever (the repository dates Blizzard's launch to 4 November 2026 with raids unlocking 9 December 2026), published as fourteen static pages — index, roadmap, pvp, classes, class-pvp, gear, gold, addons, beta, sources, method, data-api, site-patterns and work-plan. Every published statement is carried in a claims ledger (data/claims.js; the repository counts 183 claims today, IDs deliberately not contiguous) with an evidence class of official, press, datamine, guide, ours, unknown or community, backed by a source registry in data/sources.js, and checked in CI by tools/check-ledger.mjs and tools/check-sources.mjs. Class tier lists, Best-in-Slot item lists and gold-per-hour figures are deliberately omitted because the beta is capped at level 20 (30 later) and items are hidden until they drop.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/WoWForever/",

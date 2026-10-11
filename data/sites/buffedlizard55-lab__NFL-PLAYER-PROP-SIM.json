@@ -3,6 +3,7 @@
   "repo": "NFL-PLAYER-PROP-SIM",
   "title": "NFL-PLAYER-PROP-SIM — Empty Placeholder Repository",
   "category": "Directory & Meta",
+  "family": null,
   "kind": "stub",
   "description": "Empty placeholder repository created 2026-09-22T23:52:54Z with a single initial commit (0807ee5, 'Initial commit'). Its entire tree is one blob: a README.md of 21 bytes whose whole content is the heading '# NFL-PLAYER-PROP-SIM'. There is no index.html — GET /repos/buffedlizard55-lab/NFL-PLAYER-PROP-SIM/contents/index.html returns HTTP 404 — no application code and no data, and the repository reports a size of 0 KB, so GitHub Pages (status built, source main /) serves Jekyll's default render of that one-line README. No statement is made here about what the repository is intended to become, because the repository does not say: its name suggests an NFL player-proposition simulator and that inference is deliberately not published, which is the rule IRR-71 set for exactly this case.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NFL-PLAYER-PROP-SIM/",

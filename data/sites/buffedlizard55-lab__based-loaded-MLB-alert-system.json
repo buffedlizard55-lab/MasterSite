@@ -3,6 +3,7 @@
   "repo": "based-loaded-MLB-alert-system",
   "title": "Loaded Late — Bases-Loaded MLB Alerts",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Live MLB scoreboard with an alert monitor for tied games in the bottom of inning 9 or later when the bases are loaded and fewer than three outs remain. The README documents watch rules, alert controls, and browser-local history; it explicitly says this is not a complete historical replay.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/based-loaded-MLB-alert-system/",

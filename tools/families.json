@@ -1,5 +1,9 @@
 {
   "note": "Curated organizational families for the directory UI. A family groups published sites whose own curated descriptions (tools/overlay.json, each backed by verifiedBasis source reads at a recorded SHA) document work on the same named project or competition. Grouping is a reading aid only: it asserts nothing about a site's quality, behavior, liveness, or results, and it never overrides a site's category or flags. Membership is curated per repository — never inferred from a repository name alone. Repositories whose README documents no purpose (neutral placeholders) are deliberately left ungrouped. Regenerate the derived view with tools/build_data.py; do not hand-edit data/sites.js.",
+  "nameToken": "GEMSDOE",
+  "nameTokenNote": "Coverage-warning aid for scripts/validate ONLY: when a published repository's official name contains this string but the curated member list omits it (and it is not in ungroupedByDesign), the validator reports it for review so a newly published lane cannot sit ungrouped forever without anyone noticing. It never assigns membership — membership stays curated, per the note above.",
+  "ungroupedByDesign": ["62GEMSDOE"],
+  "ungroupedByDesignNote": "Published sites that match nameToken but are deliberately not members (documented in the family basis and the entry's own record). scripts/validate does not warn about these; it fails if one is ever added to a family.",
   "families": [
     {
       "id": "gems-prize-lanes",

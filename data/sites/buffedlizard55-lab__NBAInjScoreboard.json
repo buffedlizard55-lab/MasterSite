@@ -3,6 +3,7 @@
   "repo": "NBAInjScoreboard",
   "title": "NBAInjScoreboard — Live NBA Scoreboard & In-Game Injury Desk",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Source-linked live NBA scoreboard with two separate systems on one site: in-game injury updates in the Injury desk and explicit coach's challenges/replay reviews in the Replay room, with the all-game Live feed carrying play-by-play and the same injury updates. The data rules are strict: an injury alert requires an ESPN timestamp after game start, a current live game, team and athlete ID match, participation evidence, medical detail and non-future game context, and the originating wire (e.g. RotoWire) is cited; absence from the box score, benching, substitutions and elapsed time never become injury alerts. Regression fixtures are real ESPN captures from 2026-09-24 because the first implementation passed 25/25 tests while its injury parser returned zero candidates. Flagged: as of 2026-09-24 no games were in progress to validate end-to-end live injury delivery; the NBA CDN returned HTTP 403 from the Pages-origin probe so those fields are tested with synthetic fixtures; GitHub Pages cannot run the Node collector; and the shipped source registry enables zero automatic sources by design.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NBAInjScoreboard/",

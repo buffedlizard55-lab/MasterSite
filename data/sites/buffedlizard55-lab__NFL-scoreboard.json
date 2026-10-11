@@ -3,6 +3,7 @@
   "repo": "NFL-scoreboard",
   "title": "NFL Scoreboard & Nullified Play Feed",
   "category": "Sports Data & Scoreboards",
+  "family": null,
   "kind": "app",
   "description": "Dependency-free single-page NFL scoreboard with dedicated live nullified scoring play detection and penalty review feed.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/NFL-scoreboard/",

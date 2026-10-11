@@ -3,6 +3,7 @@
   "repo": "GEMSDOE23",
   "title": "GEMSDOE23 — QA-Only Candidate and Evidence",
   "category": "Unclassified & Placeholder",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize lane whose landing page is titled “GEMSDOE23 · QA candidate and evidence” and puts a GeoTIFF download at the top, with an executive summary and a leaderboard section. Its README labels the current candidate QA-only and unscored with no score forecast, records the release as blocked pending an independent uncatalogued-fault holdout, and reports 10/10 template checks passing for the NaN-outside file (91,533 dots in the recorded submission note).",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE23/",

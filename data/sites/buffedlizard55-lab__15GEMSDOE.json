@@ -3,6 +3,7 @@
   "repo": "15GEMSDOE",
   "title": "15GEMSDOE — DOE GEMS Prize Research Workspace",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize research and submission workspace with a documented project charter, source register, experimental hypotheses, model/data tooling, and validation notes.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/15GEMSDOE/",

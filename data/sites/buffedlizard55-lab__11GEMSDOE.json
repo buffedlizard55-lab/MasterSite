@@ -3,6 +3,7 @@
   "repo": "11GEMSDOE",
   "title": "11GEMSDOE — GEMS Prize Research & Submission Project",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize project focused on evidence-led geological fault mapping and a reproducible submission workflow. Its root `index.html` redirects visitors to the project dashboard at `docs/index.html`.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/11GEMSDOE/",

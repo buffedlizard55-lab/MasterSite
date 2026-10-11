@@ -3,6 +3,7 @@
   "repo": "GEMSDOE48",
   "title": "GEMSDOE48 — Cover-Rule Dempster–Shafer Fusion",
   "category": "Science & ML Research",
+  "family": "gems-prize-lanes",
   "kind": "app",
   "description": "DOE GEMS Prize fault-surface research repository whose current decision makes a cover-rule Dempster–Shafer fusion the primary unique submission artifact, combining two named prior families and emitting a hex covering of the fused belief corridor with 37,723 dots. Its README records the gated build verdict as OK to download and submit while stating there is no local evidence that it beats the current best, and reports catalogue-proxy holdout figures with bootstrap intervals. Research layers such as unassigned mass and normalized belief are published as diagnostics that must never be submitted.",
   "pagesUrl": "https://buffedlizard55-lab.github.io/GEMSDOE48/",
