@@ -1609,3 +1609,34 @@ immediately, then renumbered twice rather than working around the collisions.
 1. **T-002 (claimed by `96e82e25`):** Re-read the 52 `PROSE-STALE` descriptions at current repository heads and expand the 5 `{path}` template citations (`FL-18`: `Commodities`, `Coupons`, `Elections`, `MLBComp`, `SABERENGY`) to concrete endpoints.
 2. **T-024 / T-025 / T-026 / T-027 / T-029:** Ledger surfacing for scheduled audits, per-item scheduled review detail, Pages status-transition guard in `census_guard.py`, headless-browser redirect following for `SABERENGY` (`FL-15`), and resumable quota-aware refreshes.
 
+---
+
+## Session `arena-e36a3025` — 2026-10-11 (T-006: the GEMS consolidation conflict gets its owner decision record)
+
+**Branch:** `arena/e36a3025-mastersite` (this Arena session is pinned to that branch name by the platform, which fills the `session/<id>-<task>` role of the protocol). **Claim:** `TASKS.md` **T-006**, `session=arena-e36a3025 at=2026-10-11T18:25:30Z`, committed alone and pushed first; **PR #56 opened immediately after the claim** so the claim was visible in `gh pr list` during the commit-to-merge window (the T-015 double-claim lesson, applied).
+
+### What was done
+
+- Claimed the **last unclaimed task in the table**. T-006 asked for an owner decision record for the IRR-119 / FL-08 conflict, on the T-004 precedent (record the safe default; the owner confirmation itself stays pending).
+- **Re-read every source IRR-119 cites, at the current default-branch heads**, from the official Contents API (2026-10-11T18:25:04Z–18:25:51Z):
+  - `6GEMSDOE/ACCOUNT_STATUS.md` at `e2fe3f41c6f5dd2dcb2fc91958ee67698f114ada` — **unchanged** since 2026-09-26 (the same head IRR-119 cites); still designates `6GEMSDOE` the single canonical entry, still recommends "archive or delete the other ten GEMS-named repositories", and its own Unknowns section says only the account holder can say which repositories are deliberate.
+  - `GEMSDOE4/README.md` at `5dc28f67a096c511b0aafbf06c235146c5dcf50e` — head **moved** from the `198a121` stamp; charter row #1 still records "more sites are being created for more submissions" as a completed standing request, so the contradiction is still live at head.
+  - `12GEMSDOE/docs/sibling-audit.md` at `33e756015afdaadb29b38d8ac7f6d544dc032f0f` — head **moved** from `c98d77b`; the shared-artifact findings (one identical submission file in six places across five repositories; 48 unique published artifacts across 12 repositories) are unchanged in substance; the repo is actively maintained (push 2026-10-11T11:23:49Z).
+- **Fresh census** (18:25:37Z): `GET /users/buffedlizard55-lab` → `public_repos: 146`; the paginated public list contains **63 GEMS-named repositories** — the 62 curated `gems-prize-lanes` members plus `62GEMSDOE` (`ungroupedByDesign`). All **ten** repositories the `6GEMSDOE` recommendation names for deletion were probed individually: HTTP 200, still public (18:25:51Z). Recorded consequence: the recommendation's own inventory (11 repos, delete 10) is stale against today's account (63) — quantified in the record as a measured observation, no position taken.
+- Wrote the **T-006 section in `OWNER-DECISIONS.md`**: the conflict quoted from the repositories' own files with per-source Contents-API + blob hand-review links, the current official re-check, an explicit "what the API can and cannot settle" section (intent, DrivenData registration and submissions are outside GitHub; no session can resolve them), a four-option decision menu with the safe next action for each (including: record the owner confirmation in this file first, then act in the GitHub UI; removed records would join the frozen-unreachable class, never silently erased), and the status-quo default.
+- Updated **`FL-08`** in `FLAGGED.md` to link the record (row stays open — owner confirmation pending, same pattern as `FL-03`/T-004). Marked **T-006 done** in `TASKS.md`. Docs/record-only change: no generated file (`data/sites.js`, `VERIFICATION.md`, `SITES.md`) touched, no overlay edit, no data republished; the published snapshot on `main` is unchanged at `2026-10-11T15:06:10Z` (newer censuses at `16:58:53Z` and later exist only on the unmerged PR branches #44/#54 at session start).
+- `scripts/validate` and `npm run check` re-run green on the final tree before merge (see the PR for exact counts).
+
+### What is blocked / limitations
+
+- **T-006's substance is blocked on the owner, by design.** The record exists; the *decision* (keep all lanes / consolidate per `6GEMSDOE` / consolidate around another lane / mixed) can only be made by the account holder. Until then `FL-08` stays open and the directory keeps listing all 63 lanes.
+- Standing owner-side items unchanged: the four frozen 404 repositories (T-004 record); `GEMSDOE53` `errored` since 2026-10-09 with no push to re-trigger it (`FL-05`); `NFLInjuryReport` volatile Pages status (`FL-17`); `62GEMSDOE` category question (`FL-13`).
+- Competition-side facts (which DrivenData registration is the entry, what was submitted) are **unverifiable from any GitHub source** and are recorded as such; nothing in this session attempts them.
+
+### What is next
+
+1. **Owner decisions** are now the dominant open class: T-006 (this record) and T-004 (frozen 404s) both await a one-line confirmation in `OWNER-DECISIONS.md`; `FL-05`/`FL-17` need a push or rebuild.
+2. **PR #44** (docs-only, T-014 evidence) was still open and `CONFLICTING` at session start — it needs its own session to rebase, or a close-and-supersede decision.
+3. **T-002** (claimed by `96e82e25`): the PROSE-STALE re-read queue and `FL-18`'s five `{path}` template citations remain the largest accuracy backlog.
+4. Check whether the T-021 (PR #54) and T-022 (PR #53) sessions merged while this one ran; if their census landed, verify `FL-17`'s `NFLInjuryReport` status settled to `built` or stayed volatile in their snapshot (as of this session's end, `main` still publishes the `15:06:10Z` snapshot).
+5. If the owner ever confirms consolidation, the exact runbook is in `OWNER-DECISIONS.md` §T-006 options 2–3.
