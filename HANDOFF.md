@@ -1287,3 +1287,31 @@ them is a duplicate and should be closed by the owner.**
 4. **PR #44** (docs-only) still needs its own session to rebase it out of `CONFLICTING`.
 5. **Protocol tweak worth adopting (no code needed):** open the PR at claim time, per the double-claim
    lesson above.
+
+### Post-merge record (same session, after PR #51 landed)
+
+- **PR #51 merged 2026-10-11T17:20:34Z**, merge commit **`6dacf7b`** on `main`. CI on the rebased head
+  (`f5a9527`): **`browser-tests` passed in 2m50s** (run
+  [38159007862](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38159007862)) after an
+  earlier pass in 2m29s on the pre-rebase head. Two mid-flight main movements were absorbed by rebases:
+  PR #49 (T-016 weekly audit scheduling) and PR #50 (its post-merge record); the only conflicts were
+  append-order in `TASKS.md`/`HANDOFF.md`, resolved keeping the other session's rows and entries
+  verbatim.
+- **Read back from `origin/main` after the merge rather than assumed:** `VERIFICATION.md` §4b carries
+  the `audit_provenance.py` row **with** the per-entry `reports/provenance/2026-10-11T160219Z.md`
+  link; `scripts/validate` §B carries the fail-closed guard and reports **5,420 checks, PASS** on the
+  merged tree (5,419 before T-018); `AGENTS.md` §4 documents the row states and guard; `TASKS.md`
+  carries exactly one T-018 row marked done with the double-claim history; `HANDOFF.md` carries both
+  the T-016 session entry (verbatim) and this session's entry. The published snapshot is unchanged at
+  `2026-10-11T15:06:10Z` — this PR republished no data.
+- **What the next session inherits:** §4b's four report rows and `tools/run_scheduled_audits.py`
+  (T-016) now read the same report-JSON contract — trigger the weekly workflow's first full run via
+  `workflow_dispatch` rather than waiting for Monday 08:13 UTC, and expect its review issue to stay
+  open on `FL-18` until T-002 expands the five `{path}` template citations. Largest accuracy queue:
+  the **51-entry** PROSE-STALE list (T-002, claimed by `96e82e25`). Owner decisions outstanding:
+  T-006 (GEMS consolidation stance) and the four frozen 404 repositories (OWNER-DECISIONS.md).
+  `FL-05` (`GEMSDOE53` `errored`) and `FL-17` (`NFLInjuryReport`, volatile) still need a push/rebuild
+  or owner action; `FL-15` keeps `pages-smoke` red by design. **PR #44 is still open and was
+  `CONFLICTING` with main at 17:20:58Z** — its own session needs to rebase it. And per this session's
+  double-claim experience: open the PR at claim time so the claim is visible in `gh pr list` during the
+  commit-to-merge window.
