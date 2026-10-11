@@ -1,0 +1,41 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "NHLComp",
+  "title": "NHLComp — Autonomous NHL Betting Strategy Research Platform",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Autonomous NHL betting-strategy research and paper-trading competition platform that never trades real money: it cross-verifies real public data (official NHL schedule, boxscores, stats, rosters, drafts and standings; ESPN injury data; Kalshi public market data and, optionally, TBD one), runs backtest and forward phases with a 1,000 USD starting bankroll, a configurable 100-bet rolling window and a promotion gate requiring at least 100 backtest, 40 validation and 40 forward bets, and publishes every flag, limitation, irregularity, source and finding on the site. The leaderboard reports 83 strategies per mode with 66 active in each (17 quarantined), of which 22 show at least one settled backtest bet. The generated competition.json at 2026-09-23T02:03:46Z records the BACKTEST phase as 3,921 bets, all 3,921 settled (1,846 wins, 2,075 losses), +$1,012.43 on $122,873.96 staked — a 0.82 percent return on stakes and a 47.08 percent win rate — while the FORWARD TEST phase records 0 bets, 0 settled, 0 open and a PnL of 0.0 with a null ROI. IRREGULARITY: the same repository's data/bets.json holds 127 FORWARD TEST rows at this head, every one of them result OPEN with pnl null, so the forward zero-bet figure is a bookkeeping artifact of the forward ledger not the competition.json roll-up, and the leaderboard's forward rows additionally carry 1 preseason settled bet worth +$53.26 that is explicitly flagged scored_in_competition false (IRR-99). A hockey-specific tracker (scripts/nhl_track.py --analyze) runs the 66 active strategies against the 2025-26 season as the forward book; the leaderboard's quality block reports 94 irregularities registered, 83 published (26 open, 68 resolved) and 167 findings and 30 sources, while a separate independent verifier at commit 3456621 re-validated 5,248 team-game rows against the official schedule with 0 score conflicts (392 of them shootout-adjusted) and 7,968 totals settlement contracts with 0 conflicts.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/NHLComp/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/NHLComp",
+  "created": "2026-09-20T18:37:41Z",
+  "firstCommit": "2026-09-20T18:37:42Z",
+  "lastUpdated": "2026-09-23T00:30:56Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-23T00:30:56Z",
+  "updatedAt": "2026-09-23T00:31:01Z",
+  "commits": 48,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 37282,
+  "flags": [
+    "Classification changed stub -> app on 2026-09-21: the repository now commits a root index.html that meta-refreshes to docs/index.html specifically as a safety net for the legacy branch-based Pages build, so the live URL no longer serves a Jekyll README render. The previously published owner-fix note is resolved.",
+    "The published test count was wrong and has been corrected: the previous entry said 66 unit tests, which is in fact the strategy count. Running the suite gives 231 tests (PYTHONPATH=src python3 -m unittest discover -s tests: 'Ran 231 tests ... OK'). Note the suite fails with ModuleNotFoundError unless PYTHONPATH=src is set, since the package is not installed by `make test` alone.",
+    "The repository documents two of its own near-misses in the README: before a contract-to-rule wording map existed, the 2026-09-20 ledger recorded 183 opportunities as 'no quote published' while holding zero forward wagers, and a totals rule handed the first-sorting strike (1.5) refused all 84 totals opportunities on the 2026-09-21 CI run. Both are fixed with named regression tests."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "2a1f9e3",
+  "snapshotHeadSha": "2a1f9e3",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head 2a1f9e3 after 5 commits (compare cee4338...2a1f9e3: README.md changed, 78 files, +72026/-64239). Read from the repository's own generated files: docs/data/leaderboard.json reports 83 rows in the backtest array and 83 in the forward array with 66 active in each and 17 quarantined; the backtest status histogram is {READY 66, QUARANTINED 17} and the forward status histogram is the same shape; 22 rows carry settled_bets >= 1. docs/data/competition.json, generated 2026-09-23T02:03:46Z, records the BACKTEST phase as 3,921 bets / 3,921 settled / 1,846 wins / 2,075 losses / pnl 1012.43 / total_staked 122873.96 / roi 0.0082, and the FORWARD TEST phase as 0 bets / 0 settled / 0 open / pnl 0.0 / roi null. docs/data/bets.json was loaded in full and holds 4,061 rows: 3,934 BACKTEST and 127 FORWARD TEST, and every one of the 127 forward rows carries result 'OPEN' and pnl null — which contradicts competition.json's forward zero-bet line and is published here as IRR-99 rather than resolved by picking one. The leaderboard's own quality block reports 94 irregularities registered / 83 published / 26 open / 68 resolved, 167 findings and 30 sources; docs/data/irregularities.json holds 94 items whose open/resolved counts agree. The verifier figures (5,248 team-game rows, 0 score conflicts, 392 shootout-adjusted, 7,968 totals contracts, 0 conflicts) are quoted from data/verify.json's cross_validation and totals_settlements blocks. The 1,000 starting bankroll, the 100-bet rolling window and the 100/40/40 promotion gate are quoted from README.md. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/NHLComp/contents/docs/data/competition.json?ref=2a1f9e3.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/NHLComp",
+    "https://api.github.com/repos/buffedlizard55-lab/NHLComp/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/NHLComp/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/NHLComp/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

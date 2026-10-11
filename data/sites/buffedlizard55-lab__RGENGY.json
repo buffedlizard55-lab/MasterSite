@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "RGENGY",
+  "title": "RGENGY — RotoGrinders Data Quality Audit",
+  "category": "Sports Data & Scoreboards",
+  "kind": "stub",
+  "description": "Open, auditable rebuild of the data quality behind RotoGrinders' DFS projection system: what it uses, where that data comes from, what could be verified from official sources and — equally — what could not. At commit d758f87 the README's own generated statistics block reads audit date 2026-09-22, 460 tests passing, 16 registered endpoints, 11 scoring tables and 34 findings on the register, and each of those was independently re-counted in this audit: `python3 -m unittest discover -s tests -t tests` ran 460 tests OK, rgengy/data/scoring/ holds 11 JSON tables (MLB across DraftKings, FanDuel and Yahoo, NBA, NFL, NHL and WNBA across DraftKings and FanDuel), rgengy/findings.py carries 28 IR-nn irregularities plus 6 L-nn limitations, and `python3 -m rgengy sources` prints 16 endpoints, 14 official, 2 unofficial, 0 requiring auth. The headline result is an external validation: RGENGY's independently sourced DraftKings MLB coefficients, applied to RotoGrinders' own published stat projections, reproduce the published FPTS for all 6 free rows within 0.07 FPTS (0.56 percent worst case), and FPTS per dollar reproduces exactly as FPTS / (SALARY / 1000) with a maximum error of 0.0036 over those 6 rows — the only RotoGrinders analytic column the project claims to reproduce. Counting the tables value by value, 122 coefficients across 9 of the 11 carry confirmed_by_operator true. Anything that could not be verified is null with a written reason: RotoGrinders' OBFPTS, TOPVAL, DIFFERENCE, OPTO and TEAMOWN columns have no published formula.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/RGENGY/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/RGENGY",
+  "created": "2026-09-22T18:19:58Z",
+  "firstCommit": "2026-09-22T18:19:59Z",
+  "lastUpdated": "2026-09-23T00:33:15Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-23T00:33:18Z",
+  "updatedAt": "2026-09-23T00:33:21Z",
+  "commits": 8,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 565,
+  "flags": [
+    "Two of the README's own counts disagree with the repository at the same commit. Its headline table says '15 live-verified … 1 reachable-only' while `python3 -m rgengy sources` prints documented=1, live-verified=14, reachable=1; and L-02 says the operator retrievals confirmed '122 coefficients across 7 of the 11 tables' while the 122 per-value confirmed_by_operator flags are spread across 9 tables. The counted values are published here. IRR-79.",
+    "The audit moved while it was being read. This entry was first counted at commit 8300513, where the same commands returned 459 tests, 29 findings and endpoint status documented=3, live-verified=9, reachable=1, unverified=3; pass 3 then landed as babac1f and d758f87 ('repair what the first live CI verify run exposed; publish it'), taking the suite to 460 and the register to 34. Every figure below is re-taken at the later head.",
+    "L-02 is the binding constraint and it is stated rather than hidden: the build sandbox has no raw-socket network access so the live pipeline is exercised by CI rather than locally, DraftKings' canonical in-app rules page (the document of record) remains unretrieved, and MLB caught stealing (IR-04) and the DraftKings quality-start question (IR-05) stay flagged. Five defects found in RGENGY itself are on the register, two of them surfaced by the project's own live CI verify run — a mis-encoded ESPN URL and a checker that scored healthy HTML pages as failures — each fixed and pinned by tests.",
+    "IR-18 was reversed twice, and the second reversal undid the audit's own correction: pass 2 set the NFL 100- and 300-yard bonuses to 0.0 on the strength of two 2026 secondary sources, then FanDuel's own rules page showed that both operators do pay them, so the secondary sources were wrong and the 'correction' was the error.",
+    "The Pages workflow uploads site/ as an Actions artifact (actions/upload-pages-artifact with path: site, then actions/deploy-pages), but GET /repos/buffedlizard55-lab/RGENGY/pages reports build_type legacy with source main / and there is no index.html at the root, so the published URL is a Jekyll render of the branch root rather than the built site in site/. Classified stub on that basis. IRR-76."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T02:35:00Z",
+  "verifiedAtSha": "7333ab3",
+  "snapshotHeadSha": "7333ab3",
+  "proseStale": false,
+  "verifiedBasis": "Written from a clone reset to commit d758f87 after the repository moved mid-audit; the first count was taken at 8300513 and every figure was re-derived at the new head. Executed rather than quoted: `python3 -m unittest discover -s tests -t tests` printed 'Ran 460 tests in 7.023s / OK', agreeing with `grep -rc 'def test_' tests/*.py` == 460; `python3 -m rgengy sources` printed '16 endpoints | 14 official | 2 unofficial | 0 requiring auth' and 'status: documented=1, live-verified=14, reachable=1'; `ls rgengy/data/scoring/*.json | wc -l` == 11; distinct IR-nn and L-nn identifiers in rgengy/findings.py count 28 and 6, and the README's generated statistics block (which scripts/build_docs.py writes and `build_docs.py --check` gates) states the same 460 / 16 / 11 / 34. The 122-of-9 figure was computed by walking each table's values object and counting confirmed_by_operator is True: mlb_draftkings 19, nfl_fanduel 22, nhl_draftkings 17, mlb_fanduel 14, nfl_draftkings 13, nhl_fanduel 10, nba_draftkings 9, nba_fanduel 9, wnba_fanduel 9, mlb_yahoo 0, wnba_draftkings 0 — and docs/03-scoring-verification.md's own per-table 'X/Y values' rows sum to the same 122 confirmed of 183 values. The 0.07 FPTS, 0.56 percent, 0.0036 and 6-free-rows figures are quoted from README.md's headline table at this commit, which cites docs/04-rg-findings.md sections 1 and 2. Pages classification from GET https://api.github.com/repos/buffedlizard55-lab/RGENGY/pages (status built, build_type legacy, source main /) plus HTTP 404 on GET .../contents/index.html?ref=main and a root listing that has site/ but no root index.html. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/RGENGY/compare/8300513...d758f87. RE-STAMPED at 7333ab3 after triaging compare d758f87...7333ab3 rather than assuming it benign: 2 commits, 24 files, +1241/-21, and README.md is NOT among them — but per IRR-70 that justifies triage, not a silent re-stamp, so the changed files were listed and the tree re-walked. The substance is a new published page, site/app.html (+147), which the commit title names an interactive DFS projection, optimizer and simulator platform, plus a +1/-1 touch to each of the 13 other site/*.html pages (a nav link) and scripts/build_site.py +9/-1. Nothing this description quotes moved: every figure in it is from README.md's generated statistics block or from files this audit counted at d758f87 (460 tests executed, 11 JSON tables in rgengy/data/scoring/, 28 IR-nn + 6 L-nn in rgengy/findings.py, 16 endpoints from `python3 -m rgengy sources`, 122 confirmed_by_operator values across 9 of 11 tables), README.md is byte-identical across the range, and the description claims no page inventory that app.html would falsify. kind stays stub, re-checked at the new head: GET .../git/trees/7333ab3?recursive=1 lists 97 files with no index.html at the root (site/ and docs/ hold the published pages) and GET .../contents/index.html returns HTTP 404. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/RGENGY/compare/d758f87...7333ab3.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/RGENGY",
+    "https://api.github.com/repos/buffedlizard55-lab/RGENGY/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/RGENGY/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/RGENGY/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

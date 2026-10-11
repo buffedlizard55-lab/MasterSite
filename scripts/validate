@@ -32,6 +32,7 @@ Checks performed
 import json
 import os
 import re
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -265,6 +266,39 @@ def main():
         check(bool(claims), "TASKS.md has no well-formed claim lines (session=<id> at=<UTC>)")
         check(bool(re.search(r"\| (unclaimed|claimed|in review|blocked|done|passed) \|", text)),
               "TASKS.md has no task rows with a recognised Status")
+
+    # ---- J. per-site export (data/sites/) ----------------------------------------
+    # The protocol's per-site layout, generated from the overlay + data/sites.js by
+    # tools/export_site_records.py. It must never drift from the published snapshot,
+    # and a field the exporter could not fill must be visible in FLAGGED.md.
+    export_check = subprocess.run(
+        [sys.executable, os.path.join(ROOT, "tools", "export_site_records.py"), "--check"],
+        capture_output=True, text=True, cwd=ROOT)
+    check(export_check.returncode == 0,
+          "data/sites/ export is out of sync with data/sites.js — %s"
+          % ((export_check.stdout.strip() or export_check.stderr.strip()) or "no output")[:300])
+    export_dir = os.path.join(ROOT, "data", "sites")
+    if os.path.isdir(export_dir):
+        names = sorted(n for n in os.listdir(export_dir) if n.endswith(".json"))
+        check(len(names) == len(sites),
+              "data/sites/ holds %d record(s) for %d published site(s)" % (len(names), len(sites)))
+        flagged_text = open(FLAGGED, encoding="utf-8").read() if os.path.isfile(FLAGGED) else ""
+        for name in names:
+            rec = json.load(open(os.path.join(export_dir, name), encoding="utf-8"))
+            check(rec.get("repo") in seen,
+                  "data/sites/%s: record for %r is not a published repository" % (name, rec.get("repo")))
+            for field in rec.get("unverifiedFields", []):
+                check(rec["repo"] in flagged_text,
+                      "data/sites/%s: unverified field %r is not mentioned in FLAGGED.md"
+                      % (name, field))
+            if rec.get("proseStale"):
+                ledger_text = open(LEDGER, encoding="utf-8").read() if os.path.isfile(LEDGER) else ""
+                behind = ledger_text.split("are provably behind their repository", 1)
+                check(len(behind) == 2 and ("`%s`" % rec["repo"]) in behind[1].split("\n")[0],
+                      "data/sites/%s: PROSE-STALE record is not in the VERIFICATION.md "
+                      "stale queue (regenerate it with tools/build_verification.py)" % name)
+    else:
+        check(False, "data/sites/ is missing — run tools/export_site_records.py")
 
     # ---- report ------------------------------------------------------------------
     print("checks run: %d" % checks)

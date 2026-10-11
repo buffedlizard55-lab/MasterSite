@@ -1,0 +1,41 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "VacationSchedule",
+  "title": "VacationSchedule — Free Time Scoreboard (SF Radio Blackout Calendar)",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Bay Area vacation planner comparing three definitions of sports-free time in 2026-2029 for a listener in San Francisco ZIP 94122, with one-, two- and three-week trip checks, a daily scoreboard, a month calendar, Pacific-time free intervals, sources and a review queue. The three sections nest: Section 1 counts all 30 MLB clubs plus 49ers preseason, regular season and postseason and the Westwood One national NFL feeds as busy; Section 2 adds Stanford and California football; Section 3 adds San Jose Earthquakes MLS. An 'Everything tracked' option adds national NCAA football plus Golden State Warriors and Golden State Valkyries on KGMZ 95.7 The Game. Only AM/FM broadcasts count, so the San Jose Sharks (app/streaming only) and Audacy-app-only Valkyries games are disclosed exclusions, and USF basketball, Westwood One NCAA basketball and local college basketball are named as documented gaps rather than silently treated as free time. With Spring Training excluded, Sections 1 and 2 give longest modeled windows of 44 days in 2026 (Feb 9 - Mar 24, past), 37 in 2027 (Feb 15 - Mar 23), 40 in 2028 (estimated) and 41 in 2029 (estimated); with Spring Training included no section reaches two weeks. The repository refuses a blanket verified claim: TBD kickoff reserves the entire local date including DST 23- and 25-hour days, 'no known conflict' is stated to describe the snapshot rather than certify a quiet day, and all times are America/Los_Angeles rather than a fixed UTC-8 offset. A 2026-09-21 session-3 pass added two tabs: MLB 2026 & 2027, listing every fixture the league has scheduled for all 30 clubs from the committed Stats API snapshot with each row carrying the league's own game_pk, and Postseason 2026, which splits the postseason into what is resolved and what is not — clinched berths and division titles, official round dates, dates that cannot carry a game, and a machine-measured count of published first pitches, still zero. The fixture lists are produced on a GitHub runner by scripts/export_mlb_schedule.py, validated for all 30 clubs, a plausible regular-season count and unique game ids, and committed with a provenance summary recording the exact request URL, the retrieval time and a SHA-256 of the raw response, so every row is re-verifiable by hand. Where a season snapshot exists the analysis blocks real fixture dates rather than a continuous season frame. The 125-test suite was executed here and passes.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/VacationSchedule/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/VacationSchedule",
+  "created": "2026-09-20T00:48:59Z",
+  "firstCommit": "2026-09-20T00:49:00Z",
+  "lastUpdated": "2026-09-27T17:53:43Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-27T17:53:44Z",
+  "updatedAt": "2026-09-27T17:53:48Z",
+  "commits": 44,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 1798,
+  "flags": [
+    "Substantially rewritten upstream between 2026-09-20 and 2026-09-21 (13 commits, 'Rebuild site as a clean, table-first vacation decision engine'). The previously published description — 11-day best window, 42 tests, 53 review items, 21 irregularities in docs/IRREGULARITIES.md — no longer matches the repository and has been replaced wholesale rather than patched (IRR-66).",
+    "Classification changed stub -> app: the Pages workflow publishes site/ via Actions, and the repository also commits a root index.html that forwards to site/ so the legacy main/root Pages setting keeps working. tools/audit_kind.py now reports main//index.html HTTP 200, resolving the earlier IRR-43-class finding.",
+    "Coverage is explicitly partial and the repository says so: the 2026-09-21 pass re-verified Westwood One rows, MLB clinch facts, Super Bowl dates and the 49ers per-game radio stations, but college and MLS fixtures remain inherited snapshots, and 53 postseason records still have no published start time."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "d6436dd",
+  "snapshotHeadSha": "342fc5c",
+  "proseStale": true,
+  "verifiedBasis": "RE-READ at head d6436dd after 8 commits (compare 2d74550...d6436dd: README.md changed, 73 files, +12514/-11330). This is a full re-read of README.md at this ref; the previous entry had already been rewritten at the same commit, so its prose claims were re-checked line by line rather than carried forward, and the only substantive change is the addition of an executed test count. The 44/37/40/41-day window table, the three nesting section definitions, the KGMZ 95.7 Warriors and Valkyries addition under 'Everything tracked', the Sharks and Audacy disclosed exclusions, the named USF / Westwood One / local-college-basketball gaps, the TBD-kickoff and DST 23/25-hour rules, the America/Los_Angeles statement and the two 2026-09-21 session-3 tabs (game_pk-carrying MLB 2026 & 2027 fixture lists, and the Postseason 2026 tab with its still-zero published-first-pitch count) are all quoted from README.md at this ref (lines 30-75). The GitHub-runner provenance rule (exact request URL, retrieval time, SHA-256 of the raw response) is quoted from README line 75. Test suite executed: `PYTHONPATH=. python3 -m pytest tests -rA` printed 125 PASSED. Numeric claims the previous entry deliberately withdrew (42 tests, 53 review items, 21 irregularities) remain withdrawn — they are not re-derivable from the current tree and are not re-asserted here. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/VacationSchedule/contents/README.md?ref=d6436dd.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/VacationSchedule",
+    "https://api.github.com/repos/buffedlizard55-lab/VacationSchedule/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/VacationSchedule/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/VacationSchedule/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

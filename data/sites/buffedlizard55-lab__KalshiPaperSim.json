@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "KalshiPaperSim",
+  "title": "KalshiPaperSim — Paper-Trading Competition Lab",
+  "category": "Markets & Trading Research",
+  "kind": "app",
+  "description": "Paper-trading lab for 61 strategies on Kalshi markets — deliberately separate from the live paper-trading competition — whose counter pipeline fills a history store from Kalshi's public API on GitHub Actions, regenerates the browser-safe modules, leaderboard, charts and docs, and commits the result. Everything below was re-derived at head 8a359bd (2026-09-23T22:56:42Z) from the repository's own committed files rather than from its prose. Executed there: node --test test/*.test.js → 157 tests, 157 pass, 0 fail, and require('./src/strategies.js') → 61 strategies. Loaded and summed there: data/reports/candle-coverage.json holds 122 markets totalling 13,228 stored daily bars, of which 13,092 were added by the ingest; its flight report ranks the daily replay as 31 entries over 401 periods across those 122 markets, of which 7 finished ahead of the 100,000 starting capital (best MakerFlip_SpreadHarvest +3.69%), 19 behind (worst GammaWhale_Squeeze -38.22%) and 5 flat, while the hourly flight runs 1,568 periods over 418 markets; and live-desk.json records 23 desk entrants on a 100-market tradeable universe with 32 orders, 31 paper fills, 1 cancel, 0 rejects and 2,347.59448 of official fees. The repository's own VERIFICATION.md itemises 125 verified facts, 110 of which carry a URL a reader can open, and IRREGULARITIES.md holds 67 flagged headings. data/reports/game-window-captures.json, generated 2026-09-23T20:00:27Z, classifies 2,307 captured ladders across 222 stores and reports 2 captured inside a verified event window in series KXMLBGAME, 1,199 further non-empty ladders inside the tradeable window whose event window could not be joined, and 1,106 post-close — its own honestNote states both figures rather than only the flattering one.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/KalshiPaperSim/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/KalshiPaperSim",
+  "created": "2026-09-17T18:39:16Z",
+  "firstCommit": "2026-09-17T18:39:17Z",
+  "lastUpdated": "2026-10-11T02:00:19Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-10-11T02:00:23Z",
+  "updatedAt": "2026-10-11T02:00:29Z",
+  "commits": 604,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 252225,
+  "flags": [
+    "The README contradicts the generated artifacts it describes, at the same head (IRR-107). README prose still reads ‘151 game-series stores / 1,544 captured ladders … 0 in-play ladders, 1,031 … 513 post-close’ where data/reports/game-window-captures.json, generated 2026-09-23T20:00:27Z, holds 222 stores, 2,307 ladders, **2** ladders captured inside a verified event window, 1,199 unjoined tradeable and 1,106 post-close. The README's AUTO:COUNTS banner also still says 13,341 candles, 149 tests and $2,719.9854 of fees where the committed artifacts and the executed suite give 13,228, 157 and $2,347.59448.",
+    "The Python pipeline this entry previously described no longer exists. At head 8a359bd `find . -name '*.py'` returns nothing, scripts/verify.py and scripts/trade.py are absent, there is no `*/30 * * * *` cron in any of the nine workflow files, and scripts/verify.py's 'five PASS / 47 FAIL public-figure gates' figure cannot be reproduced because the script that printed it is gone. The pipeline is now Node (scripts/render-docs.js, run-reports.mjs, ingest-history.mjs, verify-game-window.mjs) gated by ci.yml, which runs npm test, test/workflow-race-guard.sh, npm run test:ui and node build.js.",
+    "Its headline counters are machine-regenerated and move on nearly every commit, so any quoted figure has a short shelf life; this entry's figures are stamped to head 8a359bd and the counters in AUTO:COUNTS were already ahead of the artifacts they summarise.",
+    "Figures withdrawn this pass because they are not re-derivable from the current tree: the previous entry's hourly-store totals (436 markets / 53 series / 282 finalized / 23,522 closes), micro-store totals (421 / 47 / 283 / 13,347) and the 19-template / 24-code-driven / 18-synthetic strategies breakdown. None of the three appears in README.md at head and no committed summary block could be located for them, so they are removed rather than restated.",
+    "Paper trading only, on captured data: no order is ever submitted to Kalshi. The Live Desk trades real OPEN contracts priced from captured ladders, but fills are simulated and the replay flights are historical, so a strategy's rank here is not a claim about live execution. Its leaderboard table also excludes at least one design entirely rather than showing it at 0 percent."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-24T00:20:00Z",
+  "verifiedAtSha": "8a359bd",
+  "snapshotHeadSha": "b693b43",
+  "proseStale": true,
+  "verifiedBasis": "RE-READ at head 8a359bd (2026-09-23T22:56:42Z) from a shallow clone; this replaces a stamp that read AUTO:COUNTS, which is not a commit SHA and could never be satisfied (IRR-108). Executed in the clone: node --test test/*.test.js (1..157, pass 157, fail 0, 0 skipped) and node -e require('./src/strategies.js') → 61 strategies. Counted with json.load: data/reports/candle-coverage.json → 122 markets, sum(storedBars) 13,228, sum(barsAddedByIngest) 13,092, sum(repoBars) 136; data/reports/flights.json → daily horizonPeriods 401 / markets 122 / leaderboard 31 entries (7 positive, 19 negative, 5 flat), hourly horizonPeriods 1,568 / markets 418, micro 5,187 / 381; data/reports/live-desk.json → results 23, universe.tradeable 100, summary.totals orders 32 / fills 31 / cancels 1 / rejects 0 / fees 2,347.59448; data/reports/game-window-captures.json → totals.stores 222, totals.ladders 2,307, phases.IN_PLAY 2, TRADEABLE_EVENT_UNVERIFIED 1,199, POST_CLOSE 1,106, seriesWithInPlayLadder ['KXMLBGAME']. Counted by csv.reader: data/ledger/unified-trades.csv → 32,890 data rows (the previous entry published 20,064, which is superseded). Counted by heading in IRREGULARITIES.md → 67. Read from the repository's own VERIFICATION.md → 125 facts (110 of 125 with a URL), and its line 347 → 9 real markets across 7 series captured 2026-09-17. Absence of the Python lane proved by find -name '*.py' returning nothing and by grep for '*/30' across .github/workflows/ returning nothing.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/KalshiPaperSim",
+    "https://api.github.com/repos/buffedlizard55-lab/KalshiPaperSim/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/KalshiPaperSim/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/KalshiPaperSim/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

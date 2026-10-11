@@ -1,0 +1,40 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "SFWeather",
+  "title": "SFWeather — 94122 Rainy-Season Outlook",
+  "category": "SF Local Guides",
+  "kind": "app",
+  "description": "Bay Area vacation-planner and rain-risk evidence layer for a listener in San Francisco ZIP 94122, built only from committed verified national weather data (NOAA NCEI station USW00023272, GSOD 72494023234, ISD hourly 72494023234, plus NOAA Storm Events, which holds 119 San Francisco County records of which 99 are rain-related and whose damage column is recorded as unusable). The analysis window runs 2026-10-01 to 2027-01-31, a 123-day season with 6 cost drivers and 5 inputs, generated 2026-09-24T12:49:02Z. Across the 30-year seasonal summary the mean seasonal rainfall is 12.79 inches (median 13.26, range 1.71 to 22.82), the mean number of wet days at or above 0.01 inch is 34.5 (median 35.0, range 7.0 to 55.0 out of 123), and a run of 3 or more consecutive wet days occurs in 96.7% of the 30 seasons — 80.0% for a run of 5 or more, 53.3% for 7 or more, 23.3% for 10 or more, with the longest run averaging 7.3 days and reaching 17.0. Days at or above 0.25 inch average 14.97 and days at or above 1.00 inch average 3.19, against NOAA's published 14.9 and 3.26 — an agreement within 0.06 day. The season is classified El Niño: 11 of the 30 seasons on record were, and the probability of a 7-day-or-longer wet spell there is 81.8%. Executed here: tests/test_parsers.py reports 502 of 502 checks passed, and pipeline/verify_claims.py reports 90 checks passed with 0 failed and 1 documentation-date warning. At this head the scheduled refresh refused to publish because its claim ledger failed, so the committed data below is the last verified state rather than a fresh read.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/SFWeather/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/SFWeather",
+  "created": "2026-09-17T04:26:19Z",
+  "firstCommit": "2026-09-17T04:26:20Z",
+  "lastUpdated": "2026-10-10T13:55:49Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-10-10T13:55:50Z",
+  "updatedAt": "2026-10-10T13:55:54Z",
+  "commits": 205,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 13727,
+  "flags": [
+    "CPC outlooks are attached only as probabilities for a period and are never converted into daily numbers.",
+    "Withdrew its own unsourced claim in session 14 (its bug 74): the README previously called the SFO wind record 'an upper bound' for ZIP 94122 and now states that SFO is 11.9 miles away on the bay shore, that no official station inside 94122 holds a long wind record, and that no source in the project establishes whether the ocean-facing Sunset is windier or calmer — so the wind figures are SFO reference values, not a bound. A smoke test now fails any page text that calls it an upper bound. Session 14 also added an ENSO-phase-conditioned severity table (11 El Nino seasons averaging 3.7 days at 1.00 in or more against 3.2 over all 30, and 3.2 days with a gust of 40 kt or more against 2.4), with every row printing its own n, median and worst season beside the all-season figures, labelled observed rather than forecast."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-26T00:20:58Z",
+  "verifiedAtSha": "bd93ed2",
+  "snapshotHeadSha": "bb0d6ce",
+  "proseStale": true,
+  "verifiedBasis": "RE-READ at head bd93ed2 (2026-09-25T12:58:11Z): the prior stamp 6e51ce8 no longer exists upstream (422 'No commit found', 0 occurrences in the main history), so no diff from it is reproducible and every claim was re-derived (IRR-115). Quoted from data/executive_summary.json and .md at this head (generated 2026-09-24T12:49:02Z): window, 6 cost drivers, 5 inputs, all rainfall / wet-day / run-length / threshold / agreement / El Nino figures, the 119/99 Storm Events counts and the unusable damage column; README.md lines 82-95 re-confirm the stations, the 3.7-vs-3.2 and 3.2-vs-2.4 severity rows and the 11.9-mile SFO note. Executed here: `python3 tests/test_parsers.py` reports 502/502 checks passed; `python3 pipeline/verify_claims.py` reports 90 passed, 0 failed, 1 warning (6 documentation dates near the run date match no published window). WITHDRAWN: the 29x13 matrix, the 12 by-month means and the paper-trading profit block appear nowhere at this head. The head commit message itself records that refresh run 36137030420 was NOT published because its claim ledger failed — the gate working as designed. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/SFWeather/contents/data/executive_summary.json?ref=bd93ed2.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/SFWeather",
+    "https://api.github.com/repos/buffedlizard55-lab/SFWeather/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/SFWeather/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/SFWeather/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

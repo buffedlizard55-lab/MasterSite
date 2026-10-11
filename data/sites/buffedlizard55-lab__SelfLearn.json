@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "SelfLearn",
+  "title": "SelfLearn — Autonomous No-LLM Research Engine",
+  "category": "Science & ML Research",
+  "kind": "app",
+  "description": "An autonomous, offline-first research engine: six numbered sources (arXiv, Crossref, GitHub, NIST NVD, PyPI, USGS), eleven named deterministic critic rules, nine published scoring criteria, a contradiction register that is never silently resolved, and a CLI that serves, publishes, re-verifies and reports. README.md at commit c492159 describes the pipeline as Compete (six personas build candidate answers made only of quotations plus fixed scaffolding), Criticise (eleven named rules attack each candidate, each attack recording the rule that fired) and Refuse when a source cannot be quoted. The generated run-a467fa87a6df site data (2026-09-23T00:55:17Z) reports 300 claims, 93 documents, 222 competing candidates carrying 960 recorded criticisms, 147 derived open questions, 12 contradictions awaiting a human decision, 102 discoveries, 4 topics, 5 experiments, 28 failures and 46 registered irregularities (23 info, 15 warning, 0 error) of which 38 are open and 8 resolved. Substance is measured rather than asserted: 42 of 300 claims are dated, 252 are quantified, the mean substance score is 0.5166 and 39.67 percent of the corpus is substantive rather than metadata. The run's own change scan attempted 6 sources and scanned 2: arXiv, Crossref, USGS and NVD all returned policy_refused because their robots.txt could not be fetched over the sandbox's TLS egress and RFC 9309 2.3.1.4 requires a crawler to assume complete disallow in that case, so no request was made to those hosts; GitHub and PyPI scanned and returned 13 new items between them. Its link checker reports 126 links checked, 106 ok and 20 failed, and records that the check ran on a GitHub Actions runner with unrestricted egress so that 'unreachable' is not mistaken for a broken link. Its own checks block additionally reports 159 claims without a link and 10 unsupported claims. The test suite was executed here: 189 passed.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/SelfLearn/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/SelfLearn",
+  "created": "2026-09-21T22:41:15Z",
+  "firstCommit": "2026-09-21T22:41:16Z",
+  "lastUpdated": "2026-10-10T21:55:52Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-10-10T21:55:55Z",
+  "updatedAt": "2026-10-10T21:56:01Z",
+  "commits": 137,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 15381,
+  "flags": [
+    "This entry was published as 'SelfLearn — Empty Placeholder Repository' from the 2026-09-21 audit, when the repository genuinely was one commit holding a single 15-byte README (IRR-71). It is now a 31-commit, 234-file application with its own engine package, test suite, evidence store and generated site. The placeholder description had become flatly false, which is the IRR-42 and IRR-64 failure class, and it is rewritten here from the repository's own files. IRR-84.",
+    "Three generated artifacts disagree about the size of the document store because a live engine wrote them at different moments: reports/site_data.json (23:12:31Z) counts 89 documents, reports/SUMMARY.md (23:22:59Z) says 91 retrieved documents stored and hashed and 5 experiments run rather than 3, and evidence/snapshots/ holds 94 files on disk at this commit. The machine-readable counts block is what this entry publishes, with its generation timestamp, and the divergence is recorded rather than reconciled.",
+    "The engine reports its own gaps instead of filling them: checks.claims_without_link is 159 of 300 claims, unsupported_claims is 10, unresolved_contradictions is 12 with 0 resolved, fixture_documents is 0, and at the time of this read sources_polled was 1 with sources_reached 0 and the CLI printed 'no recorded cycle found in reports/site_data.json; the sources table shows no reachability'. The published library is therefore built in snapshot mode over stored evidence, not over a live retrieval run.",
+    "Verification thresholds are published and calibrated rather than implicit: a claim is supported at token coverage 0.8, partially supported at 0.45, with a verbatim quote minimum of 24.0 characters (state/calibration.json), and the calibration block records a baseline accuracy of 0.96 over 26 cases with its disagreements listed.",
+    "The root index.html is a one-page entry point that links into the generated site in docs/, which README.md states explicitly; Pages publishes from main / and a root index.html does exist there, so this entry classifies as app."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "c492159",
+  "snapshotHeadSha": "aae69bf",
+  "proseStale": true,
+  "verifiedBasis": "RE-READ at head c492159 after 1 commit (compare 85828b5...c492159: README.md changed, 5 files, +36941/-36596), a file-only revision. Quoted from the repository's own generated reports/site_data.json (generated_at 2026-09-23T00:55:17Z, run_id run-a467fa87a6df, mode live): counts {attacks 960, claims 300, contradictions 12, discoveries 102, documents 93, experiments 5, failures 28, irregularities 46, questions 147, strategies 222, topics 4}; substance {claims 300, dated 42, quantified 252, mean_score 0.5166, metadata_share 0.15, substantive_share 0.3967}; run_summary.irregularities {by_severity {error 0, info 23, warning 15}, open 38, resolved 8, total 46}; run_summary.change_scan {sources_attempted 6, sources_scanned 2, by_status {policy_refused 4, scanned 2}}; link_check {checked 126, ok 106, failed 20, available true, label 'GitHub Actions ubuntu-latest (unrestricted egress)'}; checks {claims_without_link 159, unsupported_claims 10, fixture_documents 0, resolved_contradictions 0, unresolved_contradictions 12}. The four policy_refused scans are arXiv, Crossref, NVD and USGS, each recording the RFC 9309 2.3.1.4 rationale verbatim. The six personas, eleven critic rules and nine criteria are quoted from README.md lines 9-12 and the pipeline table at lines 53-55; selflearn/ holds think/competition.py and think/critic.py. Test suite executed: `PYTHONPATH=. python3 -m pytest tests -rA` printed 189 PASSED. The previous version of this entry published '89 documents', '141 open questions', '22 recorded failures', '35 registered irregularities (28 open, 7 resolved)' and '156 tests'; all are superseded. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/SelfLearn/contents/reports/site_data.json?ref=c492159.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/SelfLearn",
+    "https://api.github.com/repos/buffedlizard55-lab/SelfLearn/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/SelfLearn/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/SelfLearn/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

@@ -20,14 +20,14 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 | Default-branch commits | **10,579** across the 145 listed repositories |
 | `buffedlizard55-lab` public repositories / Pages-enabled repositories | **146 / 146**; 145 are listed and `ProjX` remains excluded by owner instruction |
 | `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** (re-verified this pass) |
-| Description provenance | **145 / 145** entries carry a source commit SHA and a pass stamp; **41** are behind their snapshot heads and remain a visible re-read queue, not proof the prose is false |
-| Latest prose pass | **45 read / 100 carried** — 38 new entries at `2026-10-11T02:54:23Z`, one re-read at `2026-10-11T03:01:21Z` (`60GEMSDOE` committed to main mid-pass) and six re-reads at `2026-10-11T03:54:54Z` (`GEMSDOE22`–`GEMSDOE27`, re-classified under `IRR-138`) |
+| Description provenance | **145 / 145** entries carry a source commit SHA and a pass stamp; **40** are behind their snapshot heads and remain a visible re-read queue, not proof the prose is false |
+| Latest prose pass | **46 read / 99 carried** — 38 new entries at `2026-10-11T02:54:23Z`, one re-read at `2026-10-11T03:01:21Z` (`60GEMSDOE` committed to main mid-pass), six re-reads at `2026-10-11T03:54:54Z` (`GEMSDOE22`–`GEMSDOE27`, re-classified under `IRR-138`) and one re-read at `2026-10-11T04:09:42Z` (`MALTASUPPLEMENTAL`, closing `FL-12`) |
 | `verify_live.py` | **1,901 checks; 0 hard mismatches; 3 volatile drifts** (`59GEMSDOE.pushedAt`, `61GEMSDOE.sizeKb`, `KalshiPaperSim.sizeKb` — fields GitHub recomputes asynchronously) |
 | `audit_kind.py` | **145 checked; 0 disagreements; 0 unresolved** — re-derived from the Pages source path and the configured-path contents endpoint |
-| `audit_descriptions.py` | **145 checked; 1 needing review (the token `230` in `MALTASUPPLEMENTAL`, tracked as FL-12); 42 documented numeric-token exceptions**. This is a lint, not semantic proof |
+| `audit_descriptions.py` | **145 checked; 0 needing review; 42 documented numeric-token exceptions** — the single open finding (`230` in `MALTASUPPLEMENTAL`, `FL-12`) was closed by re-reading that entry at the snapshot head and withdrawing the token. This is a lint, not semantic proof |
 | `scripts/validate` | **PASS** — every record cites official endpoints, no unfilled values, counts and overlay agree (see below) |
 | Local code checks | `npm run check` and Python syntax compilation pass locally. **The Playwright suite passed in CI on this PR** — `npx playwright install --with-deps chromium firefox webkit` succeeded and `npm test` was green ([run 38110045438](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38110045438), job `browser-tests`, 2m46s). Browser binaries cannot be downloaded inside this sandbox (`ECONNRESET`), so CI is the execution environment of record for layout and keyboard behavior |
-| Irregularities / description notes | **138 / 27** (`IRR-01` … `IRR-138`) |
+| Irregularities / description notes | **138 / 28** (`IRR-01` … `IRR-138`) |
 | Categories | **13** — Science & ML Research (60), Sports Data & Scoreboards (37), Markets & Trading Research (13), Travel & Korea Trip (11), SF Local Guides (8), Unclassified & Placeholder (6), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Health & Personal Guides (1), Reference & Archives (1), Social & Creator Data (1), Travel & Event Dossiers (1) |
 | Pages source paths | **144** from `main /`; **1** (`GOLD`) from `main /docs` |
 | Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all returned HTTP 404 again on 2026-10-11 and remain frozen with their last verified values |
@@ -42,7 +42,8 @@ MasterSite is a source-linked directory of public GitHub Pages repositories for 
 - **The GEMS family alone is now 40+ lanes of one competition, several stating mutually exclusive conclusions.** `58GEMSDOE` blocks its own submission while its neighbour `57GEMSDOE` records download and submit as OK; `6GEMSDOE` recommends deleting the other GEMS repositories (`IRR-119`). Each verdict is scoped to its own lane, so the directory publishes all of them and takes no position (`IRR-135`, `T-006`).
 - **A transient status was captured and corrected rather than published.** A mid-pass census read saw `MALTASUPPLEMENTAL` as `building` three minutes after a push; the final build recorded `built`, which is what ships (`IRR-133`). A status without a timestamp is not a fact.
 - **GitHub does not expose site visits or last use through its public API.** The displayed “Last commit” is the newest committer timestamp on the default branch; `pagesStatus: built` is build metadata. Neither is uptime, rendering, interactivity or usage.
-- **Remaining review work:** the 41 stale description stamps still need source re-reading before those descriptions can be represented as current; keep their flags visible and never clear one by changing only a SHA. The numeric-token lint checks only whether a number appears in the README, not what it means.
+- **One audit finding was closed by re-reading, not by silencing (`FL-12`).** `MALTASUPPLEMENTAL`'s carried description still said “twelve pages … Type G 230 V”, but the README at the snapshot head is already the rewritten *Malta Trip Guide* and contains no `230` token. The entry was re-read at `81930be` (commit time `2026-10-11T02:58:20Z`) and rewritten from that README; the page-count and voltage details were **withdrawn** because they are not re-derivable, which also removed the entry from the `PROSE-STALE` queue (41 → 40).
+- **Remaining review work:** the 40 stale description stamps still need source re-reading before those descriptions can be represented as current; keep their flags visible and never clear one by changing only a SHA. The numeric-token lint checks only whether a number appears in the README, not what it means.
 - **Live HTTP checks are impossible from this sandbox** (`curl` returns HTTP 000 for every Pages URL, including this project's own), so no entry claims the page serves. **T-003** tracks a smoke test from a machine with general egress.
 - **Browser tests were not executed locally** (browser CDN connection reset). The PR workflow installs the engines; report its actual result rather than treating discovery as a pass.
 
@@ -358,7 +359,9 @@ For each listed site, the directory shows:
 | [`index.html`](index.html) | Accessible directory markup, filters, cards, table, panels, and inspector |
 | [`styles.css`](styles.css) | Responsive visual styles |
 | [`app.js`](app.js) | Search, filtering, sorting, exports, inspector, and status copy |
-| [`data/sites.js`](data/sites.js) | **Generated** 100-site snapshot, four unreachable records, 124 irregularities, account totals, and methodology |
+| [`data/sites.js`](data/sites.js) | **Generated** 145-site snapshot, four unreachable records, 138 irregularities, account totals, and methodology. Narrative fields were re-rendered from the overlay at `2026-10-11T04:09:48Z`; the API read stays at `2026-10-11T03:01:01Z` |
+| [`data/sites/`](data/sites/) | **Generated** one record per public repository (`<owner>__<repo>.json`, 145 files) for the multi-session file-per-site protocol: `verified` is a mechanical flag, `unverifiedFields` names anything left `null`, `sourceLinks` lists the official endpoints. Regenerated by the exporter below; never hand-edited |
+| [`tools/export_site_records.py`](tools/export_site_records.py) | **Generator** — writes `data/sites/` from `tools/overlay.json` + `data/sites.js`; `--check` verifies the committed export is in sync (used by `scripts/validate`) |
 | [`tools/overlay.json`](tools/overlay.json) | Curated titles, categories, descriptions, flags, source stamps, exclusions, and irregularity register |
 | [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads GitHub's official API and writes `data/sites.js` |
 | [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from the snapshot and current audit reports |
@@ -367,6 +370,10 @@ For each listed site, the directory shows:
 | [`tools/verify_live.py`](tools/verify_live.py) | **Read-only verifier** — compares snapshot API fields against GitHub; never writes the dataset |
 | [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only numeric-token lint** — checks whether description numbers occur in the README; not semantic proof |
 | [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — checks for `index.html` at each configured Pages path; only HTTP 200/404 resolve type, other responses are unresolved |
+| [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, and the `data/sites/` export sync |
+| [`FLAGGED.md`](FLAGGED.md) | **Hand-maintained review queue** — every field that could not be verified from an official source, with the endpoint to open by hand and whether only the owner can resolve it |
+| [`TASKS.md`](TASKS.md) | **Claim board** — the multi-session protocol, task queue with `session=<id> at=<UTC>` claims, and frozen constraints |
+| [`HANDOFF.md`](HANDOFF.md) | **Session log** — what each session did, what is blocked, and what the next session should pick up |
 
 ### Testing the interface
 
@@ -510,7 +517,7 @@ the deletion or privacy change.
    semantic accuracy; repository files can contradict their own README, and the
    irregularities register records known cases without claiming exhaustiveness.
 6. **The account can change during and after a snapshot.** Current API values
-   are independently checked, and 41 prose stamps already lag the current head.
+   are independently checked, and 40 prose stamps already lag the current head.
    Re-run the refresh and audits before relying on a later reading.
 7. **Four previously listed repositories are currently 404** and await owner
    review, while `ProjX` remains intentionally excluded. The other named
@@ -526,7 +533,7 @@ the deletion or privacy change.
 
 | Priority | Follow-up | Why |
 |---|---|---|
-| High | Re-read the **41 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
+| High | Re-read the **40 stale descriptions** against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
 | High | Confirm the pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect before merging | Local browser binaries were unavailable in this sandbox |
 | Owner review | Resolve `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` (restore or confirm retirement) | Their repositories currently return HTTP 404; only the owner can establish intent |
 | Medium | Add scheduled API/prose/kind audits that open a review PR when results drift | The catalog changes over time; a repeatable schedule shortens the snapshot-to-review interval |

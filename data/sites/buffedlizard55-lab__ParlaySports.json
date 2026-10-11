@@ -1,0 +1,43 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "ParlaySports",
+  "title": "ParlaySports — Multi-Sport Parlay Paper Competition",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Simulated multi-sport parlay research platform and paper-trading competition across NFL, MLB, NHL and NBA — dependency-free Python engine, hash-routed static site, two sealed books that are accounted separately and never merged. State read from data/site/meta.json at commit f939267 (engine 1.1.0, exported 2026-09-22T20:06:21Z over data as of 2026-09-22T01:30:00Z): 29,056 games, 7,014 parlays, 20,570 legs and the same 20,570 signals, 8,267 ledger rows, 60,504 prices, 54,296 ratings, 28 strategies, 28 users, 24 research items, 28 verifications and 13 open quality issues. The catalog in parlaysports/strategies.py is 28 versioned strategies — six per sport plus four multi-sport — each with a named manager, a written hypothesis, selection rules, a minimum edge and documented limitations, staking 10 USD per ticket (the longshot lottery book 25 USD) from a 10,000 USD bankroll per strategy per book. Every leg and ticket carries a pricing grade: VERIFIED, REFERENCE, MODEL, MIXED or UNPRICED, the last tracked for hit rate only at 0 stake. Settlement is append-only from final scores, with push and void legs reducing a ticket and an all-push ticket refunded. Three gates were executed in this audit rather than quoted: the unittest suite ran 60 tests OK, the committed data/audit_report.json holds 63 checks every one of which is PASS, and node scripts/ui_smoke.mjs rendered all 15 site routes.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/ParlaySports/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/ParlaySports",
+  "created": "2026-09-21T23:59:04Z",
+  "firstCommit": "2026-09-21T23:59:05Z",
+  "lastUpdated": "2026-10-10T14:34:05Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-10-10T14:34:07Z",
+  "updatedAt": "2026-10-10T14:34:12Z",
+  "commits": 28,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 7302,
+  "flags": [
+    "The committed audit report is 63/63 PASS, but re-running scripts/audit.py from a fresh clone in this audit stopped at check 2 with 'database-exists: run seed first', because the working database is not committed. The 63/63 published here is the repository's own persisted record at this commit, not a gate this audit reproduced end to end; `make seed` has to run first. IRR-78.",
+    "Coverage gaps are declared rather than padded: the pinned MLB results file holds full 2023-2025 and Apr-Jul 2015 only, with nothing for 2016-2022, so MLB backtests run over 2023-2025 and a missing-historical-periods quality check flags the gap on every build. NBA backtests use Oct-Dec slices only from the SBR archive, S-NHL-05 has no verified puck-line history and is forward-armed only, S-MLB-06 is forward-only by design, and multi-sport backtests cover only measured cross-sport overlap slates.",
+    "MODEL-grade payouts are estimates from assumed -110 or proxy lines and are labelled as such; backtests assume closing-line availability and ignore line movement, limits and fees; multi-sport legs assume independence with no correlation model and there are no same-game parlays in v1; Kalshi prices exclude exchange fees; and player and game props are not simulated at all because no free verified historical prop feed exists.",
+    "Twelve inherited NBA rows were 0-0 'finals' for games that had been postponed: nine are verified against published postponement notices and three are recorded as not played with verified=0 and an explicit 'reason NOT independently verified' note. Postponed games are never settled and never rated, and a ticket leg on one is voided with its stake refunded.",
+    "A flat-stake book can exceed its starting bankroll on paper, which the repository states rather than hides: equity curves, drawdowns and bankroll reconciliation are computed in economic time from ledger amounts, and the integrity checks fail the run on a negative balance, a drawdown above 100 percent or any drift against the recorded current amount."
+  ],
+  "verified": false,
+  "verifiedAt": "2026-09-22T23:50:00Z",
+  "verifiedAtSha": "f939267",
+  "snapshotHeadSha": "65c08bd",
+  "proseStale": true,
+  "verifiedBasis": "Written from a clone at commit f939267. Every headline figure was loaded from the repository's own committed exports rather than read from prose: json.load('data/site/meta.json') gives engine_version 1.1.0, exported_utc 2026-09-22T20:06:21Z, data_as_of_utc 2026-09-22T01:30:00Z, books [backtest, forward] and counts {games 29056, parlays 7014, legs 20570, signals 20570, ledger 8267, prices 60504, ratings 54296, strategies 28, users 28, research 24, verifications 28, issues 13}. The 28 distinct S-{NFL,MLB,NHL,NBA,MULTI}-nn identifiers were extracted from parlaysports/strategies.py and agree with len(data/site/strategies.json) == 28, len(data/site/users.json) == 28, the 28-row leaderboard_backtest.json and leaderboard_forward.json, and the 28 data/site/history_*.json files, which together hold 7,014 ticket rows — the same number meta.json reports for parlays. The three gates were executed, not quoted: `python3 -m unittest discover -s tests` printed 'Ran 60 tests in 1.139s / OK' and `grep -c 'def test_' tests/test_platform.py` == 60; json.load('data/audit_report.json') is a 63-element list whose every status is PASS; `node scripts/ui_smoke.mjs` printed 'UI SMOKE: all 15 routes rendered' and the routes array in that file holds 15 entries. A fresh `python3 scripts/audit.py` in the same clone failed at check 2 ('database-exists: run seed first'), which is recorded as a flag and as IRR-78 instead of being presented as a reproduced pass. The limitation sentences (MLB 2016-2022 gap, S-NHL-05, S-MLB-06, MODEL-grade payouts, the twelve postponed NBA rows and the economic-time bankroll rule) are quoted from README.md's Limits section at this commit, which cites requirements R-011 through R-024. Hand-review endpoints for this record: the description above was read at f939267 and has NOT been re-read since, so these endpoints serve the CURRENT state, which may be newer than the prose. Repository: https://api.github.com/repos/buffedlizard55-lab/ParlaySports . Pages settings and status: https://api.github.com/repos/buffedlizard55-lab/ParlaySports/pages . Default-branch commits: https://api.github.com/repos/buffedlizard55-lab/ParlaySports/commits?per_page=1 . README at the current head: https://api.github.com/repos/buffedlizard55-lab/ParlaySports/contents/README.md . Published site: https://buffedlizard55-lab.github.io/ParlaySports/",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/ParlaySports",
+    "https://api.github.com/repos/buffedlizard55-lab/ParlaySports/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/ParlaySports/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/ParlaySports/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

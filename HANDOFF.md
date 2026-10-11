@@ -116,3 +116,56 @@ merged PR).
 - **T-001 merged into `main` at `2026-10-11T04:04:11Z`** — PR [#23](https://github.com/buffedlizard55-lab/MasterSite/pull/23), merge commit `43c827f`. `main` now carries the 138-irregularity snapshot; read back from `origin/main:data/sites.js` to confirm rather than assumed: `counts.sites` 145, `apps` 135, `stubs` 10, `pagesBuilt` 144, `commits` 10,579, `proseStale` 41, `irregularities` 138 (IRR-01…IRR-138).
 - **The browser suite passed before and after the merge.** On the PR head: runs `38110045438` and `38110237192`, `browser-tests` green in 2m46s / 2m37s (Chromium, Firefox, WebKit; `npm run check` + `npm test`). On `main` after the merge: run `38110405707`, green on `43c827f`. The deployed directory reports Pages `status: built` at <https://buffedlizard55-lab.github.io/MasterSite/>.
 - **What the next session inherits:** `main` is the source of truth and is current as of the merge; `TASKS.md` has T-001 marked done and T-002/T-003/T-004/T-007/T-008/T-009/T-010/T-011 queued; `FLAGGED.md` ends at FL-12. Pull-rebase first — several GEMS lanes push multiple times a day, so the stale count will already have moved by the time anyone reads this.
+---
+
+## Session `arena-96e82e25` — 2026-10-11 (reconcile onto main, close FL-12, per-site export)
+
+**Branch:** `arena/96e82e25-mastersite`, rebased onto `main` at `43c827f` (PR #23, session
+`arena-235d5594`) before any new work. This session's earlier local history was based on `71ab6b6`
+and its single claim commit (`9b0733f`, a 54-line `TASKS.md`) was superseded by main's protocol
+files; the branch was force-updated to the reconciled history so nothing stale is proposed. The
+dropped commit contained no data, overlay or generated work — only the pre-protocol claim file.
+
+### What was done
+
+- **`FL-12` closed by re-reading, not by silencing (`T-002`, first slice).** `MALTASUPPLEMENTAL`'s
+  carried description still said “twelve pages … Type G 230 V”, but the README at the snapshot head
+  `81930be` (commit time `2026-10-11T02:58:20Z`, 8,385 bytes) is already the rewritten *Malta Trip
+  Guide* and contains no `230` token. The entry was rewritten from that README alone; the page
+  count, the voltage token and the transport-mode list were **withdrawn** as not re-derivable, and
+  the stamp set to the snapshot head so `proseStale` again means exactly “prose behind the API
+  record”. Queue **41 → 40**; `audit_descriptions.py` re-run: **145 / 145 checked, 0 needing review,
+  42 documented exceptions**.
+- **The protocol's file-per-site requirement now exists as generated output.** `data/sites/`
+  holds one JSON record per public repository (145 files, `<owner>__<repo>.json`) with `owner`,
+  `repo`, `description`, `created`, `lastUpdated`, `pagesUrl`, `sourceLinks`, a mechanical
+  `verified` flag, `verifiedAtSha` / `snapshotHeadSha` and `unverifiedFields`. It is written by the
+  new `tools/export_site_records.py` from `overlay.json` + `data/sites.js`; it is never hand-edited,
+  and `--check` fails if the export drifts from the published snapshot.
+- **`scripts/validate` now gates that export** (`checks run: 4670`, PASS): sync with `data/sites.js`,
+  record count, every `unverifiedFields` name present in `FLAGGED.md`, and every `PROSE-STALE`
+  record named in the `VERIFICATION.md` stale queue. Docs synced: README status table (stale 40,
+  lint 0 needing review, 138 / 28 irregularities / notes), `AGENTS.md` counts and re-render stamp,
+  `FLAGGED.md` `FL-10` (40) and `FL-12` (closed, with the resolving endpoint).
+- **Generated artifacts regenerated in this order:** `build_data.py --overlay-only` (API snapshot
+  `2026-10-11T03:01:01Z` reused; narrative re-rendered `04:09:48Z`) → `export_site_records.py` →
+  `build_verification.py` (696 lines, 145 ledger rows) → `audit_descriptions.py` → `scripts/validate`
+  → `npm run check`.
+
+### Blocked / not attempted
+
+- The 39 remaining stale stamps were **not** re-read this session; the queue is public in
+  `VERIFICATION.md` and each entry carries its stamped SHA beside its head SHA.
+- `audit_kind.py` was not re-run: the underlying API snapshot is unchanged from main's completed
+  run (145 / 145, 0 disagreements), and nothing in this session touched `kind` derivation.
+- Sandbox limits are unchanged: no `*.github.io` egress (T-003) and no browser binaries (CI is the
+  browser environment of record). No uptime, rendering or usage claim is made anywhere.
+
+### What is next
+
+1. **T-002 continues:** 40 stale descriptions remain (stale-first table in `VERIFICATION.md`).
+   Re-read each at its head, rewrite prose only from repository-owned files, and update
+   `description` + `lastVerified` + `verifiedBasis` + `verifiedAtSha` **together**.
+2. **T-007 family view** and **T-010 census workflow** are unchanged and still unclaimed.
+3. Keep running `python3 tools/export_site_records.py` after every `build_data.py` — `scripts/validate`
+   will fail if the committed export drifts.

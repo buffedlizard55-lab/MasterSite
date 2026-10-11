@@ -1,0 +1,42 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "Coupons",
+  "title": "Coupons — Bay Area Verified Product Coupons",
+  "category": "SF Local Guides",
+  "kind": "app",
+  "description": "Product-only coupon, rebate and BOGO directory for the San Francisco Bay Area, re-scoped on 2026-09-22 to drop event tickets and museum admissions (49 venue-admission entries moved to archive/rescoped-2026-09-22/ with their reasoning, per the dataset's own scope_history). State read from the repository's own generated data/coupons.json at commit 7a130e1 (built_at 2026-09-22T23:43:31Z): 227 verified offers, 20 documented rejections, 265 citations across 72 distinct source domains, verification levels A 190 / B 34 / C 3, and 613 irregularity flags (20 critical, 497 warning, 96 info). Offers live in 15 curated JSON shards under data/entries/ — the largest, 01-pg-brandsaver.json, holding 112 transcribed P&G brandSAVER coupons — and carry 13 deal types. Sourcing is enforced by the build, not by convention: an aggregator, promo-code site, listicle or social domain cited as the source of an available offer fails the build, as does a citation with no verbatim evidence passage, publisher, access date and retrieval method. Expiry status is computed in the browser against the visitor's own date (Active to Expires soon at 7 days or fewer, to Expired, plus Window closed and Not redeemable yet), and every dated record carries a project-side recheck_due date set to the printed expiry minus a 3-day safety margin, which a weekly CI job uses to file re-verification issues before an offer goes stale. The suite now reports 56 tests (53 at the previous read), executed here with `python3 -m unittest discover -s tests`: Ran 56 tests, OK.",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/Coupons/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/Coupons",
+  "created": "2026-09-22T00:15:05Z",
+  "firstCommit": "2026-09-22T00:15:06Z",
+  "lastUpdated": "2026-09-23T00:32:15Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-23T00:32:15Z",
+  "updatedAt": "2026-09-23T00:32:20Z",
+  "commits": 24,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 719,
+  "flags": [
+    "Test-count discrepancy: README.md and docs/METHODOLOGY.md both say '50 tests', but `python3 -m unittest discover -s tests` executed in this audit at commit 84c8b5c collected and passed 53. The counted value 53 is what this entry publishes and the disagreement is registered as IRR-73 rather than resolved by picking one.",
+    "The README's category table (113 manufacturer-digital, 16 restaurant-loyalty, 14 local-independent, 13 bogo-multi-buy, 13 manufacturer-printable, 12 no-spend-free and so on) sums to 213 across 185 offers because categories are multi-valued tags, not a partition: data/coupons.json's own stats.entries_by_category reproduces exactly those numbers. Do not read the table as summing to the offer count.",
+    "Freshness is bounded and the repository says so itself: the 112 P&G brandSAVER coupons carried printed expiries of 26-28 September 2026 and the site retires them automatically from those dates, while on the fifth research pass kellanovaus.com intermittently served its coupon grid unpopulated to a plain fetch, so its 8 printables could not be re-confirmed in that cycle — flagged by the repository rather than treated as retracted.",
+    "Personalised programmes (Safeway for U, Target Circle, Costco Instant Savings, restaurant apps) are verified at programme level only because their offers are per-account and cannot be read anonymously, and no Facebook or Instagram post was read or cited at all: both require authentication, so social platforms generated leads that were then verified on an official domain or rejected."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "7a130e1",
+  "snapshotHeadSha": "7a130e1",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head 7a130e1 after 2 commits (compare 84c8b5c...7a130e1: README.md changed, 16 files, +9697/-1879). Counted from the repository's own generated files rather than quoted from prose: json.load('data/coupons.json') gives len(entries) == 227, len(excluded) == 20, stats.entry_count 227, stats.excluded_count 20, stats.entries_by_verification_level {A 190, B 34, C 3} and stats.flags_by_severity {critical 20, warning 497, info 96} summing to 613 (the previous pass counted 185/18/169-14-2/517). Walking entries[*].sources counted 265 citation objects, and the site bundle assets/data/coupons.js carries \"source_count\": 265 and a source_domains array of exactly 72 unique domains. `ls data/entries/*.json | wc -l` == 15 (07 and 08 are the museum/admission shards now in archive/rescoped-2026-09-22/), the shards sum to 247 rows = 227 offers + 20 exclusions, and len(json.load('data/entries/01-pg-brandsaver.json')) == 112. The 13 deal types are the distinct values of entries[*].deal_types and match data/meta.json's deal_types list exactly. The 56-test figure was produced by executing `python3 -m unittest discover -s tests` (Ran 56 tests, OK), which is why it contradicts the README's '50 tests' (IRR-73). The 7-day, 3-day and browser-computed status rules are quoted from README.md and data/meta.json. The rescope is quoted from meta.dataset.scope_history (\"49 venue-admission entries moved to archive/rescoped-2026-09-22/\") and confirmed by ls archive/rescoped-2026-09-22/. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/Coupons/contents/{path}?ref=7a130e1.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/Coupons",
+    "https://api.github.com/repos/buffedlizard55-lab/Coupons/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/Coupons/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/Coupons/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}

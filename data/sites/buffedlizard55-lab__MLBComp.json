@@ -1,0 +1,42 @@
+{
+  "owner": "buffedlizard55-lab",
+  "repo": "MLBComp",
+  "title": "MLBComp — Auditable MLB Research & Paper Competition",
+  "category": "Sports Data & Scoreboards",
+  "kind": "app",
+  "description": "Auditable MLB research and paper-betting platform running the loop research -> discover -> verify -> model -> backtest -> forward-test -> paper trade -> analyze -> improve, with no bookmaker, exchange or order-placement client anywhere in the repository. It separates REG, POST, WC, DS, LCS and WS environments (ALL is a roll-up view, not a blended score), carries a 90-entry versioned research catalog spanning baselines, starting pitchers, bullpens, lineups/injuries, Statcast, pitch mix, park/weather, umpires, rest/travel, market movement, totals, first-five, run line, team/player props, live, futures, exchange and prediction-market hypotheses, and keeps an append-only SHA-256 hash-chained ledger protected by SQLite UPDATE and DELETE triggers. A source snapshot is loaded via content-addressed api.github.com git-blob fetches, so the checkout publishes data_mode SOURCE_SNAPSHOT: 28,072 tracked games of which 27,972 are completed, 91 upcoming and 9 incomplete, with 154,688 bet records in the database, 33,143 of them settled and mirrored into the immutable ledger (20,000 rows exported for page size), 48,336 quote rows and 221,538 predictions. THE HEADLINE FACT CHANGED THIS PASS: settled_bets is no longer 0 and total_simulated_pnl is no longer null — they now read 33,143 and -$96,903.05, because the gate that requires a verified timestamped quote has since been satisfied by the bettingtools and cesar-dx historical moneyline files; the audit control no_unverified_pnl still reports 0 unverified bet rows with non-zero PnL, so every one of those 33,143 settlements carries a verified price. The odds source it did find is still recorded as PARTIALLY_VERIFIED and still ineligible for wager eligibility specifically because cesar-dx MLB betting ML carries no observed_at / available_at timestamps — its own notes say moneyline rows are join-verified to the schedule by game_pk/date/teams but 'prices stay UNVERIFIED for wager eligibility'. All 22 adversarial audit controls pass, against 18 at the previous read; the README's own rebuild note still says 18 and is flagged as stale (IRR-98).",
+  "pagesUrl": "https://buffedlizard55-lab.github.io/MLBComp/",
+  "repoUrl": "https://github.com/buffedlizard55-lab/MLBComp",
+  "created": "2026-09-20T18:36:45Z",
+  "firstCommit": "2026-09-20T18:36:45Z",
+  "lastUpdated": "2026-09-22T23:57:22Z",
+  "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
+  "pushedAt": "2026-09-22T23:57:23Z",
+  "updatedAt": "2026-09-22T23:57:27Z",
+  "commits": 23,
+  "defaultBranch": "main",
+  "pagesStatus": "built",
+  "pagesSource": "main /",
+  "sizeKb": 2352,
+  "flags": [
+    "CRITICAL CORRECTION, 2026-09-21: the entry previously published here described MLBComp as a placeholder holding only a one-line README. That was accurate at commit 8191096 on 2026-09-20 but became false the same day. Rewritten from the repository's own files, and then rewritten again at 41a7407 when a source snapshot landed mid-audit (IRR-64, IRR-72).",
+    "The repository withdrew its own fabricated data. Commit d069579 (2026-09-21T02:36:46Z) is titled 'Withdraw fabricated competition data; rebuild on verified postseason' and 5d3c73e 'Remove fabricated claims left in the site's static HTML', reverting an interim state (9794115) that had advertised 58 strategies across 17 categories. Treat any figure quoted from that window as withdrawn by the owner.",
+    "data/bets_ledger.json exports 20,000 rows against 144,098 records in the database; the export is capped for page size and the repository says so in its own ledger_note. Do not read the file's length as the record count.",
+    "python test/engine.test.py could not be executed in this audit sandbox (ModuleNotFoundError: pandas, a declared requirement). node test/ui.test.js did run and printed 'UI data contract passed: 68 strategies, 18 controls, 20000 ledger rows', so those three figures are observed here; the Python suite's result is unverified."
+  ],
+  "verified": true,
+  "verifiedAt": "2026-09-23T05:20:00Z",
+  "verifiedAtSha": "c6332b9",
+  "snapshotHeadSha": "c6332b9",
+  "proseStale": false,
+  "verifiedBasis": "RE-READ at head c6332b9 after 10 commits (compare 41a7407...c6332b9: README.md changed, 46 files, +601007/-219687). Read from the repository's own generated files: data/summary.json reports data_mode SOURCE_SNAPSHOT, total_games_tracked 28072, completed_games 27972, upcoming_games 91, incomplete_historical_games 9, total_strategies 90, total_simulated_bets 154688, settled_bets 33143, total_simulated_pnl -96903.05, total_upcoming_bets 623, ledger_records_exported 20000, bet_records_in_db 154688, immutable_ledger_rows 33143 and hash_chain_valid true. The six environment_breakdown verified_pnl figures sum exactly to the headline (-78399.8 -14352.65 -3537.48 +3065.35 -4420.41 +741.94 = -96903.05). data/audit_checks.json holds 22 controls and every one has passed true — including ledger_hash_chain ('ledger rows=33143, invalid hashes=[]'), ledger_append_only_triggers, no_live_execution_connector ('forbidden order-placement symbols found in=[]; paper ledger APIs only'), no_unverified_pnl ('unverified bet rows with non-zero PnL=0'), quote_availability_gate ('verified quotes without observed_at=0') and score_integrity. data/registry.json holds 18 sources with verification_status {VERIFIED 2, PARTIALLY_VERIFIED 3, NOT_VERIFIED 13}; the PARTIALLY_VERIFIED 'cesar-dx MLB betting ML' entry carries the note 'Moneyline rows join-verified to the schedule by game_pk/date/teams, but the source has no observed_at/available_at timestamps, so prices stay UNVERIFIED for wager eligibility.' data/strategies.json holds 90 rows, data/bets_ledger.json 20000, data/upcoming_bets.json 623 and data/irregularities.json 12. The README's rebuild block still prints 'python -m mlbcomp.verify.checks   # 18 adversarial controls', which disagrees with its own exported 22 (IRR-98). The previous version of this entry published 'settled_bets is still 0 and total_simulated_pnl is still null ... the 144,098 records resolve to 118,214 EVAL and 25,884 PROPOSED', which was true at the stamped commit and is false at head. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/MLBComp/contents/{path}?ref=c6332b9.",
+  "sourceLinks": [
+    "https://api.github.com/repos/buffedlizard55-lab/MLBComp",
+    "https://api.github.com/repos/buffedlizard55-lab/MLBComp/pages",
+    "https://api.github.com/repos/buffedlizard55-lab/MLBComp/commits?sha=main",
+    "https://buffedlizard55-lab.github.io/MLBComp/"
+  ],
+  "snapshot": "2026-10-11T03:01:01Z",
+  "unverifiedFields": [],
+  "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
+}
