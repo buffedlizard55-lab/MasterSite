@@ -195,8 +195,24 @@ def main():
     A("| ID | Severity | Title | Verifiable Finding & Resolution |")
     A("|---|---|---|---|")
     for it in irr:
-        detail = it["detail"].replace("|", "\\|").replace("\n", " ")
-        A("| **%s** | `%s` | %s | %s |" % (it["id"], sev_label.get(it["severity"], it["severity"]), it["title"].replace("|", "\\|"), detail))
+        # Two register schemas coexist: rows added on/after 2026-10-11 carry
+        # repo / field / reason / source / status; the earlier rows carry title / detail.
+        # Render both without rewriting either.
+        detail = str(it.get("detail") or it.get("reason") or "—")
+        if it.get("source"):
+            detail += " Source: %s" % it["source"]
+        if it.get("repo") and not it.get("title"):
+            detail += " Repo/field: `%s` / `%s`." % (it["repo"], it.get("field", "—"))
+        if it.get("status"):
+            detail += " Status: %s." % it["status"]
+        detail = detail.replace("|", "\\|").replace("\n", " ")
+        title = it.get("title")
+        if not title:
+            # New-schema rows name a target instead of a headline: use repo/field.
+            parts = [x for x in (it.get("repo"), it.get("field")) if x]
+            title = " — ".join(parts) if parts else it["id"]
+        A("| **%s** | `%s` | %s | %s |" % (it["id"], sev_label.get(it["severity"], it["severity"]),
+                                           str(title).replace("|", "\\|")[:200], detail))
     A("")
     A("---\n")
 

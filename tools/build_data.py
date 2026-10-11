@@ -48,6 +48,27 @@ def sha_matches(stamp, head):
     return stamp.startswith(head) or head.startswith(stamp)
 
 
+def write_snapshot(text, snapshot_at, mode):
+    """Write data/sites.js atomically.
+
+    Opening the output path with "w" truncates it before a single byte is written, so a
+    crash inside the write — or inside an integrity assert that used to run after it —
+    could destroy a good snapshot and leave the deployed directory with an empty or
+    partial dataset. Write a temporary file in the same directory and os.replace() it
+    into place, which is atomic on POSIX: a reader sees either the previous snapshot or
+    the complete new one, never a half-written file (IRR-139).
+    """
+    tmp = OUT_PATH + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        fh.write(text)
+        fh.flush()
+        os.fsync(fh.fileno())
+    os.replace(tmp, OUT_PATH)
+    print("wrote %s (%s)" % (os.path.relpath(OUT_PATH, ROOT), mode))
+    print("  audit timestamp %s" % snapshot_at)
+
+
+
 def validate_overlay(entries, excluded):
     """Reject malformed curated prose before it can enter the generated site."""
     errors = []
@@ -132,12 +153,20 @@ def family_counts(sites):
 
 
 def api_get(path, accept="application/vnd.github+json"):
-    """Return (status, parsed_json) for an official GitHub REST API read."""
-    # Politeness floor between requests: sustained unthrottled bursts across a
-    # 146-repository census trip GitHub's secondary (abuse-detection) rate limit,
-    # which returns HTTP 403 "rate limit exceeded" while the hourly quota is
-    # untouched — observed repeatedly on 2026-10-11 (see HANDOFF.md, session
-    # arena-235d5594 and arena-631565b3). This changes no semantics.
+    """Return (status, parsed_body) for an official GitHub REST API read.
+
+    HTTP answers are returned as-is, except that a secondary rate-limit answer is
+    treated as an access block rather than an answer about the repository:
+
+      * a 1-second politeness floor between requests (see HANDOFF.md, 2026-10-11),
+      * retry with backoff on rate-limit and transport failures,
+      * a hard stop if the block survives every retry. The snapshot is only replaced
+        after every integrity assert passes, so an aborted run leaves the published
+        directory untouched instead of half-written (IRR-139, IRR-140).
+
+    Transport failures (DNS, TLS, reset, timeout) are never read as "the file does not
+    exist" or as a stub.
+    """
     time.sleep(1.0)
     req = urllib.request.Request(
         API + path,
@@ -150,30 +179,51 @@ def api_get(path, accept="application/vnd.github+json"):
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     if token:
         req.add_header("Authorization", "Bearer " + token)
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            text = resp.read().decode("utf-8", "replace")
-            # A raw file read (api_get_raw, used by has_entry_point) returns the file
-            # body, not JSON. Decoding it with json.loads raised before this fix, which
-            # sent a successful HTTP 200 read into the `except Exception` branch below and
-            # reported status 0 — so has_entry_point() could only ever see 404 or a
-            # transport error. Every overlay entry happened to carry an explicit `kind`,
-            # so the derivation path was never exercised until a repository without one
-            # (55GEMSDOE, 2026-10-11) hard-failed the whole build. Keep the status and
-            # return the text when the body is not JSON.
-            try:
-                return resp.status, json.loads(text)
-            except json.JSONDecodeError:
-                return resp.status, text
-    except urllib.error.HTTPError as e:
+
+    for attempt in range(5):
         try:
-            body = json.loads(e.read().decode("utf-8"))
-        except Exception:
-            body = {"message": e.reason}
-        return e.code, body
-    except Exception as e:  # network failure — never fabricate, always fail loudly
-        print("  ! network error on %s: %s" % (path, e), file=sys.stderr)
-        return 0, {"message": str(e)}
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                text = resp.read().decode("utf-8", "replace")
+                # A raw file read (api_get_raw, used by has_entry_point) returns the file
+                # body, not JSON. Decoding it with json.loads sent a successful HTTP 200
+                # read into the `except Exception` branch and reported status 0, so
+                # has_entry_point() could only ever see 404 or a transport error. Every
+                # overlay entry happened to carry an explicit `kind`, so the derivation
+                # path was never exercised until a repository without one (55GEMSDOE,
+                # 2026-10-11) hard-failed the whole build: return the text when the body
+                # is not JSON (IRR-137).
+                try:
+                    return resp.status, json.loads(text)
+                except json.JSONDecodeError:
+                    return resp.status, text
+        except urllib.error.HTTPError as e:
+            try:
+                body = json.loads(e.read().decode("utf-8"))
+            except Exception:
+                body = {"message": str(e.reason)}
+            message = str(body.get("message", "") or "")
+            rate_limited = e.code in (403, 429) and "rate limit" in message.lower()
+            if rate_limited and attempt < 4:
+                wait = int(e.headers.get("Retry-After") or 0) or 20 * (attempt + 1)
+                print("  ~  HTTP %s rate-limited on %s (%s); waiting %ss"
+                      % (e.code, path, message[:70], wait), file=sys.stderr, flush=True)
+                time.sleep(wait)
+                continue
+            if rate_limited:
+                raise SystemExit(
+                    "GitHub API rate limit persisted across %d attempts on %s (%s).\n"
+                    "Aborting this refresh rather than publishing a partial directory; "
+                    "the published snapshot is unchanged. Re-run when the limit clears."
+                    % (attempt + 1, path, message[:120]))
+            return e.code, body
+        except Exception as e:  # transport failure — retry, then fail loudly
+            if attempt < 4:
+                print("  ~  transient network error on %s (%s); retrying" % (path, e),
+                      file=sys.stderr, flush=True)
+                time.sleep(2 * (attempt + 1))
+                continue
+            print("  ! network error on %s: %s" % (path, e), file=sys.stderr)
+            return 0, {"message": str(e)}
 
 
 def api_get_raw(path):
@@ -233,6 +283,7 @@ def render_overlay_only():
     snapshot_at = data["generated"]
 
     print("MasterSite OVERLAY-ONLY re-render — no API reads")
+
     print("-" * 72)
     print("  reusing the API snapshot recorded at %s; it is NOT refreshed" % snapshot_at)
 
@@ -330,10 +381,8 @@ def render_overlay_only():
         " */\n"
         "window.MASTERDATA = "
     )
-    with open(OUT_PATH, "w", encoding="utf-8") as fh:
-        fh.write(banner % (snapshot_at, rendered_at))
-        fh.write(json.dumps(data, indent=2, ensure_ascii=False))
-        fh.write(";\n")
+    rendered = (banner % (snapshot_at, rendered_at)
+                + json.dumps(data, indent=2, ensure_ascii=False) + ";\n")
 
     print("-" * 72)
     print("re-rendered %s (overlay fields only)" % os.path.relpath(OUT_PATH, ROOT))
@@ -362,6 +411,7 @@ def render_overlay_only():
         "entries carry a 'lastVerified' stamp with no 'verifiedBasis' explanation: %s"
         % ", ".join(unstamped_basis)
     )
+    write_snapshot(rendered, snapshot_at, "overlay-only re-render")
 
 
 def main():
@@ -376,6 +426,17 @@ def main():
 
     accounts_checked = []
     api_names = set()
+    # GET /repos/{owner}/{repo}/pages is the endpoint GitHub throttles hardest: a full
+    # refresh that reads it twice per repository (once for the account census, once for
+    # the entry) trips the secondary rate limit and starts receiving 403s while the
+    # core quota is untouched (IRR-140). Read it once per repository and reuse the
+    # answer for both purposes.
+    pages_cache = {}
+
+    def pages_for(repo):
+        if repo not in pages_cache:
+            pages_cache[repo] = api_get("/repos/%s/%s/pages" % (OWNER, repo))
+        return pages_cache[repo]
     for login in ACCOUNTS:
         status, profile = api_get("/users/%s" % login)
         if status != 200:
@@ -398,7 +459,7 @@ def main():
         if login == OWNER:
             api_names.update(names)
             for n in names:
-                st, _ = api_get("/repos/%s/%s/pages" % (OWNER, n))
+                st, _ = pages_for(n)
                 if fatal(st):
                     raise SystemExit(
                         "refresh aborted: GET /repos/%s/%s/pages returned HTTP %s mid-census"
@@ -434,6 +495,16 @@ def main():
         print("  %-22s public_repos=%s pages_enabled=%s" % (login, profile.get("public_repos"), pages_enabled))
 
     sites, warnings = [], []
+
+    def warn(message):
+        """Record a warning and print it now.
+
+        Warnings used to be printed at the very end of main(), after the accounting
+        asserts — so a run that aborted on one of them died with a partial result and
+        no visible reason. A failure has to be readable while it happens.
+        """
+        warnings.append(message)
+        print("  WARNING: %s" % message, file=sys.stderr, flush=True)
     unlisted = []  # every public repo with Pages that is deliberately NOT in sites[]
     for name in sorted(api_names):
         if name in excluded:
@@ -448,16 +519,16 @@ def main():
                     "refresh aborted: GET /repos/%s/%s returned HTTP %s mid-refresh"
                     % (OWNER, name, status)
                 )
-            warnings.append("%s: repo endpoint returned HTTP %s" % (name, status))
+            warn("%s: repo endpoint returned HTTP %s" % (name, status))
             continue
-        pstatus, pages = api_get("/repos/%s/%s/pages" % (OWNER, name))
+        pstatus, pages = pages_for(name)
         if pstatus != 200:
             if fatal(pstatus):
                 raise SystemExit(
                     "refresh aborted: GET /repos/%s/%s/pages returned HTTP %s mid-refresh"
                     % (OWNER, name, pstatus)
                 )
-            warnings.append("%s: pages endpoint returned HTTP %s (not a Pages site)" % (name, pstatus))
+            warn("%s: pages endpoint returned HTTP %s (not a Pages site)" % (name, pstatus))
             continue
         # `status` is a live state machine, not a property of the repository: a repo
         # pushed to seconds ago reports 'building' until the deploy finishes. Snapshot
@@ -472,11 +543,12 @@ def main():
             if pstatus2 != 200:
                 break
             pages = pages2
+            pages_cache[name] = (pstatus2, pages2)
         if attempts:
             print("  ...  %-38s Pages status re-read %d time(s), now %r"
                   % (name, attempts, pages.get("status")))
         if pages.get("status") != "built":
-            warnings.append(
+            warn(
                 "%s: Pages status is %r after re-reading, not 'built' — recorded as-is"
                 % (name, pages.get("status"))
             )
@@ -489,7 +561,7 @@ def main():
                 % (OWNER, name, branch, cstatus)
             )
         if cstatus != 200 or not commits:
-            warnings.append("%s: commit list unavailable (HTTP %s)" % (name, cstatus))
+            warn("%s: commit list unavailable (HTTP %s)" % (name, cstatus))
             continue
 
         newest, oldest = commits[0], commits[-1]
@@ -499,7 +571,7 @@ def main():
 
         ov = entries.get(name)
         if not ov:
-            warnings.append(
+            warn(
                 "%s: no curated entry in tools/overlay.json — skipped from the directory "
                 "(add a sourced title/category/description to publish it)" % name
             )
@@ -513,7 +585,7 @@ def main():
         # (when the API fields were read). An entry without it cannot claim to be
         # verified, so refuse to publish one silently.
         if not ov.get("lastVerified"):
-            warnings.append(
+            warn(
                 "%s: no 'lastVerified' stamp in tools/overlay.json — the entry will be "
                 "published with lastVerified=null, meaning its description has never been "
                 "re-read against the repository" % name
@@ -700,13 +772,9 @@ def main():
         " */\n"
         "window.MASTERDATA = "
     )
-    with open(OUT_PATH, "w", encoding="utf-8") as fh:
-        fh.write(banner % now)
-        fh.write(json.dumps(data, indent=2, ensure_ascii=False))
-        fh.write(";\n")
+    rendered = banner % now + json.dumps(data, indent=2, ensure_ascii=False) + ";\n"
 
     print("-" * 72)
-    print("wrote %s" % os.path.relpath(OUT_PATH, ROOT))
     print("  sites=%d (apps=%d stubs=%d) built=%d commits=%d" % (len(sites), apps, stubs, built, total_commits))
     print("  categories=%s" % json.dumps(categories))
     print("  unreachable=%d excluded=%s" % (len(data["unreachable"]), sorted(excluded)))
@@ -738,8 +806,9 @@ def main():
         "duplicate ids in the irregularities register: %s"
         % ", ".join(x for x in set(irregularity_ids) if irregularity_ids.count(x) > 1)
     )
-    for w in warnings:
-        print("  WARNING: %s" % w, file=sys.stderr)
+    write_snapshot(rendered, now, "full API refresh")
+    if warnings:
+        print("  %d warning(s) were printed above as they occurred" % len(warnings), file=sys.stderr)
 
 
 if __name__ == "__main__":

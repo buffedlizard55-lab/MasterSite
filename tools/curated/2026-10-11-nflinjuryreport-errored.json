@@ -1,0 +1,17 @@
+{
+  "batch": "2026-10-11-nflinjuryreport-errored",
+  "session": "arena-d98d5339",
+  "entries": {},
+  "irregularities": [
+    {
+      "id": "IRR-141",
+      "severity": "warn",
+      "repo": "NFLInjuryReport",
+      "field": "pagesStatus",
+      "reason": "Pages status is 'errored' at the 2026-10-11T15:10:01Z API snapshot, while the same repository published 'built' in the earlier 2026-10-11 snapshot. It is the second non-built entry in the directory (GEMSDOE53 keeps GEMSDOE53 company). The generator re-read the status five times with 6-second gaps before recording it, so this is not a mid-deploy transient; the directory publishes the API value as-is and makes no claim that the site is down.",
+      "source": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": "open"
+    }
+  ],
+  "descriptionNotes": []
+}

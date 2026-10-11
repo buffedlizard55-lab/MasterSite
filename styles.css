@@ -1639,3 +1639,65 @@ body.inspector-open { overflow: hidden; }
   }
   :root:not([data-density="roomy"]) .table-actions-cell { gap: 4px; }
 }
+
+/* ---------------------------------------------------------------------------
+   Sources & audit trail panel — added 2026-10-11. Static links only; nothing
+   here is generated, so it keeps working even if a refresh fails.
+--------------------------------------------------------------------------- */
+.sources-panel {
+  margin-top: 8px;
+}
+
+.sources-panel .panel-intro {
+  max-width: 78ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.source-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+}
+
+.source-card h3 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.source-card ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.source-card li {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.source-card code {
+  font-size: 0.82em;
+  word-break: break-word;
+}
+
+.sources-panel a {
+  color: var(--accent, #4a7dff);
+  text-decoration: none;
+}
+
+.sources-panel a:hover,
+.sources-panel a:focus-visible {
+  text-decoration: underline;
+}

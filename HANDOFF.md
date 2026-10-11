@@ -784,3 +784,85 @@ immediately, per the protocol.
   0 hard mismatches; `audit_descriptions.py` 145/145 with 1 unresolved). The largest open item is still
   **T-002's 45-entry prose re-read queue**, whose newest lead is `FL-16` (`59GEMSDOE`): its description's
   five numbers are not re-derivable from the README at head.
+
+---
+
+## Session `arena-d98d5339` — 2026-10-11 (T-013: the pipeline fails closed, and two stale prose entries cleared)
+
+**Branch:** `arena/d98d5339-mastersite` (the session's pinned Arena branch; `main` was only touched by the
+merged PR). This session was interrupted twice by sandbox re-clones; the work was re-applied onto the
+then-current `main` (`9752a93`) rather than re-pushed from a stale base, and the earlier claim commit was
+replaced by a fresh one — see "What went wrong" below, because it is a trap for the next session too.
+
+### What was done
+
+- **Claimed a new task, T-013, because the board had moved.** This session originally claimed **T-011**
+  (endpoint backfill) at 04:15Z; by the time it resumed, a parallel session had already completed and merged
+  T-011 (`arena-335b0623`, 32 bases backfilled). Instead of duplicating it, the session re-scoped its
+  remaining unique work into **T-013** — *publication pipeline fails closed and says why, plus a Sources &
+  audit trail panel* — and marked it done in this PR.
+- **`tools/build_data.py` no longer publishes partial or truncated data (`IRR-139`).** The generator used to
+  open `data/sites.js` with mode `"w"` **before** running its own integrity asserts, and a later
+  overlay-only crash truncated the published file to 0 bytes. Both writers now build the full text first,
+  let every assert pass, and then hand it to `write_snapshot()`, which writes a temp file and
+  `os.replace()`s it into place (atomic on POSIX). A failed run leaves the previous snapshot untouched.
+- **Rate-limit pressure is handled instead of absorbed (`IRR-140`).** `GET /repos/{owner}/{repo}/pages` is
+  read **once per repository** (the census and the entry now share a cache, halving the call count on the
+  endpoint GitHub throttles hardest), 403/429 rate-limit answers are retried with backoff, and a block that
+  survives five attempts aborts the run with a clear message instead of recording 403s as answers and
+  publishing a short directory. A 1-second politeness floor (added by a parallel session) is preserved.
+  Warnings now print **as they occur** rather than after the final asserts, so an aborted run can be read.
+- **`tools/build_verification.py` renders both irregularity schemas.** The register now holds legacy
+  `title/detail` rows and new `repo/field/reason/source/status` rows; the ledger generator crashed on the
+  new ones (`KeyError: 'detail'`) and now renders either without rewriting either.
+- **Two entries left the `PROSE-STALE` queue by being re-read at their current heads, not by editing a SHA:**
+  `MALTASUPPLEMENTAL` — re-read at `4ed9c5a`, then again at `de3303f` when the head moved a second time;
+  its eight-page guide, ticket-listing facts, bus-return gap and radio leads are now stated as the README
+  states them (`FL-12`, `FL-14` closed). `59GEMSDOE` — re-read at `37dc3d4`; the description's five numbers
+  (expected score `0.24–0.29`, three leaderboard rows) exist nowhere in the README at head, which now
+  reports a `HOLDOUT-DTI` score, so the description was rewritten from what the README actually says
+  (`FL-16` closed). `audit_descriptions.py` now reports **0 entries needing review**.
+- **A new Pages failure was caught by the refresh and registered, not smoothed over:** `NFLInjuryReport`
+  reports `errored`, the second such entry after `GEMSDOE53` (`IRR-141`, `FL-17`). The generator re-read the
+  status five times at six-second intervals before recording it, so it is not a mid-deploy transient.
+- **The directory page gained a "Sources & audit trail" panel** (`index.html`, `styles.css`): four cards
+  linking the snapshot, the curated overlay, the per-site records, the account censuses, the exact API
+  endpoints quoted, the ledger/flag/queue files, and an explicit list of what the page does **not** claim.
+- **Published snapshot `2026-10-11T15:06:10Z`:** 145 sites (135 apps / 10 stubs), **143 `built` + 2
+  `errored`**, **10,863** default-branch commits, 141 irregularities, 30 description notes, 51-entry
+  `PROSE-STALE` queue, `ProjX` still excluded, 4 frozen 404 records re-confirmed. Derived artefacts
+  regenerated in order: `export_site_records.py` (145 records) → `build_verification.py` (701 lines, 145
+  ledger rows) → `scripts/validate` **PASS (5,126 checks)**; `audit_kind.py` 145/145 with 0 disagreements;
+  `audit_descriptions.py` 145/145 with 0 needing review.
+
+### What was blocked
+
+- **The sandbox was re-cloned twice mid-session** (once around 14:50Z, long enough that two prior claim
+  commits were lost from local history while the file changes survived as an uncommitted diff on the old
+  base `71ab6b6`). Nothing was lost — the working tree was snapshotted first, the branch was reset onto the
+  current `origin/main`, and every delta re-applied — but **the lesson matters: after any pause, check
+  `git reflog` and `git status` against `origin/main` before trusting local history.**
+- **The GitHub API hourly quota is 5,000 requests per token and this session shares it with every parallel
+  session.** Three full refreshes hit it (403s with `x-ratelimit-remaining: 0` while `/rate_limit` was still
+  serving a *cached* window that claimed 5,000 free — trust the failing response's headers, not
+  `/rate_limit`). The new abort-instead-of-partial behaviour was exercised for real during this session and
+  left the published file untouched both times.
+- **Live HTTP checks and browser tests remain impossible here**: `*.github.io` is unreachable from the
+  sandbox and Playwright browsers cannot be downloaded (`ECONNRESET`). CI is the execution environment of
+  record for the Playwright suite; the Pages smoke audit runs on a GitHub-hosted runner (T-003).
+- **The `PROSE-STALE` queue grew to 51** — repositories in this account commit continuously, so head SHAs
+  advance faster than prose can be re-read by hand. That is a workload statement, not a defect; T-002 owns it.
+
+### What is next
+
+1. **T-002 is the largest open item** (51 descriptions read at older heads). Re-read by hand at head and
+   **never** clear an entry by editing only its stamp — that is what `IRR-9`/`FL-10` exist to prevent.
+   `MALTASUPPLEMENTAL` is the cautionary example: its head moved twice in three hours.
+2. **T-005 / `FL-17`:** confirm whether `NFLInjuryReport`'s errored Pages build is a stale deployment of an
+   actively developed repository; `GEMSDOE53` (`FL-05`) still has no push since 2026-10-09.
+3. **Owner decisions still open:** T-004 (the four frozen 404 records — keep frozen, restore, or drop) and
+   T-006 (`6GEMSDOE` recommends deleting the other GEMS lanes).
+4. **Any future refresh must run the full chain**, exactly as `AGENTS.md` §4 says: `build_data.py` →
+   `export_site_records.py` → `build_verification.py` → `scripts/validate` (+ the two audits). The generator
+   now refuses to write when an assert fails, so a red run means "the published data is the previous good
+   snapshot", not "the file is broken".
