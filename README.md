@@ -57,7 +57,9 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 tools/smoke_pages.py --output-dir .work/pages-smoke
 ```
 
-## Current audit status — API snapshot `2026-10-11T15:06:10Z` (UTC)
+## Current audit status — API snapshot `2026-10-11T18:29:23Z` (UTC)
+
+> **Snapshot by session `f2fe1c46` (T-021, 2026-10-11).** 145 sites, 11,134 commits, 144 `built` / 1 `errored` (`GEMSDOE53` only — `NFLInjuryReport` returned to `built` this snapshot after a volatile errored→building→built cycle). `audit_kind`/`audit_descriptions`/`audit_provenance` all PASS (0 findings); `verify_live.py` is not completed against this snapshot due to GitHub secondary rate limits (`IRR-140`) and is reported as such — the prior snapshot's 1,913-check / 0-mismatch run is the most recent complete independent verification. `scripts/validate` PASS. UI reviewed and requires no further changes against the owner's "clean, simple, easy to use" brief. Full notes in `HANDOFF.md`.
 
 | Metric | Snapshot result |
 |---|---|

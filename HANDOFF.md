@@ -1315,3 +1315,24 @@ them is a duplicate and should be closed by the owner.**
   `CONFLICTING` with main at 17:20:58Z** — its own session needs to rebase it. And per this session's
   double-claim experience: open the PR at claim time so the claim is visible in `gh pr list` during the
   commit-to-merge window.
+
+---
+
+## Session: f2fe1c46 — final snapshot pass (post-rebase onto main)
+
+**Branch:** `arena/f2fe1c46-mastersite`. **Task:** T-021.
+
+### What was done (final)
+
+- **Rebased onto latest `origin/main`** (which had merged T-015, T-016, T-018 from other sessions while the first T-021 build was being pushed).
+- **Full census at `2026-10-11T18:29:23Z`:** 145 listed, 135 apps / 10 stubs, **144 `built`, 1 `errored` (`GEMSDOE53` only)**, 11,134 commits, 53 prose-stale. Census balances (146 public = 145 + 1 `ProjX` excluded). `kanlerxz87-cyber` still 0.
+- **`NFLInjuryReport` recovered to `built`** at this snapshot after cycling errored (15:06Z) → building (15:53Z, 17:28Z) → built (18:29Z). FL-17 updated to mark this as a worked example of timestamped volatility, not a permanent state.
+- **Audits:**
+  - `audit_kind.py` 145/145, 0 disagreements, 0 unresolved.
+  - `audit_descriptions.py` 145/145, 0 needing review, 42 documented exceptions.
+  - `audit_provenance.py` 145/145, 1,019 reproduced checks, 0 hard findings (report: `reports/provenance/2026-10-11T183917Z.md`).
+  - `verify_live.py` could not complete within the sandbox budget against this snapshot due to `IRR-140` (secondary rate limit) politeness requirements at 1.0–1.8 s between requests. Reported honestly in README/VERIFICATION.md; the prior snapshot's 1,913-check / 0-mismatch run is the most recent clean independent verify.
+- **FL-05 updated** with the 18:42Z re-read (still errored, 4-day stall).
+- **Frozen 404s re-verified** by hand: `JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2` all still HTTP 404.
+- **README/TASKS/FLAGGED/VERIFICATION/SITES.md regenerated**; validator PASS; `npm run check` PASS; py_compile PASS.
+- **UI review (owner brief: "clean UI, user-friendly, simple and easy to use"):** The existing directory meets this — responsive grid & table views, search/sort/filter chips, JSON/CSV export, modal details, shareable URLs, executive summary page, sources panel, accessibility markup, mobile-friendly. No UI changes were necessary.
