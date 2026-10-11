@@ -866,3 +866,52 @@ replaced by a fresh one — see "What went wrong" below, because it is a trap fo
    `export_site_records.py` → `build_verification.py` → `scripts/validate` (+ the two audits). The generator
    now refuses to write when an assert fails, so a red run means "the published data is the previous good
    snapshot", not "the file is broken".
+## Session `arena-46206288` — 2026-10-11 (T-004: frozen repository owner decision record)
+
+**Branch:** `arena/46206288-mastersite`. Claim-only commit `4c681a7` was committed and pushed before
+implementation. The implementation commit is `ba01ecb`.
+
+### What was done
+
+- Re-read the official repository and Pages endpoints for `JobSearchSF`, `MALTA`, `MALTA-LAWS` and
+  `MALTA2` at `2026-10-11T15:38:12Z`–`15:38:15Z`. Every repository endpoint and its `/pages`
+  endpoint returned HTTP 404. The exact source links and the two public-repository list pages are
+  preserved in [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) and the open `FL-03` row in
+  [`FLAGGED.md`](FLAGGED.md); no deletion/private-state intent was inferred from a 404.
+- Re-ran [`tools/census_guard.py`](tools/census_guard.py): `buffedlizard55-lab` reported 146 public
+  repositories / 146 Pages-enabled, with 145 listed plus the standing `ProjX` exclusion; the
+  `kanlerxz87-cyber` account reported 0 public repositories. The guard passed against the official
+  account APIs ([buffedlizard55-lab](https://api.github.com/users/buffedlizard55-lab),
+  [kanlerxz87-cyber](https://api.github.com/users/kanlerxz87-cyber)).
+- Added [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md), a source-linked record that documents the only
+  safe directory action supported by the evidence: keep the four historical records frozen and
+  visible until the owner explicitly chooses keep, restore, or confirm retirement. Linked it from
+  `README.md`, the Unreachable panel in `index.html`, `FLAGGED.md`, and `TASKS.md`; generated data
+  and the four historical records were not hand-edited.
+- Marked T-004 done as a **record-delivery task**, while leaving the owner decision itself explicitly
+  pending. `FL-03` remains open, so the repository does not claim that the four sites were
+  intentionally retired.
+- Verification gates: `./scripts/validate` passed (5,120 checks, 93 expected warnings), `npm run
+  check` passed, Python compilation passed, and the 14 offline smoke unit tests passed. `npm ci`
+  installed the pinned Playwright package, but `npm test` could not launch the 92 browser cases
+  because the Playwright browser executable is not installed in this sandbox; no browser pass is
+  claimed. The CI workflow remains the browser-test source of record.
+
+### What is blocked
+
+- Only the owner can decide whether each 404 repository should remain frozen, be restored/made public,
+  or be confirmed retired. The current API sources distinguish none of those intents.
+- The existing project-wide review queue remains: 45 prose stamps are behind their snapshot heads
+  (`FLAGGED.md` FL-10), `GEMSDOE53` has an API Pages status of `errored` (`FL-05`), and the known
+  `SABERENGY` title omission keeps the separate live smoke audit visibly red (`FL-15`). Those were
+  not changed by this owner-decision task.
+
+### What is next
+
+1. Owner: choose an option for each frozen repository in [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md);
+   do not manually revive or delete a record before that decision.
+2. Next maintenance session: continue the claimed T-002 current-head prose re-reads, updating the
+   description, source basis and SHA together; do not clear a stale flag by changing only a stamp.
+3. Keep the daily census guard and separate Pages smoke audit running. They check coverage and
+   point-in-time HTTP/title observations respectively; neither proves site use, ongoing uptime,
+   browser functionality, or owner intent.
