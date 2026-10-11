@@ -218,3 +218,26 @@ dropped commit contained no data, overlay or generated work — only the pre-pro
 2. **T-003/T-008:** live HTTP smoke test of all 145 Pages URLs from a runner with general egress (GitHub Actions can do this — the guard workflow proves scheduled runs work; a follow-up workflow could fetch every `pagesUrl` and record status + title, keeping it separate from `pagesStatus` as T-003 requires).
 3. **T-007:** family view for the 40+ GEMSDOE lanes; 145 flat entries is at the edge of readable.
 4. The first scheduled census-guard run (05:17 UTC daily) will either PASS or open a `census-gap` issue — watch <https://github.com/buffedlizard55-lab/MasterSite/actions/workflows/census.yml>.
+
+## Session 7fefeea8 — 2026-10-11T04:59:04Z
+
+**Task:** T-009 (census confirmation). Claimed in `24692d8`, done in this PR.
+
+**Did**
+- Live census, independent of the snapshot: `GET /users/buffedlizard55-lab/repos?type=public` → 146 public repositories (all with `has_pages: true`). `GET /users/kanlerxz87-cyber` → `public_repos: 0`.
+- Per-repository `GET /repos/buffedlizard55-lab/{repo}/pages` for all 146 minus ProjX: 144 `built`, 1 `errored` (`GEMSDOE53`, already FL-05).
+- Set comparison: the only public repository not in `data/sites/` is `ProjX`, the owner-mandated permanent exclusion. No listed repository is missing from the account.
+- Compared `created`, `pagesUrl` and `pagesStatus` in all 145 `data/sites/*.json` records against the live API: 0 differences.
+- `scripts/validate` → PASS (4,670 checks, 111 expected warnings). `tools/census_guard.py` → PASS.
+
+**Freshness note (not an error):** `pushed_at` differs from the snapshot for 9 repositories that were pushed after the `2026-10-11T03:01:01Z` snapshot: 58GEMSDOE, 59GEMSDOE, 61GEMSDOE, GEMSDOE52, KalshiPaperSim, MALTASUPPLEMENTAL, MasterSite, NFLInjuryReport, NFLMAIN. The records are a dated snapshot and were not rewritten here; a full refresh (`tools/build_data.py`) is the path to update them.
+
+**Blocked**
+- Live HTTP check of the Pages sites: `*.github.io` is not on this sandbox's allowlist (T-003).
+- Playwright browser tests need `cdn.playwright.dev`, which is also not reachable here.
+- The four frozen 404 repositories (JobSearchSF, MALTA, MALTA-LAWS, MALTA2) still need an owner decision (T-004).
+
+**Next**
+- Run a full refresh (`tools/build_data.py`) when the next session has a clean run window, to clear the 9 `pushed_at` drifts.
+- Consider T-011 (backfill inline hand-review endpoints) or T-002 (40 stale descriptions).
+- Keep the new census guard in the daily workflow (T-010 is done).
