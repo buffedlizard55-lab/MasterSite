@@ -1608,6 +1608,7 @@ immediately, then renumbered twice rather than working around the collisions.
 
 1. **T-002 (claimed by `96e82e25`):** Re-read the 52 `PROSE-STALE` descriptions at current repository heads and expand the 5 `{path}` template citations (`FL-18`: `Commodities`, `Coupons`, `Elections`, `MLBComp`, `SABERENGY`) to concrete endpoints.
 2. **T-024 / T-025 / T-026 / T-027 / T-029:** Ledger surfacing for scheduled audits, per-item scheduled review detail, Pages status-transition guard in `census_guard.py`, headless-browser redirect following for `SABERENGY` (`FL-15`), and resumable quota-aware refreshes.
+---
 
 ---
 
@@ -1675,3 +1676,81 @@ stamps), the owner decisions (`GEMSDOE53` rebuild via `FL-05`, the four frozen 4
 `T-004`, `62GEMSDOE` category via `FL-13`/`T-028`, GEMS-family consolidation via `T-006`), and the
 operational gaps this pass exposed (`T-026` `pagesStatus` watch, `T-029` quota-aware refresh,
 `T-030` claim visibility).
+## Session `arena-8d79b057` — 2026-10-11 (T-032, claimed as T-025: a JavaScript-free copy of the whole master list)
+
+**Branch:** `arena/8d79b057-mastersite` (this session is pinned to its Arena branch, where the claim
+commit `501777d` was pushed alone and immediately, per `TASKS.md` protocol step 3; `main` was touched
+only by the merge of this session's PR).
+
+### What was done
+
+- **Repo review, before touching anything.** `git pull --rebase origin main` was a no-op at `6d7d9fa`;
+  `TASKS.md` and `FLAGGED.md` were read in full, and the live remote was checked for in-flight work:
+  44 `arena/*` branches, four other open tasks (T-021 census + UI review #54, T-022 budgeted audit
+  runner #53, T-020 review pass #44, T-024 ledger surfacing unclaimed), and a fifth session
+  (`arena/7c23badb`) pushing a run at 18:24Z. T-025 was verified free by scanning `gh pr list --state
+  all` **and every remote branch's `TASKS.md`** for the ID in the same minute as the claim.
+- **An independent ground-truth census, at no cost to the shared rate budget.** `GET /users/
+  buffedlizard55-lab/repos` (3 pages) → **146 public repositories**, all 146 with `has_pages`, no
+  `*.github.io` user-site repository, and `GET /users/kanlerxz87-cyber` → **0 public repositories**.
+  145 listed + 1 permanently excluded = 146, so the published snapshot still balances (the same
+  accounting `tools/build_data.py` asserts and `tests/directory.spec.js` asserts in the browser job).
+- **The gap this task closed.** Every existing page surface is client-rendered from `data/sites.js`:
+  with JavaScript off — a crawler, a print-out, an archived copy, `curl`, or one failed
+  `data/sites.js` request — `index.html` and `executive-summary.html` render an empty shell, and
+  `SITES.md` is served as a raw Markdown file rather than a page. `master-list.html` is now the same
+  snapshot as **static HTML**: 145 blocks (live link, repository, category, family, sourced
+  description, created first commit / last default-branch commit, commit count, recorded Pages build
+  status, description stamp), the frozen four, the 141-row irregularity register, the accounts table,
+  the coverage accounting, the method steps and the caveat list — **no `<script>` element, no inline
+  handler, no `javascript:` URL, no network request at load time**.
+- **Nothing here can be a new fact.** `tools/build_master_list.py` makes **zero** API calls; it
+  re-emits values the other tools already read and audited. Descriptions are never rewritten or
+  summarised: a long one is shown as a *quoted* prefix, cut at a real sentence boundary when one
+  exists (the label says which cut was made, and the full published text follows in a `<details>`
+  that needs no JavaScript).
+- **Fail-closed rules (all negative-tested):** an empty required field (`repo`, `title`, `category`,
+  `kind`, `description`, `created`, `lastCommit`, `pagesUrl`, `defaultBranch`, `pagesStatus`), a
+  `pagesUrl` that does not match `https://buffedlizard55-lab.github.io/<repo>/`, an unknown `kind`, a
+  census that stops balancing (`listed + unlisted == pagesSites`, reporting `publicRepos`), a
+  `counts.unlisted` entry that is neither listed nor excluded, truncated `data/sites.js`, and any
+  `<script>`/inline handler/`javascript:` URL in the generator's **own output** all abort the run and
+  write nothing.
+- **Gates.** `scripts/validate` §M (drift, script-free, contiguous 1..n numbering, per-site live +
+  repository + Pages API links, excluded repository gets no block or link) and §N (the README's
+  headline numbers must match the snapshot) take the validator from **5,420 → 6,012 checks, PASS**.
+  `tests/test_master_list.py` adds **31 offline tests** (49 python tests total, all green);
+  `npm run check` and `scripts/validate` pass locally.
+- **Incidental drift found and fixed while writing §N:** the README's `data/sites.js` row still
+  advertised a `05:12:27Z` census and **138** irregularities, while the committed snapshot says
+  `2026-10-11T15:06:10Z` and carries **141** (`IRR-139`–`IRR-141` were added by later sessions without
+  touching that sentence). Both numbers are corrected, and §N now fails if they rot again.
+- **No data was republished:** `data/sites.js`, `data/sites/`, `VERIFICATION.md`, `SITES.md` and
+  `FLAGGED.md` are untouched — this session published a new derived page, not a new snapshot.
+
+### Blocked / limitations
+
+- **`*.github.io` is unreachable from this sandbox** (documented in `data/sites.js` caveats); `curl`
+  to the live directory returns a transport error, so the published page and the 145 live sites were
+  not re-fetched here. The rendered page was verified against a local static server
+  (`python3 -m http.server`, HTTP 200, 871 KB) and by parsing it as a crawler would — not by a
+  browser.
+- **Playwright browsers cannot be installed here** (`npx playwright install chromium` fails: the
+  download CDN is outside this sandbox's allowlist), so `tests/directory.spec.js` was not run
+  locally. CI's `browser-tests` job is the authority; the risk is small because the only changes to
+  the two existing pages are added links (the browser test that asserts the SITES.md quick-link
+  targets it by text, not by index).
+
+### Next session
+
+- The **T-002 prose re-read queue is still the largest accuracy item** (51 `PROSE-STALE` entries at
+  this snapshot) and `FL-18` (five `{path}` template citations) still needs its prose owner.
+- Owner decisions remain open: **T-006** (the `6GEMSDOE` consolidation stance) and the four frozen
+  404 repositories (OWNER-DECISIONS.md); `FL-05` (`GEMSDOE53` `errored`) and `FL-17`
+  (`NFLInjuryReport`, volatile) need a push/rebuild or owner action; `FL-15` keeps the pages-smoke
+  audit red by design.
+- **After any refresh, rerun `python3 tools/build_master_list.py`.** §M fails the validator otherwise,
+  which is deliberate: a new snapshot must not leave `master-list.html` advertising the previous one.
+  Cheapest possible way to satisfy it is the one command; it needs no credentials and no network.
+- PR #44 (T-020) was `CONFLICTING` with `main` earlier today and PR #53/#54 were still open when this
+  session merged; whichever session owns them should rebase before merging.
