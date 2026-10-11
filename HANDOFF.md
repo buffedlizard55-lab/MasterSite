@@ -1769,3 +1769,23 @@ still dated the census `2026-10-11T15:06:10Z` after the refresh published `16:58
 corrected in this PR as well, which is the second time in this session that the new gate caught the same
 class of drift — prose advertising a superseded census. Any future refresh must rerun
 `python3 tools/build_master_list.py` (no network, no credentials) and update that one README sentence.
+
+**Post-merge read-back (same session, after the merge).** PR #60 merged
+**2026-10-11T18:47:24Z** as merge commit **`0bf3de9`** (`Merge pull request #60 from
+buffedlizard55-lab/arena/8d79b057-mastersite`). Read back from `origin/main` instead of assumed:
+
+- `master-list.html` is present on `main` — **871,602 bytes, 145 numbered site blocks, zero `<script>`
+  elements** — and `python3 tools/build_master_list.py --check` reports it **in sync** with the
+  published snapshot `2026-10-11T16:58:53Z` (the stamp the merged page carries).
+- `python3 scripts/validate` on the merged tree: **checks run: 6013 — PASS**, i.e. §M and §N are
+  green on `main`, not only on the branch.
+- `TASKS.md` carries exactly one `T-032` row, marked **done**.
+- `main`'s post-merge runs on `0bf3de9`: **`Directory tests` completed/success** and **`pages build and
+  deployment` completed/success**, so the page is deployed at
+  <https://buffedlizard55-lab.github.io/MasterSite/master-list.html> — a URL this sandbox still cannot
+  fetch itself (`*.github.io` is outside its network allowlist; the first observation of the live page
+  therefore belongs to the T-003 smoke audit, not to this session).
+- **Five rebases were needed while the PR was open** as concurrent sessions merged #44, #56, #57, #58,
+  #59 and #61 under it; the only conflicts were append-order in `TASKS.md`/`HANDOFF.md` plus one added
+  footer link in `executive-summary.html` (resolved by keeping upstream's `SITES.md`/`VERIFICATION.md`
+  links and appending the master-list link). The ID collision cost one renumber (T-025 → T-032).
