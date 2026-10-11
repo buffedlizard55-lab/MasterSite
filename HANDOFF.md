@@ -98,7 +98,8 @@ merged PR).
 
 ### What is next
 
-1. **T-002 (highest accuracy risk):** 47 description stamps are behind their heads, up from 38. Re-read
+1. **T-002 (highest accuracy risk):** 41 description stamps are behind their heads, down from 47 after the
+   six `GEMSDOE22`–`27` re-reads. Re-read
    each against the repository's own files at the current head and update `description` +
    `lastVerified` + `verifiedBasis` + `verifiedAtSha` **together**; never clear staleness by editing
    only a SHA. Several GEMS lanes commit multiple times per day — `60GEMSDOE` advanced mid-session and
@@ -109,3 +110,9 @@ merged PR).
    separate from `pagesStatus`, including whether `62GEMSDOE` / `GEMSDOE42` / `GEMSDOE44` serve a page
    at the configured root.
 4. **T-007:** 145 entries is now a wall; the GEMS family alone is 40+ lanes needing a family view.
+
+### Post-merge (same session, after T-001 landed)
+
+- **T-001 merged into `main` at `2026-10-11T04:04:11Z`** — PR [#23](https://github.com/buffedlizard55-lab/MasterSite/pull/23), merge commit `43c827f`. `main` now carries the 138-irregularity snapshot; read back from `origin/main:data/sites.js` to confirm rather than assumed: `counts.sites` 145, `apps` 135, `stubs` 10, `pagesBuilt` 144, `commits` 10,579, `proseStale` 41, `irregularities` 138 (IRR-01…IRR-138).
+- **The browser suite passed before and after the merge.** On the PR head: runs `38110045438` and `38110237192`, `browser-tests` green in 2m46s / 2m37s (Chromium, Firefox, WebKit; `npm run check` + `npm test`). On `main` after the merge: run `38110405707`, green on `43c827f`. The deployed directory reports Pages `status: built` at <https://buffedlizard55-lab.github.io/MasterSite/>.
+- **What the next session inherits:** `main` is the source of truth and is current as of the merge; `TASKS.md` has T-001 marked done and T-002/T-003/T-004/T-007/T-008/T-009/T-010/T-011 queued; `FLAGGED.md` ends at FL-12. Pull-rebase first — several GEMS lanes push multiple times a day, so the stale count will already have moved by the time anyone reads this.
