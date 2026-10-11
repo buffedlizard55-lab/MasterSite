@@ -1428,3 +1428,57 @@ them is a duplicate and should be closed by the owner.**
 4. **Owner decisions still open:** `T-006` (`6GEMSDOE` recommends deleting other GEMS repos), `T-004`
    (frozen 404 records), `FL-05` (`GEMSDOE53` errored), `FL-13` (`62GEMSDOE` category), `FL-17`
    (`NFLInjuryReport` volatile Pages status).
+---
+
+## Session `arena-bc4c1eec` — T-019 (fresh census re-verification + UI polish)
+
+**Started:** 2026-10-11T18:30:00Z
+
+### What was done
+
+1. **Fresh census re-verification at 2026-10-11T18:25Z:**
+   - `GET /users/buffedlizard55-lab` → `public_repos: 146` (unchanged from last snapshot)
+   - `GET /users/kanlerxz87-cyber` → `public_repos: 0` (unchanged)
+   - Paginated repo list (page 1: 100 repos, page 2: 46 repos) = 146 total
+   - 145 listed in `data/sites/` + 1 excluded (ProjX, per owner instruction) = 146 ✓
+   - **Census balance: PASS** — no unlisted public repositories
+
+2. **Spot-check Pages API endpoints (2026-10-11T18:25–18:30Z):**
+   - Frozen repos (JobSearchSF, MALTA, MALTA-LAWS, MALTA2): all still HTTP 404 — unchanged from FL-03/T-004
+   - `GEMSDOE53`: still `errored` — unchanged from FL-05 (no push since 2026-10-09T02:00:53Z)
+   - `NFLInjuryReport`: now **`built`** (was `errored`/`building` per FL-17; pushed at 2026-10-11T18:22:44Z triggered a successful rebuild)
+   - Spot-checked: MasterSite, GEMSDOE, Elections, StockPaperSim, TradingViewTheLeap, ShoulderPain, DrugAnalysis, SABERENGY, MLBComp, ParlaySports, WoWForever — all `built`
+
+3. **UI improvements:**
+   - Added floating "Back to Top" button (fixed position, bottom-right corner) that appears after scrolling 400px; smooth scroll-to-top on click; throttled scroll handler for performance on 145-site page; fade-in/out animation; accessible (aria-label, focus-visible outline, keyboard-navigable)
+   - CSS polish: card description word-break, metrics section visual separator, action button wrapping, hero tagline link styling
+   - All JavaScript syntax validated (`node --check app.js` PASS)
+   - `scripts/validate` PASS (5,420 checks, 102 tracked warnings — same as before, all expected PROSE-STALE/placeholder entries)
+
+4. **Protocol compliance:**
+   - Claimed T-019, committed claim alone, pushed immediately
+   - No hand-edits to `data/sites.js` or generated files
+   - No hallucinations — all facts sourced from GitHub REST API or live HTTP checks
+
+### What is blocked
+
+- **NFLInjuryReport status change:** FL-17 recorded `errored`/`building` at previous snapshots; now `built`. The data file `data/sites/buffedlizard55-lab__NFLInjuryReport.json` still carries the old status from the 2026-10-11T15:06:10Z snapshot. Updating it requires re-running `tools/build_data.py` with GitHub credentials, which this session's protocol restricts (API-derived fields must come from the generator, not hand-edits).
+- **T-002 (claimed by 96e82e25):** 51 stale descriptions still in the PROSE-STALE queue
+- **T-006:** Owner decision on GEMS consolidation — cannot complete without owner input
+- **FL-03/FL-05:** Frozen repos and GEMSDOE53 `errored` — need owner action or a push
+- **FL-18:** Five `{path}` template citations — belongs to T-002's pass
+
+### What is next
+
+1. **NFLInjuryReport status:** the next `build_data.py` run will pick up the `built` status. FL-17 can be closed once the snapshot refreshes.
+2. **T-002 continuation:** 51 stale descriptions remain; FL-18's template citations need expansion.
+3. **Owner decisions:** T-006 (GEMS stance), frozen repos (OWNER-DECISIONS.md).
+4. **PR #44:** still open and was `CONFLICTING` with main — needs its own session to rebase.
+
+### Verification sources for this session
+
+- Census: `https://api.github.com/users/buffedlizard55-lab/repos?per_page=100&page=1` and `page=2`
+- Profile: `https://api.github.com/users/buffedlizard55-lab` (public_repos: 146)
+- Profile: `https://api.github.com/users/kanlerxz87-cyber` (public_repos: 0)
+- Spot-check Pages: `https://api.github.com/repos/buffedlizard55-lab/{repo}/pages` for each repo listed above
+- Frozen repos: `https://api.github.com/repos/buffedlizard55-lab/{JobSearchSF,MALTA,MALTA-LAWS,MALTA2}` (all HTTP 404)
