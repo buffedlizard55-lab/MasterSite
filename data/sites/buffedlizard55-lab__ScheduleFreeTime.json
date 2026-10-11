@@ -24,7 +24,7 @@
   "verifiedAtSha": "8d111f9",
   "snapshotHeadSha": "8d111f9",
   "proseStale": false,
-  "verifiedBasis": "Description re-read this session against the repository's own files (README and the documents it cites), fetched through the official GitHub contents API at 2026-09-20T02:25:01Z.",
+  "verifiedBasis": "Description re-read this session against the repository's own files (README and the documents it cites), fetched through the official GitHub contents API at 2026-09-20T02:25:01Z. Manual review links for this record: repository metadata API https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime; Pages configuration/status API https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime/pages; first page of default-branch commits API https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime/commits?sha=main&per_page=100&page=1; README API at the recorded prose SHA https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime/readme?ref=8d111f9; repository files at that prose SHA https://github.com/buffedlizard55-lab/ScheduleFreeTime/tree/8d111f9; published Pages URL https://buffedlizard55-lab.github.io/ScheduleFreeTime/. These are review links: adding them did not re-read or semantically validate the description, refresh the API snapshot, or establish site availability.",
   "sourceLinks": [
     "https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime",
     "https://api.github.com/repos/buffedlizard55-lab/ScheduleFreeTime/pages",

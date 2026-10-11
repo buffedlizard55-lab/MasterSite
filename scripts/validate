@@ -14,8 +14,7 @@ Checks performed
   A. schema:   required non-empty fields on every record
   B. sources:  every record cites official api.github.com URLs for its own repository
                (its Pages endpoint and commit endpoint appear in VERIFICATION.md), and
-               every curated prose basis is either inline-sourced or explicitly marked
-               as carried/re-read from a named pass
+               every curated prose basis includes an inline API endpoint for hand review
   C. hygiene:  no unfilled placeholder values (TODO/FIXME/???/"to be determined");
                the softer words (tbd, unknown, n/a, placeholder) are reported as
                candidates for human review, because descriptions legitimately quote
@@ -50,9 +49,6 @@ UNFILLED = re.compile(r"\b(TODO|FIXME|XXX)\b|\?\?\?|lorem ipsum|to be determined
 # Softer words that are usually legitimate (they quote a source's own label, or describe a
 # placeholder repository). Reported for human review rather than treated as defects.
 REVIEW_WORDS = re.compile(r"\b(TBD|unknown|n/?a|placeholder)\b", re.I)
-CARRIED = re.compile(r"carried|re-read|re-stamped", re.I)
-# A pass identifier is either an ISO pass stamp or the commit the prose was checked at.
-PASS_STAMP = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z|\b[0-9a-f]{7,40}\b")
 SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
 REQUIRED = (
     "repo", "title", "category", "kind", "description", "created", "firstCommit",
@@ -142,13 +138,9 @@ def main():
                 warnings.append("%s: verifiedBasis also cites a non-matching API URL %r — "
                                 "confirm the alias is intentional" % (repo, u))
         if not own_api:
-            # Accept only an explicit, dated carry/re-read note: silence is not provenance.
-            carried = bool(CARRIED.search(basis)) and bool(PASS_STAMP.search(basis))
-            check(carried,
-                  "%s: verifiedBasis cites no official URL for this repository and does not "
-                  "state that the text was carried/re-read from a dated pass" % repo)
-            warnings.append("%s: prose basis has no inline endpoint (carried from an earlier "
-                            "pass) — hand-review links come from the ledger row and the UI" % repo)
+            check(False,
+                  "%s: verifiedBasis has no inline official API endpoint for this repository; "
+                  "add a hand-review URL instead of relying on the ledger row alone" % repo)
 
         # ---- D. verification stamps ---------------------------------------------
         check(bool(s.get("lastVerified")),
