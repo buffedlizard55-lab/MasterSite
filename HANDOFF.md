@@ -1640,3 +1640,38 @@ immediately, then renumbered twice rather than working around the collisions.
 3. **T-002** (claimed by `96e82e25`): the PROSE-STALE re-read queue and `FL-18`'s five `{path}` template citations remain the largest accuracy backlog.
 4. Check whether the T-021 (PR #54) and T-022 (PR #53) sessions merged while this one ran; if their census landed, verify `FL-17`'s `NFLInjuryReport` status settled to `built` or stayed volatile in their snapshot (as of this session's end, `main` still publishes the `15:06:10Z` snapshot).
 5. If the owner ever confirms consolidation, the exact runbook is in `OWNER-DECISIONS.md` §T-006 options 2–3.
+
+---
+
+## Post-merge record — session `arena-200c157f` (T-020, PR #44)
+
+**Merged:** PR [#44](https://github.com/buffedlizard55-lab/MasterSite/pull/44) merged into `main` at
+`2026-10-11T18:34:13Z` as merge commit **`2ada714`** (repo convention: merge commit). Read back from
+`origin/main` after the merge: `./scripts/validate` **PASS**, `node --check data/sites.js` OK, and the
+published snapshot is `2026-10-11T16:58:53Z`.
+
+**CI on the merged head:** `browser-tests` **pass** (2m12s). The `pages-smoke` `observe` job is
+**red by design** — that is the `FL-15` (`SABERENGY` meta-refresh landing page has no complete HTML
+title) finding this project deliberately does not weaken; `README.md` says not to read it as a
+regression.
+
+**What this pass cost in rebases, and why — worth inheriting.** This branch was rebased onto a moving
+`main` **four** times; every rebase conflicted because concurrent sessions were editing the same
+narrative files, and every rebase was pushed with `--force-with-lease` (this session's own branch
+only). During the same window other sessions claimed **T-019, T-021, T-022, T-023, T-024 and T-025**,
+so this session's still-unclaimed suggestion rows were renumbered twice, finally landing as
+**T-026–T-030**. Two lessons, both already filed: (1) a task ID is only reserved once its claim PR is
+open and visible — open the PR at claim time (`T-030`, the claim-visibility race); (2) when several
+sessions are live, expect the narrative files (`HANDOFF.md`, `README.md`, `TASKS.md`, `FLAGGED.md`)
+to conflict on every rebase and budget for it.
+
+**One recoverability note.** This sandbox was re-cloned mid-session, which discarded the local
+checkouts of two rebase rounds. No work was lost, because the completed pass had already been pushed
+to `origin/arena/200c157f-mastersite` before the re-clone; the branch was restored from that remote
+commit. Push the pass as soon as it is complete, not at the end of the session.
+
+**Next sessions:** the open queues are unchanged and documented above — `T-002` (52 stale prose
+stamps), the owner decisions (`GEMSDOE53` rebuild via `FL-05`, the four frozen 404 records via
+`T-004`, `62GEMSDOE` category via `FL-13`/`T-028`, GEMS-family consolidation via `T-006`), and the
+operational gaps this pass exposed (`T-026` `pagesStatus` watch, `T-029` quota-aware refresh,
+`T-030` claim visibility).
