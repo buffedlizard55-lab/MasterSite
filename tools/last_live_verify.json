@@ -1,592 +1,580 @@
 {
-  "snapshotGenerated": "2026-10-11T15:06:10Z",
-  "generatedOffsetVsLive": "2026-10-11T15:06:10Z",
+  "snapshotGenerated": "2026-10-11T16:58:53Z",
+  "generatedOffsetVsLive": "2026-10-11T16:58:53Z",
   "status": "complete",
   "complete": true,
   "checks": 1913,
-  "okCount": 1865,
-  "driftCount": 48,
+  "okCount": 1866,
+  "driftCount": 47,
   "hardMismatchCount": 0,
   "mismatches": [
     {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "pushedAt",
+      "committed": "2026-10-11T16:44:25Z",
+      "live": "2026-10-11T16:55:45Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T16:43:49Z",
+      "live": "2026-10-11T16:56:17Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "commits",
+      "committed": 60,
+      "live": 64
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T16:36:57Z",
+      "live": "2026-10-11T16:55:45Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "3dbf95c",
+      "live": "79bba96"
+    },
+    {
       "entry": "sites[]/61GEMSDOE",
       "field": "pushedAt",
-      "committed": "2026-10-11T14:48:11Z",
-      "live": "2026-10-11T15:11:52Z"
+      "committed": "2026-10-11T16:18:20Z",
+      "live": "2026-10-11T17:03:24Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "updatedAt",
-      "committed": "2026-10-11T06:31:21Z",
-      "live": "2026-10-11T15:11:57Z"
+      "committed": "2026-10-11T16:11:15Z",
+      "live": "2026-10-11T17:01:53Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
-      "field": "commits",
-      "committed": 61,
-      "live": 65
-    },
-    {
-      "entry": "sites[]/61GEMSDOE",
-      "field": "lastCommit",
-      "committed": "2026-10-11T06:31:16Z",
-      "live": "2026-10-11T15:11:51Z"
-    },
-    {
-      "entry": "sites[]/61GEMSDOE",
-      "field": "lastCommitSha",
-      "committed": "e1f30d2",
-      "live": "3a6d36b"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "pushedAt",
-      "committed": "2026-10-11T08:56:14Z",
-      "live": "2026-10-11T15:11:17Z"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "updatedAt",
-      "committed": "2026-10-11T08:56:17Z",
-      "live": "2026-10-11T15:11:21Z"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "commits",
-      "committed": 261,
-      "live": 262
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "lastCommit",
-      "committed": "2026-10-11T08:56:13Z",
-      "live": "2026-10-11T15:11:15Z"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "lastCommitSha",
-      "committed": "3268c8c",
-      "live": "bdf084f"
-    },
-    {
-      "entry": "sites[]/KalshiPaperSim",
       "field": "sizeKb",
-      "committed": 259234,
-      "live": 269779
+      "committed": 5602,
+      "live": 6327
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "entry": "sites[]/61GEMSDOE",
+      "field": "commits",
+      "committed": 73,
+      "live": 79
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T16:11:11Z",
+      "live": "2026-10-11T17:01:22Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "24c9560",
+      "live": "2ff05bc"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
       "field": "pushedAt",
-      "committed": "2026-10-11T14:56:26Z",
-      "live": "2026-10-11T15:12:41Z"
+      "committed": "2026-10-10T16:27:27Z",
+      "live": "2026-10-11T16:52:02Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "updatedAt",
+      "committed": "2026-10-10T16:27:31Z",
+      "live": "2026-10-11T16:58:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "commits",
+      "committed": 48,
+      "live": 49
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "lastCommit",
+      "committed": "2026-10-10T16:27:26Z",
+      "live": "2026-10-11T16:52:00Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "lastCommitSha",
+      "committed": "ebf8fb2",
+      "live": "a5bcbbc"
     },
     {
       "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "updatedAt",
-      "committed": "2026-10-11T05:57:11Z",
-      "live": "2026-10-11T15:12:46Z"
+      "committed": "2026-10-11T16:47:18Z",
+      "live": "2026-10-11T16:58:56Z"
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
-      "field": "commits",
-      "committed": 124,
-      "live": 129
+      "entry": "sites[]/MasterSite",
+      "field": "pushedAt",
+      "committed": "2026-10-11T16:53:53Z",
+      "live": "2026-10-11T17:08:36Z"
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
-      "field": "lastCommit",
-      "committed": "2026-10-11T05:57:06Z",
-      "live": "2026-10-11T15:12:40Z"
+      "entry": "sites[]/MasterSite",
+      "field": "updatedAt",
+      "committed": "2026-10-11T16:53:59Z",
+      "live": "2026-10-11T17:04:12Z"
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
-      "field": "lastCommitSha",
-      "committed": "de3303f",
-      "live": "b307c51"
-    },
-    {
-      "entry": "sites[]/MLBSCORINGCHANGE",
+      "entry": "sites[]/MasterSite",
       "field": "sizeKb",
-      "committed": 20261,
-      "live": 20262
+      "committed": 1872,
+      "live": 2760
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "commits",
+      "committed": 118,
+      "live": 121
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommit",
+      "committed": "2026-10-11T16:53:52Z",
+      "live": "2026-10-11T17:02:12Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommitSha",
+      "committed": "4872878",
+      "live": "55d6735"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "pushedAt",
-      "committed": "2026-10-11T15:01:40Z",
-      "live": "2026-10-11T15:30:21Z"
+      "committed": "2026-10-11T16:55:52Z",
+      "live": "2026-10-11T17:07:18Z"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
-      "field": "updatedAt",
-      "committed": "2026-10-11T15:01:44Z",
-      "live": "2026-10-11T15:30:25Z"
-    },
-    {
-      "entry": "sites[]/NFLInjuryReport",
-      "field": "sizeKb",
-      "committed": 242013,
-      "live": 245544
+      "field": "pagesStatus",
+      "committed": "errored",
+      "live": "built"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "commits",
-      "committed": 1901,
-      "live": 1920
+      "committed": 1976,
+      "live": 1982
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "lastCommit",
-      "committed": "2026-10-11T15:03:08Z",
-      "live": "2026-10-11T15:30:20Z"
+      "committed": "2026-10-11T16:55:50Z",
+      "live": "2026-10-11T17:07:16Z"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "lastCommitSha",
-      "committed": "d46e5f5",
-      "live": "d7aeb8e"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "pushedAt",
-      "committed": "2026-10-11T08:53:16Z",
-      "live": "2026-10-11T15:19:27Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "updatedAt",
-      "committed": "2026-10-11T08:53:20Z",
-      "live": "2026-10-11T15:19:31Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "commits",
-      "committed": 51,
-      "live": 52
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "lastCommit",
-      "committed": "2026-10-11T08:53:15Z",
-      "live": "2026-10-11T15:19:26Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "lastCommitSha",
-      "committed": "0de6465",
-      "live": "fed2da7"
+      "committed": "6588630",
+      "live": "b2763ae"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "pushedAt",
-      "committed": "2026-10-11T11:50:22Z",
-      "live": "2026-10-11T15:26:48Z"
+      "committed": "2026-10-11T15:26:48Z",
+      "live": "2026-10-11T17:06:33Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "updatedAt",
-      "committed": "2026-10-11T11:50:26Z",
-      "live": "2026-10-11T15:26:52Z"
+      "committed": "2026-10-11T15:26:52Z",
+      "live": "2026-10-11T17:06:37Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "commits",
-      "committed": 43,
-      "live": 44
+      "committed": 44,
+      "live": 46
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "lastCommit",
-      "committed": "2026-10-11T11:50:21Z",
-      "live": "2026-10-11T15:26:47Z"
+      "committed": "2026-10-11T15:26:47Z",
+      "live": "2026-10-11T17:06:32Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "lastCommitSha",
-      "committed": "fd5d670",
-      "live": "eb724dd"
+      "committed": "eb724dd",
+      "live": "8957a77"
     },
     {
-      "entry": "sites[]/SFWeather",
-      "field": "sizeKb",
-      "committed": 13727,
-      "live": 13731
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "3dbf95c",
+      "live": "79bba96"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T16:36:57Z",
+      "live": "2026-10-11T16:55:45Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "finalHeadSha",
-      "committed": "e1f30d2",
-      "live": "3a6d36b"
+      "committed": "24c9560",
+      "live": "225b53a"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T06:31:16Z",
-      "live": "2026-10-11T15:11:51Z"
+      "committed": "2026-10-11T16:11:11Z",
+      "live": "2026-10-11T17:09:26Z"
     },
     {
-      "entry": "sites[]/Commodities",
+      "entry": "sites[]/GEMSDOE23",
       "field": "finalHeadSha",
-      "committed": "3268c8c",
-      "live": "bdf084f"
+      "committed": "ebf8fb2",
+      "live": "a5bcbbc"
     },
     {
-      "entry": "sites[]/Commodities",
+      "entry": "sites[]/GEMSDOE23",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T08:56:13Z",
-      "live": "2026-10-11T15:11:15Z"
+      "committed": "2026-10-10T16:27:26Z",
+      "live": "2026-10-11T16:52:00Z"
     },
     {
       "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "finalHeadSha",
-      "committed": "de3303f",
-      "live": "b307c51"
+      "committed": "250e6bd",
+      "live": "6859c46"
     },
     {
       "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T05:57:06Z",
-      "live": "2026-10-11T15:12:40Z"
+      "committed": "2026-10-11T16:50:28Z",
+      "live": "2026-10-11T17:13:34Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalHeadSha",
+      "committed": "4872878",
+      "live": "05a0ab9"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T16:53:52Z",
+      "live": "2026-10-11T17:13:38Z"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "finalHeadSha",
-      "committed": "d46e5f5",
-      "live": "70dc4a3"
+      "committed": "6588630",
+      "live": "899be79"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T15:03:08Z",
-      "live": "2026-10-11T15:34:58Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "finalHeadSha",
-      "committed": "0de6465",
-      "live": "fed2da7"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "finalLastCommit",
-      "committed": "2026-10-11T08:53:15Z",
-      "live": "2026-10-11T15:19:26Z"
+      "committed": "2026-10-11T16:55:50Z",
+      "live": "2026-10-11T17:11:38Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "finalHeadSha",
-      "committed": "fd5d670",
-      "live": "eb724dd"
+      "committed": "eb724dd",
+      "live": "8957a77"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T11:50:21Z",
-      "live": "2026-10-11T15:26:47Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNHL",
-      "field": "finalHeadSha",
-      "committed": "f371352",
-      "live": "99ab8e9"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNHL",
-      "field": "finalLastCommit",
-      "committed": "2026-10-11T08:59:31Z",
-      "live": "2026-10-11T15:34:59Z"
+      "committed": "2026-10-11T15:26:47Z",
+      "live": "2026-10-11T17:06:32Z"
     }
   ],
   "unlistedInApi": [],
   "listedNotInApi": [],
   "volatileDrift": [
     {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "pushedAt",
+      "committed": "2026-10-11T16:44:25Z",
+      "live": "2026-10-11T16:55:45Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "updatedAt",
+      "committed": "2026-10-11T16:43:49Z",
+      "live": "2026-10-11T16:56:17Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "commits",
+      "committed": 60,
+      "live": 64
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T16:36:57Z",
+      "live": "2026-10-11T16:55:45Z"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "3dbf95c",
+      "live": "79bba96"
+    },
+    {
       "entry": "sites[]/61GEMSDOE",
       "field": "pushedAt",
-      "committed": "2026-10-11T14:48:11Z",
-      "live": "2026-10-11T15:11:52Z"
+      "committed": "2026-10-11T16:18:20Z",
+      "live": "2026-10-11T17:03:24Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "updatedAt",
-      "committed": "2026-10-11T06:31:21Z",
-      "live": "2026-10-11T15:11:57Z"
+      "committed": "2026-10-11T16:11:15Z",
+      "live": "2026-10-11T17:01:53Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
-      "field": "commits",
-      "committed": 61,
-      "live": 65
-    },
-    {
-      "entry": "sites[]/61GEMSDOE",
-      "field": "lastCommit",
-      "committed": "2026-10-11T06:31:16Z",
-      "live": "2026-10-11T15:11:51Z"
-    },
-    {
-      "entry": "sites[]/61GEMSDOE",
-      "field": "lastCommitSha",
-      "committed": "e1f30d2",
-      "live": "3a6d36b"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "pushedAt",
-      "committed": "2026-10-11T08:56:14Z",
-      "live": "2026-10-11T15:11:17Z"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "updatedAt",
-      "committed": "2026-10-11T08:56:17Z",
-      "live": "2026-10-11T15:11:21Z"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "commits",
-      "committed": 261,
-      "live": 262
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "lastCommit",
-      "committed": "2026-10-11T08:56:13Z",
-      "live": "2026-10-11T15:11:15Z"
-    },
-    {
-      "entry": "sites[]/Commodities",
-      "field": "lastCommitSha",
-      "committed": "3268c8c",
-      "live": "bdf084f"
-    },
-    {
-      "entry": "sites[]/KalshiPaperSim",
       "field": "sizeKb",
-      "committed": 259234,
-      "live": 269779
+      "committed": 5602,
+      "live": 6327
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
+      "entry": "sites[]/61GEMSDOE",
+      "field": "commits",
+      "committed": 73,
+      "live": 79
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommit",
+      "committed": "2026-10-11T16:11:11Z",
+      "live": "2026-10-11T17:01:22Z"
+    },
+    {
+      "entry": "sites[]/61GEMSDOE",
+      "field": "lastCommitSha",
+      "committed": "24c9560",
+      "live": "2ff05bc"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
       "field": "pushedAt",
-      "committed": "2026-10-11T14:56:26Z",
-      "live": "2026-10-11T15:12:41Z"
+      "committed": "2026-10-10T16:27:27Z",
+      "live": "2026-10-11T16:52:02Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "updatedAt",
+      "committed": "2026-10-10T16:27:31Z",
+      "live": "2026-10-11T16:58:52Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "commits",
+      "committed": 48,
+      "live": 49
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "lastCommit",
+      "committed": "2026-10-10T16:27:26Z",
+      "live": "2026-10-11T16:52:00Z"
+    },
+    {
+      "entry": "sites[]/GEMSDOE23",
+      "field": "lastCommitSha",
+      "committed": "ebf8fb2",
+      "live": "a5bcbbc"
     },
     {
       "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "updatedAt",
-      "committed": "2026-10-11T05:57:11Z",
-      "live": "2026-10-11T15:12:46Z"
+      "committed": "2026-10-11T16:47:18Z",
+      "live": "2026-10-11T16:58:56Z"
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
-      "field": "commits",
-      "committed": 124,
-      "live": 129
+      "entry": "sites[]/MasterSite",
+      "field": "pushedAt",
+      "committed": "2026-10-11T16:53:53Z",
+      "live": "2026-10-11T17:08:36Z"
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
-      "field": "lastCommit",
-      "committed": "2026-10-11T05:57:06Z",
-      "live": "2026-10-11T15:12:40Z"
+      "entry": "sites[]/MasterSite",
+      "field": "updatedAt",
+      "committed": "2026-10-11T16:53:59Z",
+      "live": "2026-10-11T17:04:12Z"
     },
     {
-      "entry": "sites[]/MALTASUPPLEMENTAL",
-      "field": "lastCommitSha",
-      "committed": "de3303f",
-      "live": "b307c51"
-    },
-    {
-      "entry": "sites[]/MLBSCORINGCHANGE",
+      "entry": "sites[]/MasterSite",
       "field": "sizeKb",
-      "committed": 20261,
-      "live": 20262
+      "committed": 1872,
+      "live": 2760
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "commits",
+      "committed": 118,
+      "live": 121
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommit",
+      "committed": "2026-10-11T16:53:52Z",
+      "live": "2026-10-11T17:02:12Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "lastCommitSha",
+      "committed": "4872878",
+      "live": "55d6735"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "pushedAt",
-      "committed": "2026-10-11T15:01:40Z",
-      "live": "2026-10-11T15:30:21Z"
+      "committed": "2026-10-11T16:55:52Z",
+      "live": "2026-10-11T17:07:18Z"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
-      "field": "updatedAt",
-      "committed": "2026-10-11T15:01:44Z",
-      "live": "2026-10-11T15:30:25Z"
-    },
-    {
-      "entry": "sites[]/NFLInjuryReport",
-      "field": "sizeKb",
-      "committed": 242013,
-      "live": 245544
+      "field": "pagesStatus",
+      "committed": "errored",
+      "live": "built"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "commits",
-      "committed": 1901,
-      "live": 1920
+      "committed": 1976,
+      "live": 1982
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "lastCommit",
-      "committed": "2026-10-11T15:03:08Z",
-      "live": "2026-10-11T15:30:20Z"
+      "committed": "2026-10-11T16:55:50Z",
+      "live": "2026-10-11T17:07:16Z"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "lastCommitSha",
-      "committed": "d46e5f5",
-      "live": "d7aeb8e"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "pushedAt",
-      "committed": "2026-10-11T08:53:16Z",
-      "live": "2026-10-11T15:19:27Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "updatedAt",
-      "committed": "2026-10-11T08:53:20Z",
-      "live": "2026-10-11T15:19:31Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "commits",
-      "committed": 51,
-      "live": 52
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "lastCommit",
-      "committed": "2026-10-11T08:53:15Z",
-      "live": "2026-10-11T15:19:26Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "lastCommitSha",
-      "committed": "0de6465",
-      "live": "fed2da7"
+      "committed": "6588630",
+      "live": "b2763ae"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "pushedAt",
-      "committed": "2026-10-11T11:50:22Z",
-      "live": "2026-10-11T15:26:48Z"
+      "committed": "2026-10-11T15:26:48Z",
+      "live": "2026-10-11T17:06:33Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "updatedAt",
-      "committed": "2026-10-11T11:50:26Z",
-      "live": "2026-10-11T15:26:52Z"
+      "committed": "2026-10-11T15:26:52Z",
+      "live": "2026-10-11T17:06:37Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "commits",
-      "committed": 43,
-      "live": 44
+      "committed": 44,
+      "live": 46
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "lastCommit",
-      "committed": "2026-10-11T11:50:21Z",
-      "live": "2026-10-11T15:26:47Z"
+      "committed": "2026-10-11T15:26:47Z",
+      "live": "2026-10-11T17:06:32Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "lastCommitSha",
-      "committed": "fd5d670",
-      "live": "eb724dd"
+      "committed": "eb724dd",
+      "live": "8957a77"
     },
     {
-      "entry": "sites[]/SFWeather",
-      "field": "sizeKb",
-      "committed": 13727,
-      "live": 13731
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalHeadSha",
+      "committed": "3dbf95c",
+      "live": "79bba96"
+    },
+    {
+      "entry": "sites[]/60GEMSDOE",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T16:36:57Z",
+      "live": "2026-10-11T16:55:45Z"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "finalHeadSha",
-      "committed": "e1f30d2",
-      "live": "3a6d36b"
+      "committed": "24c9560",
+      "live": "225b53a"
     },
     {
       "entry": "sites[]/61GEMSDOE",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T06:31:16Z",
-      "live": "2026-10-11T15:11:51Z"
+      "committed": "2026-10-11T16:11:11Z",
+      "live": "2026-10-11T17:09:26Z"
     },
     {
-      "entry": "sites[]/Commodities",
+      "entry": "sites[]/GEMSDOE23",
       "field": "finalHeadSha",
-      "committed": "3268c8c",
-      "live": "bdf084f"
+      "committed": "ebf8fb2",
+      "live": "a5bcbbc"
     },
     {
-      "entry": "sites[]/Commodities",
+      "entry": "sites[]/GEMSDOE23",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T08:56:13Z",
-      "live": "2026-10-11T15:11:15Z"
+      "committed": "2026-10-10T16:27:26Z",
+      "live": "2026-10-11T16:52:00Z"
     },
     {
       "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "finalHeadSha",
-      "committed": "de3303f",
-      "live": "b307c51"
+      "committed": "250e6bd",
+      "live": "6859c46"
     },
     {
       "entry": "sites[]/MALTASUPPLEMENTAL",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T05:57:06Z",
-      "live": "2026-10-11T15:12:40Z"
+      "committed": "2026-10-11T16:50:28Z",
+      "live": "2026-10-11T17:13:34Z"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalHeadSha",
+      "committed": "4872878",
+      "live": "05a0ab9"
+    },
+    {
+      "entry": "sites[]/MasterSite",
+      "field": "finalLastCommit",
+      "committed": "2026-10-11T16:53:52Z",
+      "live": "2026-10-11T17:13:38Z"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "finalHeadSha",
-      "committed": "d46e5f5",
-      "live": "70dc4a3"
+      "committed": "6588630",
+      "live": "899be79"
     },
     {
       "entry": "sites[]/NFLInjuryReport",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T15:03:08Z",
-      "live": "2026-10-11T15:34:58Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "finalHeadSha",
-      "committed": "0de6465",
-      "live": "fed2da7"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNBA",
-      "field": "finalLastCommit",
-      "committed": "2026-10-11T08:53:15Z",
-      "live": "2026-10-11T15:19:26Z"
+      "committed": "2026-10-11T16:55:50Z",
+      "live": "2026-10-11T17:11:38Z"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "finalHeadSha",
-      "committed": "fd5d670",
-      "live": "eb724dd"
+      "committed": "eb724dd",
+      "live": "8957a77"
     },
     {
       "entry": "sites[]/SCORINGDISCREPNFL",
       "field": "finalLastCommit",
-      "committed": "2026-10-11T11:50:21Z",
-      "live": "2026-10-11T15:26:47Z"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNHL",
-      "field": "finalHeadSha",
-      "committed": "f371352",
-      "live": "99ab8e9"
-    },
-    {
-      "entry": "sites[]/ScoringDiscrepNHL",
-      "field": "finalLastCommit",
-      "committed": "2026-10-11T08:59:31Z",
-      "live": "2026-10-11T15:34:59Z"
+      "committed": "2026-10-11T15:26:47Z",
+      "live": "2026-10-11T17:06:32Z"
     }
   ],
   "hardMismatches": []

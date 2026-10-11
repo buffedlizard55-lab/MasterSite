@@ -1,8 +1,8 @@
 {
   "tool": "tools/audit_provenance.py",
-  "startedAt": "2026-10-11T16:02:19Z",
-  "finishedAt": "2026-10-11T16:08:25Z",
-  "snapshotGenerated": "2026-10-11T15:06:10Z",
+  "startedAt": "2026-10-11T17:26:39Z",
+  "finishedAt": "2026-10-11T17:33:30Z",
+  "snapshotGenerated": "2026-10-11T16:58:53Z",
   "entriesAudited": 145,
   "entriesTotal": 145,
   "complete": true,
@@ -296,8 +296,8 @@
       "stampsResolved": {
         "verifiedAtSha": "3302a91ab36a50b59cd52fd900097c5fcfd29f74",
         "firstCommitSha": "8702901d90763cb641f3814e9d533787a75ec737",
-        "lastCommitSha": "ab72d604f65525d4431dd1258988c7bfc5d05780",
-        "headSha": "ab72d604f65525d4431dd1258988c7bfc5d05780"
+        "lastCommitSha": "307d4c0e128c31232ec58ab4359eac1e343d0050",
+        "headSha": "307d4c0e128c31232ec58ab4359eac1e343d0050"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -341,8 +341,8 @@
       "stampsResolved": {
         "verifiedAtSha": "6f76b119d25f085add6e1ec031233293e13bf2d5",
         "firstCommitSha": "aeb4ac7ea9591dcab2317c3fbccfb888875a6155",
-        "lastCommitSha": "55a85d2c98f38d4b5a40e8bbb50f13e2a98bd56e",
-        "headSha": "55a85d2c98f38d4b5a40e8bbb50f13e2a98bd56e"
+        "lastCommitSha": "3dbf95c6920b01ade827fb6aa2dc02c05bc62024",
+        "headSha": "3dbf95c6920b01ade827fb6aa2dc02c05bc62024"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -356,8 +356,8 @@
       "stampsResolved": {
         "verifiedAtSha": "8ffc2dbe9697a4de3748840b249b292a12530b0c",
         "firstCommitSha": "5a1bf29eb33fc472c0580e97a7bc8092a625432e",
-        "lastCommitSha": "e1f30d22e46239368d79ad536c97316f5b8b731e",
-        "headSha": "e1f30d22e46239368d79ad536c97316f5b8b731e"
+        "lastCommitSha": "24c9560f47a003cd2d6b7db23b7e56027cd9def3",
+        "headSha": "24c9560f47a003cd2d6b7db23b7e56027cd9def3"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -498,8 +498,8 @@
       "stampsResolved": {
         "verifiedAtSha": "b284d69f25583b9a563b4fcd8f527123a450178b",
         "firstCommitSha": "e9dced20915070a9d43a200b4f9fdf8c433f1464",
-        "lastCommitSha": "3268c8cb5cbb84493acb05872321e38005cec36a",
-        "headSha": "3268c8cb5cbb84493acb05872321e38005cec36a"
+        "lastCommitSha": "f4ade7c4e8e1608d1ba55e3730f856782a2d26d9",
+        "headSha": "f4ade7c4e8e1608d1ba55e3730f856782a2d26d9"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1265,8 +1265,8 @@
       "stampsResolved": {
         "verifiedAtSha": "450833a49d3b31d309f56db87153acbc6956e33f",
         "firstCommitSha": "8541eed8e3ab3f1b604cbb8cfef7c1bc9e7312fd",
-        "lastCommitSha": "5dc98842fff41bcb4846ea8fb73dd013abad1093",
-        "headSha": "5dc98842fff41bcb4846ea8fb73dd013abad1093"
+        "lastCommitSha": "a16dbc2f8a290c184c0cf2d9983e2609891faae9",
+        "headSha": "a16dbc2f8a290c184c0cf2d9983e2609891faae9"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -1460,8 +1460,8 @@
       "stampsResolved": {
         "verifiedAtSha": "de3303fbfecdf8176afb32002f02be58692d0405",
         "firstCommitSha": "29c7c48e1385e28c9a4c6af094732379f7417617",
-        "lastCommitSha": "de3303fbfecdf8176afb32002f02be58692d0405",
-        "headSha": "de3303fbfecdf8176afb32002f02be58692d0405"
+        "lastCommitSha": "250e6bd0ea5722cbad5a5ec21fc3117f2eee8fe0",
+        "headSha": "250e6bd0ea5722cbad5a5ec21fc3117f2eee8fe0"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -1490,8 +1490,8 @@
       "stampsResolved": {
         "verifiedAtSha": "3cda9250f12b3cd48ef85687bf4405591633a4c2",
         "firstCommitSha": "f724b59c9c360d5d70b4e48ecfae6e1722e4f751",
-        "lastCommitSha": "9752a93b205a495d6580d2fe5d56552d0521a89c",
-        "headSha": "9752a93b205a495d6580d2fe5d56552d0521a89c"
+        "lastCommitSha": "48728787d3a81c625d2cc0ae79d9cfd34e0c2aee",
+        "headSha": "48728787d3a81c625d2cc0ae79d9cfd34e0c2aee"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -1631,8 +1631,8 @@
       "stampsResolved": {
         "verifiedAtSha": "df9a36a8a40ea042f117be3908dbf5706d643c0d",
         "firstCommitSha": "0cd8aad5b63a09e428eb3598b03c630fc4596557",
-        "lastCommitSha": "fcf4f7a13bc0120b2b28b91c57720ac02507df66",
-        "headSha": "fcf4f7a13bc0120b2b28b91c57720ac02507df66"
+        "lastCommitSha": "98c75ea8f295e6e5d82604bdd5059543ab68977f",
+        "headSha": "98c75ea8f295e6e5d82604bdd5059543ab68977f"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1721,8 +1721,8 @@
       "stampsResolved": {
         "verifiedAtSha": "26367c3953e9ba07f52e32a796b128464131dd43",
         "firstCommitSha": "5d8a07f454b7c24c7009c6553d3045bfdd88498f",
-        "lastCommitSha": "d46e5f584c8feb5822872b22c23d15cb22aaeaa4",
-        "headSha": "d46e5f584c8feb5822872b22c23d15cb22aaeaa4"
+        "lastCommitSha": "65886308fc09b71cf006431102e0d42ae43780b7",
+        "headSha": "65886308fc09b71cf006431102e0d42ae43780b7"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1736,8 +1736,8 @@
       "stampsResolved": {
         "verifiedAtSha": "84d054e29ae33070478d4edbbb58feee63912918",
         "firstCommitSha": "5b05a4bc5668e1682c71a8b8e69ff5c9856b114f",
-        "lastCommitSha": "1c81af34a2aeb2ecb87fd63284d590a307073ee8",
-        "headSha": "1c81af34a2aeb2ecb87fd63284d590a307073ee8"
+        "lastCommitSha": "8fe5ff5630682525f3947de2ec39e41ea9dcf91d",
+        "headSha": "8fe5ff5630682525f3947de2ec39e41ea9dcf91d"
       },
       "citationsChecked": 2,
       "readmeTokens": "accepted exception",
@@ -1916,8 +1916,8 @@
       "stampsResolved": {
         "verifiedAtSha": "8567a316e959f9c8192634f38aa09de92a9eecbf",
         "firstCommitSha": "49a56250a814f46b57fd2d84474d77ebd0105305",
-        "lastCommitSha": "e25ec4327e92b9abc000ff4e2c73921f97386fea",
-        "headSha": "e25ec4327e92b9abc000ff4e2c73921f97386fea"
+        "lastCommitSha": "feba6b4014a995410fa7a8384179d4d3e21dc3e3",
+        "headSha": "feba6b4014a995410fa7a8384179d4d3e21dc3e3"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1997,8 +1997,8 @@
       "stampsResolved": {
         "verifiedAtSha": "1976ed7a39acfba5fc3268d4874a0071a0d8100a",
         "firstCommitSha": "efcbfc804cb2d443379ffbe6adf9ecfc4f75e91f",
-        "lastCommitSha": "0de64653c088848c11d9ccd840d918f5f124d22f",
-        "headSha": "0de64653c088848c11d9ccd840d918f5f124d22f"
+        "lastCommitSha": "fed2da786caccd536a76c607998b81a0895cd183",
+        "headSha": "fed2da786caccd536a76c607998b81a0895cd183"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -2012,8 +2012,8 @@
       "stampsResolved": {
         "verifiedAtSha": "52a99f9d14bf80406bd5d38c8bfe9d63b3697ab0",
         "firstCommitSha": "81bee8620ffa9be9d1cfd45d89cd3345ed8ff1d8",
-        "lastCommitSha": "fd5d67093b45f5b1e10453a18011d4c8e7228dee",
-        "headSha": "fd5d67093b45f5b1e10453a18011d4c8e7228dee"
+        "lastCommitSha": "eb724dda1588f5c852b99a3cdffe5914bf17e582",
+        "headSha": "eb724dda1588f5c852b99a3cdffe5914bf17e582"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -2027,8 +2027,8 @@
       "stampsResolved": {
         "verifiedAtSha": "a93911af439fd4e91e1b84a96e4e519b20453b16",
         "firstCommitSha": "f343364e1ff4f04067388cf1d4017c3d5bf83170",
-        "lastCommitSha": "f371352e59732f7aed1488f65e7b2309580b38f9",
-        "headSha": "f371352e59732f7aed1488f65e7b2309580b38f9"
+        "lastCommitSha": "99ab8e9fb9e86a9b809077b69146eda4148446f3",
+        "headSha": "99ab8e9fb9e86a9b809077b69146eda4148446f3"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
