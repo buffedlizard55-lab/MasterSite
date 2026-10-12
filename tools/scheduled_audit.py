@@ -98,9 +98,11 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import quote, urlsplit
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 API = "https://api.github.com"
+OWNER = "buffedlizard55-lab"
 DATA = os.path.join(ROOT, "data", "sites.js")
 
 # Verdicts
@@ -460,11 +462,231 @@ def summarize(name, payload):
                              "checksPerformed", "acceptedDescriptionExceptions"),
     }.get(name, ("complete",))
     summary = {k: payload.get(k) for k in keys if k in payload}
-    # Count the finding lists rather than copying them; the tool's JSON holds detail.
-    for field in ("disagreements", "unresolved", "findings", "apiErrors", "hardMismatches"):
+    # Counts keep the summary compact; review_items() carries the actual rows.
+    for field in ("disagreements", "unresolved", "findings", "apiErrors", "hardMismatches",
+                  "volatileDrift", "templateCitations", "unlistedInApi", "listedNotInApi"):
         if isinstance(payload.get(field), list):
             summary[field + "Count"] = len(payload[field])
     return summary
+
+
+def _repo_api_url(repo, suffix=""):
+    """A concrete official API URL for one repository, or None if it is unknown."""
+    if not isinstance(repo, str) or not repo:
+        return None
+    return "%s/repos/%s/%s%s" % (API, OWNER, quote(repo, safe="-._~"), suffix)
+
+
+def _owner_repos_url(owner=OWNER):
+    return "%s/users/%s/repos?type=public&per_page=100&page=1" % (
+        API, quote(str(owner), safe="-._~"))
+
+
+def _configured_index_url(repo, source):
+    """Recreate audit_kind's configured-path contents endpoint from its report."""
+    if not isinstance(source, str) or not source.strip():
+        return None
+    parts = source.strip().split(None, 1)
+    if len(parts) != 2:
+        return None
+    branch, path = parts
+    subpath = path.strip("/")
+    content_path = "/%s" % quote(subpath, safe="/") if subpath else ""
+    ref = quote(branch, safe="-._~")
+    return _repo_api_url(repo, "/contents%s/index.html?ref=%s" % (content_path, ref))
+
+
+def _verify_live_source(entry, field):
+    """Map verify_live's recorded field name to the REST resource it checks."""
+    entry = str(entry or "")
+    field = str(field or "")
+    if entry.startswith("accounts/"):
+        login = entry.split("/", 1)[1]
+        if field in ("public repo list count", "pagesSites"):
+            return _owner_repos_url(login)
+        return "%s/users/%s" % (API, quote(login, safe="-._~"))
+    if entry == "coverage":
+        return _owner_repos_url()
+    if entry.startswith("unreachable[]/"):
+        return _repo_api_url(entry.split("/", 1)[1])
+    if entry.startswith("sites[]/"):
+        repo = entry.split("/", 1)[1]
+        if field in ("pagesStatus", "pagesSource", "pagesUrl", "GET /pages"):
+            return _repo_api_url(repo, "/pages")
+        if field in ("commits", "firstCommit", "firstCommitSha", "lastCommit", "lastCommitSha",
+                     "finalHeadSha", "finalLastCommit", "GET /commits",
+                     "GET /commits final-head recheck"):
+            per_page = "1" if field in ("finalHeadSha", "finalLastCommit",
+                                         "GET /commits final-head recheck") else "100"
+            return _repo_api_url(repo, "/commits?per_page=%s" % per_page)
+        return _repo_api_url(repo)
+    return None
+
+
+def review_items(name, payload):
+    """Copy report-level findings and drift into a compact, source-linked form.
+
+    This is presentation only: it does not change an audit verdict, run any
+    extra requests, infer a missing value, or turn provenance templates into
+    hard findings. A `{path}` citation is retained verbatim and shown as a
+    literal-placeholder response when that is what the audit reported.
+    """
+    if not isinstance(payload, dict):
+        return []
+    items = []
+
+    if name == "audit_kind":
+        for row in payload.get("disagreements", []) or []:
+            if not isinstance(row, dict):
+                continue
+            repo = row.get("repo")
+            sources = [_repo_api_url(repo, "/pages"),
+                       _configured_index_url(repo, row.get("pagesSource"))]
+            items.append({
+                "type": "kind disagreement", "repo": repo, "field": "kind",
+                "expected": row.get("overlayKind"), "observed": row.get("derivedKind"),
+                "detail": "configured path %s; index.html HTTP %s" % (
+                    row.get("pagesSource") or "not recorded", row.get("httpStatus", "unknown")),
+                "sources": [source for source in sources if source],
+            })
+        for row in payload.get("unresolved", []) or []:
+            if not isinstance(row, dict):
+                continue
+            repo = row.get("repo")
+            sources = [_repo_api_url(repo, "/pages")]
+            index_url = _configured_index_url(repo, row.get("source"))
+            if index_url:
+                sources.append(index_url)
+            items.append({
+                "type": "unresolved kind check", "repo": repo, "field": row.get("field"),
+                "status": row.get("status"), "detail": row.get("message") or row.get("source"),
+                "sources": [source for source in sources if source],
+            })
+
+    elif name == "audit_descriptions":
+        readme_refs = payload.get("readmeRefs") if isinstance(payload.get("readmeRefs"), dict) else {}
+        for row in payload.get("unresolved", []) or []:
+            if not isinstance(row, dict):
+                continue
+            repo = row.get("repo")
+            ref = readme_refs.get(repo)
+            source = (_repo_api_url(repo, "/readme?ref=%s" % quote(str(ref), safe="-._~"))
+                      if isinstance(ref, str) and ref else None)
+            items.append({
+                "type": "description source review", "repo": repo, "field": "numeric-token lint",
+                "detail": row.get("why"), "tokens": row.get("tokens"), "ref": ref, "source": source,
+            })
+        for row in payload.get("apiErrors", []) or []:
+            if not isinstance(row, dict):
+                continue
+            items.append({
+                "type": "description API error", "repo": row.get("repo"), "field": "README read",
+                "status": row.get("status"), "ref": row.get("ref"),
+                "detail": row.get("message") or "API error reported without a message",
+                "source": row.get("endpoint"),
+            })
+
+    elif name == "verify_live":
+        def add_mismatch_rows(rows, item_type):
+            for row in rows or []:
+                if not isinstance(row, dict):
+                    continue
+                entry = str(row.get("entry") or "")
+                repo = entry.split("/", 1)[1] if entry.startswith(("sites[]/", "unreachable[]/")) else None
+                account = entry.split("/", 1)[1] if entry.startswith("accounts/") else None
+                field = row.get("field")
+                source_note = None
+                if account and field == "pagesSites":
+                    source_note = ("The verifier derives this count by reading each listed repository's /pages endpoint; "
+                                   "the audit report does not retain all per-repository URLs.")
+                items.append({
+                    "type": item_type, "repo": repo, "account": account,
+                    "field": field, "expected": row.get("committed"),
+                    "observed": row.get("live"), "source": _verify_live_source(entry, field),
+                    "sourceNote": source_note,
+                })
+
+        hard = payload.get("hardMismatches") if isinstance(payload.get("hardMismatches"), list) else []
+        drift = payload.get("volatileDrift") if isinstance(payload.get("volatileDrift"), list) else []
+        add_mismatch_rows(hard, "hard mismatch")
+        add_mismatch_rows(drift, "snapshot drift (volatile; not automatically a defect)")
+
+        def mismatch_key(row):
+            return tuple(json.dumps(row.get(key), ensure_ascii=False, sort_keys=True, default=str)
+                         for key in ("entry", "field", "committed", "live"))
+
+        classified = {mismatch_key(row) for row in hard + drift if isinstance(row, dict)}
+        for row in payload.get("mismatches", []) or []:
+            if isinstance(row, dict) and mismatch_key(row) not in classified:
+                add_mismatch_rows([row], "reported mismatch (classification unavailable)")
+
+        for key, kind, detail in (
+            ("unlistedInApi", "public repository missing from the directory",
+             "reported by the public-repository API list"),
+            ("listedNotInApi", "directory repository absent from the public API list",
+             "reported by the public-repository API list"),
+        ):
+            for repo in payload.get(key, []) or []:
+                items.append({"type": kind, "repo": repo, "field": key,
+                              "detail": detail, "source": _owner_repos_url()})
+
+        error = payload.get("error")
+        if isinstance(error, dict):
+            items.append({
+                "type": "verification access block", "field": "API read",
+                "status": error.get("httpStatus"), "detail": error.get("message"),
+                # The blocked report does not retain the failed endpoint. Do not
+                # guess one; the general review endpoint remains in Verdict detail.
+                "source": None,
+            })
+
+    elif name == "audit_provenance":
+        for row in payload.get("findings", []) or []:
+            if not isinstance(row, dict):
+                continue
+            items.append({
+                "type": "provenance finding", "repo": row.get("repo"),
+                "field": row.get("finding"), "detail": row.get("detail"),
+                "source": row.get("source") or None,
+            })
+
+        templates = payload.get("templateCitations")
+        if not isinstance(templates, list):
+            templates = []
+        if not templates:
+            entries = payload.get("entries") if isinstance(payload.get("entries"), list) else []
+            templates = [{"repo": entry.get("repo"), **citation}
+                         for entry in entries if isinstance(entry, dict)
+                         for citation in (entry.get("templateCitations") or [])
+                         if isinstance(citation, dict)]
+        seen_templates = set()
+        for row in templates:
+            if not isinstance(row, dict):
+                continue
+            key = (row.get("repo"), row.get("endpoint"), row.get("status"), row.get("documentedStatus"))
+            if key in seen_templates:
+                continue
+            seen_templates.add(key)
+            endpoint = row.get("endpoint")
+            detail = ("literal {path} placeholder request returned HTTP %s; this is not a concrete file citation"
+                      % row.get("status", "unknown") if isinstance(endpoint, str) and "{path}" in endpoint
+                      else "placeholder citation recorded by the provenance audit")
+            items.append({
+                "type": "provenance template citation", "repo": row.get("repo"),
+                "field": "citation endpoint", "status": row.get("status"),
+                "documentedStatus": row.get("documentedStatus"), "detail": detail,
+                "source": endpoint,
+            })
+
+        if payload.get("accessBlocked") or payload.get("complete") is False:
+            items.append({
+                "type": "incomplete provenance coverage", "field": "entries audited",
+                "expected": payload.get("entriesTotal"), "observed": payload.get("entriesAudited"),
+                "detail": payload.get("accessBlockReason") or "the provenance report says complete=false",
+                "source": None,
+            })
+
+    return items
 
 
 # --------------------------------------------------------------------------
@@ -513,6 +735,8 @@ def run_audit(name, out_dir, snapshot):
     }
     if isinstance(payload, dict):
         result["toolSummary"] = summarize(name, payload)
+        if fresh:
+            result["reviewItems"] = review_items(name, payload)
         if snapshot and payload.get("snapshotGenerated") and payload["snapshotGenerated"] != snapshot:
             result["snapshotMismatch"] = payload["snapshotGenerated"]
     return result
@@ -521,6 +745,82 @@ def run_audit(name, out_dir, snapshot):
 # --------------------------------------------------------------------------
 # report
 # --------------------------------------------------------------------------
+
+def _inline_code(value):
+    """Render one JSON/text value as a safe, single-line Markdown code span."""
+    text = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, sort_keys=True, default=str)
+    text = text.replace("\r", " ").replace("\n", " ")
+    longest = run = 0
+    for char in text:
+        if char == "`":
+            run += 1
+            longest = max(longest, run)
+        else:
+            run = 0
+    fence = "`" * (longest + 1)
+    pad = " " if text.startswith("`") or text.endswith("`") else ""
+    return fence + pad + text + pad + fence
+
+
+def _json_code(value):
+    return _inline_code(json.dumps(value, ensure_ascii=False, sort_keys=True, default=str))
+
+
+def _markdown_api_url(source):
+    """Link only HTTPS GitHub REST API URLs; encode braces in literal templates."""
+    if not isinstance(source, str):
+        return None
+    parts = urlsplit(source)
+    if parts.scheme != "https" or parts.netloc.lower() != "api.github.com":
+        return None
+    return quote(source, safe=":/?=&%#-._~!$'()*+,;@")
+
+
+def _render_review_source(source, item):
+    if not isinstance(source, str) or not source:
+        return "no source URL was included in the audit report; no link was inferred"
+    url = _markdown_api_url(source)
+    if not url:
+        return "%s (not linked: the audit report did not provide a GitHub REST API URL)" % _inline_code(source)
+    if "{path}" in source:
+        status = item.get("status")
+        status_note = "HTTP `%s`" % status if status is not None else "HTTP status not recorded"
+        flagged = ("; see [FLAGGED.md (FL-18)](<https://github.com/buffedlizard55-lab/MasterSite/blob/main/FLAGGED.md>)"
+                   if status == 404 else "")
+        return ("%s — literal-placeholder probe (%s): [open API response](<%s>); "
+                "not a concrete file citation%s" % (_inline_code(source), status_note, url, flagged))
+    return "[%s](<%s>)" % (_inline_code(source), url)
+
+
+def _render_review_item(item):
+    heading = " · ".join(_inline_code(value) for value in
+                         (item.get("repo"), item.get("account"), item.get("field")) if value is not None)
+    first = "- **%s**" % item.get("type", "review item")
+    if heading:
+        first += " — " + heading
+    lines = [first]
+    if "expected" in item or "observed" in item:
+        lines.append("  - recorded/expected: %s; API observation: %s" % (
+            _json_code(item.get("expected")), _json_code(item.get("observed"))))
+    if "tokens" in item:
+        lines.append("  - numeric tokens: %s" % _json_code(item.get("tokens")))
+    if item.get("ref") is not None:
+        lines.append("  - README ref: %s" % _inline_code(item.get("ref")))
+    if item.get("status") is not None:
+        lines.append("  - HTTP status: %s" % _inline_code(item.get("status")))
+    if "documentedStatus" in item:
+        lines.append("  - status documented in basis: %s" % _json_code(item.get("documentedStatus")))
+    if item.get("detail"):
+        lines.append("  - detail: %s" % _inline_code(item.get("detail")))
+    if item.get("sourceNote"):
+        lines.append("  - source note: %s" % _inline_code(item.get("sourceNote")))
+    sources = item.get("sources")
+    if not isinstance(sources, list):
+        sources = [item.get("source")]
+    links = [_render_review_source(source, item) for source in sources if source]
+    lines.append("  - source: %s" % (" · ".join(links) if links else _render_review_source(None, item)))
+    return lines
+
 
 def render_report(run, results, quota, planned):
     lines = []
@@ -569,6 +869,24 @@ def render_report(run, results, quota, planned):
         lines.append("  - hand review, one official endpoint per row: `%s`" % result["reviewEndpoint"])
         lines.append("  - log: `%s`" % result["logFile"])
     lines.append("")
+    lines.append("## Individual review items")
+    lines.append("")
+    lines.append("Rows below are copied from the audit reports. Volatile drift is not automatically a defect; "
+                 "`{path}` templates remain non-concrete citations and are not promoted to hard findings.")
+    lines.append("")
+    review_results = [result for result in results if result.get("reviewItems")]
+    if review_results:
+        for result in review_results:
+            items = result["reviewItems"]
+            lines.append("### `%s` — %d item(s)" % (result["audit"], len(items)))
+            lines.append("")
+            for item in items:
+                lines.extend(_render_review_item(item))
+            lines.append("")
+    else:
+        lines.append("No item-level findings, mismatches, drift rows or template citations were emitted by "
+                     "the reports available in this run. Audits marked `NOT-RUN` remain unchecked.")
+        lines.append("")
     lines.append("## API budget")
     lines.append("")
     if quota.get("ok"):
