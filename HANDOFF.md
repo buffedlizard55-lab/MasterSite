@@ -2123,3 +2123,77 @@ PR #48, so it was not touched).
 - Rate limits constrain how much can be verified in a single pass; some audits report INCOMPLETE
 - Live site rendering cannot be checked from the sandbox; CI is the execution environment of record
 - The account grows continuously (156 repos as of this check; was 108 on 2026-10-01); `census_guard.py` catches new repos within a day
+
+---
+
+## Session `arena-973e4afd` — 2026-10-12 (T-035: owner-requested fresh census re-verification, three placeholders became projects, audit layer completed)
+
+**Branch:** `arena/973e4afd-mastersite`. **Claim commit:** `656f3b6` (pushed before any work, per the protocol).
+`T-035` was verified free first against `gh pr list --state all --limit 200` (0 rows naming T-035) and every remote
+`arena/*` branch tip (`git grep` of `T-035`/`T-036`/`T-037` → 0 hits). One task, one branch, no other session's row touched.
+
+### What was done
+
+- **Full census at `2026-10-12T02:09:11Z` (one `tools/build_data.py` run).** The account **held at 156 public
+  repositories** since T-034 (no new sites; `kanlerxz87-cyber` 0), so the complete list stands at **155 listed + 1
+  excluded (`ProjX`) = 156** — re-verified twice afterwards by `census_guard.py` (PASS) and inside `verify_live.py`
+  (accounts re-read live, `listedNotInApi`/`unlistedInApi` empty). Snapshot: **155 sites, 142 app / 13 stub, 153 built /
+  2 errored, 11,797 commits, 147 irregularities, 56 prose-stale**.
+- **Three of T-034's ten new placeholders became full projects within ~80 minutes of being published.** `GEMSDOE67`,
+  `GEMSDOE68`, `GEMSDOE69` all grew project trees mid-pass; `audit_kind.py` caught the structural change mechanically
+  (2 `stub vs app` disagreements), and each entry was **re-read at its current head and rewritten from its own files**
+  (`IRR-145`/`IRR-146`/`IRR-147`, T-034's `62GEMSDOE`/IRR-144 precedent). `GEMSDOE67` (head `ddbe9a50`) is now a
+  three-lane orientation/OVTR repository quoting its own per-lane verdicts (OVTR `DOWNLOAD READY` HOLDOUT-DTI 0.2691,
+  two negative lanes); `GEMSDOE68` (head `208f3bf`) an auto-context stacked-refinement lane whose one-click download its
+  own README labels `UNSCORED`; `GEMSDOE69` (head `2fe0d9b`) a static workbench with a `NEGATIVE / NOT READY` banner.
+  Two moved `stub → app`; `GEMSDOE68` stays `stub` (no root `index.html`). All three moved into the `gems-prize-lanes`
+  family (70 members; `GEMSDOE70`–`GEMSDOE72` remain ungrouped placeholders) and into `Science & ML Research`.
+  **Line-by-line care that mattered:** `GEMSDOE67`'s README at the *snapshot* head `bc68cfa` says "two lanes" and lacks
+  the third lane's numbers that exist at the re-read head — so the description quotes only numbers stable at both heads
+  and the third lane's figures live in flags/verifiedBasis, keeping the numeric-token lint honest at the snapshot head.
+- **`GEMSDOE68` Pages `built → errored` is a new transition, registered as `FL-21`** (with `IRR-146`): build history
+  shows two consecutive `Page build failed.` builds (`a2305758` 01:45:53Z, `208f3bf` 01:46:27Z) after the
+  placeholder-era build succeeded. Distinct from `FL-05`'s stall; `pages_status_guard.py` owns the daily watch.
+- **`FL-05` fifth re-read `2026-10-12T01:24:02Z`** (per the T-005 cadence): `GEMSDOE53` still `errored`,
+  `pushed_at` still `2026-10-09T02:00:53Z`. Same hand pass re-verified the four frozen 404 records (`FL-03`) and
+  `NFLInjuryReport` (`built` at that moment; `FL-17` note appended).
+- **Audit layer — complete for this snapshot, closing T-034's gap:** `audit_kind.py` first run **155/155, 2
+  disagreements** (the two re-classifications), re-run **155/155, 0 disagreements** (T-034's run had died at 94/155);
+  `audit_descriptions.py` **155/155, 1 known finding** (`60GEMSDOE`, `FL-19` — unchanged; the three re-read entries
+  pass); `verify_live.py` **2,057 checks / 0 hard mismatches / 106 volatile drifts** (post-snapshot pushes to ten
+  repositories — expected, not defects); `audit_provenance.py` **155/155 / 1,118 citations / 0 hard findings**
+  ([`reports/provenance/2026-10-12T035609Z.md`](reports/provenance/2026-10-12T035609Z.md)) — but see the blocked note
+  below for the first attempt. `scripts/validate` **PASS (6,472 checks)**, `npm run check` PASS, **127 unit tests OK**,
+  `py_compile` clean. All surfaces regenerated: `data/sites/` (155 records), `SITES.md`, `master-list.html` (923,134
+  bytes, 155 blocks, no `<script>`), `VERIFICATION.md` (754 lines, 155 rows, 147 irregularities).
+- **Operational finding worth keeping:** `GET /rate_limit` **lies about the usable pool** — it reported
+  `remaining: 5000, used: 0` while real endpoints returned `x-ratelimit-remaining: 0` (same token, same minute). Two
+  build attempts were wasted trusting the endpoint before the real headers were checked. AGENTS.md §4 now says to gate
+  on `x-ratelimit-*` of a real request; README Known Limitations item 9 records the shared-pool constraint.
+
+### What is blocked / limitations
+
+- **The shared 5,000/hour token pool is the binding constraint (IRR-140 class).** This pass consumed three windows:
+  the first build aborted fail-closed at `MLBComp` (published nothing — the pipeline's atomic write proven again), the
+  second attempt 403'd on its first request and was killed, and `audit_provenance.py`'s **first run was access-blocked
+  at 85/155** (635 checks, 0 findings, reported `INCOMPLETE`, never a pass) before a retry completed in the next
+  window. Parallel sessions share the same pool, so a quiet window or the owner's larger token (T-023) is the fix.
+- **`GEMSDOE53` remains owner-blocked** (FL-05): stalled `errored` since ≥ 2026-10-09, `pushed_at` frozen — only an
+  owner push or rebuild clears it. `GEMSDOE68` (FL-21) may self-recover; the daily watch alerts either way.
+- **56 prose-stale** (`T-002` queue — grew even as this pass re-read three out of it; `FL-19` is one of them);
+  **`FL-18`'s five `{path}` citation templates** still need concrete-path prose updates (`T-002`).
+- **Playwright still cannot run in this sandbox** (browser CDN unreachable); CI is the execution environment of record —
+  check the `browser-tests` and `pages-smoke` runs attached to this PR before trusting them.
+- Owner decisions still open: `FL-20` (served page vs README conflicts in `GEMSDOE64`/`GEMSDOE65`), `T-028` (placeholder
+  category convention), `T-006` (GEMS consolidation), the four frozen 404 records (`FL-03`/`T-004`).
+
+### Next session
+
+1. **Work the `T-002` queue (56 entries)** — highest value on the moving repositories; `GEMSDOE67`–`GEMSDOE69` and
+   `62GEMSDOE` show the treadmill: placeholders become projects within the hour. Never clear an item by editing only a
+   SHA. `FL-19` (`60GEMSDOE`) and `FL-18`'s `{path}` templates ride the same queue.
+2. **Expect more placeholder→project transitions** among `GEMSDOE70`–`GEMSDOE72`; `audit_kind.py` is the cheap detector
+   (~155 requests, one per entry) — run it after any census.
+3. **T-029 (quota-aware resumable refresh)** is now the highest-value infrastructure fix: this session lost ~2,200
+   requests to aborted passes that could not resume. T-030 (claim-visibility race) and T-027/T-028 remain open.
+4. **Owner decisions:** `FL-20`, `T-028`, `T-006`, the frozen 404s, `GEMSDOE53` rebuild, and T-023's larger token.
