@@ -2056,3 +2056,70 @@ PR #48, so it was not touched).
    category for future lanes), `T-006`, and the four frozen 404 records in `OWNER-DECISIONS.md`.
 4. **Expect the account to keep growing** — it added ten repositories in the ~5 hours before this census, and
    `census_guard.py` (daily) now catches that class within a day. A refresh should start by running it.
+---
+
+## Session `arena/4a7297ca` — 2026-10-12 (fresh verification pass + site functionality check)
+
+**Branch:** `arena/4a7297ca-mastersite`. Owner-requested complete review, verification, and PR.
+
+### What was done
+
+- **Repo review.** Read `TASKS.md`, `FLAGGED.md`, `HANDOFF.md`, `README.md`, `AGENTS.md`, `OWNER-DECISIONS.md`.
+  The project is a mature, well-structured directory system with: generators (`tools/build_data.py`,
+  `tools/build_sites_md.py`, `tools/build_master_list.py`, `tools/build_verification.py`), read-only
+  audits (`verify_live.py`, `audit_kind.py`, `audit_descriptions.py`, `audit_provenance.py`), scheduled
+  monitoring (`census_guard.py`, `pages_status_guard.py`, `scheduled_audit.py`), and a validator
+  (`scripts/validate`) with 6,466 checks.
+- **Fresh API census re-verification** at `2026-10-12T01:22:11Z`:
+  - `buffedlizard55-lab`: **156 public repos**, **156 Pages-enabled** (source: `GET /users/buffedlizard55-lab`)
+  - `kanlerxz87-cyber`: **0 public repos** (source: `GET /users/kanlerxz87-cyber`)
+  - 155 listed + 1 excluded (`ProjX`) = 156 — census balances exactly
+  - All 156 API repos cross-checked against `data/sites/`: zero missing, zero phantom entries
+  - 4 frozen repos (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`) all confirmed HTTP 404
+- **Pages status spot-check** (one read per repo):
+  - `GEMSDOE53`: still `errored`, `pushed_at` still `2026-10-09T02:00:53Z` — unchanged for 3+ days (FL-05 confirmed)
+  - `NFLInjuryReport`: `built` (recovered, as expected per FL-17)
+  - `62GEMSDOE`, `MasterSite`, `GEMSDOE63`, `GEMSDOE72`: all `built`
+- **Site functionality verified** (HTTP 200 for all pages):
+  - `index.html` — interactive directory (JS-powered, search/sort/filter/group)
+  - `master-list.html` — static HTML, 3,839 lines, zero JavaScript, print-friendly
+  - `executive-summary.html` — executive summary with source links and staleness indicators
+  - `data/sites.js` — generated data file at snapshot `2026-10-12T00:11:29Z`
+- **Full check suite passed:**
+  - `scripts/validate`: **PASS** (6,466 checks, 141 tracked warnings — all PROSE-STALE)
+  - `npm run check`: **PASS**
+  - `census_guard.py`: **PASS** (155 + 1 = 156; kanlerxz87-cyber at 0)
+  - Python compile: **PASS** (all 11 tool files)
+  - Unit tests: **PASS** (127/127 in 0.989s)
+- **Preserved verification report** at `reports/verification/2026-10-12T012211Z.md`
+
+### What is blocked
+
+- Live HTTP checks of `*.github.io` pages from this sandbox (curl returns HTTP 000)
+- Playwright browser tests (browser CDN blocked; CI is the execution environment of record)
+- `audit_kind.py` was INCOMPLETE at 94/155 in the last snapshot due to HTTP 403 secondary rate limit
+- `audit_provenance.py` needs 904+ requests but only 840 available per slot (owner token needed, T-023)
+
+### What is next (priorities for the next session)
+
+1. **T-002 (highest accuracy risk):** Re-read the **54 stale descriptions** against current repository heads.
+   Prioritize the newest/moving repositories. Never clear staleness by editing only a SHA.
+2. **Owner decisions (blocking):**
+   - `FL-20`: Which page is authoritative when served page and README disagree (`GEMSDOE64`, `GEMSDOE65`)
+   - `T-028`: Category for placeholder repositories (currently inconsistent)
+   - `OWNER-DECISIONS.md`: Keep frozen / restore / drop the 4 unreachable repos
+   - `FL-05`: `GEMSDOE53` needs a push or owner-initiated rebuild
+3. **Rerun `audit_kind.py`** to close the INCOMPLETE run from the last snapshot (cheap: ~155 requests)
+4. **FL-18:** Expand the five `{path}` citation templates to concrete paths
+5. **T-023:** Provide a fine-grained token (5,000 req/hr) so `audit_provenance` can complete
+6. **T-029:** Make the refresh quota-aware and resumable across API windows
+7. **T-030:** Close the claim-visibility race in the multi-session protocol
+8. **T-027:** Add headless-browser smoke test variant (needs CI runner with browser support)
+
+### Project limitations (honest summary)
+
+- The GitHub API does not expose site visits, views, or "last used" — these fields are never published
+- `pagesStatus: built` is build metadata, not an uptime or browser-functionality guarantee
+- Rate limits constrain how much can be verified in a single pass; some audits report INCOMPLETE
+- Live site rendering cannot be checked from the sandbox; CI is the execution environment of record
+- The account grows continuously (156 repos as of this check; was 108 on 2026-10-01); `census_guard.py` catches new repos within a day
