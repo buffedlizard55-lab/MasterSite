@@ -480,3 +480,70 @@ test('table rows keep nine labelled cells and do not overflow a 375px screen', a
   const box = await page.locator('#sitesTableBody .row-action-btn').first().boundingBox();
   expect(box.height).toBeGreaterThanOrEqual(28);
 });
+
+// Jump bar (T-035): 155 entries on one page need a table of contents. The bar is
+// generated from the *filtered* list, so it can never advertise a group that is
+// not rendered, and it hides itself when only one group remains.
+
+test('the jump bar lists only groups that are actually on the page, and every chip scrolls to it', async ({ page }) => {
+  await page.goto('/');
+  const chips = page.locator('#jumpNav .jump-chip');
+  const chipCount = await chips.count();
+  expect(chipCount).toBeGreaterThan(1);
+  await expect(page.locator('#jumpNav')).toBeVisible();
+
+  const state = await page.evaluate(() => {
+    const chips = Array.from(document.querySelectorAll('#jumpNav .jump-chip'));
+    return chips.map(chip => ({
+      href: chip.getAttribute('href'),
+      count: Number(chip.querySelector('.jump-chip-count').textContent),
+      targetExists: !!document.getElementById(chip.getAttribute('href').slice(1))
+    }));
+  });
+  for (const chip of state) {
+    expect(chip.targetExists, `jump chip ${chip.href} points at nothing`).toBe(true);
+    expect(chip.count).toBeGreaterThan(0);
+  }
+
+  // Chip counts must equal the cards rendered inside the group they point at.
+  const grouped = await page.evaluate(() => {
+    return Array.from(document.querySelectorAll('#sitesGrid .family-group')).map(section => ({
+      id: section.id,
+      cards: section.querySelectorAll('.site-card').length
+    }));
+  });
+  expect(grouped.length).toBe(chipCount);
+  for (const section of grouped) {
+    const chip = state.find(c => c.href === '#' + section.id);
+    expect(chip, `no chip for section #${section.id}`).toBeTruthy();
+    expect(chip.count).toBe(section.cards);
+  }
+
+  // Clicking a chip moves the viewport to that section without losing the list.
+  await chips.first().click();
+  await expect(cards(page).first()).toBeInViewport();
+});
+
+test('the jump bar disappears when a filter leaves fewer than two groups', async ({ page }) => {
+  await useFixture(page);
+  await page.goto('/?category=Science+%26+Tests');
+  // All four synthetic sites share one category and no family: one group, no bar.
+  await expect(page.locator('#jumpNav')).toBeHidden();
+
+  await page.locator('#resetFiltersBtn').click();
+  // Two categories now: the bar returns, and both chips resolve.
+  await expect(page.locator('#jumpNav')).toBeVisible();
+  const resolved = await page.evaluate(() =>
+    Array.from(document.querySelectorAll('#jumpNav .jump-chip'))
+      .every(chip => !!document.getElementById(chip.getAttribute('href').slice(1))));
+  expect(resolved).toBe(true);
+});
+
+test('every card prints its live Pages address as text', async ({ page }) => {
+  await page.goto('/');
+  const urls = await page.locator('#sitesGrid .site-card .card-url a').evaluateAll(
+    els => els.map(el => el.getAttribute('href')));
+  expect(urls.length).toBe(snapshot.sites.length);
+  for (const url of urls) expect(url.startsWith('https://buffedlizard55-lab.github.io/')).toBe(true);
+  expect(new Set(urls).size).toBe(urls.length);
+});

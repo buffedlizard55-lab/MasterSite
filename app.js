@@ -40,6 +40,21 @@
     return d.toISOString().replace("T", " ").replace("Z", " UTC");
   }
 
+  // ---- Anchor slugs -----------------------------------------------------------
+  // The jump bar and the per-card anchors share one slugger so a chip can never
+  // point at an id the cards did not emit. `master-list.html` uses the same
+  // `site-<slug>` convention, so a link into either page reads identically.
+  function slugFor(value) {
+    return String(value == null ? "" : value)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function cardDomId(repo) {
+    return "site-" + slugFor(repo);
+  }
+
   // URL state uses only known values; unknown query parameters and anchors survive.
   // Search replaces the current entry (not one Back step per keystroke); discrete
   // filter/sort/view changes push an entry so Back/Forward can restore the view.
@@ -467,7 +482,13 @@
       ? '<div class="card-flags-box"><ul>' + s.flags.map(function (f) { return '<li>' + esc(f) + '</li>'; }).join("") + '</ul></div>'
       : '';
 
-    return '<article class="site-card' + (isSelf ? ' is-self' : '') + '">' +
+    // The live Pages address is printed as text, not only hidden behind "Visit Site".
+    // The owner's brief asks for a directory of links: a reader scrolling the printed
+    // page, or comparing two entries side by side, needs to see where each one lives
+    // without hovering a button.
+    var liveHostPath = String(liveUrl).replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+    return '<article class="site-card' + (isSelf ? ' is-self' : '') + '" id="' + esc(cardDomId(s.repo)) + '">' +
       '<div class="card-header">' +
         '<div class="card-title-group">' +
           '<h3><a href="' + esc(liveUrl) + '" target="_blank" rel="noopener">' + esc(s.title) + '</a></h3>' +
@@ -484,6 +505,12 @@
           proseBadge(s) +
           flagBadge +
         '</div>' +
+      '</div>' +
+      '<div class="card-url">' +
+        '<a href="' + esc(liveUrl) + '" target="_blank" rel="noopener" ' +
+           'title="Live GitHub Pages address — opens ' + esc(liveUrl) + '">' +
+          esc(liveHostPath) +
+        '</a>' +
       '</div>' +
       '<span class="category-tag">' + esc(s.category) + '</span>' +
       '<p class="card-desc">' + esc(s.description) + '</p>' +
@@ -592,7 +619,10 @@
       }
     });
     function section(fid, label, summary, members) {
-      return '<section class="family-group" data-family="' + esc(fid) + '">' +
+      // `grp-` keeps the jump-bar targets in their own namespace; `other` is the
+      // literal id for the trailing ungrouped section, matching jumpTargetsFor().
+      var anchorId = "grp-" + (fid ? slugFor(fid) : "other");
+      return '<section class="family-group" data-family="' + esc(fid) + '" id="' + esc(anchorId) + '">' +
         '<header class="family-header">' +
           '<h3>' + esc(label) +
             '<span class="family-count">' + members.length + ' site' + (members.length === 1 ? '' : 's') + '</span>' +
@@ -612,6 +642,67 @@
     return html;
   }
 
+  // ---------------- Jump bar ---------------------------------------------------
+  // One destination per *rendered* group. Family grouping sections the grid, so the
+  // bar lists those sections; with grouping off the grid is one flat run of cards,
+  // so the bar lists categories instead and anchors on the first card of each.
+  // Either way every target is derived from `list` right before the grid is written
+  // from the same `list`, so a chip cannot outlive the group it points at.
+  function jumpTargetsFor(list) {
+    var grouped = familyGroup === "family" && list.some(function (s) { return s.family; });
+    if (grouped) {
+      var meta = {};
+      (D.families || []).forEach(function (f) { meta[f.id] = f; });
+      var out = [], seen = {}, rest = 0;
+      list.forEach(function (s) {
+        if (!s.family) { rest += 1; return; }
+        if (seen[s.family]) { seen[s.family] += 1; return; }
+        seen[s.family] = 1;
+        var f = meta[s.family] || { label: s.family };
+        out.push({ label: f.label, count: 0, href: "grp-" + slugFor(s.family) });
+      });
+      // Counts are filled from the same pass that built the sections, so they can
+      // never disagree with the "N sites" printed in each section header.
+      out.forEach(function (item) {
+        item.count = list.filter(function (s) { return s.family && slugFor(s.family) === item.href.slice(4); }).length;
+      });
+      if (rest) out.push({ label: "Other sites", count: rest, href: "grp-other" });
+      return out;
+    }
+    var byCat = [], counts = {};
+    list.forEach(function (s) {
+      if (counts[s.category]) { counts[s.category] += 1; return; }
+      counts[s.category] = 1;
+      byCat.push({ label: s.category, count: 1, href: cardDomId(s.repo) });
+    });
+    byCat.forEach(function (item) { item.count = counts[item.label]; });
+    return byCat;
+  }
+
+  function renderJumpNav(list) {
+    var nav = $("jumpNav");
+    if (!nav) return;
+    var items = jumpTargetsFor(list);
+    // One destination is not navigation, and a bar that fills the screen is worse
+    // than none: hide it unless at least two groups are actually on the page.
+    if (items.length < 2) {
+      nav.hidden = true;
+      nav.innerHTML = "";
+      return;
+    }
+    nav.hidden = false;
+    nav.innerHTML =
+      '<span class="jump-label" id="jumpNavLabel">Jump to</span>' +
+      '<ul class="jump-list">' +
+      items.map(function (it) {
+        return '<li><a class="jump-chip" href="#' + esc(it.href) + '">' +
+               '<span class="jump-chip-text">' + esc(it.label) + '</span>' +
+               '<span class="jump-chip-count">' + it.count + '</span>' +
+               '</a></li>';
+      }).join("") +
+      '</ul>';
+  }
+
   function renderDirectory() {
     var filtered = filterSites();
     var list = sortSites(filtered);
@@ -629,6 +720,7 @@
     }
     if (state.prose !== "all") countText += " · " + PROSE_LABEL[state.prose];
     $("resultCount").innerHTML = countText + ".";
+    renderJumpNav(list);
 
     // Render Grid
     if (list.length === 0) {
