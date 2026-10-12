@@ -1978,3 +1978,72 @@ PR #48, so it was not touched).
   A full census/re-derivation should update or flag this snapshot drift.
   The workflow's PR event posts the item-level report as a PR comment; its issue path runs on scheduled
   or manual audit events. Re-check CI after the latest rebase, then merge T-025 as requested.
+
+---
+
+## Session `a4aed282` — 2026-10-12 (T-034: fresh census, ten new repositories published, audit layer re-run)
+
+**Branch:** `arena/a4aed282-mastersite`. **Claim commit:** `3aa219a1` (pushed before any work, per the protocol).
+`T-034` was verified free first against `gh pr list --state all` (0 rows, no open PRs) and every remote
+`arena/*` branch tip (`git grep T-034/T-035/T-036` → 0 hits). One task, one branch, no other session's row touched.
+
+### What was done
+
+- **Full census at `2026-10-12T00:11:29Z` (one `tools/build_data.py` run, ~1,000 API requests).** The account had grown
+  **146 → 156 public repositories**, so **ten public Pages repositories were missing from the directory**: `GEMSDOE63`
+  … `GEMSDOE72`, all created `2026-10-11T19:38Z`. All ten were read at their recorded head SHAs and published with
+  sourced prose — four are DOE GEMS Prize lanes with committed sites (`GEMSDOE63` promote/unscored, `GEMSDOE64` cleared
+  to submit, `GEMSDOE65` a two-lane split, `GEMSDOE66` no candidate cleared) and six are README-only placeholders filed
+  in `Unclassified & Placeholder` with nothing inferred from their names. Published snapshot: **155 sites, 140 app /
+  15 stub, 154 `built` / 1 `errored` (`GEMSDOE53`), 11,674 commits, 144 irregularities, 54 prose-stale**; 155 listed + 1
+  excluded (`ProjX`) = 156, and `census_guard.py` **PASS** (also `kanlerxz87-cyber` 0).
+- **`audit_kind.py` caught a real change of state and it was fixed by re-reading, not by editing data.** Its first run
+  checked 155/155 and reported **1 disagreement**: `62GEMSDOE` had grown from an 11-byte placeholder into a full lane
+  (root `index.html`, `docs/`, `registry/`, a 38 KB README, 57 MB of content). The entry was re-read at head `a4761f4`,
+  rewritten (kind stub → app, description now repeats the lane's own verdicts), registered as **`IRR-144`**, and moved
+  into the `gems-prize-lanes` family (67 members; `GEMSDOE67`–`GEMSDOE72` remain deliberately ungrouped). The re-run
+  reached **94/155 with 0 disagreements** before an **HTTP 403 secondary rate limit** stopped it — reported
+  **INCOMPLETE**, not clean (`FL-13` was re-scoped accordingly; `T-028` should be re-scoped by its owner).
+- **Two intra-repository conflicts were found while publishing and are published as conflicts.** `GEMSDOE64`'s served
+  root page still names an earlier artifact/gate count than its README, and `GEMSDOE65`'s root page says "not cleared"
+  while its README banner says one candidate is cleared (its own two-lane split). Registered as **`IRR-142`/`IRR-143`**,
+  surfaced as **`FL-20`**, quoted in both entries, and **not arbitrated** — that is an owner/repository call.
+- **Audits against this snapshot:** `verify_live.py` **complete — 2,035 checks, 0 hard mismatches, 18 volatile drifts**
+  (`62GEMSDOE`, `MALTASUPPLEMENTAL`, `MasterSite` were pushed to mid-audit; `size` lags elsewhere). `audit_provenance.py`
+  **complete — 155/155 entries, 1,118 reproduced citations, 0 hard findings** (`reports/provenance/2026-10-12T005943Z.md`).
+  `audit_descriptions.py` **complete — 155/155, 1 entry needing review** (`60GEMSDOE` cites `0.00420`/`0.08623`, not in
+  its README at head — `FL-19`; `58GEMSDOE`'s `695` now occurs there, which clears the lint but is not a prose re-read).
+  `audit_kind.py` **INCOMPLETE at 94/155** as above.
+- **All generated surfaces regenerated:** `data/sites/` (155 records), `SITES.md` (155 rows), `master-list.html`
+  (914,158 bytes, 155 blocks, no `<script>`), `VERIFICATION.md` (732 lines, 155 ledger rows, 144 irregularities).
+- **Narrative files synced:** README current-status section + pass findings + Known Limitations + Remaining Work;
+  `FLAGGED.md` (`FL-05` fourth re-read `2026-10-12T00:12:25Z` — still `errored`, `pushed_at` frozen at
+  `2026-10-09T02:00:53Z`; `FL-10` re-counted; `FL-13` re-scoped; `FL-19` re-checked; **new `FL-20`**); `TASKS.md`
+  (`T-034` → done). `scripts/validate` **PASS (6,466 checks)**, `npm run check` PASS, **98 unit tests OK**.
+
+### What is blocked / limitations
+
+- **`audit_kind.py` is INCOMPLETE at 94/155 for this snapshot** (HTTP 403 secondary rate limit on the KoreaHotels
+  configured-path read). The 61 unchecked entries are **unreported, not passing**; rerun it (the tool is 1 request per
+  entry, ~155 total) once the window is quiet — the reset that cleared the earlier block was `2026-10-12T00:54:36Z`.
+- **`62GEMSDOE` is mechanically counted PROSE-STALE although its description is newer than the telemetry**: it was
+  re-read at `a4761f4`, which is *ahead of* the `802e683` head this snapshot recorded (the lane was pushed to again in
+  between). The entry's own flags say so; the flag is a pure SHA comparison. A future full build resolves it naturally.
+- **Ten newly published sites have not been through the HTTP smoke audit** (the recorded 145/145 pass predates them);
+  the next scheduled `pages-smoke` run covers 155. `*.github.io` is still not reachable from this sandbox.
+- **Playwright still cannot run here** (browser CDN blocked); CI is the execution environment of record — check the run
+  attached to this PR.
+- Everything else open is carried, not new: 54 stale prose stamps (`T-002`), `FL-18` `{path}` citations, `FL-19`,
+  `GEMSDOE53` `errored` (`FL-05`), owner decisions (`OWNER-DECISIONS.md`, `T-006`, `T-028`), and the budget-limited
+  scheduled audit layer (`T-022`/`T-023`).
+
+### Next session
+
+1. **Rerun `tools/audit_kind.py`** to close the INCOMPLETE run against the `2026-10-12T00:11:29Z` snapshot (cheap: one
+   configured-path read per entry) and regenerate `VERIFICATION.md` so §4b shows a complete kind audit.
+2. **Work the `T-002` queue** — 54 entries, highest value on the newest/moving repositories; never clear an item by
+   editing only its SHA.
+3. **Owner decisions:** `FL-20` (which page wins when a served page and its README disagree), `T-028` (placeholder
+   category for future lanes), `T-006`, and the four frozen 404 records in `OWNER-DECISIONS.md`.
+4. **Expect the account to keep growing** — it added ten repositories in the ~5 hours before this census, and
+   `census_guard.py` (daily) now catches that class within a day. A refresh should start by running it.
