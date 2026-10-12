@@ -1851,3 +1851,68 @@ buffedlizard55-lab/arena/8d79b057-mastersite`). Read back from `origin/main` ins
 1. Preserve the next scheduled workflow artifact when one is available and rerun `python3 tools/build_verification.py`; §4c will automatically select it and retain older explicit PASS history per audit.
 2. Rebase this branch on the latest `main`, rerun the offline gates, open the T-024 PR, and keep the task completion and this handoff entry in the same PR.
 3. The next accuracy session should continue T-002/FL-19; the owner still needs to resolve T-023 and the frozen/errored repository decisions.
+## Session: arena-e14508b8 — T-026 (Pages status transition watch)
+
+**Branch:** `arena/e14508b8-mastersite`. **Task:** T-026, claimed 2026-10-11T23:57:00Z after
+checking `gh pr list --state all` and every remote `arena/*` tip in the same minute (T-024 was
+taken at 23:54:40Z by `arena-d4015d21` and T-025 at 23:54:51Z by `arena-22c0b46f` — this session
+took neither; T-015's row still reads `unclaimed` on `main` but the work was already merged in
+PR #48, so it was not touched).
+
+### What was done
+
+- **New tool `tools/pages_status_guard.py`** (read-only): one
+  `GET /repos/{owner}/{repo}/pages` per listed entry of the published snapshot, compared against
+  the published `pagesStatus`. Exit codes: **0** every entry live `built` and matching;
+  **1** any finding — a transition in either direction (`built`→`errored` takes a site down,
+  `errored`→`built` means the published record is stale), an entry that is `errored` even when it
+  matches the snapshot, or HTTP 404 on a listed entry's Pages endpoint; **2** API/rate-limit/
+  transport failure, which prints `API FAILURE … no verdict` and is never a pass or a finding.
+  Every finding prints the exact endpoint and the UTC read time. The 4 frozen unreachable records
+  (`FL-03`) and `ProjX` are never probed (both noted in the output).
+- **`.github/workflows/census.yml` extended** (same daily 05:17 UTC run): a `psg` step that runs
+  even when the coverage guard failed, captures the exit code, opens/updates a **`pages-status`
+  issue** on any nonzero exit (body = full tool output, so the exact endpoints travel with it) and
+  **closes it only when a run reads every listed entry live `built`**. Coverage (`census-gap`
+  label) and build health (`pages-status` label) stay separate verdicts; combined cost ≈ 155
+  requests, inside the 1,000/hour Actions token ceiling.
+- **Offline gates:** `python3 tools/pages_status_guard.py --self-test` (6 synthetic verdict paths —
+  pass, transition, stable-non-built, pages-404, recovery-stale, api-failure-never-a-verdict —
+  with synthesized published statuses so it stays valid after future refreshes) and
+  `tests/test_pages_status_guard.py` (14 unit tests on the pure classifier, owner fallback and the
+  snapshot contract), both wired into `.github/workflows/test.yml`.
+- **First live run (line-by-line, official API only):** 2026-10-12T00:09:45Z — **145/145 entries
+  read, 144 clean, 0 transitions, 1 not built (`GEMSDOE53`), 0 unreadable**; `pushed_at` of
+  `GEMSDOE53` hand-confirmed unchanged at 2026-10-09T02:00:53Z. Preserved report:
+  [`reports/pages-status/20261012T000945Z-first-live-run.md`](reports/pages-status/20261012T000945Z-first-live-run.md).
+  **FL-05 re-read appended to `FLAGGED.md`.**
+- **Docs:** AGENTS.md §4 bullet for the new tool, README census-badge sentence + the Remaining
+  Work row flipped to `done (T-026)`, TASKS.md row marked done.
+- **Gates run:** `scripts/validate` **PASS**, `tools/census_guard.py --self-test` PASS,
+  `tools/pages_status_guard.py --self-test` PASS, 60 unit tests OK (14 new + the existing suite),
+  `npm run check` PASS, `py_compile` OK, workflow YAML parses (7 steps).
+
+### What is blocked / limitations
+
+- **The daily census workflow will be red (and the `pages-status` issue open) while
+  `GEMSDOE53` stays `errored`** — that is the designed loud failure, not a defect. Only the
+  owner can clear it (a push or an owner-initiated rebuild; `FL-05`, three days stalled).
+- A `pagesStatus` transition that happens *between* daily runs is still only caught at the next
+  05:17 UTC run; this watch does not stream.
+- The workflow's issue steps ran only in this session's local simulation of their shell logic;
+  the first real proof is the first scheduled run after merge (workflow_dispatch can trigger it
+  sooner). Playwright still cannot run in this sandbox (browser CDN unreachable) — CI is the
+  executor of record for `npm test`.
+- `verify_live.py` / `audit_provenance.py` remain incomplete against the `19:28:51Z` snapshot for
+  the documented budget reasons (IRR-140, T-023); unrelated to this task.
+
+### What is next
+
+1. Dispatch the census workflow once after merge to confirm the issue path end-to-end (expect a
+   red run + `pages-status` issue citing `GEMSDOE53`; the close path proves itself when it goes
+   green).
+2. Owner: rebuild `GEMSDOE53` (`FL-05`) — the only entry keeping the watch red.
+3. Remaining queue: T-002 (53 prose-stale re-reads, incl. FL-19), T-024/T-025 (claimed by other
+   sessions), T-027 (browser smoke; runner with browser support), T-028 (owner: placeholder
+   category), T-029 (quota-aware resumable refresh), T-030 (claim-visibility race), T-023 (owner
+   token).
