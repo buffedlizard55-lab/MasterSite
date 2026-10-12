@@ -2019,18 +2019,27 @@ PR #48, so it was not touched).
 - **Narrative files synced:** README current-status section + pass findings + Known Limitations + Remaining Work;
   `FLAGGED.md` (`FL-05` fourth re-read `2026-10-12T00:12:25Z` — still `errored`, `pushed_at` frozen at
   `2026-10-09T02:00:53Z`; `FL-10` re-counted; `FL-13` re-scoped; `FL-19` re-checked; **new `FL-20`**); `TASKS.md`
-  (`T-034` → done). `scripts/validate` **PASS (6,466 checks)**, `npm run check` PASS, **98 unit tests OK**.
+  (`T-034` → done). `scripts/validate` **PASS (6,466 checks)**, `npm run check` PASS; after rebasing onto `main`
+  (`8759ef9`) **127 unit tests OK** (main added test files), and in CI **`browser-tests` PASS** on revision
+  `c88690d` — the Playwright suite local runs cannot execute.
 
 ### What is blocked / limitations
 
 - **`audit_kind.py` is INCOMPLETE at 94/155 for this snapshot** (HTTP 403 secondary rate limit on the KoreaHotels
   configured-path read). The 61 unchecked entries are **unreported, not passing**; rerun it (the tool is 1 request per
-  entry, ~155 total) once the window is quiet — the reset that cleared the earlier block was `2026-10-12T00:54:36Z`.
+  entry, ~155 total) once the window is quiet — the reset that cleared the earlier block was `2026-10-12T00:54:36Z`,
+  and `KoreaHotels` contents/readme reads returned HTTP 200 again at `2026-10-12T00:55:45Z`, so a third pass starts
+  from a clear window.
 - **`62GEMSDOE` is mechanically counted PROSE-STALE although its description is newer than the telemetry**: it was
   re-read at `a4761f4`, which is *ahead of* the `802e683` head this snapshot recorded (the lane was pushed to again in
   between). The entry's own flags say so; the flag is a pure SHA comparison. A future full build resolves it naturally.
-- **Ten newly published sites have not been through the HTTP smoke audit** (the recorded 145/145 pass predates them);
-  the next scheduled `pages-smoke` run covers 155. `*.github.io` is still not reachable from this sandbox.
+- **Ten newly published sites had not been through the HTTP smoke audit at snapshot time** (the recorded 145/145 pass
+  predates them) — **resolved during review of this PR:** the `pages-smoke` workflow run on revision `c88690d`
+  observed **all 155** published URLs: **154** 2xx HTML responses with titles, **0** HTTP errors, **0** transport
+  errors, **1** needing review (`SABERENGY`, the pre-existing `FL-15` no-complete-title finding — the same job also
+  fails on `main`, by design: it must fail visibly while that finding exists). The run's full table is the workflow's
+  own PR comment on this PR; `*.github.io` remains unreachable from the sandbox, so CI stays the execution
+  environment of record.
 - **Playwright still cannot run here** (browser CDN blocked); CI is the execution environment of record — check the run
   attached to this PR.
 - Everything else open is carried, not new: 54 stale prose stamps (`T-002`), `FL-18` `{path}` citations, `FL-19`,
