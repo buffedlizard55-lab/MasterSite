@@ -91,13 +91,37 @@ python3 tools/smoke_pages.py --output-dir .work/pages-smoke
 | Live HTTP smoke (T-003, separate from `pagesStatus`) | The recorded 155-URL pass (revision `c88690d`, `2026-10-12T01:09:59Z`) observed **154** 2xx with a complete title, **0** HTTP errors, `SABERENGY` the single `FL-15` review item. The PR's own `pages-smoke` run covers this revision's URLs (check the CI comment; `*.github.io` is unreachable from the sandbox, so CI is the execution environment of record). It is a one-GET observation, not uptime, rendering or functionality proof |
 | Scheduled audit layer (`T-022`) | **Wired, budget-limited by design.** `.github/workflows/audit-schedule.yml` (daily 07:23 UTC, plus manual dispatch) runs the weekday subset through [`tools/scheduled_audit.py`](tools/scheduled_audit.py). GitHub documents the built-in Actions `GITHUB_TOKEN` at **1,000 requests/hour/repository** and the measured per-tool costs are in [`reports/scheduled-audit/`](reports/scheduled-audit/); a single full pass costs more than that, so the schedule covers the suite across the week and reports `NOT-RUN`/`PARTIAL` rather than truncating silently. A `NOT-RUN` audit is **not** checked; a `PARTIAL` run is **never** a pass |
 | Pipeline durability (`T-013`) | `build_data.py` **serializes the snapshot first and writes it with `os.replace()` only after every integrity assert passes** — proven again this pass: the first census attempt hit an exhausted rate-limit window at `MLBComp`, retried five times, then **aborted without publishing anything** and the second attempt succeeded in the next window. A rate-limit block is never recorded as an answer; each repository's Pages endpoint is read once; warnings print as they occur. `--overlay-only` re-renders narrative fields against the same snapshot and stamps itself as such |
-| Local code checks | `npm run check`, Python syntax compilation, the census-guard self-test and the Python unit suite (**127 tests**) pass locally. **The Playwright suite cannot run in this sandbox** (browser binaries are not downloadable), so CI is the execution environment of record for layout and keyboard behaviour — check the run attached to this PR rather than assuming it |
+| Local code checks | T-029: **193 offline Python tests passed**, `scripts/validate` PASS, `npm run check` and Python compilation PASS. **52 desktop/mobile Chromium tests passed locally** via temporary packaged browser/runtime; full Chromium/Firefox/WebKit implementation CI passed at `b0d1ecc`. These are directory regressions, not upstream uptime or semantic-prose proof |
 | Irregularities / description notes | **147 / 32** (`IRR-01` … `IRR-147`; `IRR-145`/`IRR-146`/`IRR-147` register the three placeholder→project re-reads of this pass, including `GEMSDOE68`'s `built → errored` Pages transition) |
 | Categories | **12** — Science & ML Research (67), Sports Data & Scoreboards (37), Markets & Trading Research (13), Travel & Korea Trip (12), Unclassified & Placeholder (9), SF Local Guides (8), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Health & Personal Guides (1), Reference & Archives (1), Social & Creator Data (1). The three re-read entries moved to `Science & ML Research` on their own documented purposes (the `62GEMSDOE` precedent); `GEMSDOE70`–`GEMSDOE72` remain `Unclassified & Placeholder` because their READMEs still document no purpose |
 | Pages source paths | **154** from `main /`; **1** (`GOLD`) from `main /docs` |
 | Family grouping | **70** of 155 sites are in the curated `gems-prize-lanes` family (`GEMSDOE67`–`GEMSDOE69` joined when their re-reads documented competition lanes; `GEMSDOE70`–`GEMSDOE72` stay deliberately ungrouped in `tools/families.json` → `ungroupedByDesign`); membership is curated per repository and never inferred from a name |
 | Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all four were re-checked by hand twice on 2026-10-12 (`01:24:02Z` and inside `verify_live.py`): `GET /repos/buffedlizard55-lab/{repo}` returns HTTP **404** for each and none appears in the 156-repository public list. They remain frozen with their last verified values (`FL-03`, `T-004` record) |
 | Validator | `scripts/validate` **PASS, 6,472 checks** — the mechanical gate for the rules in [`TASKS.md`](TASKS.md): source links present, no unverified values, overlay and published records in 1:1 agreement, curated family membership matching `data/sites.js`, and the README headline numbers agreeing with the snapshot |
+
+### T-029 — completed resumable collection; T-035 publication retained
+
+The coordinator completed **all six stages** at `2026-10-12T04:11:23Z` across
+**seven bounded invocations / 2,938 HTTP requests**, including two real quota-reset
+waits. Final official census: **156 = 155 listed + excluded ProjX; secondary 0;
+no gaps**. [Dated report](reports/refresh/20261012T041123Z-v2-full-collection.md)
+preserves independent reads, all findings and original-source checksums.
+
+That collection used **pre-T-035 curation** and correctly returned
+**BLOCKED_FINDINGS** for `GEMSDOE67`/`GEMSDOE69`, without replacing any of its
+162 baseline published data/export/audit/ledger files. Provenance completed
+**155/155, 1,118 checks, 0 hard findings**; live fields completed **2,049 checks,
+0 hard mismatches, 80 volatile drifts**. Numeric lint still flagged `60GEMSDOE`.
+These are historical staged results, not a replacement published ledger.
+
+**PR #73 merged while T-029 was finishing.** This PR rebased onto main `c09a5b3`
+and retained its **`02:09:11Z` published snapshot, 56 stale-prose queue, source
+rereads and updated classifications**. The two old-input kind mismatches are
+resolved in that curation (historical **FL-23**); their old checkpoints must not
+be forced to resume. Later independent Pages reads reported `GEMSDOE68` `built`
+(last `04:03:58Z`, FL-21 recovery), while `GEMSDOE53` still reported `errored` at
+`04:03:37Z` with unchanged `pushed_at`. Snapshot build metadata remains explicitly
+historical and is not runtime monitoring. No T-029 staged dataset was promoted.
 
 ### What this pass found — 2026-10-12, session `arena-973e4afd`, task `T-035`
 
@@ -583,6 +607,7 @@ For each listed site, the directory shows:
 | [`tools/families.json`](tools/families.json) | **Curated** organizational families (id, label, summary, basis, member repos) behind the grid's family grouping |
 | [`tools/overlay.json`](tools/overlay.json) | Curated titles, categories, descriptions, flags, source stamps, exclusions, and irregularity register |
 | [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads GitHub's official API and writes `data/sites.js` |
+| [`tools/refresh.py`](tools/refresh.py) | **Quota-aware full-refresh coordinator (T-029)** — ignored/checksummed staging, a hard per-invocation budget, original read-time evidence, resume across quota windows, independent audits and final both-account census; explicit fail-closed promotion. Usage and limits: [`tools/REFRESH.md`](tools/REFRESH.md) |
 | [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from the snapshot, current audit reports, and committed scheduled-run reports; §4c preserves the latest outcome, `NOT-RUN`/`PARTIAL` states, and each audit's last explicit clean pass |
 | [`AGENTS.md`](AGENTS.md) | Current maintenance rules, exclusions, source-verification workflow, and known constraints |
 | [`VERIFICATION.md`](VERIFICATION.md) | **Generated** API snapshot, per-entry source ledger, exclusion/unreachable records, irregularities, scheduled-audit status history (§4c), and reproduction commands |
@@ -590,7 +615,7 @@ For each listed site, the directory shows:
 | [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only numeric-token lint** — checks whether description numbers occur in the README; not semantic proof |
 | [`tools/scheduled_audit.py`](tools/scheduled_audit.py) | **Budgeted scheduled runner** — runs a weekday subset of the four audits inside a hard request ceiling, maps each tool's own report to `PASS`/`FINDINGS`/`INCOMPLETE`/`ERROR`/`NOT-RUN` and the run to `CLEAN`/`FINDINGS`/`INCOMPLETE`/`PARTIAL`, and writes only into `.work/scheduled-audit/` (report + per-audit logs) — it never touches a published file, though each audit does rewrite its own tracked `tools/last_*.json` report, which the workflow's throwaway checkout discards and a local run leaves dirty. `report.md` and `report.json` carry item-level findings, volatile drift, and provenance `{path}` templates with exact API review links; the issue reuses the same report and stays open for nonvolatile review items. Backed by `.github/workflows/audit-schedule.yml`; offline gates in `tests/test_scheduled_audit.py` and `--self-test` |
 | [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — checks for `index.html` at each configured Pages path; only HTTP 200/404 resolve type, other responses are unresolved |
-| [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, the `data/sites/` export sync, family-grouping integrity (`tools/families.json` ↔ published fields ↔ counts, plus a nameToken coverage warning for uncurated name-matches), the plain master list (§L), the static JavaScript-free master list (§M), the README headline numbers (§N), and the generated scheduled-audit status surface (§O) |
+| [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, the `data/sites/` export sync, family-grouping integrity (`tools/families.json` ↔ published fields ↔ counts, plus a nameToken coverage warning for uncurated name-matches), the plain master list (§L), the static JavaScript-free master list (§M), the README headline numbers (§N), and the generated scheduled-audit status surface (§O), and original checkpoint source-window evidence (§P) |
 | [`FLAGGED.md`](FLAGGED.md) | **Hand-maintained review queue** — every field that could not be verified from an official source, with the endpoint to open by hand and whether only the owner can resolve it |
 | [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) | **Owner-only decision record** — current official evidence and the safe keep-frozen default for the four repositories whose API and Pages endpoints return 404 |
 | [`TASKS.md`](TASKS.md) | **Claim board** — the multi-session protocol, task queue with `session=<id> at=<UTC>` claims, and frozen constraints |
@@ -616,6 +641,40 @@ replace the independent API/prose/kind audits or check upstream Pages uptime.
 to `main`. Failure traces are uploaded by CI.
 
 ### Refreshing the directory
+
+**Preferred full refresh — quota-aware and resumable (`T-029`):**
+
+```sh
+python3 tools/refresh.py --checkpoint .work/refresh --budget 900 --reserve 60
+# After a pause, wait for its recorded API reset/retry time when one is supplied:
+python3 tools/refresh.py --checkpoint .work/refresh --resume --budget 900 --reserve 60
+# Explicit promotion; incomplete or unsafe collections cannot replace the snapshot:
+python3 tools/refresh.py --checkpoint .work/refresh --resume --publish --budget 900 --reserve 60
+python3 tools/export_site_records.py
+python3 tools/build_sites_md.py
+python3 tools/build_master_list.py
+python3 tools/build_verification.py
+# Sync README headline/audit claims with the actual evidence, then:
+python3 scripts/validate
+npm run check
+```
+
+[`tools/REFRESH.md`](tools/REFRESH.md) documents the complete contract. The coordinator
+stages the builder, four independent audits and a final public census for both
+accounts. Default spendable ceiling is **840 actual HTTP requests per invocation**,
+including quota probes, failures and redirect hops; live quota can make it smaller.
+A pause preserves compressed, checksummed responses and the previous publication.
+`--resume` continues the same inputs with the responses' **original read times**,
+not new verification stamps. Completed outputs are sealed and publication is
+explicit. Per-site records carry exact `apiSources` and the collection window;
+the directory, plain/static lists and ledger show that window separately from
+completion. Description staleness and lint findings are not silently cleared.
+Check `.work/refresh/report.md` for `INCOMPLETE`, `FINDINGS`, read windows and
+publication blockers. Changed inputs or an expired checkpoint need a new directory.
+This is a local continuation path; the scheduled subset workflow does **not** yet
+persist these checkpoints between Actions jobs.
+
+The standalone tools remain available for targeted work:
 
 ```bash
 python3 tools/build_data.py              # refreshes official API metadata and data/sites.js
@@ -662,9 +721,12 @@ matters.
 `verify_live.py` distinguishes mismatches from fields that may drift because of
 GitHub's asynchronous metadata updates. Authentication or network failures are
 not evidence that entries are missing or sites are down; discard an incomplete
-run and retry after access is restored. The sandbox could not fetch Playwright
-browser binaries from its CDN during this pass, so the browser suite is left to
-CI rather than reported as passed.
+run and retry after access is restored. The normal browser CDN is unavailable in
+this sandbox. In T-029, a temporary npm-packaged Chromium binary and its packaged
+runtime libraries enabled **52 desktop/mobile Chromium checks to pass locally**
+via the existing `CHROMIUM_PATH` override; no application dependency was added.
+The full browser workflow also [passed in PR #71 CI](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38198039418) on implementation revision `b0d1ecc`. These tests are directory/UI
+regressions, not upstream site-availability or prose-verification evidence.
 
 ---
 
@@ -784,11 +846,16 @@ the deletion or privacy change.
    pass are surfaced in `VERIFICATION.md` §4c only after a follow-up preserves
    the exact report artifact. If that publication step does not happen, the
    ledger cannot claim a newer scheduled verdict.
-9. **Browser tests were not completed in this sandbox.** `npm run check` and
-   Python syntax checks pass, but Playwright browser binaries could not be
-   downloaded because the browser CDN connection reset. CI is configured to
-   install Chromium, Firefox, and WebKit and run the full suite.
-9. **The API token pool is shared and finite.** Full refreshes and the heavier audits compete for the same
+9. **Local browser coverage is Chromium only.** T-029 ran **52 desktop/mobile
+   checks** with a temporary packaged browser/runtime; no dependency changes.
+   The full Chromium/Firefox/WebKit implementation workflow [passed](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38198039418).
+   Require the latest PR's actual CI result; neither discovery nor directory
+   browser tests establish upstream functionality or semantic accuracy.
+10. **Resume retains old read times.** The 24-hour age gate is checked at
+    invocation start, not continuously while running. Checkpoints are local and
+    not restored across Actions jobs. Promotion is atomic per file, not one
+    multi-file transaction. Changed curation requires a new checkpoint.
+11. **The API token pool is shared and finite.** Full refreshes and the heavier audits compete for the same
    5,000 requests/hour pool with every other parallel session and workflow; this pass lost two build attempts and
    part of a provenance run to exhausted windows (each aborted fail-closed and published nothing). `GET
    /rate_limit` does **not** reflect the real pool — it answered `remaining: 5000` while real endpoints returned
@@ -805,10 +872,10 @@ the deletion or privacy change.
 | Owner review | **Decide which page is authoritative when a repository's served landing page and its README disagree** (`GEMSDOE64`, `GEMSDOE65` — `IRR-142`, `IRR-143`, `FL-20`) | The directory can publish both readings and flag the conflict, but it cannot choose a winner for the owner; `GEMSDOE67`–`GEMSDOE72` also still need an owner-preferred category for future placeholders (`FL-13`, `T-028`) |
 | High | **Keep the refresh cadence short and run the audit tools serially.** The census is refreshed, but the account moves by ~180 commits in two hours and the tools exceed the API's burst allowance if a background verifier overlaps foreground audits — which is what triggered the `16:10Z` access block (`IRR-140`) | A blocked read is not a verification, and a fresh snapshot is only as good as its timestamp |
 | High → **done (`T-026`)** | **`pagesStatus` is now watched daily:** the census workflow also runs [`tools/pages_status_guard.py`](tools/pages_status_guard.py), which re-reads every listed entry's `GET /repos/{owner}/{repo}/pages`, diffs it against the published `pagesStatus`, fails on any entry that is not live `built`, and opens/updates a `pages-status` issue carrying each finding's exact endpoint and UTC read time (closing it only on a fully-`built` pass). Offline gates: `--self-test` (6 verdict paths) + 14 unit tests in `tests/test_pages_status_guard.py` | Turns a manual discovery (`NFLInjuryReport` `built` → `errored`, `FL-17`) into an alert; the watch is expected to stay red while `GEMSDOE53` (`FL-05`) remains `errored` |
-| Medium (`T-029`) | Make a full refresh **quota-aware and resumable** (request budget + checkpoints). A complete pass costs ~2,200 requests; the fail-closed abort is correct and must stay, but it needs a continuation path (`T-018`) | This session burned its whole window on one aborted build |
+| Medium → **done (`T-029`)** | Full refresh now has a hard budget, original-time checkpoints, independent audits, pinned histories and explicit fail-closed promotion ([guide](tools/REFRESH.md)); the real six-stage run completed across two live resets ([evidence](reports/refresh/20261012T041123Z-v2-full-collection.md)) | T-035 curation was retained on rebase; use a new checkpoint after input changes. Scheduled Actions do not yet restore checkpoints |
 | Medium (`T-030`) | Close the **claim-visibility race** in the multi-session protocol: a claim committed to a session branch is invisible on `main` until its PR merges, which is how two sessions claimed `T-013` on 2026-10-11 (`T-019`) | Prevents duplicated work between parallel sessions |
 | Owner review | **`GEMSDOE53` needs a push or an owner-initiated rebuild** — `errored` since at least 2026-10-09 with `pushed_at` unchanged across three re-reads; the directory cannot fix a Pages build (`FL-05`, `IRR-132`). `NFLInjuryReport` showed the same status and **recovered on its own** while its author kept pushing (`FL-17`), which is why the row above asks for a `pagesStatus` watch rather than a manual hunt | Only the owner can re-trigger the stalled build |
-| High | Confirm the pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect before merging | Local browser binaries were unavailable in this sandbox |
+| Required per PR | Merge only after the latest pull-request browser workflow passes; if it fails, inspect the CI trace and fix the defect | T-029 had 52 local Chromium checks plus a successful full Chromium/Firefox/WebKit implementation CI run; that is directory coverage, not upstream runtime proof |
 | Owner review | Read [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) and explicitly choose whether to keep frozen, restore, or confirm retirement for `JobSearchSF`, `MALTA`, `MALTA-LAWS`, and `MALTA2` | The 2026-10-11 official re-check returned HTTP 404 for both the repository and Pages endpoints for all four; the directory keeps them frozen and infers no intent |
 | Medium (T-002) | Expand the five `Reproduce:` lines flagged as `FL-18` to concrete paths so every citation is openable by hand | The audit proves the *literal* `{path}` URL is not an endpoint; the surrounding sentences do name real files, so this is a small prose fix with a clear owner |
 | Medium (T-002) | Run `audit_provenance.py` whenever prose is re-read, and after any snapshot refresh | It is the only check that proves the source a record names still answers at the SHA it names — the field-level verifier cannot see a stale or broken citation |

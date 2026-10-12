@@ -4,16 +4,41 @@ Read this before refreshing data or changing the directory. The public directory
 
 ## 1. Scope and current snapshot
 
-- The directory covers public GitHub Pages repositories owned by `buffedlizard55-lab`; `kanlerxz87-cyber` is also queried and currently has no public repositories.
-- The latest API snapshot (`2026-10-12T00:11:29Z`, a full network census by session `a4aed282` under T-034, with narrative fields folded in by `--overlay-only` re-renders afterwards) contains **155 listed sites** from an account census of **156 public repositories / 156 Pages-enabled repositories**, **11,674** default-branch commits and **144** irregularities. The single difference is the permanent `ProjX` exclusion below. `kanlerxz87-cyber` has 0 public repositories. Four repositories returned HTTP 404 and remain preserved separately as unreachable records (all four re-checked by hand, most recently 2026-10-11T15:38Z; see README and `OWNER-DECISIONS.md`).
-- **The account grew from 108 to 146 public repositories between 2026-10-01 and 2026-10-11, and 38 public Pages sites were live with no entry here until that refresh** (`IRR-131`); **it grew again from 146 to 156 between `19:28:51Z` and `00:11:29Z` on 2026-10-11/12, and all ten new repositories were read and published in the T-034 pass** (`GEMSDOE63`–`GEMSDOE72`: four lanes and six README-only placeholders). The generator skips any repository without a curated overlay entry, so the gap was silent. Task `T-010` in [`TASKS.md`](TASKS.md) proposes a scheduled census that fails loudly when `counts.publicRepos` exceeds listed + excluded. **Treat "the directory is complete" as a claim to re-verify every pass, not an assumption.**
-- `kind: "app"` and `kind: "stub"` are legacy schema values. They mean only that the configured Pages source path does or does not contain `index.html`. They do **not** mean interactive/noninteractive, working/broken, or online/offline. The latest audit re-derived all 155 kinds across two runs: the first checked **155/155 with 1 disagreement and 0 unresolved** (`62GEMSDOE`, overlay `stub` vs live `app` — a placeholder that had become a lane, re-read and re-classified as `IRR-144`); the re-run reached **94/155 with 0 disagreements before an HTTP 403 secondary rate limit stopped it, so the re-run is INCOMPLETE — never a pass** (`tools/last_kind_audit.json` → `complete: false`).
-- `pagesStatus: "built"` is GitHub API metadata, not a successful HTTP or browser check, and it is a live state machine rather than a property of a repository. At the `00:11:29Z` snapshot **154 entries report `built` and one reports `errored`** — `GEMSDOE53` (`IRR-132`, `FL-05`), whose `pushed_at` has been frozen at `2026-10-09T02:00:53Z` across four hand re-reads, so it is a stalled build rather than a queued one. `NFLInjuryReport` (`IRR-141`, `FL-17`) recovered to **`built`** on its own and stays one to watch. Publish a Pages status with its timestamp, never as a permanent fact. GitHub's public repository and Pages APIs do not expose site visits or last use; the UI's **Last commit** is the newest committer timestamp on the default branch.
-- **54** description SHAs are behind their repositories' current heads at the `00:11:29Z` snapshot (53 at `19:28:51Z`, 52 at `16:58:53Z`, 51 at `15:06:10Z`, 45 at `05:12:27Z`; the `00:11:29Z` census re-read prose only for the ten newly published repositories and two re-classifications, and `62GEMSDOE` was pushed to again — note its re-read stamp is *newer* than the snapshot head, so it is counted by the mechanical comparison without being stale). These entries must remain visibly flagged until their source prose is re-read; a changed SHA alone does not prove a description false. A census refresh republishes the *API* fields; it never rewrites prose, so expect this queue to move in both directions only when someone re-reads a repository.
-- The independent live verifier completed **1,913 checks at the `16:58:53Z` snapshot**: 0 hard mismatches, 47 volatile drifts (fields GitHub recomputes or repositories pushed to while the audit ran), and zero entries in either direction of the API/published set difference. The numeric-token description lint checked all 145 entries with **0 unresolved items** and 42 documented exceptions; this is not semantic proof. The kind audit re-derived **145/145 with 0 disagreements and 0 unresolved**. An INCOMPLETE report (401/403/transport failure) is an access block, never a pass — that happened twice on 2026-10-11 (`verify_live` and `audit_descriptions` were re-run after the sandbox connection was restored).
-- **A re-derivation caught six entries published as stubs after they had already become HTML entry points** (`GEMSDOE22`–`GEMSDOE27`, `IRR-138`): `contents/index.html?ref=<snapshot head>` returns HTTP 200 for all six at the recorded snapshot heads, so the stored label was false when published. Re-derive `kind` every pass — never trust a stored value. See `IRR-127`–`IRR-138` in `VERIFICATION.md`.
-- **Protocol files exist and are binding.** [`TASKS.md`](TASKS.md) holds the claimable queue (claim one task per session, commit the claim alone, push immediately); [`FLAGGED.md`](FLAGGED.md) records fields that cannot be verified officially and items needing a human decision; [`HANDOFF.md`](HANDOFF.md) carries session context; `scripts/validate` is the mechanical gate (official source links per record, no unverified values, overlay-vs-published parity, counts, exclusions, the per-record hand-review links in `VERIFICATION.md`, and the scheduled-audit status surface in §4c). Run it before opening a PR.
-- Local `npm run check` and Python syntax compilation pass. Playwright discovered 84 browser cases, but none ran: browser installation failed with `ECONNRESET` from `cdn.playwright.dev`. The PR workflow installs browsers; see README for the exact limitation. The `MasterSite` public-page fetch also hit sandbox TLS/SSL EOF, which does not prove the public site is down.
+- Both accounts are queried. The current published snapshot is
+  **`2026-10-12T02:09:11Z` (T-035/PR #73)**: 155 listed sites, 142 HTML entry
+  points / 13 documentation stubs, 153 `built` / 2 `errored` at that read,
+  11,797 default-branch commits, 147 irregularities, **56 prose-stale**, 70
+  curated family members. Primary public census 156 = 155 + excluded ProjX;
+  secondary public repositories 0. Four unreachable records remain frozen.
+- Published `GEMSDOE67`/`GEMSDOE69` classifications and all three T-035 source
+  rereads were retained when T-029 rebased. `GEMSDOE68` is still `stub` because
+  no configured-path index existed at the recorded kind read, irrespective of
+  its documented project purpose. Never infer purpose from names or HTML existence.
+- The published audit layer completed: kind 155/155 with no disagreements,
+  numeric lint 155/155 with one known `60GEMSDOE` finding, provenance 155/155
+  and 1,118 checks with no hard findings, live fields 2,057 checks with no hard
+  mismatches and 106 volatile drifts. Those are timestamped results, not current
+  semantic accuracy, rendering, uptime, visits or last use. The stale queue is
+  only cleared by rereading sources, not changing a SHA.
+- Build metadata is not uptime. The published snapshot records `GEMSDOE53` and
+  `GEMSDOE68` `errored`; later independent T-029 reads observed `GEMSDOE68`
+  `built` at 04:03:58Z (FL-21 recovery), while GEMSDOE53 remained `errored` at
+  04:03:37Z with unchanged pushed_at. Do not hand-edit the historical record.
+- T-029 completed all six stages across seven bounded invocations/two actual
+  quota resets ([historical staged report](reports/refresh/20261012T041123Z-v2-full-collection.md)):
+  2,938 requests, final census 156/0 with no gaps, provenance 1,118 checks and
+  live fields 2,049 checks / 0 hard / 80 drift. **No staged data was promoted.**
+  Its old curation produced two legitimate kind blockers, now resolved by T-035
+  (historical FL-23). Input changes intentionally invalidate that checkpoint.
+- Code gates: **193 Python tests**, validator, JavaScript checks and compilation
+  passed; **52 local desktop/mobile Chromium tests** passed with temporary
+  runtime files, no dependency changes. Full implementation Chromium/Firefox/WebKit
+  [CI passed](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38198039418).
+  Require the latest PR's actual green check before merging.
+- Protocol is binding: claim one task, commit/push the claim alone; review TASKS,
+  FLAGGED and HANDOFF. Never edit shared generated datasets by hand, remove frozen
+  records, ignore permanent exclusions or treat an INCOMPLETE audit as passing.
+  Every active record must retain official review links and supported dates.
 
 ## 2. Hard repository rules
 
@@ -36,7 +61,24 @@ Read this before refreshing data or changing the directory. The public directory
 
 ## 4. Data and audit workflow
 
-Run from the repository root:
+**Preferred full refresh: [`tools/refresh.py`](tools/refresh.py), T-029.** Start with
+`python3 tools/refresh.py --checkpoint .work/refresh --budget 900 --reserve 60`,
+continue the same collection with `--resume` only when its recorded quota/access
+window permits, and explicitly add `--publish` to promote a completed eligible
+collection. This stages the builder, all four independent audits and a final
+both-account public census without changing published files on a pause. It has a
+hard per-invocation request ceiling, independent phase response namespaces, original
+API read timestamps, pinned commit pagination, integrity/age/input gates and a
+checkpoint lock. See [`tools/REFRESH.md`](tools/REFRESH.md) for commands, exit codes,
+publication gates and limitations. Never hand-edit a checkpoint to bypass a gate.
+After promotion, rebuild `data/sites/`, `SITES.md`, `master-list.html`, and
+`VERIFICATION.md`, sync the README, and run `scripts/validate`. Replayed responses
+keep their original read times; collection completion is not fresh verification
+of every field. This does not clear prose staleness or persist checkpoints across
+scheduled Actions jobs.
+
+The individual tools below remain available (but do not themselves provide the
+full coordinator's continuation path). Run from the repository root:
 
 ```bash
 python3 tools/build_data.py
@@ -76,7 +118,7 @@ If GitHub API access is unavailable, `python3 tools/build_data.py --overlay-only
 
 **Pages build-health re-check cadence (T-005).** On every refresh or health pass, re-read
 `GET /repos/{owner}/{repo}/pages` for each entry whose `pagesStatus` is not `built` (currently
-`GEMSDOE53` and `NFLInjuryReport`) and record the timestamped result in `FLAGGED.md` (FL-05,
+`GEMSDOE53` and `GEMSDOE68` in the published snapshot; recheck later recovery rather than treating that snapshot as current) and record the timestamped result in `FLAGGED.md` (FL-05,
 FL-17) with the repository's
 `pushed_at` beside it — a status that is unchanged with no new push needs no data regeneration,
 and FL-05 must not be cleared while the API still reports `errored`. A recovery to `built`

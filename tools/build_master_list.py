@@ -548,11 +548,18 @@ def render_html(snapshot):
     add(badge("✓ No JavaScript — this page is static HTML", "ml-kind-app",
               "The page contains no script element; every value is in the markup you are reading"))
     add(badge("Snapshot %s UTC" % esc(generated or "—"), "ml-family",
-              "The API read that every value on this page came from"))
+              "Snapshot generation/completion time, not a simultaneous read of every API field"))
     add(badge("Public Pages sites only", "ml-family",
               "Private repositories are out of scope and are not enumerated"))
     add('    </div>')
     add("    <h1>Master list — every public GitHub Pages site</h1>")
+    if snapshot.get("apiCollection"):
+        collection = snapshot["apiCollection"]
+        add('    <p class="ml-panel-sub"><strong>Original API read window:</strong> %s → %s (UTC). '
+            'The snapshot stamp marks completion, not the time of every read. Checkpoint replay keeps '
+            'the original read times in each per-site record.</p>'
+            % (time_tag(collection.get("oldestReadAt"), label=collection.get("oldestReadAt")),
+               time_tag(collection.get("newestReadAt"), label=collection.get("newestReadAt"))))
     add('    <p class="ml-tagline">One block per site, in a fixed order: the <strong>live link</strong>, '
         "a <strong>description quoted from the repository's own files</strong>, the <strong>date "
         "created</strong>, the <strong>date of the last default-branch commit</strong>, the "

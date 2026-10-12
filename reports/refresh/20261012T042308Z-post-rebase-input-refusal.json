@@ -1,0 +1,16 @@
+{
+  "observedAt": "2026-10-12T04:23:08Z",
+  "scope": "Real completed checkpoint refused after rebasing onto T-035 curation; no API quota probe/attempt started, no published data or stored evidence overwritten. Not a new API observation.",
+  "exitCode": 2,
+  "stdout": "",
+  "stderr": "checkpoint inputs/version changed; start a new collection (do not mix source versions)\n",
+  "savedAttemptCountUnchanged": 7,
+  "savedStatusUnchanged": "BLOCKED_FINDINGS",
+  "unchangedCheckpointHashes": {
+    "checkpoint.json": "3d2f3b1006e13225b783a3674a3357481974eabc8364d42f09f55b2408a12591",
+    "report.json": "3a4d69de561945723229b7c3e938dc1f0429f03e1549f8092bb99a078001a045"
+  },
+  "adoptedMainSnapshot": "2026-10-12T02:09:11Z",
+  "unchangedPublishedSnapshotSha256": "4d49f49caedc9a048f2a73bd9ff6ba76aa484bbdab80d0882c860fe3a25997e7",
+  "baseCommit": "c09a5b31b20c2f3a35d8fd91b21f79b1454e7301"
+}

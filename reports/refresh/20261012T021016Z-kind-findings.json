@@ -1,0 +1,34 @@
+{
+  "snapshotGenerated": "2026-10-12T02:05:06Z",
+  "totalEntries": 155,
+  "checkedEntries": 155,
+  "derivedEntries": 0,
+  "complete": true,
+  "disagreements": [
+    {
+      "repo": "GEMSDOE67",
+      "overlayKind": "stub",
+      "derivedKind": "app",
+      "httpStatus": 200,
+      "pagesSource": "main /"
+    },
+    {
+      "repo": "GEMSDOE69",
+      "overlayKind": "stub",
+      "derivedKind": "app",
+      "httpStatus": 200,
+      "pagesSource": "main /"
+    }
+  ],
+  "unresolved": [],
+  "apiCollection": {
+    "startedAt": "2026-10-12T02:05:06Z",
+    "completedAt": "2026-10-12T02:10:16Z",
+    "oldestReadAt": "2026-10-12T02:05:06Z",
+    "newestReadAt": "2026-10-12T02:10:16Z",
+    "requests": 310,
+    "responses": 310,
+    "checkpointReplaysThisInvocation": 295,
+    "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+  }
+}

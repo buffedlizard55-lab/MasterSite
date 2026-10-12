@@ -1,0 +1,133 @@
+{
+  "startedAt": "2026-10-12T01:39:55Z",
+  "finishedAt": null,
+  "status": "INCOMPLETE",
+  "publishedAt": null,
+  "pause": {
+    "reason": "request budget exhausted; no further request was sent",
+    "source": "https://api.github.com/repos/buffedlizard55-lab/THUNDERPICK-WC-2026/contents/index.html?ref=main",
+    "httpStatus": null,
+    "retrySuggestedAt": null,
+    "pausedAt": "2026-10-12T02:10:01Z"
+  },
+  "attempts": [
+    {
+      "startedAt": "2026-10-12T01:39:55Z",
+      "budget": 8,
+      "reserve": 1,
+      "finishedAt": "2026-10-12T01:39:56Z",
+      "requests": 2,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T01:39:55Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791772795
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791772795",
+          "date": "Mon, 12 Oct 2026 01:39:55 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    },
+    {
+      "startedAt": "2026-10-12T01:55:19Z",
+      "budget": 900,
+      "reserve": 60,
+      "finishedAt": "2026-10-12T02:10:01Z",
+      "requests": 840,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T01:55:19Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791773719
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791773719",
+          "date": "Mon, 12 Oct 2026 01:55:19 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "build_data",
+      "verdict": "PASS",
+      "apiCollection": {
+        "startedAt": "2026-10-12T01:39:55Z",
+        "completedAt": "2026-10-12T02:05:06Z",
+        "oldestReadAt": "2026-10-12T01:55:20Z",
+        "newestReadAt": "2026-10-12T02:05:05Z",
+        "requests": 545,
+        "responses": 544,
+        "checkpointReplaysThisInvocation": 0,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      },
+      "requests": 545,
+      "report": null,
+      "review": {}
+    },
+    {
+      "stage": "audit_kind",
+      "verdict": "INCOMPLETE",
+      "apiCollection": {
+        "oldestReadAt": "2026-10-12T02:05:06Z",
+        "newestReadAt": "2026-10-12T02:10:01Z"
+      },
+      "requests": 295,
+      "report": "tools/last_kind_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "audit_descriptions",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_description_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "audit_provenance",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_provenance_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "verify_live",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_live_verify.json",
+      "review": {}
+    },
+    {
+      "stage": "coverage",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": null,
+      "review": {}
+    }
+  ],
+  "publicationBlockers": [
+    "audit_kind: collection incomplete",
+    "audit_descriptions: collection incomplete",
+    "audit_provenance: collection incomplete",
+    "verify_live: collection incomplete",
+    "coverage: collection incomplete"
+  ],
+  "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+}

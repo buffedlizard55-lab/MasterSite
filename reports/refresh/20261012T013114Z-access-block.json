@@ -1,0 +1,98 @@
+{
+  "startedAt": "2026-10-12T01:31:14Z",
+  "finishedAt": null,
+  "status": "INCOMPLETE",
+  "publishedAt": null,
+  "pause": {
+    "reason": "API access/server block: HTTP 403 API rate limit exceeded for user ID 309556078. If you reach out to GitHub Support for help, please include the request ID AAFE:262438:91BB6E:15EEF42:6ACC3863 and timestamp 2026-10-12 01:31:15 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (not a data finding)",
+    "source": "https://api.github.com/users/buffedlizard55-lab",
+    "httpStatus": 403,
+    "retrySuggestedAt": "2026-10-12T01:55:14Z",
+    "pausedAt": "2026-10-12T01:31:15Z"
+  },
+  "attempts": [
+    {
+      "startedAt": "2026-10-12T01:31:14Z",
+      "budget": 8,
+      "reserve": 1,
+      "finishedAt": "2026-10-12T01:31:15Z",
+      "requests": 2,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T01:31:14Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791772274
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791772274",
+          "date": "Mon, 12 Oct 2026 01:31:14 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "build_data",
+      "verdict": "INCOMPLETE",
+      "apiCollection": null,
+      "requests": 1,
+      "report": null,
+      "review": {}
+    },
+    {
+      "stage": "audit_kind",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_kind_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "audit_descriptions",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_description_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "audit_provenance",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_provenance_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "verify_live",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_live_verify.json",
+      "review": {}
+    },
+    {
+      "stage": "coverage",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": null,
+      "review": {}
+    }
+  ],
+  "publicationBlockers": [
+    "build_data: collection incomplete",
+    "audit_kind: collection incomplete",
+    "audit_descriptions: collection incomplete",
+    "audit_provenance: collection incomplete",
+    "verify_live: collection incomplete",
+    "coverage: collection incomplete"
+  ],
+  "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+}

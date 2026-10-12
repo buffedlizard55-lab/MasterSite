@@ -30,6 +30,8 @@ import os
 import re
 import subprocess
 import sys
+from datetime import datetime, timezone
+from urllib.parse import urlsplit
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "sites.js")
@@ -56,6 +58,77 @@ def license_note():
     )
 
 
+def validate_api_evidence(d):
+    """Fail closed on malformed/lost checkpoint evidence; legacy snapshots remain valid.
+
+    This checks source shape and timestamp consistency, not the truth of a source
+    body. The independent live/provenance audits still perform those re-reads.
+    """
+    sites = d.get("sites", [])
+    if "apiCollection" not in d and not any("apiSources" in s for s in sites):
+        return []
+    collection = d.get("apiCollection")
+    if not isinstance(collection, dict):
+        return ["apiCollection is missing or is not an object"]
+    errors, times = [], {}
+
+    def parse(value, label):
+        try:
+            if not isinstance(value, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", value):
+                raise ValueError("not a UTC timestamp")
+            return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        except ValueError:
+            errors.append(label + ": missing/invalid UTC read timestamp")
+            return None
+
+    for field in ("startedAt", "completedAt", "oldestReadAt", "newestReadAt"):
+        times[field] = parse(collection.get(field), "apiCollection." + field)
+    generated = parse(d.get("generated"), "generated")
+    if all(times.values()):
+        if not times["startedAt"] <= times["oldestReadAt"] <= times["newestReadAt"] <= times["completedAt"]:
+            errors.append("apiCollection read window is inconsistent")
+        if generated and times["newestReadAt"] > generated:
+            errors.append("apiCollection contains an API answer newer than snapshot completion")
+    for field in ("requests", "responses", "checkpointReplaysThisInvocation"):
+        if type(collection.get(field)) is not int or collection[field] < 0:
+            errors.append("apiCollection.%s must be a nonnegative integer" % field)
+    if not isinstance(collection.get("caveat"), str) or not collection["caveat"].strip():
+        errors.append("apiCollection has no checkpoint/timing caveat")
+
+    for site in sites:
+        repo = site.get("repo", "<missing>")
+        sources = site.get("apiSources")
+        if not isinstance(sources, list) or not sources:
+            errors.append(repo + ": no per-request API evidence for a checkpointed snapshot")
+            continue
+        prefix = "/repos/%s/%s" % (OWNER, repo)
+        observed = set()
+        for source in sources:
+            if not isinstance(source, dict):
+                errors.append(repo + ": API source must be an object")
+                continue
+            url = source.get("url")
+            try:
+                parts = urlsplit(url) if isinstance(url, str) else None
+            except ValueError:
+                parts = None
+            if (not parts or parts.scheme != "https" or parts.netloc != "api.github.com"
+                    or parts.fragment or not (parts.path == prefix or parts.path.startswith(prefix + "/"))):
+                errors.append(repo + ": API evidence URL is not this repository's exact official endpoint")
+            elif source.get("status") == 200:
+                observed.add(parts.path)
+            if type(source.get("status")) is not int or source["status"] not in (200, 404, 409, 422):
+                errors.append(repo + ": API evidence includes an access block or invalid status")
+            read_at = parse(source.get("readAt"), repo + ".apiSources.readAt")
+            if read_at and times["oldestReadAt"] and times["newestReadAt"]:
+                if not times["oldestReadAt"] <= read_at <= times["newestReadAt"]:
+                    errors.append(repo + ": API source read time lies outside the collection window")
+        for path in (prefix, prefix + "/pages", prefix + "/commits"):
+            if path not in observed:
+                errors.append(repo + ": missing HTTP 200 evidence for " + path)
+    return errors
+
+
 def build_records(d):
     """Return {filename: record} for every public repository in the snapshot."""
     records = {}
@@ -80,6 +153,11 @@ def build_records(d):
             nulls.append("verifiedAtSha")
         if not site.get("verifiedBasis"):
             nulls.append("verifiedBasis")
+
+        source_links = [u for u in (api_repo_url, api_pages, api_commits, site.get("pagesUrl")) if u]
+        for source in site.get("apiSources", []):
+            if source.get("url") and source["url"] not in source_links:
+                source_links.append(source["url"])
 
         records[slug + ".json"] = {
             "owner": OWNER,
@@ -113,8 +191,9 @@ def build_records(d):
             "snapshotHeadSha": head,
             "proseStale": stale,
             "verifiedBasis": site.get("verifiedBasis"),
-            "sourceLinks": [u for u in (api_repo_url, api_pages, api_commits,
-                                        site.get("pagesUrl")) if u],
+            "sourceLinks": source_links,
+            **({"apiSources": site["apiSources"], "apiCollection": d["apiCollection"]}
+               if "apiCollection" in d and "apiSources" in site else {}),
             "snapshot": d.get("generated"),
             "unverifiedFields": sorted(set(nulls)),
             "licenseNote": license_note(),
@@ -125,6 +204,12 @@ def build_records(d):
 def main():
     check = "--check" in sys.argv[1:]
     d = load_snapshot()
+    evidence_errors = validate_api_evidence(d)
+    if evidence_errors:
+        print("API checkpoint evidence is invalid; no record written:")
+        for error in evidence_errors:
+            print("  -", error)
+        return 1
     records = build_records(d)
     os.makedirs(OUTDIR, exist_ok=True)
     existing = sorted(f for f in os.listdir(OUTDIR) if f.endswith(".json"))

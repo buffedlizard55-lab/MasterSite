@@ -201,6 +201,10 @@ def render(data):
     out.append("| | |")
     out.append("|---|---|")
     out.append("| API snapshot | `%s` (UTC) |" % generated)
+    if data.get("apiCollection"):
+        collection = data["apiCollection"]
+        out.append("| Original API read window | `%s` → `%s` (UTC). Snapshot timestamp marks completion; checkpoint replay retains original read times in each `data/sites/` record |"
+                   % (esc(collection.get("oldestReadAt")), esc(collection.get("newestReadAt"))))
     out.append("| Accounts covered | `%s` — %s public repositories, %s with GitHub Pages; `%s` — %s public repositories |"
                % (owner, public_repos if public_repos is not None else "—",
                   pages_sites if pages_sites is not None else "—",
