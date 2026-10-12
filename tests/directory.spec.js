@@ -62,6 +62,22 @@ test('committed snapshot renders without errors and preserves exclusion/accounti
   expect(errors).toEqual([]);
 });
 
+test('a resumed API collection shows original read times instead of calling its completion stamp fresh verification', async ({ page }) => {
+  const data = await useFixture(page);
+  data.apiCollection = {
+    oldestReadAt: '2026-10-10T01:00:00Z', newestReadAt: '2026-10-11T02:00:00Z'
+  };
+  await page.goto('/');
+  const legend = page.locator('#verifyLegend');
+  await expect(legend).toContainText('original API read window');
+  await expect(legend).toContainText('2026-10-10');
+  await expect(legend).toContainText('2026-10-11');
+  await expect(legend).toContainText('Snapshot completion');
+  await expect(legend).toContainText('original read times, not new verification times');
+  await expect(legend).not.toContainText('on every build');
+  await expect(legend).toContainText('This page does not check live repository heads');
+});
+
 test('the directory links to the generated plain master list for hand review', async ({ page }) => {
   // The owner brief also asks for one organized, easy-to-read list outside the UI.
   // SITES.md is generated from the same snapshot by tools/build_sites_md.py and is

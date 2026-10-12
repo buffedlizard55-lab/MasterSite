@@ -212,7 +212,8 @@ def render_scheduled_audit_section(summary, snapshot):
 
 def main():
     d = load_data()
-    ov = json.load(open(OVERLAY, encoding="utf-8"))
+    with open(OVERLAY, encoding="utf-8") as fh:
+        ov = json.load(fh)
     owner = d["owner"]
     gen = d["generated"]
     audit = d.get("auditDate", gen[:10])
@@ -232,6 +233,10 @@ def main():
     A("# MasterSite — API Snapshot, Source & Irregularities Ledger\n")
     A("**API Snapshot:** %s (UTC). Description-source stamps and stale states are reported per entry below." % gen)
     A("**Generated:** `%s` by `tools/build_data.py` + `tools/build_verification.py`; API telemetry is fetched automatically, while titles/categories/descriptions are curated from repository-owned files in `tools/overlay.json`. No user-supplied entry data was needed." % gen)
+    if d.get("apiCollection"):
+        collection = d["apiCollection"]
+        A("**API read window:** `%s` → `%s` (UTC). The snapshot stamp marks collection completion, not a simultaneous API read; checkpoint replay retains original per-request times and exact URLs in `data/sites/<owner>__<repo>.json`." %
+          (collection.get("oldestReadAt"), collection.get("newestReadAt")))
     A("**Audited Accounts:** `buffedlizard55-lab`, `kanlerxz87-cyber`")
     A("**Scope:** Public repositories and Pages deployments visible through GitHub's official API for both named accounts. Every discovered omission, permanent exclusion, or unreachable record is identified separately; private repositories are outside scope.")
     A("**Integrity Standard:** API-derived fields are tied to the recorded snapshot; the latest independent `verify_live.py`, kind, numeric-token, and provenance checks are reported below as complete, incomplete, blocked, or stale. Each curated description records its source basis and commit SHA; stale SHA stamps are exposed rather than called current. The numeric-token description audit is a lint, not semantic proof.\n")
@@ -541,6 +546,14 @@ def main():
                 progress, " (HTTP %s: %s)" % (http, reason) if http else " (%s)" % reason)
         A("| %s | **%s** | %s |" % (label, status, result.replace("|", "\\|")))
     A("")
+    if any(report and report.get("apiCollection") for _, report in audit_rows):
+        A("**Independent audit read windows (UTC):** each audit has its own checkpoint namespace; none reuses the builder's answers. Replayed responses retain these original read times rather than being restamped as current.")
+        for label, report in audit_rows:
+            collection = (report or {}).get("apiCollection")
+            if collection:
+                A("- %s: `%s` → `%s`; %s actual HTTP requests across collection attempts." %
+                  (label, collection.get("oldestReadAt"), collection.get("newestReadAt"), collection.get("requests")))
+        A("")
     A("---\n")
 
     # ---------------- 4c. Scheduled audit status ----------------

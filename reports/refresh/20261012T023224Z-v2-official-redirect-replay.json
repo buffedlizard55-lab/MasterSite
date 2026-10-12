@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "scope": "One real official renamed-repository response and zero-request replay; not a full audit.",
+  "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/LiveScoringErrors",
+  "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/LiveScoringErrors",
+  "finalUrl": "https://api.github.com/repositories/1394107287",
+  "httpStatus": 200,
+  "originalReadAt": "2026-10-12T02:32:24Z",
+  "initialRequestsIncludingProbe": 3,
+  "replayRequests": 0,
+  "checkpointReplays": 1
+}

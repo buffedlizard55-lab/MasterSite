@@ -13,7 +13,7 @@ Read this before refreshing data or changing the directory. The public directory
 - The independent live verifier completed **1,913 checks at the `16:58:53Z` snapshot**: 0 hard mismatches, 47 volatile drifts (fields GitHub recomputes or repositories pushed to while the audit ran), and zero entries in either direction of the API/published set difference. The numeric-token description lint checked all 145 entries with **0 unresolved items** and 42 documented exceptions; this is not semantic proof. The kind audit re-derived **145/145 with 0 disagreements and 0 unresolved**. An INCOMPLETE report (401/403/transport failure) is an access block, never a pass — that happened twice on 2026-10-11 (`verify_live` and `audit_descriptions` were re-run after the sandbox connection was restored).
 - **A re-derivation caught six entries published as stubs after they had already become HTML entry points** (`GEMSDOE22`–`GEMSDOE27`, `IRR-138`): `contents/index.html?ref=<snapshot head>` returns HTTP 200 for all six at the recorded snapshot heads, so the stored label was false when published. Re-derive `kind` every pass — never trust a stored value. See `IRR-127`–`IRR-138` in `VERIFICATION.md`.
 - **Protocol files exist and are binding.** [`TASKS.md`](TASKS.md) holds the claimable queue (claim one task per session, commit the claim alone, push immediately); [`FLAGGED.md`](FLAGGED.md) records fields that cannot be verified officially and items needing a human decision; [`HANDOFF.md`](HANDOFF.md) carries session context; `scripts/validate` is the mechanical gate (official source links per record, no unverified values, overlay-vs-published parity, counts, exclusions, the per-record hand-review links in `VERIFICATION.md`, and the scheduled-audit status surface in §4c). Run it before opening a PR.
-- Local `npm run check` and Python syntax compilation pass. Playwright discovered 84 browser cases, but none ran: browser installation failed with `ECONNRESET` from `cdn.playwright.dev`. The PR workflow installs browsers; see README for the exact limitation. The `MasterSite` public-page fetch also hit sandbox TLS/SSL EOF, which does not prove the public site is down.
+- T-029 local regression evidence: **193 Python unit tests**, `scripts/validate`, `npm run check`, Python syntax compilation, and **52 desktop/mobile Chromium browser tests passed**. The normal browser CDN remains unavailable, but an ignored temporary npm-packaged Chromium binary plus runtime libraries worked through the existing `CHROMIUM_PATH` override (no dependency/lockfile change). Firefox/WebKit require the actual PR CI result. Browser fixtures test this directory, not upstream Pages uptime or semantic prose. The earlier `MasterSite` public-page fetch hit sandbox TLS/SSL EOF, which does not prove the public site is down.
 
 ## 2. Hard repository rules
 
@@ -36,7 +36,24 @@ Read this before refreshing data or changing the directory. The public directory
 
 ## 4. Data and audit workflow
 
-Run from the repository root:
+**Preferred full refresh: [`tools/refresh.py`](tools/refresh.py), T-029.** Start with
+`python3 tools/refresh.py --checkpoint .work/refresh --budget 900 --reserve 60`,
+continue the same collection with `--resume` only when its recorded quota/access
+window permits, and explicitly add `--publish` to promote a completed eligible
+collection. This stages the builder, all four independent audits and a final
+both-account public census without changing published files on a pause. It has a
+hard per-invocation request ceiling, independent phase response namespaces, original
+API read timestamps, pinned commit pagination, integrity/age/input gates and a
+checkpoint lock. See [`tools/REFRESH.md`](tools/REFRESH.md) for commands, exit codes,
+publication gates and limitations. Never hand-edit a checkpoint to bypass a gate.
+After promotion, rebuild `data/sites/`, `SITES.md`, `master-list.html`, and
+`VERIFICATION.md`, sync the README, and run `scripts/validate`. Replayed responses
+keep their original read times; collection completion is not fresh verification
+of every field. This does not clear prose staleness or persist checkpoints across
+scheduled Actions jobs.
+
+The individual tools below remain available (but do not themselves provide the
+full coordinator's continuation path). Run from the repository root:
 
 ```bash
 python3 tools/build_data.py

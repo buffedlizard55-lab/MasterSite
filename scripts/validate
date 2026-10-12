@@ -31,6 +31,8 @@ Checks performed
                warnings surface uncurated name-matches for review
   O. scheduled: the generated ledger surfaces the committed scheduled-run outcome,
                 per-audit verdicts, and last explicit clean-pass column
+  P. checkpoint: exact official API endpoints and original UTC read times survive
+                 export; the ledger exposes the actual API collection interval
 """
 
 import json
@@ -375,6 +377,21 @@ def main():
         check(bool(claims), "TASKS.md has no well-formed claim lines (session=<id> at=<UTC>)")
         check(bool(re.search(r"\| (unclaimed|claimed|in review|blocked|done|passed) \|", text)),
               "TASKS.md has no task rows with a recognised Status")
+
+    # ---- P. original API read times for resumable/checkpointed collections --------
+    # The exporter below fails closed on missing/invalid times, non-official URLs,
+    # absent repo/Pages/commit evidence, access blocks, and times outside the API
+    # window. Here also require that readers of the generated ledger see the
+    # interval instead of mistaking the completion stamp for every field's read.
+    if "apiCollection" in data:
+        collection = data["apiCollection"]
+        if check(isinstance(collection, dict), "apiCollection is not an object"):
+            ledger_text = open(LEDGER, encoding="utf-8").read() if os.path.isfile(LEDGER) else ""
+            check("**API read window:**" in ledger_text,
+                  "VERIFICATION.md omits the original checkpoint API read window")
+            for field in ("oldestReadAt", "newestReadAt"):
+                check(bool(collection.get(field)) and str(collection[field]) in ledger_text,
+                      "VERIFICATION.md omits apiCollection.%s" % field)
 
     # ---- J. per-site export (data/sites/) ----------------------------------------
     # The protocol's per-site layout, generated from the overlay + data/sites.js by

@@ -1,0 +1,223 @@
+{
+  "startedAt": "2026-10-12T01:39:55Z",
+  "finishedAt": null,
+  "status": "INCOMPLETE",
+  "publishedAt": null,
+  "pause": {
+    "reason": "unreadable/corrupt checkpoint response: cached URL/representation mismatch",
+    "pausedAt": "2026-10-12T02:24:10Z"
+  },
+  "attempts": [
+    {
+      "startedAt": "2026-10-12T01:39:55Z",
+      "budget": 8,
+      "reserve": 1,
+      "finishedAt": "2026-10-12T01:39:56Z",
+      "requests": 2,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T01:39:55Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791772795
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791772795",
+          "date": "Mon, 12 Oct 2026 01:39:55 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    },
+    {
+      "startedAt": "2026-10-12T01:55:19Z",
+      "budget": 900,
+      "reserve": 60,
+      "finishedAt": "2026-10-12T02:10:01Z",
+      "requests": 840,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T01:55:19Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791773719
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791773719",
+          "date": "Mon, 12 Oct 2026 01:55:19 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    },
+    {
+      "startedAt": "2026-10-12T02:10:01Z",
+      "budget": 900,
+      "reserve": 60,
+      "finishedAt": "2026-10-12T02:24:08Z",
+      "requests": 840,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T02:10:01Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791774601
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791774601",
+          "date": "Mon, 12 Oct 2026 02:10:01 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    },
+    {
+      "startedAt": "2026-10-12T02:24:08Z",
+      "budget": 900,
+      "reserve": 60,
+      "finishedAt": "2026-10-12T02:24:10Z",
+      "requests": 1,
+      "quota": {
+        "source": "https://api.github.com/rate_limit",
+        "readAt": "2026-10-12T02:24:09Z",
+        "core": {
+          "limit": 5000,
+          "used": 0,
+          "remaining": 5000,
+          "reset": 1791775448
+        },
+        "headers": {
+          "x-ratelimit-limit": "5000",
+          "x-ratelimit-remaining": "5000",
+          "x-ratelimit-reset": "1791775448",
+          "date": "Mon, 12 Oct 2026 02:24:08 GMT"
+        },
+        "effectiveRemaining": 5000
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": "build_data",
+      "verdict": "PASS",
+      "apiCollection": {
+        "startedAt": "2026-10-12T01:39:55Z",
+        "completedAt": "2026-10-12T02:05:06Z",
+        "oldestReadAt": "2026-10-12T01:55:20Z",
+        "newestReadAt": "2026-10-12T02:05:05Z",
+        "requests": 545,
+        "responses": 544,
+        "checkpointReplaysThisInvocation": 0,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      },
+      "requests": 545,
+      "report": null,
+      "review": {}
+    },
+    {
+      "stage": "audit_kind",
+      "verdict": "FINDINGS",
+      "apiCollection": {
+        "startedAt": "2026-10-12T02:05:06Z",
+        "completedAt": "2026-10-12T02:10:16Z",
+        "oldestReadAt": "2026-10-12T02:05:06Z",
+        "newestReadAt": "2026-10-12T02:10:16Z",
+        "requests": 310,
+        "responses": 310,
+        "checkpointReplaysThisInvocation": 295,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      },
+      "requests": 310,
+      "report": "tools/last_kind_audit.json",
+      "review": {
+        "disagreements": [
+          {
+            "repo": "GEMSDOE67",
+            "overlayKind": "stub",
+            "derivedKind": "app",
+            "httpStatus": 200,
+            "pagesSource": "main /"
+          },
+          {
+            "repo": "GEMSDOE69",
+            "overlayKind": "stub",
+            "derivedKind": "app",
+            "httpStatus": 200,
+            "pagesSource": "main /"
+          }
+        ]
+      }
+    },
+    {
+      "stage": "audit_descriptions",
+      "verdict": "FINDINGS",
+      "apiCollection": {
+        "startedAt": "2026-10-12T02:10:16Z",
+        "completedAt": "2026-10-12T02:12:52Z",
+        "oldestReadAt": "2026-10-12T02:10:17Z",
+        "newestReadAt": "2026-10-12T02:12:52Z",
+        "requests": 155,
+        "responses": 155,
+        "checkpointReplaysThisInvocation": 0,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      },
+      "requests": 155,
+      "report": "tools/last_description_audit.json",
+      "review": {
+        "unresolved": [
+          {
+            "repo": "60GEMSDOE",
+            "why": "numeric tokens not found in README",
+            "tokens": [
+              "0.00420",
+              "0.08623"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "stage": "audit_provenance",
+      "verdict": "INCOMPLETE",
+      "apiCollection": {
+        "oldestReadAt": "2026-10-12T02:12:53Z",
+        "newestReadAt": "2026-10-12T02:24:08Z"
+      },
+      "requests": 669,
+      "report": "tools/last_provenance_audit.json",
+      "review": {}
+    },
+    {
+      "stage": "verify_live",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": "tools/last_live_verify.json",
+      "review": {}
+    },
+    {
+      "stage": "coverage",
+      "verdict": "NOT-RUN",
+      "apiCollection": null,
+      "requests": 0,
+      "report": null,
+      "review": {}
+    }
+  ],
+  "publicationBlockers": [
+    "audit_kind: kind disagreements require source review",
+    "audit_provenance: collection incomplete",
+    "verify_live: collection incomplete",
+    "coverage: collection incomplete"
+  ],
+  "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+}

@@ -346,8 +346,15 @@
     el.innerHTML =
       '<strong>Two kinds of “verified”.</strong> ' +
       '<em>API fields</em> — every timestamp, commit SHA, commit count, Pages status, build source and ' +
-      'size on all ' + total + ' entries — are re-read from <code>api.github.com</code> on every build ' +
-      '(this dataset: <strong>' + esc(fmtDateTime(D.generated)) + '</strong>). ' +
+      'size on all ' + total + ' entries — ' +
+      (D.apiCollection
+        ? 'were collected from <code>api.github.com</code> during the original API read window: ' +
+          '<strong>' + esc(fmtDateTime(D.apiCollection.oldestReadAt)) + '</strong> → ' +
+          '<strong>' + esc(fmtDateTime(D.apiCollection.newestReadAt)) + '</strong>. ' +
+          'Snapshot completion: <strong>' + esc(fmtDateTime(D.generated)) + '</strong>. ' +
+          'Checkpoint replay retains earlier responses’ original read times, not new verification times. '
+        : 'are re-read from <code>api.github.com</code> on every build ' +
+          '(this dataset: <strong>' + esc(fmtDateTime(D.generated)) + '</strong>). ') +
       '<em>Description prose</em> is a separate question: it is re-read against each repository’s own ' +
       'files, and each entry carries a <code>lastVerified</code> stamp, a <code>verifiedBasis</code> ' +
       'string saying what was read, and a <code>verifiedAtSha</code> — the commit the prose was read ' +
