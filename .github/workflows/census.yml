@@ -9,6 +9,16 @@
 # It only ever needs: the two account profiles + the paginated public repo
 # lists + one Pages probe per *missing* repository (normally zero), so it stays
 # far inside the authenticated rate limit and never writes to the repository.
+#
+# T-026 extends the same daily run with a Pages status transition watch
+# (tools/pages_status_guard.py): one GET /repos/{owner}/{repo}/pages per
+# listed entry, compared against the published pagesStatus, failing on any
+# entry that is not live `built` and opening/updating its own issue. Coverage
+# ("is every public repository listed?") and build health ("is every listed
+# site built?") stay separate verdicts with separate labels — the coverage
+# guard costs ~7 requests, the status watch ~150, and together they remain
+# well inside the 1,000 requests/hour Actions token ceiling. Nothing here
+# ever writes to the repository's data.
 
 name: Census guard
 
@@ -74,5 +84,64 @@ jobs:
           EXISTING="$(gh issue list --label census-gap --state open --json number --jq '.[0].number' || true)"
           if [ -n "${EXISTING}" ]; then
             gh issue comment "${EXISTING}" --body "Census guard passed on $(date -u +%Y-%m-%dT%H:%M:%SZ): coverage is complete again. Closing."
+            gh issue close "${EXISTING}"
+          fi
+
+      # --- T-026: Pages status transition watch -------------------------------
+      # Runs even when the coverage guard above failed, so one red run still
+      # reports both verdicts. The exit code is captured explicitly:
+      #   0 = every listed entry is live `built` and matches the snapshot
+      #   1 = a real finding (transition / not built / unreadable)
+      #   2 = API or environment failure — red run, but never a false finding
+      - name: Run the Pages status guard (T-026)
+        id: psg
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 tools/pages_status_guard.py 2>&1 | tee pages-status-guard-output.txt
+          code=${PIPESTATUS[0]}
+          echo "code=${code}" >> "${GITHUB_OUTPUT}"
+          exit "${code}"
+
+      - name: Open or update the Pages status issue (T-026)
+        if: always() && steps.psg.outputs.code != '' && steps.psg.outputs.code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          BODY="$(cat pages-status-guard-output.txt 2>/dev/null || echo 'the pages status guard produced no output — see the failed run')"
+          {
+            echo "The scheduled Pages status watch (T-026) failed on $(date -u +%Y-%m-%dT%H:%M:%SZ)."
+            echo
+            echo '```'
+            echo "$BODY"
+            echo '```'
+            echo
+            echo "Each FINDING line carries the exact \`GET /repos/{owner}/{repo}/pages\` endpoint and the UTC read time, so every value can be re-opened by hand. Exit code \`${{ steps.psg.outputs.code }}\`: \`1\` = a transition or an entry that is not live \`built\`; \`2\` = API/rate-limit failure, which is a red run with **no verdict** — re-dispatch the workflow when the limit resets."
+            echo
+            echo "Remediation is the documented workflow in [\`AGENTS.md\`](../blob/main/AGENTS.md) §4: after a status recovers (or a record goes stale), re-run \`tools/build_data.py\`, the audits, \`scripts/validate\` and \`tools/build_verification.py\` — never hand-edit \`data/sites.js\`. A stalled build (e.g. \`FL-05\`) needs a new push or an owner-initiated rebuild first."
+            echo
+            echo "_This issue is managed by the census workflow; it closes itself when every listed entry is live \`built\` again._"
+          } > pages-status-issue-body.md
+          gh label create "pages-status" --color d93f0b --description "Pages status watch: transition or entry not live built (T-026)" 2>/dev/null || true
+          EXISTING="$(gh issue list --label pages-status --state open --json number --jq '.[0].number' || true)"
+          if [ -n "${EXISTING}" ]; then
+            gh issue comment "${EXISTING}" --body-file pages-status-issue-body.md
+          else
+            gh issue create --title "Pages status watch: transition or entry not live built (T-026)" \
+              --body-file pages-status-issue-body.md --label pages-status
+          fi
+
+      - name: Close the Pages status issue when every entry is built again (T-026)
+        if: always() && steps.psg.outputs.code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          EXISTING="$(gh issue list --label pages-status --state open --json number --jq '.[0].number' || true)"
+          if [ -n "${EXISTING}" ]; then
+            gh issue comment "${EXISTING}" --body "Pages status watch passed on $(date -u +%Y-%m-%dT%H:%M:%SZ): every listed entry is live \`built\` and matches the published snapshot. Closing."
             gh issue close "${EXISTING}"
           fi
