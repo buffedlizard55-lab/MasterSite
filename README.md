@@ -518,14 +518,14 @@ For each listed site, the directory shows:
 | [`tools/families.json`](tools/families.json) | **Curated** organizational families (id, label, summary, basis, member repos) behind the grid's family grouping |
 | [`tools/overlay.json`](tools/overlay.json) | Curated titles, categories, descriptions, flags, source stamps, exclusions, and irregularity register |
 | [`tools/build_data.py`](tools/build_data.py) | **Generator** — reads GitHub's official API and writes `data/sites.js` |
-| [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from the snapshot and current audit reports |
+| [`tools/build_verification.py`](tools/build_verification.py) | **Generator** — renders `VERIFICATION.md` from the snapshot, current audit reports, and committed scheduled-run reports; §4c preserves the latest outcome, `NOT-RUN`/`PARTIAL` states, and each audit's last explicit clean pass |
 | [`AGENTS.md`](AGENTS.md) | Current maintenance rules, exclusions, source-verification workflow, and known constraints |
-| [`VERIFICATION.md`](VERIFICATION.md) | **Generated** API snapshot, per-entry source ledger, exclusion/unreachable records, irregularities, and reproduction commands |
+| [`VERIFICATION.md`](VERIFICATION.md) | **Generated** API snapshot, per-entry source ledger, exclusion/unreachable records, irregularities, scheduled-audit status history (§4c), and reproduction commands |
 | [`tools/verify_live.py`](tools/verify_live.py) | **Read-only verifier** — compares snapshot API fields against GitHub; never writes the dataset |
 | [`tools/audit_descriptions.py`](tools/audit_descriptions.py) | **Read-only numeric-token lint** — checks whether description numbers occur in the README; not semantic proof |
 | [`tools/scheduled_audit.py`](tools/scheduled_audit.py) | **Budgeted scheduled runner** — runs a weekday subset of the four audits inside a hard request ceiling, maps each tool's own report to `PASS`/`FINDINGS`/`INCOMPLETE`/`ERROR`/`NOT-RUN` and the run to `CLEAN`/`FINDINGS`/`INCOMPLETE`/`PARTIAL`, and writes only into `.work/scheduled-audit/` (report + per-audit logs) — it never touches a published file, though each audit does rewrite its own tracked `tools/last_*.json` report, which the workflow's throwaway checkout discards and a local run leaves dirty. Backed by `.github/workflows/audit-schedule.yml`; offline gates in `tests/test_scheduled_audit.py` and `--self-test` |
 | [`tools/audit_kind.py`](tools/audit_kind.py) | **Read-only verifier** — checks for `index.html` at each configured Pages path; only HTTP 200/404 resolve type, other responses are unresolved |
-| [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, the `data/sites/` export sync, family-grouping integrity (`tools/families.json` ↔ published fields ↔ counts, plus a nameToken coverage warning for uncurated name-matches), the plain master list (§L), the static JavaScript-free master list (§M), and the README headline numbers (§N) |
+| [`scripts/validate`](scripts/validate) | **Gate** — schema, inline official source links, stamped provenance, `FLAGGED.md` coverage, overlay↔data 1:1, exclusions, counts, the `data/sites/` export sync, family-grouping integrity (`tools/families.json` ↔ published fields ↔ counts, plus a nameToken coverage warning for uncurated name-matches), the plain master list (§L), the static JavaScript-free master list (§M), the README headline numbers (§N), and the generated scheduled-audit status surface (§O) |
 | [`FLAGGED.md`](FLAGGED.md) | **Hand-maintained review queue** — every field that could not be verified from an official source, with the endpoint to open by hand and whether only the owner can resolve it |
 | [`OWNER-DECISIONS.md`](OWNER-DECISIONS.md) | **Owner-only decision record** — current official evidence and the safe keep-frozen default for the four repositories whose API and Pages endpoints return 404 |
 | [`TASKS.md`](TASKS.md) | **Claim board** — the multi-session protocol, task queue with `session=<id> at=<UTC>` claims, and frozen constraints |
@@ -571,7 +571,13 @@ documented 1,000 requests/hour `GITHUB_TOKEN` ceiling and reports
 `NOT-RUN`/`PARTIAL` for anything it could not cover. Run it by hand with
 `python3 tools/scheduled_audit.py` (today's slot) or `--slot sunday` (full-suite
 attempt) when you want the same verdicts locally; it writes to
-`.work/scheduled-audit/` and never edits a published file.
+`.work/scheduled-audit/` and never edits a published file. To make a run durable,
+preserve its exact `.work/scheduled-audit/report.json` under
+`reports/scheduled-audit/` and rerun `python3 tools/build_verification.py`.
+The generated ledger's §4c then shows the latest recorded outcome, the latest
+verdict for each audit, and the last explicit `PASS` timestamp per audit. A
+`PARTIAL` outcome or `NOT-RUN` row is never a pass, and a report for an older
+snapshot is labeled historical rather than current.
 
 The generator prints a `PROSE-STALE` queue for descriptions whose recorded
 `verifiedAtSha` no longer matches the current default-branch head. That is a
@@ -704,7 +710,11 @@ the deletion or privacy change.
    requests that remain after the runner's own reserve — so its Wednesday/Saturday
    slot cannot complete as a single run under the built-in token until the owner
    supplies a fine-grained token (5,000/hour) as a workflow secret, shards the
-   audit, or dispatch is given an explicit `--reserve 0` (T-023).
+   audit, or dispatch is given an explicit `--reserve 0` (T-023). The workflow is
+   read-only; the latest committed report and each audit's last explicit clean
+   pass are surfaced in `VERIFICATION.md` §4c only after a follow-up preserves
+   the exact report artifact. If that publication step does not happen, the
+   ledger cannot claim a newer scheduled verdict.
 9. **Browser tests were not completed in this sandbox.** `npm run check` and
    Python syntax checks pass, but Playwright browser binaries could not be
    downloaded because the browser CDN connection reset. CI is configured to

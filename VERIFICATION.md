@@ -686,6 +686,25 @@ These summaries distinguish a completed check from a request that could not be m
 
 ---
 
+## 4c. Scheduled Audit Layer — Last Recorded Run
+
+This section is generated from committed `report.json` evidence under [`reports/scheduled-audit/`](reports/scheduled-audit/). It reports the runner's mechanical verdicts only; it is not a claim about prose accuracy, site uptime, interactivity, visits or last use. The scheduled workflow itself remains read-only and does not make a report durable until a follow-up publication pass preserves it.
+
+**Latest committed run:** outcome **`PARTIAL`** · finished `2026-10-11T17:57:28Z` · [`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json).
+
+It covered **2 of 4 requested audit(s)**; `NOT-RUN`: `verify_live`, `audit_provenance`. Published snapshot audited: `2026-10-11T15:06:10Z` (is older than this API snapshot).
+
+| Audit | Latest verdict in this report | Last recorded clean pass (`PASS`) | Evidence / hand review |
+|---|---|---|---|
+| `audit_kind` | **PASS** at `2026-10-11T17:54:20Z` — 145/145 entries re-derived, 0 disagreements | `2026-10-11T17:54:20Z` ([`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json)) | [`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json) · review `https://api.github.com/repos/buffedlizard55-lab/{repo}/pages` |
+| `audit_descriptions` | **PASS** at `2026-10-11T17:57:28Z` — 145/145 descriptions linted against their recorded README revision | `2026-10-11T17:57:28Z` ([`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json)) | [`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json) · review `https://api.github.com/repos/buffedlizard55-lab/{repo}/readme` |
+| `verify_live` | **NOT-RUN** at `2026-10-11T17:57:28Z` — not run: needs ~812 requests, budget left 405 | **none recorded** | [`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json) · review `https://api.github.com/repos/buffedlizard55-lab/{repo}` |
+| `audit_provenance` | **NOT-RUN** at `2026-10-11T17:57:28Z` — not run: needs ~1000 requests, budget left 405 | **none recorded** | [`report.json`](reports/scheduled-audit/2026-10-11T1757Z-sunday-slot.json) · review `https://api.github.com/repos/buffedlizard55-lab/MasterSite/commits/main` |
+
+A `PASS` cell is the last explicit clean result for that audit, even when the overall run was `PARTIAL`; it is not a clean result for audits marked `NOT-RUN`. Reports whose audited snapshot differs from `2026-10-11T19:28:51Z` are historical evidence and need a fresh scheduled run before being read as current.
+
+---
+
 ## 5. Reproduction Commands for Independent Manual Review
 
 Any reviewer with the GitHub CLI (`gh`) or `curl` can re-derive every row above:
