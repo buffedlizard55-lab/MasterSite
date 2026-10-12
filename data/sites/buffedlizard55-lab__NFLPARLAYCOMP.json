@@ -10,15 +10,15 @@
   "repoUrl": "https://github.com/buffedlizard55-lab/NFLPARLAYCOMP",
   "created": "2026-09-22T18:48:01Z",
   "firstCommit": "2026-09-22T18:48:02Z",
-  "lastUpdated": "2026-10-06T13:42:01Z",
+  "lastUpdated": "2026-10-11T22:41:55Z",
   "lastUpdatedField": "lastCommit (newest committer timestamp on the default branch; the public API exposes no site-visit or last-use date)",
-  "pushedAt": "2026-10-06T13:42:12Z",
-  "updatedAt": "2026-10-06T13:42:36Z",
-  "commits": 52,
+  "pushedAt": "2026-10-11T22:42:05Z",
+  "updatedAt": "2026-10-11T22:42:29Z",
+  "commits": 53,
   "defaultBranch": "main",
   "pagesStatus": "built",
   "pagesSource": "main /",
-  "sizeKb": 69816,
+  "sizeKb": 77417,
   "flags": [
     "No verified market data has been collected yet, and the repository says so in its own files rather than leaving it to be inferred: data/raw/ is absent from the committed tree at fef877f, and verification_report.json's top-level flags list holds 577 UNVERIFIED_DATA entries, each naming the missing market file and the possibility that the trade is a synthetic fixture. The MISSING_DATA flag this entry reported an hour earlier is gone, because the manifest section now reports exists true with 6 rows, 0 malformed and valid true. docs/site_data/competition.json's data_provenance block was the third place the earlier head disclosed real_kalshi_data_present false; that bundle was regenerated in this range (292 of the 300 changed files are docs/site_data/) and is not re-quoted here.",
     "The entry published for this repository earlier in the same audit pass was rewritten wholesale, and then rewritten a second time 70 minutes later. At 241d392 the same files reported 100 users, 35 strategies, 32 ledger trades (25 EXECUTED, 7 SETTLED), total PnL +135.04 and average ROI +0.02 percent, 12 unit tests and no root index.html. At 84f138f, eight commits later: 1,000 users, 37 strategies, 2,705 ledger lines, 1,623 trades (541 EXECUTED, 1,082 SETTLED), total PnL -92,876.56, 2,975 flags and a root forwarder that moved the classification from stub to app (IRR-82). At fef877f, four commits after that: 500 ledger lines, 500 trades all EXECUTED with 0 settled, per-user total_pnl 0.00 against an aggregate bankroll movement of -81,924.29, 577 flags, a manifest that now exists, and 52 strategies (IRR-89). Three states in one pass, and the ledger shrank by 2,205 lines between the second and third.",
@@ -30,7 +30,7 @@
   "verified": false,
   "verifiedAt": "2026-09-23T02:35:00Z",
   "verifiedAtSha": "fef877f",
-  "snapshotHeadSha": "bd74246",
+  "snapshotHeadSha": "41db092",
   "proseStale": true,
   "verifiedBasis": "REWRITTEN A SECOND TIME IN ONE PASS, from the committed files at fef877f ('Enhanced competition: grouped nav, candidate lifecycle, rich trade verification', plus a merge of PR #7, a root .nojekyll for the legacy Pages build, and a new docs/IMPLEMENTATION_SUMMARY.md). The prose-staleness gate reported the entry behind 70 minutes after it had been rewritten at 84f138f, so the whole entry was re-derived rather than patched. Counted, not quoted: GET .../contents/data/competition/ledger.jsonl?ref=fef877f returns 500 non-empty lines; verification_report.json at the same ref gives chain {valid true, count 500, errors []}, trades {total_trades 500, ledger_entries 500, by_status {EXECUTED 500}}, users {exists true, count 1000}, manifest {exists true, rows 6, malformed 0, valid true}, valid true, timestamp 2026-09-22T23:42:21Z, and a flags list of 577 items every one of which has flag_type UNVERIFIED_DATA (collections.Counter over the list, and the string MISSING_DATA does not occur anywhere in the file); docs/site_data/trades/ledger_summary.json confirms by_status with CANDIDATE, SIGNAL, ORDER, EXECUTED 500, CLOSED, SETTLED, CANCELLED and REJECTED; docs/site_data/leaderboard.json holds count 1000 and a users array of 1000, over which sum(total_pnl) = 0.00, sum(win_rate) = 0.00, sum(starting_bankroll) = 10,001,606.66 and sum(current_bankroll) = 9,919,682.37, so the -81,924.29 aggregate and the -0.82 percent are arithmetic over those four sums and not a quoted figure; docs/site_data/strategies.json holds 52 entries with families GAME_BASED 11, SITUATIONAL 11, MARKET_BASED 10, PROP_BASED 10, CORRELATION 5, STATISTICAL 5; GET .../git/trees/fef877f?recursive=1 lists 1,120 files with index.html and .nojekyll at the root and 1,057 files under docs/site_data/ whose sizes sum to 6.44 MB. The fee schedule and the 103-test result are carried on an explicit argument rather than re-measured: GET .../compare/84f138f...fef877f lists 300 changed files, of which 292 are docs/site_data/ bundles and 8 are .nojekyll, four under data/competition/, docs/IMPLEMENTATION_SUMMARY.md, docs/app.js and docs/index.html — nothing under engine/ or tests/ — so the code the tests assert is byte-identical to the commit where 'Ran 103 tests in … OK (skipped=1)' and test_all.py's four gates were executed in a clean checkout. DURABLE RULE: this repository is being rewritten several times a day by parallel arena branches; treat any figure in this entry as valid only at fef877f and re-read the four JSON files above rather than the README, which the compare shows did not change. Reproduce: GET https://api.github.com/repos/buffedlizard55-lab/NFLPARLAYCOMP/compare/84f138f...fef877f, then read data/competition/verification_report.json and docs/site_data/leaderboard.json at fef877f.",
   "sourceLinks": [
@@ -39,7 +39,7 @@
     "https://api.github.com/repos/buffedlizard55-lab/NFLPARLAYCOMP/commits?sha=main",
     "https://buffedlizard55-lab.github.io/NFLPARLAYCOMP/"
   ],
-  "snapshot": "2026-10-11T19:28:51Z",
+  "snapshot": "2026-10-12T00:11:29Z",
   "unverifiedFields": [],
   "licenseNote": "Generated by tools/export_site_records.py from tools/overlay.json and data/sites.js. Do not hand-edit: re-run the generators instead. Every factual claim below carries the official endpoint it came from."
 }

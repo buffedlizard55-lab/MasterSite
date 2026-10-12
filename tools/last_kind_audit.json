@@ -1,9 +1,17 @@
 {
-  "snapshotGenerated": "2026-10-11T19:28:51Z",
-  "totalEntries": 145,
-  "checkedEntries": 145,
+  "snapshotGenerated": "2026-10-12T00:11:29Z",
+  "totalEntries": 155,
+  "checkedEntries": 94,
   "derivedEntries": 0,
-  "complete": true,
+  "complete": false,
   "disagreements": [],
-  "unresolved": []
+  "unresolved": [
+    {
+      "repo": "KoreaHotels",
+      "field": "configured-path index.html",
+      "status": 403,
+      "pagesStatus": "built",
+      "source": "main /"
+    }
+  ]
 }

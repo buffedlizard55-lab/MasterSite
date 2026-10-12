@@ -1,15 +1,15 @@
 {
   "tool": "tools/audit_provenance.py",
-  "startedAt": "2026-10-11T19:39:01Z",
-  "finishedAt": "2026-10-11T19:44:07Z",
-  "snapshotGenerated": "2026-10-11T19:28:51Z",
-  "entriesAudited": 103,
-  "entriesTotal": 145,
-  "complete": false,
-  "accessBlocked": true,
-  "accessBlockReason": "HTTP 403 \u2014 API rate limit exceeded for user ID 309556078. If you reach out to GitHub Support for help, please include the request ID D206:321DE3:883B5D:14182B0:6ACBE707 and timestamp 2026-10-11 19:44:07 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service)",
-  "checksPerformed": 732,
-  "documentedNegativeCitations": 3,
+  "startedAt": "2026-10-12T00:59:43Z",
+  "finishedAt": "2026-10-12T01:07:14Z",
+  "snapshotGenerated": "2026-10-12T00:11:29Z",
+  "entriesAudited": 155,
+  "entriesTotal": 155,
+  "complete": true,
+  "accessBlocked": false,
+  "accessBlockReason": null,
+  "checksPerformed": 1118,
+  "documentedNegativeCitations": 9,
   "templateCitations": [
     {
       "repo": "Commodities",
@@ -34,12 +34,24 @@
       "endpoint": "https://api.github.com/repos/buffedlizard55-lab/MLBComp/contents/{path}?ref=c6332b9",
       "status": 404,
       "documentedStatus": null
+    },
+    {
+      "repo": "SABERENGY",
+      "endpoint": "https://api.github.com/repos/buffedlizard55-lab/SABERENGY/contents/{path}?ref=098615a",
+      "status": 404,
+      "documentedStatus": null
     }
   ],
   "entriesWithDocumentedNegativeCitation": [
-    "62GEMSDOE",
     "GEMSDOE42",
-    "GEMSDOE44"
+    "GEMSDOE44",
+    "GEMSDOE67",
+    "GEMSDOE68",
+    "GEMSDOE69",
+    "GEMSDOE70",
+    "GEMSDOE71",
+    "GEMSDOE72",
+    "SocialMediaComp"
   ],
   "findings": [],
   "acceptedDescriptionExceptions": [
@@ -109,8 +121,8 @@
       "stampsResolved": {
         "verifiedAtSha": "c98d77b0a540d7d35d06d299ded9e4d5048f0b9d",
         "firstCommitSha": "c48589c5c44203a1d2261a0d4189d2f0d7a9eafe",
-        "lastCommitSha": "33e756015afdaadb29b38d8ac7f6d544dc032f0f",
-        "headSha": "33e756015afdaadb29b38d8ac7f6d544dc032f0f"
+        "lastCommitSha": "c9252e1194b92586f3d8c54a3fd26c8289b7bdb4",
+        "headSha": "c9252e1194b92586f3d8c54a3fd26c8289b7bdb4"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -289,8 +301,8 @@
       "stampsResolved": {
         "verifiedAtSha": "3302a91ab36a50b59cd52fd900097c5fcfd29f74",
         "firstCommitSha": "8702901d90763cb641f3814e9d533787a75ec737",
-        "lastCommitSha": "089d4b28bdef7b78551bddad25f29142a1c18e56",
-        "headSha": "089d4b28bdef7b78551bddad25f29142a1c18e56"
+        "lastCommitSha": "4e5f9783286c6177c509bb477a228ee6db4b0aa5",
+        "headSha": "4e5f9783286c6177c509bb477a228ee6db4b0aa5"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -334,8 +346,8 @@
       "stampsResolved": {
         "verifiedAtSha": "6f76b119d25f085add6e1ec031233293e13bf2d5",
         "firstCommitSha": "aeb4ac7ea9591dcab2317c3fbccfb888875a6155",
-        "lastCommitSha": "f53c1b846107f0323e8b8c8add6592c877ca167c",
-        "headSha": "f53c1b846107f0323e8b8c8add6592c877ca167c"
+        "lastCommitSha": "32024716f218d06a94e01464157392119c03cb15",
+        "headSha": "32024716f218d06a94e01464157392119c03cb15"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -359,24 +371,17 @@
     },
     {
       "repo": "62GEMSDOE",
-      "kind": "stub",
-      "stamp": "97305e3c8b843fe875324a98f886efe7e2758137",
+      "kind": "app",
+      "stamp": "a4761f4a770c3741239735495246149045a664a3",
       "stampsResolved": {
-        "verifiedAtSha": "97305e3c8b843fe875324a98f886efe7e2758137",
+        "verifiedAtSha": "a4761f4a770c3741239735495246149045a664a3",
         "firstCommitSha": "97305e3c8b843fe875324a98f886efe7e2758137",
-        "lastCommitSha": "97305e3c8b843fe875324a98f886efe7e2758137",
-        "headSha": "97305e3c8b843fe875324a98f886efe7e2758137"
+        "lastCommitSha": "802e683a07de510c83bd4d3ee15c67fed25eda59",
+        "headSha": "802e683a07de510c83bd4d3ee15c67fed25eda59"
       },
-      "citationsChecked": 3,
+      "citationsChecked": 5,
       "readmeTokens": "all tokens present",
-      "negativeCitations": [
-        {
-          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/62GEMSDOE/contents/index.html?ref=97305e3c8b843fe875324a98f886efe7e2758137",
-          "status": 404,
-          "documentedStatus": 404,
-          "kind": "contents"
-        }
-      ],
+      "negativeCitations": [],
       "templateCitations": []
     },
     {
@@ -491,8 +496,8 @@
       "stampsResolved": {
         "verifiedAtSha": "b284d69f25583b9a563b4fcd8f527123a450178b",
         "firstCommitSha": "e9dced20915070a9d43a200b4f9fdf8c433f1464",
-        "lastCommitSha": "f4ade7c4e8e1608d1ba55e3730f856782a2d26d9",
-        "headSha": "f4ade7c4e8e1608d1ba55e3730f856782a2d26d9"
+        "lastCommitSha": "b08b0bcbf2c495b4926c208776a1b5fbc2b8f24c",
+        "headSha": "b08b0bcbf2c495b4926c208776a1b5fbc2b8f24c"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -584,8 +589,8 @@
       "stampsResolved": {
         "verifiedAtSha": "57817024d81cb8c7f1d01ca16b312886bf01e4a9",
         "firstCommitSha": "0a08cdf43d7553978e3d6f40b923b9bfdbaad540",
-        "lastCommitSha": "f753a1e14add6aeb4e226742f6bd7f8509ba3704",
-        "headSha": "f753a1e14add6aeb4e226742f6bd7f8509ba3704"
+        "lastCommitSha": "1b19e33abae08f15d495bccc3613614e0034d627",
+        "headSha": "1b19e33abae08f15d495bccc3613614e0034d627"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -614,8 +619,8 @@
       "stampsResolved": {
         "verifiedAtSha": "5389b9ade1a298ef39d2a30ff1a2d764490c7c6b",
         "firstCommitSha": "c3f3158d4a1eea098a5bd5ecb62eedd17354478f",
-        "lastCommitSha": "ce83075bf59586540a19857697df1f6ab9e4d7d8",
-        "headSha": "ce83075bf59586540a19857697df1f6ab9e4d7d8"
+        "lastCommitSha": "0811f1409ab56ed1f4679f6cac2daae13f2aabdd",
+        "headSha": "0811f1409ab56ed1f4679f6cac2daae13f2aabdd"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -734,8 +739,8 @@
       "stampsResolved": {
         "verifiedAtSha": "cc90c1aa28d2525667fb3dffdcab7877895f5e79",
         "firstCommitSha": "e07d967434d7be202e8909eca14b5202616ca262",
-        "lastCommitSha": "a6b32aeaeb6c3f36f63f8111b11ea7f653632228",
-        "headSha": "a6b32aeaeb6c3f36f63f8111b11ea7f653632228"
+        "lastCommitSha": "33cd1d914cdb21c7129b4d725b056a277862813d",
+        "headSha": "33cd1d914cdb21c7129b4d725b056a277862813d"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -1183,8 +1188,8 @@
       "stampsResolved": {
         "verifiedAtSha": "388140ce166a951dd4c00e6d8fa18e6ce4f19ad2",
         "firstCommitSha": "744df63e777ce3480bc904ee99d7c078f6639a27",
-        "lastCommitSha": "58cce45dab1359550a4f308a0af7bf89525c97ca",
-        "headSha": "58cce45dab1359550a4f308a0af7bf89525c97ca"
+        "lastCommitSha": "ed9b987921bc056e77161b2c85630ee69142b81b",
+        "headSha": "ed9b987921bc056e77161b2c85630ee69142b81b"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -1219,6 +1224,198 @@
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
       "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE63",
+      "kind": "app",
+      "stamp": "4195d91809a0c33871fe7013c90dde74d6571294",
+      "stampsResolved": {
+        "verifiedAtSha": "4195d91809a0c33871fe7013c90dde74d6571294",
+        "firstCommitSha": "1392816855d3fee3243209158b37d614f6cd4d00",
+        "lastCommitSha": "4195d91809a0c33871fe7013c90dde74d6571294",
+        "headSha": "4195d91809a0c33871fe7013c90dde74d6571294"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE64",
+      "kind": "app",
+      "stamp": "4791ebcc7ce3a3be152d44c7212788d18c15d169",
+      "stampsResolved": {
+        "verifiedAtSha": "4791ebcc7ce3a3be152d44c7212788d18c15d169",
+        "firstCommitSha": "c45c7fa9816d15f3bffdada2be9297b6f87e39ee",
+        "lastCommitSha": "4791ebcc7ce3a3be152d44c7212788d18c15d169",
+        "headSha": "4791ebcc7ce3a3be152d44c7212788d18c15d169"
+      },
+      "citationsChecked": 5,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE65",
+      "kind": "app",
+      "stamp": "5caea450b1281766b99bb4ef1546e7dd8c6b3ae4",
+      "stampsResolved": {
+        "verifiedAtSha": "5caea450b1281766b99bb4ef1546e7dd8c6b3ae4",
+        "firstCommitSha": "90ca1cea667dc1427de27ef997634f3305a7c164",
+        "lastCommitSha": "5caea450b1281766b99bb4ef1546e7dd8c6b3ae4",
+        "headSha": "5caea450b1281766b99bb4ef1546e7dd8c6b3ae4"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE66",
+      "kind": "app",
+      "stamp": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765",
+      "stampsResolved": {
+        "verifiedAtSha": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765",
+        "firstCommitSha": "f1db23cc88d15699aa926a96eb5614f8668ccdff",
+        "lastCommitSha": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765",
+        "headSha": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765"
+      },
+      "citationsChecked": 5,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE67",
+      "kind": "stub",
+      "stamp": "8a64f734670f21139506c019ed1b1040b8e66464",
+      "stampsResolved": {
+        "verifiedAtSha": "8a64f734670f21139506c019ed1b1040b8e66464",
+        "firstCommitSha": "8a64f734670f21139506c019ed1b1040b8e66464",
+        "lastCommitSha": "8a64f734670f21139506c019ed1b1040b8e66464",
+        "headSha": "8a64f734670f21139506c019ed1b1040b8e66464"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/contents/index.html?ref=8a64f734670f21139506c019ed1b1040b8e66464",
+          "status": 404,
+          "documentedStatus": null,
+          "kind": "contents"
+        }
+      ],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE68",
+      "kind": "stub",
+      "stamp": "a0ab16358c3b364b4f22544955472c9869497fc2",
+      "stampsResolved": {
+        "verifiedAtSha": "a0ab16358c3b364b4f22544955472c9869497fc2",
+        "firstCommitSha": "a0ab16358c3b364b4f22544955472c9869497fc2",
+        "lastCommitSha": "a0ab16358c3b364b4f22544955472c9869497fc2",
+        "headSha": "a0ab16358c3b364b4f22544955472c9869497fc2"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/contents/index.html?ref=a0ab16358c3b364b4f22544955472c9869497fc2",
+          "status": 404,
+          "documentedStatus": null,
+          "kind": "contents"
+        }
+      ],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE69",
+      "kind": "stub",
+      "stamp": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+      "stampsResolved": {
+        "verifiedAtSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+        "firstCommitSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+        "lastCommitSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+        "headSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/contents/index.html?ref=dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+          "status": 404,
+          "documentedStatus": null,
+          "kind": "contents"
+        }
+      ],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE70",
+      "kind": "stub",
+      "stamp": "a9bfaa70f1b985f09dc2e79606444ad99a5d449a",
+      "stampsResolved": {
+        "verifiedAtSha": "a9bfaa70f1b985f09dc2e79606444ad99a5d449a",
+        "firstCommitSha": "a9bfaa70f1b985f09dc2e79606444ad99a5d449a",
+        "lastCommitSha": "a9bfaa70f1b985f09dc2e79606444ad99a5d449a",
+        "headSha": "a9bfaa70f1b985f09dc2e79606444ad99a5d449a"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE70/contents/index.html?ref=a9bfaa70f1b985f09dc2e79606444ad99a5d449a",
+          "status": 404,
+          "documentedStatus": null,
+          "kind": "contents"
+        }
+      ],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE71",
+      "kind": "stub",
+      "stamp": "1b58115778676ae8a3738edf6c74cab22dfa042a",
+      "stampsResolved": {
+        "verifiedAtSha": "1b58115778676ae8a3738edf6c74cab22dfa042a",
+        "firstCommitSha": "1b58115778676ae8a3738edf6c74cab22dfa042a",
+        "lastCommitSha": "1b58115778676ae8a3738edf6c74cab22dfa042a",
+        "headSha": "1b58115778676ae8a3738edf6c74cab22dfa042a"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE71/contents/index.html?ref=1b58115778676ae8a3738edf6c74cab22dfa042a",
+          "status": 404,
+          "documentedStatus": null,
+          "kind": "contents"
+        }
+      ],
+      "templateCitations": []
+    },
+    {
+      "repo": "GEMSDOE72",
+      "kind": "stub",
+      "stamp": "a3440816ef70456b870fa3b58a0ee5a9af4d7f52",
+      "stampsResolved": {
+        "verifiedAtSha": "a3440816ef70456b870fa3b58a0ee5a9af4d7f52",
+        "firstCommitSha": "a3440816ef70456b870fa3b58a0ee5a9af4d7f52",
+        "lastCommitSha": "a3440816ef70456b870fa3b58a0ee5a9af4d7f52",
+        "headSha": "a3440816ef70456b870fa3b58a0ee5a9af4d7f52"
+      },
+      "citationsChecked": 6,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE72/contents/index.html?ref=a3440816ef70456b870fa3b58a0ee5a9af4d7f52",
+          "status": 404,
+          "documentedStatus": null,
+          "kind": "contents"
+        }
+      ],
       "templateCitations": []
     },
     {
@@ -1348,8 +1545,8 @@
       "stampsResolved": {
         "verifiedAtSha": "8a359bdec61d21c5cb505f9962bfa0e009963487",
         "firstCommitSha": "120e2d6b2986322a176e605b9b0fe7dab3f8a658",
-        "lastCommitSha": "bc092e1e3ee175bf892fb43fe16a91d07a93c1ae",
-        "headSha": "bc092e1e3ee175bf892fb43fe16a91d07a93c1ae"
+        "lastCommitSha": "9a8a0d217db21ef374481633467dcabdee4283cc",
+        "headSha": "9a8a0d217db21ef374481633467dcabdee4283cc"
       },
       "citationsChecked": 4,
       "readmeTokens": "accepted exception",
@@ -1453,8 +1650,8 @@
       "stampsResolved": {
         "verifiedAtSha": "de3303fbfecdf8176afb32002f02be58692d0405",
         "firstCommitSha": "29c7c48e1385e28c9a4c6af094732379f7417617",
-        "lastCommitSha": "ac487ae472be53b07cc37b1ef839e54460bd6b65",
-        "headSha": "ac487ae472be53b07cc37b1ef839e54460bd6b65"
+        "lastCommitSha": "47251307260446c05bef89fb48227310f8d71461",
+        "headSha": "47251307260446c05bef89fb48227310f8d71461"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -1483,8 +1680,8 @@
       "stampsResolved": {
         "verifiedAtSha": "3cda9250f12b3cd48ef85687bf4405591633a4c2",
         "firstCommitSha": "f724b59c9c360d5d70b4e48ecfae6e1722e4f751",
-        "lastCommitSha": "bedc7ec350ff13ae2b1828892ea43bfb330c14e2",
-        "headSha": "bedc7ec350ff13ae2b1828892ea43bfb330c14e2"
+        "lastCommitSha": "66fb138e77579c7ccc474888ed5da70a221007f8",
+        "headSha": "66fb138e77579c7ccc474888ed5da70a221007f8"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -1579,8 +1776,8 @@
       "stampsResolved": {
         "verifiedAtSha": "7b74d7b49afb2b88d65b36c0e7597df41cdaa956",
         "firstCommitSha": "510f396ad7c3f5a6d71aaa864442fb654b651ed7",
-        "lastCommitSha": "8eaa1b080336b580160b560ef23feb92c3ff43dc",
-        "headSha": "8eaa1b080336b580160b560ef23feb92c3ff43dc"
+        "lastCommitSha": "1f9959928801686558af297ab8c9358c6aa9edaf",
+        "headSha": "1f9959928801686558af297ab8c9358c6aa9edaf"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -1639,8 +1836,8 @@
       "stampsResolved": {
         "verifiedAtSha": "c3b1fb5013f99c0a0d2e3a69f098460e9f672e54",
         "firstCommitSha": "0ca53258d725bb70e4801a6dd6b2c0dfa4b9bc71",
-        "lastCommitSha": "c5956d0844cf6c0347b439a454ce4e76f60a1b4f",
-        "headSha": "c5956d0844cf6c0347b439a454ce4e76f60a1b4f"
+        "lastCommitSha": "d51f46617e474fd5257c87c483bcf350bf4b4e0f",
+        "headSha": "d51f46617e474fd5257c87c483bcf350bf4b4e0f"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1674,6 +1871,649 @@
       },
       "citationsChecked": 2,
       "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NFL-scoreboard",
+      "kind": "app",
+      "stamp": "fce4afc",
+      "stampsResolved": {
+        "verifiedAtSha": "fce4afcf00969b47297b0686385b60fed3b48555",
+        "firstCommitSha": "e60408cac73d5542c43de07bc83d2ba8efc056d2",
+        "lastCommitSha": "fce4afcf00969b47297b0686385b60fed3b48555",
+        "headSha": "fce4afcf00969b47297b0686385b60fed3b48555"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NFLComp",
+      "kind": "app",
+      "stamp": "7ec80df",
+      "stampsResolved": {
+        "verifiedAtSha": "7ec80df5bc10b8eed04033a5887dc99c1e4545ed",
+        "firstCommitSha": "cf4ce7d75111799ecba8e89d113fc847286aeaa1",
+        "lastCommitSha": "af4b8539d3a76efe88b74e58fed66c3cfae5ac48",
+        "headSha": "af4b8539d3a76efe88b74e58fed66c3cfae5ac48"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NFLInjuryReport",
+      "kind": "app",
+      "stamp": "26367c3",
+      "stampsResolved": {
+        "verifiedAtSha": "26367c3953e9ba07f52e32a796b128464131dd43",
+        "firstCommitSha": "5d8a07f454b7c24c7009c6553d3045bfdd88498f",
+        "lastCommitSha": "58b405acec8870d822458ce30eed56a63419483c",
+        "headSha": "58b405acec8870d822458ce30eed56a63419483c"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NFLMAIN",
+      "kind": "app",
+      "stamp": "84d054e",
+      "stampsResolved": {
+        "verifiedAtSha": "84d054e29ae33070478d4edbbb58feee63912918",
+        "firstCommitSha": "5b05a4bc5668e1682c71a8b8e69ff5c9856b114f",
+        "lastCommitSha": "d3905716a86b1e529b30ca25165f06e4c9a80df6",
+        "headSha": "d3905716a86b1e529b30ca25165f06e4c9a80df6"
+      },
+      "citationsChecked": 2,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NFLPARLAYCOMP",
+      "kind": "app",
+      "stamp": "fef877f",
+      "stampsResolved": {
+        "verifiedAtSha": "fef877fab29d9beddeb9f83cfb5fa463037b860a",
+        "firstCommitSha": "1f9ac1140cfd4ecc91ec2af598631a0a70f7eca7",
+        "lastCommitSha": "41db0929a941998ccac80991f04348e26a94c680",
+        "headSha": "41db0929a941998ccac80991f04348e26a94c680"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NFLPRED",
+      "kind": "stub",
+      "stamp": "44b7961",
+      "stampsResolved": {
+        "verifiedAtSha": "44b7961046ca5cabf8da67253a75c6f8bea6afca",
+        "firstCommitSha": "44b7961046ca5cabf8da67253a75c6f8bea6afca",
+        "lastCommitSha": "44b7961046ca5cabf8da67253a75c6f8bea6afca",
+        "headSha": "44b7961046ca5cabf8da67253a75c6f8bea6afca"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NHL-SCOREBOARD",
+      "kind": "app",
+      "stamp": "7389443",
+      "stampsResolved": {
+        "verifiedAtSha": "7389443a6da437c44ecf993b79ef26bc7fdb1708",
+        "firstCommitSha": "6b888c2e36b3f7f31b2e5a41c97abb3cae9cc413",
+        "lastCommitSha": "d4f65205aba11f5229ca6ad515c843c3807cddc6",
+        "headSha": "d4f65205aba11f5229ca6ad515c843c3807cddc6"
+      },
+      "citationsChecked": 2,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NHLComp",
+      "kind": "app",
+      "stamp": "2a1f9e3",
+      "stampsResolved": {
+        "verifiedAtSha": "2a1f9e36ee5f47075bd46ed1dad3fc6d12f438fb",
+        "firstCommitSha": "aeb015238eb302f81fe86b325aeeb4701f926185",
+        "lastCommitSha": "2a1f9e36ee5f47075bd46ed1dad3fc6d12f438fb",
+        "headSha": "2a1f9e36ee5f47075bd46ed1dad3fc6d12f438fb"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "NOBEL-PRIZE",
+      "kind": "app",
+      "stamp": "dfd8253",
+      "stampsResolved": {
+        "verifiedAtSha": "dfd825376258047b725efb0b7d0cff87aceffb45",
+        "firstCommitSha": "117b939b8431c8fd5dfc854cf0263b346784f8f8",
+        "lastCommitSha": "dfd825376258047b725efb0b7d0cff87aceffb45",
+        "headSha": "dfd825376258047b725efb0b7d0cff87aceffb45"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "OLBG-Competition",
+      "kind": "app",
+      "stamp": "a3d33d5",
+      "stampsResolved": {
+        "verifiedAtSha": "a3d33d5a0bee746df9906435c69dc4730e3840ca",
+        "firstCommitSha": "679acb8604a6db89308ddc88131adfcccefb0cf8",
+        "lastCommitSha": "a3d33d5a0bee746df9906435c69dc4730e3840ca",
+        "headSha": "a3d33d5a0bee746df9906435c69dc4730e3840ca"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "ParlaySports",
+      "kind": "app",
+      "stamp": "f939267",
+      "stampsResolved": {
+        "verifiedAtSha": "f9392671793c8f8c41f9219c4194e4c5134ee2f0",
+        "firstCommitSha": "50b05bf9c18eae1e84c258c9656067b1b1ec9c55",
+        "lastCommitSha": "ee8ee1de0ba200abc2a7d7eb17eddb60bea65ca7",
+        "headSha": "ee8ee1de0ba200abc2a7d7eb17eddb60bea65ca7"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "PFFNFL",
+      "kind": "stub",
+      "stamp": "0f00b26",
+      "stampsResolved": {
+        "verifiedAtSha": "0f00b26b9a44c137ba8bdfdeef7d387a834af71f",
+        "firstCommitSha": "7a913c7479cdd69659dbee86a0c8a906addb3fc1",
+        "lastCommitSha": "0f00b26b9a44c137ba8bdfdeef7d387a834af71f",
+        "headSha": "0f00b26b9a44c137ba8bdfdeef7d387a834af71f"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "PlumbingSF",
+      "kind": "app",
+      "stamp": "bae59fe",
+      "stampsResolved": {
+        "verifiedAtSha": "bae59feb1e13f9a2c7e1576b98c0c871cd3c5cfc",
+        "firstCommitSha": "35e299450616030582f412cab995cb0442a2d31b",
+        "lastCommitSha": "bae59feb1e13f9a2c7e1576b98c0c871cd3c5cfc",
+        "headSha": "bae59feb1e13f9a2c7e1576b98c0c871cd3c5cfc"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "POSTSEASONMLBALERTS",
+      "kind": "app",
+      "stamp": "b8b5497",
+      "stampsResolved": {
+        "verifiedAtSha": "b8b549750870d5c37a35807dfe7a339610b0861b",
+        "firstCommitSha": "94e0f81e19e01209493e7a2c620f187d6047c16c",
+        "lastCommitSha": "2a78bca35f69d4f32f74a90849beefa1411500ab",
+        "headSha": "2a78bca35f69d4f32f74a90849beefa1411500ab"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "PriceKalshiHistorical",
+      "kind": "app",
+      "stamp": "96ff13c",
+      "stampsResolved": {
+        "verifiedAtSha": "96ff13c01adb6d1d6d62e48647d23c6253e5f60a",
+        "firstCommitSha": "542ddd8c52741a86e6d9700d2107d24375ca704f",
+        "lastCommitSha": "96ff13c01adb6d1d6d62e48647d23c6253e5f60a",
+        "headSha": "96ff13c01adb6d1d6d62e48647d23c6253e5f60a"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "PRICINGEXPERT",
+      "kind": "app",
+      "stamp": "8567a31",
+      "stampsResolved": {
+        "verifiedAtSha": "8567a316e959f9c8192634f38aa09de92a9eecbf",
+        "firstCommitSha": "49a56250a814f46b57fd2d84474d77ebd0105305",
+        "lastCommitSha": "6b28fab65cd189c98ed0841eb80ab82c51aa64e3",
+        "headSha": "6b28fab65cd189c98ed0841eb80ab82c51aa64e3"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "RADIOSF",
+      "kind": "app",
+      "stamp": "e4ae599",
+      "stampsResolved": {
+        "verifiedAtSha": "e4ae59914746d4703cbdd978caf6f3399ecbb3c3",
+        "firstCommitSha": "36ade2ce0970c38873e6e5afd9735f13798685e8",
+        "lastCommitSha": "e4ae59914746d4703cbdd978caf6f3399ecbb3c3",
+        "headSha": "e4ae59914746d4703cbdd978caf6f3399ecbb3c3"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "RGENGY",
+      "kind": "stub",
+      "stamp": "7333ab3",
+      "stampsResolved": {
+        "verifiedAtSha": "7333ab3e8c9b50f39e9cac0a0d2ee44f894c8399",
+        "firstCommitSha": "a693c3e9ccda00ff420636eed4b15017b4384a51",
+        "lastCommitSha": "7333ab3e8c9b50f39e9cac0a0d2ee44f894c8399",
+        "headSha": "7333ab3e8c9b50f39e9cac0a0d2ee44f894c8399"
+      },
+      "citationsChecked": 3,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SABERENGY",
+      "kind": "app",
+      "stamp": "098615a",
+      "stampsResolved": {
+        "verifiedAtSha": "098615aef8a9281ffb7a0ae8a3807a3d94e066bc",
+        "firstCommitSha": "c44f2583fe4fda97055f89785c120b5828987ef9",
+        "lastCommitSha": "098615aef8a9281ffb7a0ae8a3807a3d94e066bc",
+        "headSha": "098615aef8a9281ffb7a0ae8a3807a3d94e066bc"
+      },
+      "citationsChecked": 2,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/SABERENGY/contents/{path}?ref=098615a",
+          "status": 404,
+          "documentedStatus": null
+        }
+      ]
+    },
+    {
+      "repo": "ScheduleFreeTime",
+      "kind": "app",
+      "stamp": "8d111f9",
+      "stampsResolved": {
+        "verifiedAtSha": "8d111f99f6ec53f0555c5a99a44f6e357ea334d5",
+        "firstCommitSha": "f941565ef3536dfe07cd3d8fc8075feab6fe24c1",
+        "lastCommitSha": "8d111f99f6ec53f0555c5a99a44f6e357ea334d5",
+        "headSha": "8d111f99f6ec53f0555c5a99a44f6e357ea334d5"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "ScoringDiscrepNBA",
+      "kind": "app",
+      "stamp": "1976ed7a39acfba5fc3268d4874a0071a0d8100a",
+      "stampsResolved": {
+        "verifiedAtSha": "1976ed7a39acfba5fc3268d4874a0071a0d8100a",
+        "firstCommitSha": "efcbfc804cb2d443379ffbe6adf9ecfc4f75e91f",
+        "lastCommitSha": "cca65c112d5a2266eda0e1148bf9813c28325ceb",
+        "headSha": "cca65c112d5a2266eda0e1148bf9813c28325ceb"
+      },
+      "citationsChecked": 3,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SCORINGDISCREPNFL",
+      "kind": "app",
+      "stamp": "52a99f9d14bf80406bd5d38c8bfe9d63b3697ab0",
+      "stampsResolved": {
+        "verifiedAtSha": "52a99f9d14bf80406bd5d38c8bfe9d63b3697ab0",
+        "firstCommitSha": "81bee8620ffa9be9d1cfd45d89cd3345ed8ff1d8",
+        "lastCommitSha": "8957a772657037f29dad8103888e1299d763a4e8",
+        "headSha": "8957a772657037f29dad8103888e1299d763a4e8"
+      },
+      "citationsChecked": 3,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "ScoringDiscrepNHL",
+      "kind": "app",
+      "stamp": "a93911af439fd4e91e1b84a96e4e519b20453b16",
+      "stampsResolved": {
+        "verifiedAtSha": "a93911af439fd4e91e1b84a96e4e519b20453b16",
+        "firstCommitSha": "f343364e1ff4f04067388cf1d4017c3d5bf83170",
+        "lastCommitSha": "5d3b2531818bbca4f5f07d62c7ac48d7248d0d70",
+        "headSha": "5d3b2531818bbca4f5f07d62c7ac48d7248d0d70"
+      },
+      "citationsChecked": 3,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SelfLearn",
+      "kind": "app",
+      "stamp": "c492159",
+      "stampsResolved": {
+        "verifiedAtSha": "c4921590d757831657468b600e833380ba11effe",
+        "firstCommitSha": "0cf74e6136074814d78e7b7e89cea3c1daa3ff31",
+        "lastCommitSha": "4b998c3ed641f4493577065a7a7a814f17905c35",
+        "headSha": "4b998c3ed641f4493577065a7a7a814f17905c35"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SFLateNight",
+      "kind": "app",
+      "stamp": "509a1ad",
+      "stampsResolved": {
+        "verifiedAtSha": "509a1ad28e5d4fc7b19973490949c529a72da98b",
+        "firstCommitSha": "5b1933c56011f7884abc1c096c5a33fc833685cf",
+        "lastCommitSha": "509a1ad28e5d4fc7b19973490949c529a72da98b",
+        "headSha": "509a1ad28e5d4fc7b19973490949c529a72da98b"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SFWeather",
+      "kind": "app",
+      "stamp": "bd93ed2",
+      "stampsResolved": {
+        "verifiedAtSha": "bd93ed2de39887c5b49f78b907f868ef557ffd1d",
+        "firstCommitSha": "392afaa3c70eacecb411fe5511d78f83eef13ce4",
+        "lastCommitSha": "3b3d3aa9a55ba088ac85f33982af928aedd5d499",
+        "headSha": "3b3d3aa9a55ba088ac85f33982af928aedd5d499"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "ShoulderPain",
+      "kind": "app",
+      "stamp": "6fa7824",
+      "stampsResolved": {
+        "verifiedAtSha": "6fa7824238771f9860ddcd41f8e22597857d6ede",
+        "firstCommitSha": "b4fbf4b835c97fc03cc3e1c74b2ec8529242b908",
+        "lastCommitSha": "6fa7824238771f9860ddcd41f8e22597857d6ede",
+        "headSha": "6fa7824238771f9860ddcd41f8e22597857d6ede"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SIM-COMP-NOBEL-PRIZE",
+      "kind": "app",
+      "stamp": "4724a64",
+      "stampsResolved": {
+        "verifiedAtSha": "4724a6485662501d82b2903bbe6d53058fff1692",
+        "firstCommitSha": "4d734a2b4111b08ddb2f96a9fda0524aaedf9869",
+        "lastCommitSha": "8fd329468c7dfb5a2cedcf2d7798772e09525fe0",
+        "headSha": "8fd329468c7dfb5a2cedcf2d7798772e09525fe0"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "SocialMediaComp",
+      "kind": "app",
+      "stamp": "f0ee63a",
+      "stampsResolved": {
+        "verifiedAtSha": "f0ee63ab98a68aaf8bb0a461455957501f2d5a76",
+        "firstCommitSha": "a57e2a03e7827173f059138103788179b065d7dc",
+        "lastCommitSha": "f0ee63ab98a68aaf8bb0a461455957501f2d5a76",
+        "headSha": "f0ee63ab98a68aaf8bb0a461455957501f2d5a76"
+      },
+      "citationsChecked": 2,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [
+        {
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/SocialMediaComp/commits/03d8db1",
+          "status": 422,
+          "documentedStatus": 422,
+          "kind": "commits"
+        }
+      ],
+      "templateCitations": []
+    },
+    {
+      "repo": "SportsPred",
+      "kind": "app",
+      "stamp": "aa3b1fe",
+      "stampsResolved": {
+        "verifiedAtSha": "aa3b1fe68ec1f6571be27e0b1812cc6df74cbfcd",
+        "firstCommitSha": "66eb2bbd2fd456c41fed0ac5ec592025b1964aed",
+        "lastCommitSha": "aa3b1fe68ec1f6571be27e0b1812cc6df74cbfcd",
+        "headSha": "aa3b1fe68ec1f6571be27e0b1812cc6df74cbfcd"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "StanfordStay",
+      "kind": "app",
+      "stamp": "499fb0a",
+      "stampsResolved": {
+        "verifiedAtSha": "499fb0ad5080ae47d7dd65e397c1e2bc78630924",
+        "firstCommitSha": "5bc906273a3b87f6774dbca983518dc500103eac",
+        "lastCommitSha": "499fb0ad5080ae47d7dd65e397c1e2bc78630924",
+        "headSha": "499fb0ad5080ae47d7dd65e397c1e2bc78630924"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "StockPaperSim",
+      "kind": "app",
+      "stamp": "61e704f",
+      "stampsResolved": {
+        "verifiedAtSha": "61e704ff26f5e28ed3d1ba702e770b88a924fbbc",
+        "firstCommitSha": "2141acb3b0f956ae58bea0277af7561b638eefab",
+        "lastCommitSha": "61e704ff26f5e28ed3d1ba702e770b88a924fbbc",
+        "headSha": "61e704ff26f5e28ed3d1ba702e770b88a924fbbc"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "StokEngineer",
+      "kind": "stub",
+      "stamp": "7dedfea",
+      "stampsResolved": {
+        "verifiedAtSha": "7dedfeafa954609f29ff13a253413f54e5bcd22b",
+        "firstCommitSha": "2b3abdb901f831d50c5c4c65de683bee12d38359",
+        "lastCommitSha": "7dedfeafa954609f29ff13a253413f54e5bcd22b",
+        "headSha": "7dedfeafa954609f29ff13a253413f54e5bcd22b"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "TAXKALSHI",
+      "kind": "app",
+      "stamp": "90ac077",
+      "stampsResolved": {
+        "verifiedAtSha": "90ac077c91f92329200ec522432bd6144411ccb3",
+        "firstCommitSha": "0a565bbc7d5fb4afaf30b4e952fdcaf96cbe8e32",
+        "lastCommitSha": "90ac077c91f92329200ec522432bd6144411ccb3",
+        "headSha": "90ac077c91f92329200ec522432bd6144411ccb3"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "THUNDERPICK-WC-2026",
+      "kind": "app",
+      "stamp": "6179973",
+      "stampsResolved": {
+        "verifiedAtSha": "61799732bba5ab040c33bc84f4cdf1ab0ba071da",
+        "firstCommitSha": "640b66d7c6047549d486ada5486599fa03609307",
+        "lastCommitSha": "a346df80214e4dcc7666e291676caa4cab70971f",
+        "headSha": "a346df80214e4dcc7666e291676caa4cab70971f"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "THUNDERPICKCOMP",
+      "kind": "app",
+      "stamp": "e0f4ecc",
+      "stampsResolved": {
+        "verifiedAtSha": "e0f4ecc1582999ce37aee1a9957febb42bafb6bd",
+        "firstCommitSha": "7599d6af50d3aa0bb57eef2097347718c9183f71",
+        "lastCommitSha": "d573b813caab0e7edbc1bbbdb45e28a5a6731335",
+        "headSha": "d573b813caab0e7edbc1bbbdb45e28a5a6731335"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "TinoLunchSpecial",
+      "kind": "app",
+      "stamp": "60a33cd",
+      "stampsResolved": {
+        "verifiedAtSha": "60a33cd3e347617670b20cd9e261a7471cea8587",
+        "firstCommitSha": "c7bd9ebdd8ca8b662270aa7fa8e7d29d43f8dc65",
+        "lastCommitSha": "60a33cd3e347617670b20cd9e261a7471cea8587",
+        "headSha": "60a33cd3e347617670b20cd9e261a7471cea8587"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "Tradingview-pinescript-editor",
+      "kind": "app",
+      "stamp": "834312c",
+      "stampsResolved": {
+        "verifiedAtSha": "834312c1dfc460ba2d9f3cba6511262fd40d8536",
+        "firstCommitSha": "351fa6f087a74079b1d48ec62d163f74ac8eaedb",
+        "lastCommitSha": "834312c1dfc460ba2d9f3cba6511262fd40d8536",
+        "headSha": "834312c1dfc460ba2d9f3cba6511262fd40d8536"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "TradingViewTheLeap",
+      "kind": "app",
+      "stamp": "d09a594",
+      "stampsResolved": {
+        "verifiedAtSha": "d09a594a2e8f9059e794ef7099689fd09ea18187",
+        "firstCommitSha": "e737f0dab2991a6f5a1c2532ae8df6294f27e2a2",
+        "lastCommitSha": "6ba511781532febc683fe827e3a457733f5c8c31",
+        "headSha": "6ba511781532febc683fe827e3a457733f5c8c31"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "VacationSchedule",
+      "kind": "app",
+      "stamp": "d6436dd",
+      "stampsResolved": {
+        "verifiedAtSha": "d6436ddf2164983b2c1e915251306ae278b62bf2",
+        "firstCommitSha": "daa0fcdbf95ea45bb43c12aaea56a9c91779bf36",
+        "lastCommitSha": "342fc5cc4927badcd2cbbc67b081a513aeeaf316",
+        "headSha": "342fc5cc4927badcd2cbbc67b081a513aeeaf316"
+      },
+      "citationsChecked": 1,
+      "readmeTokens": "accepted exception",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "VapePods",
+      "kind": "app",
+      "stamp": "b545ce7",
+      "stampsResolved": {
+        "verifiedAtSha": "b545ce764d4acf243237a8f6009e3918a8118afc",
+        "firstCommitSha": "4c2867d1e823bcaeefbe91dc90ff1f7181a4df20",
+        "lastCommitSha": "b545ce764d4acf243237a8f6009e3918a8118afc",
+        "headSha": "b545ce764d4acf243237a8f6009e3918a8118afc"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
+      "negativeCitations": [],
+      "templateCitations": []
+    },
+    {
+      "repo": "WoWForever",
+      "kind": "app",
+      "stamp": "f7c83bc",
+      "stampsResolved": {
+        "verifiedAtSha": "f7c83bc13a3a654b4ad5195661ff58a28ed3aad8",
+        "firstCommitSha": "04eee3959eefd6e9d7aeaa85d7775db357fc955b",
+        "lastCommitSha": "0264b0ef35a658703ca93673ec7d58bac913b651",
+        "headSha": "0264b0ef35a658703ca93673ec7d58bac913b651"
+      },
+      "citationsChecked": 4,
+      "readmeTokens": "all tokens present",
       "negativeCitations": [],
       "templateCitations": []
     }
