@@ -1836,7 +1836,7 @@ buffedlizard55-lab/arena/8d79b057-mastersite`). Read back from `origin/main` ins
 ### Verification
 
 - `python3 -m unittest discover -s tests -p 'test_*.py' -v`: **103 tests passed**.
-- `python3 scripts/validate`: **6,019 checks, PASS** (120 existing tracked review warnings).
+- `python3 scripts/validate`: **6,019 checks, PASS** (121 existing tracked review warnings).
 - `npm run check`: **PASS**.
 - Playwright was not run locally because `node_modules/.bin/playwright` and browser binaries are unavailable in this sandbox; CI remains the browser authority.
 
@@ -1916,3 +1916,65 @@ PR #48, so it was not touched).
    sessions), T-027 (browser smoke; runner with browser support), T-028 (owner: placeholder
    category), T-029 (quota-aware resumable refresh), T-030 (claim-visibility race), T-023 (owner
    token).
+
+---
+
+---
+
+## Session: arena-22c0b46f — T-025 scheduled-audit review detail
+
+**Branch:** `arena/22c0b46f-mastersite`. **Task:** T-025 (claim commit `0741566`).
+
+### What changed
+
+- `tools/scheduled_audit.py` now copies report-level findings into `results[].reviewItems` only when the
+  audit report is fresh for this run. It preserves kind disagreements, description-token/API errors,
+  hard mismatches, volatile `verify_live` drift, provenance findings, and the exact `{path}` citation
+  strings plus their recorded HTTP status. If an audit report omitted a source URL, the item says so;
+  the renderer does not make one up.
+- `report.md` now prints each item and its hand-review API link; `report.json` carries the same structured
+  records. Volatile drift is labelled as not automatically a defect. Literal `{path}` requests are
+  rendered as non-concrete citations with the encoded 404 response and the `FLAGGED.md` reference,
+  not as usable source links or hard findings.
+- `.github/workflows/audit-schedule.yml` embeds that Markdown report in the review issue. Nonvolatile
+  items such as citation templates keep an issue open even when the audit verdict is `CLEAN`; volatile
+  drift alone does not open an issue, but refreshes an existing one. A clean four-audit run closes only
+  when nonvolatile review items are absent. A `PARTIAL` run opens/updates an issue only when it reports
+  a nonvolatile item; otherwise it updates an existing issue only.
+- README/AGENTS/TASKS document the behavior; no site records, published data, or directory templates
+  were changed. No fresh census was run in this report-format task. The latest checked-in snapshot is
+  the T-033 `2026-10-11T19:28:51Z` snapshot; `scripts/validate` checks its internal consistency, not
+  live API freshness.
+
+### Checks
+
+- `scripts/validate`: **6,019 checks, PASS** (120 existing tracked warnings, mainly the prose-stale queue).
+- `npm run check`: PASS.
+- `python3 -m unittest discover -s tests -p 'test_*.py' -v`: **127 tests, PASS**; includes 56 scheduled-runner tests.
+- `python3 tools/scheduled_audit.py --self-test`: **0 failures**.
+- `npm test`: **blocked locally** — Playwright found 100 browser cases but browser launch failed because
+  the Chromium executable is not installed (`/home/user/.cache/ms-playwright/.../chrome-headless-shell`).
+  The GitHub PR workflow installs browsers; its result must be checked before/after merge.
+
+### Blocked / next
+
+- No new public-account census was performed here; do not treat the local validator as a live API
+  check. The current repo snapshot records 145 listed sites, 146 public Pages repositories with the
+  permanent `ProjX` exclusion, and 0 public repositories for `kanlerxz87-cyber`; a future census must
+  re-read both accounts and Pages endpoints from GitHub's API.
+- T-002 still owns the stale-description re-reads (including FL-19); FL-18's five `{path}` citations
+  still need concrete-path prose updates. `audit_provenance.py` was incomplete at 103/145 in the latest
+  snapshot due HTTP 403; see T-023 for the owner-only larger-token limitation.
+- T-024 (PR #65) and T-026 (PR #67, session `arena-e14508b8`) were completed on `main` while this
+  branch was open/rebasing; neither task was edited here. `README.md` still has a stale Medium/open
+  T-024 roadmap row despite its completed `TASKS.md` row; left it untouched as outside T-025 scope.
+- Initial PR #66 CI: `browser-tests` passed. The scheduled `audit` job ended with the designed
+  `FINDINGS` failure, not a test failure: it reported one kind mismatch (`62GEMSDOE`) and the two
+  description-token checks already tracked as FL-19 (`58GEMSDOE`, `60GEMSDOE`). A hand re-read of the
+  official API at `2026-10-12T00:20:41Z` confirmed the repo head is `ae5975e22c3c20f7a693f170238c5582e046dba0`;
+  [`/contents/index.html?ref=main`](https://api.github.com/repos/buffedlizard55-lab/62GEMSDOE/contents/index.html?ref=main)
+  returns HTTP 200 (403 bytes, blob `c590275`), and the Pages API still says `built` from `main /`.
+  The checked-in snapshot records `stub` at older head `97305e3`; no site data was changed in T-025.
+  A full census/re-derivation should update or flag this snapshot drift.
+  The workflow's PR event posts the item-level report as a PR comment; its issue path runs on scheduled
+  or manual audit events. Re-check CI after the latest rebase, then merge T-025 as requested.

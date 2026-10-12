@@ -1,14 +1,17 @@
-"""Offline unit tests for tools/scheduled_audit.py (T-022).
+"""Offline unit tests for tools/scheduled_audit.py (T-022/T-025).
 
 No network and no repository writes: every case builds a payload in memory.
-The rules under test are the ones that keep a scheduled run honest — a budget
-ceiling that cannot be exceeded, a weekday plan that really does cover every
-audit, and the invariant that a run which could not cover its own scheduled
-audits is never reported as clean.
+The rules under test keep scheduled runs honest — budget ceilings, complete
+coverage verdicts, and source-linked item-level findings in the report/issue.
 """
+import json
 import os
 import re
+import subprocess
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 from tools import scheduled_audit as sa
 
@@ -18,7 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def result(name, verdict, reason="fixture"):
     return {"audit": name, "verdict": verdict, "reason": reason, "finishedAt": sa.utc_now(),
             "toolReport": sa.AUDITS[name]["report"], "reviewEndpoint": sa.AUDITS[name]["review"],
-            "what": sa.AUDITS[name]["what"], "logFile": None, "seconds": 0}
+            "what": sa.AUDITS[name]["what"], "logFile": None, "seconds": 0, "reviewItems": []}
 
 
 class PlanningTests(unittest.TestCase):
@@ -270,7 +273,8 @@ class ResultsAssemblyTests(unittest.TestCase):
         """Source guard for the exact 2026-10-11 defect: the planned loop ran
         `audit_kind` and `audit_descriptions`, printed both verdicts, and never
         appended them, so the report could not show them."""
-        src = open(os.path.join(ROOT, "tools", "scheduled_audit.py"), encoding="utf-8").read()
+        with open(os.path.join(ROOT, "tools", "scheduled_audit.py"), encoding="utf-8") as fh:
+            src = fh.read()
         self.assertIn("ran = []", src)
         self.assertIn("ran.append(result)", src)
         self.assertIn("results = combined_results(ran, skipped)", src)
@@ -345,6 +349,158 @@ class ReportTests(unittest.TestCase):
         self.assertIn("usage claim", sa.CAVEAT)
 
 
+class ReviewItemTests(unittest.TestCase):
+    def build_report(self, audit, verdict, items):
+        result_row = result(audit, verdict, "fixture reason")
+        result_row["reviewItems"] = items
+        run = {"finishedAt": sa.utc_now(), "outcome": verdict, "exitCode": 1,
+               "slot": "sunday", "revision": "abc1234", "runUrl": "https://example.invalid/run",
+               "snapshot": "2026-10-11T19:28:51Z", "budget": 900, "reserve": 60, "usable": 840}
+        return sa.render_report(run, [result_row], {"ok": False, "status": 403, "reason": "rate limit"},
+                                [audit])
+
+    def test_kind_findings_link_the_pages_and_configured_index_endpoints(self):
+        payload = {
+            "disagreements": [{"repo": "Demo", "overlayKind": "stub", "derivedKind": "app",
+                               "httpStatus": 200, "pagesSource": "gh-pages /docs"}],
+            "unresolved": [{"repo": "Other", "field": "configured-path index.html", "status": 503,
+                            "pagesStatus": "built", "source": "main /docs"}],
+        }
+        items = sa.review_items("audit_kind", payload)
+        self.assertEqual(len(items), 2)
+        self.assertEqual(items[0]["sources"], [
+            "https://api.github.com/repos/buffedlizard55-lab/Demo/pages",
+            "https://api.github.com/repos/buffedlizard55-lab/Demo/contents/docs/index.html?ref=gh-pages",
+        ])
+        self.assertEqual(items[1]["sources"], [
+            "https://api.github.com/repos/buffedlizard55-lab/Other/pages",
+            "https://api.github.com/repos/buffedlizard55-lab/Other/contents/docs/index.html?ref=main",
+        ])
+        report = self.build_report("audit_kind", sa.FINDINGS, items)
+        self.assertIn('"stub"', report)
+        self.assertIn('"app"', report)
+        self.assertIn("contents/docs/index.html?ref=gh-pages", report)
+        self.assertIn("HTTP status: `503`", report)
+
+    def test_description_api_errors_keep_the_exact_reported_endpoint(self):
+        endpoint = "https://api.github.com/repos/buffedlizard55-lab/Example/readme?ref=abc1234"
+        items = sa.review_items("audit_descriptions", {
+            "apiErrors": [{"repo": "Example", "ref": "abc1234", "status": 403,
+                           "endpoint": endpoint, "message": "rate limit"}]})
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["source"], endpoint)
+        self.assertIn(endpoint, self.build_report("audit_descriptions", sa.INCOMPLETE, items))
+
+    def test_description_review_item_keeps_tokens_and_the_reported_readme_ref(self):
+        payload = {"readmeRefs": {"58GEMSDOE": "089d4b2"},
+                   "unresolved": [{"repo": "58GEMSDOE", "why": "numeric tokens not found in README",
+                                   "tokens": ["695"]}]}
+        items = sa.review_items("audit_descriptions", payload)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["source"],
+                         "https://api.github.com/repos/buffedlizard55-lab/58GEMSDOE/readme?ref=089d4b2")
+        report = self.build_report("audit_descriptions", sa.FINDINGS, items)
+        self.assertIn("58GEMSDOE", report)
+        self.assertIn("695", report)
+        self.assertIn("https://api.github.com/repos/buffedlizard55-lab/58GEMSDOE/readme?ref=089d4b2", report)
+
+    def test_live_report_preserves_each_hard_mismatch_and_volatile_drift(self):
+        payload = {
+            "hardMismatches": [{"entry": "sites[]/GEMSDOE53", "field": "pagesStatus",
+                                "committed": "built", "live": "errored"}],
+            "volatileDrift": [{"entry": "sites[]/59GEMSDOE", "field": "pushedAt",
+                               "committed": "2026-10-11T16:00:00Z", "live": "2026-10-11T17:00:00Z"}],
+            "mismatches": [{"entry": "sites[]/GEMSDOE53", "field": "pagesStatus",
+                            "committed": "built", "live": "errored"},
+                           {"entry": "sites[]/59GEMSDOE", "field": "pushedAt",
+                            "committed": "2026-10-11T16:00:00Z", "live": "2026-10-11T17:00:00Z"}],
+        }
+        items = sa.review_items("verify_live", payload)
+        self.assertEqual(len(items), 2, "mismatches must not duplicate classified drift/findings")
+        hard = next(item for item in items if item["type"] == "hard mismatch")
+        drift = next(item for item in items if item["type"].startswith("snapshot drift"))
+        self.assertEqual(hard["source"], "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages")
+        self.assertEqual(drift["source"], "https://api.github.com/repos/buffedlizard55-lab/59GEMSDOE")
+        report = self.build_report("verify_live", sa.PASS, items)
+        self.assertIn("hard mismatch", report)
+        self.assertIn("snapshot drift (volatile; not automatically a defect)", report)
+        self.assertIn("2026-10-11T16:00:00Z", report)
+        self.assertIn("2026-10-11T17:00:00Z", report)
+        self.assertIn("/GEMSDOE53/pages", report)
+
+    def test_provenance_template_is_visible_as_a_nonconcrete_fl18_item(self):
+        endpoint = "https://api.github.com/repos/buffedlizard55-lab/Coupons/contents/{path}?ref=7a130e1"
+        payload = {"complete": False, "accessBlocked": True, "entriesAudited": 103,
+                   "entriesTotal": 145, "accessBlockReason": "HTTP 403 rate limit",
+                   "templateCitations": [{"repo": "Coupons", "endpoint": endpoint, "status": 404,
+                                          "documentedStatus": None}]}
+        items = sa.review_items("audit_provenance", payload)
+        template = next(item for item in items if item["type"] == "provenance template citation")
+        self.assertEqual(template["source"], endpoint)
+        report = self.build_report("audit_provenance", sa.INCOMPLETE, items)
+        self.assertIn("recorded/expected: `145`", report)
+        self.assertIn("API observation: `103`", report)
+        self.assertIn(endpoint, report)
+        self.assertIn("%7Bpath%7D", report)
+        self.assertIn("FL-18", report)
+        self.assertIn("not a concrete file citation", report)
+        self.assertIn("HTTP 404", report)
+
+    def test_nested_provenance_templates_are_fallback_only_and_deduplicated(self):
+        citation = {"endpoint": "https://api.github.com/repos/buffedlizard55-lab/Coupons/contents/{path}?ref=abc",
+                    "status": 404, "documentedStatus": None}
+        payload = {"entries": [{"repo": "Coupons", "templateCitations": [citation, citation]}]}
+        items = sa.review_items("audit_provenance", payload)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["repo"], "Coupons")
+
+    def test_missing_provenance_source_is_not_fabricated(self):
+        items = sa.review_items("audit_provenance", {
+            "findings": [{"repo": "NoSource", "finding": "invalid stamp", "detail": "not a SHA", "source": ""}]})
+        self.assertIsNone(items[0]["source"])
+        rendered = "\n".join(sa._render_review_item(items[0]))
+        self.assertIn("no source URL was included", rendered)
+        self.assertNotIn("repos/buffedlizard55-lab/NoSource", rendered)
+
+    def test_run_audit_attaches_items_from_a_fresh_report(self):
+        payload = {"complete": True, "checkedEntries": 1, "totalEntries": 1,
+                   "readmeRefs": {"Example": "abc1234"},
+                   "unresolved": [{"repo": "Example", "why": "numeric token absent", "tokens": ["7"]}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            spec = sa.AUDITS["audit_descriptions"].copy()
+            spec.update({"report": "report.json", "script": ["not-executed.py"]})
+
+            def write_fresh_report(command, cwd, stdout, stderr):
+                (root / "report.json").write_text(json.dumps(payload), encoding="utf-8")
+                return subprocess.CompletedProcess(command, 1)
+
+            with patch.object(sa, "ROOT", directory), patch.dict(sa.AUDITS, {"audit_descriptions": spec}), \
+                    patch("tools.scheduled_audit.subprocess.run", side_effect=write_fresh_report), \
+                    patch("tools.scheduled_audit.time.time", return_value=1000.0):
+                result_row = sa.run_audit("audit_descriptions", str(root / "out"), "snapshot")
+        self.assertEqual(result_row["verdict"], sa.FINDINGS)
+        self.assertEqual(result_row["reviewItems"][0]["repo"], "Example")
+
+    def test_run_audit_does_not_attach_stale_report_items(self):
+        payload = {"complete": True, "checkedEntries": 1, "totalEntries": 1,
+                   "readmeRefs": {"Example": "abc1234"},
+                   "unresolved": [{"repo": "Example", "why": "numeric token absent", "tokens": ["7"]}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            report_path = root / "report.json"
+            report_path.write_text(json.dumps(payload), encoding="utf-8")
+            os.utime(report_path, (800.0, 800.0))
+            spec = sa.AUDITS["audit_descriptions"].copy()
+            spec.update({"report": "report.json", "script": ["not-executed.py"]})
+            with patch.object(sa, "ROOT", directory), patch.dict(sa.AUDITS, {"audit_descriptions": spec}), \
+                    patch("tools.scheduled_audit.subprocess.run", return_value=subprocess.CompletedProcess([], 0)), \
+                    patch("tools.scheduled_audit.time.time", return_value=1000.0):
+                result_row = sa.run_audit("audit_descriptions", str(root / "out"), "snapshot")
+        self.assertEqual(result_row["verdict"], sa.ERROR)
+        self.assertNotIn("reviewItems", result_row)
+
+
 class RepositoryInvariantTests(unittest.TestCase):
     """The scheduled runner must never become a publisher."""
 
@@ -398,6 +554,18 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("issues: write", self.text)
         self.assertIn("GITHUB_STEP_SUMMARY", self.text)
         self.assertIn("report.json", self.text)
+
+    def test_review_issue_body_embeds_the_same_item_level_markdown_report(self):
+        marker = "      - name: Track findings in one labelled issue"
+        self.assertIn(marker, self.text)
+        issue_step = self.text.split(marker, 1)[1]
+        self.assertIn("cat .work/scheduled-audit/report.md", issue_step)
+        self.assertIn("reviewItems", issue_step)
+        self.assertIn("NONVOLATILE_REVIEW_ITEMS", issue_step)
+        self.assertIn("snapshot drift (volatile;", issue_step)
+        self.assertIn("PARTIAL with a nonvolatile item", issue_step)
+        self.assertIn("gh issue edit", issue_step)
+        self.assertIn("gh issue create", issue_step)
 
 
 if __name__ == "__main__":

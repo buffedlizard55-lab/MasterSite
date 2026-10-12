@@ -25,11 +25,12 @@
 # summary, a run artifact, a pull-request comment and one labelled issue.
 #
 # Issue policy (deliberately narrow, to stay meaningful):
-#   FINDINGS / INCOMPLETE  -> open or update the issue with the report
-#   CLEAN on a full-suite run -> close it (only a four-audit clean pass closes)
-#   PARTIAL (budget)       -> summary + artifact only; the structural reason is
-#                             documented in README "Known Limitations" and
-#                             flagged for the owner, not re-posted every day
+#   FINDINGS / INCOMPLETE  -> open or update the issue with the item-level report
+#   CLEAN + nonvolatile review items (e.g. {path} citations) -> open/update; keep visible
+#   CLEAN + volatile drift -> update an existing issue only; drift alone is not a defect
+#   CLEAN full suite with no nonvolatile items -> close an existing issue
+#                              (only a four-audit clean pass closes)
+#   PARTIAL (budget)       -> summary + artifact; open/update for nonvolatile items, otherwise update only if open
 
 name: Scheduled audit layer
 
@@ -179,7 +180,9 @@ jobs:
           fi
           OUTCOME="$(python3 -c "import json;print(json.load(open('.work/scheduled-audit/report.json'))['run']['outcome'])")"
           COVERAGE="$(python3 -c "import json;d=json.load(open('.work/scheduled-audit/report.json'));print(len(d['run']['requested']))")"
-          echo "outcome: $OUTCOME | audits scheduled this run: $COVERAGE"
+          REVIEW_ITEMS="$(python3 -c 'import json;d=json.load(open(".work/scheduled-audit/report.json"));print(sum(len(r.get("reviewItems") or []) for r in d.get("results", [])))')"
+          NONVOLATILE_REVIEW_ITEMS="$(python3 -c 'import json;d=json.load(open(".work/scheduled-audit/report.json"));print(sum(1 for r in d.get("results", []) for item in (r.get("reviewItems") or []) if not str(item.get("type", "")).startswith("snapshot drift (volatile;")))')"
+          echo "outcome: $OUTCOME | audits scheduled this run: $COVERAGE | review items: $REVIEW_ITEMS"
           gh label create audit-schedule --color 0e8a16 \
             --description 'Scheduled read-only audit layer (T-022)' 2>/dev/null || true
           EXISTING="$(gh issue list --label audit-schedule --state open --limit 1 --json number --jq '.[0].number' || true)"
@@ -188,6 +191,10 @@ jobs:
             echo
             echo "Run: $RUN_URL"
             echo
+            if [ "$NONVOLATILE_REVIEW_ITEMS" -gt 0 ]; then
+              echo '_Nonvolatile item-level review rows are present. They remain visible even when the audit outcome is CLEAN; see the report below._'
+              echo
+            fi
             cat .work/scheduled-audit/report.md
             echo
             echo '_Managed by `.github/workflows/audit-schedule.yml`._'
@@ -201,14 +208,41 @@ jobs:
                   --label audit-schedule --body-file .work/scheduled-audit/issue-body.md
               fi ;;
             CLEAN)
-              # Only a clean pass of every audit scheduled for this run closes the
-              # issue, and only a four-audit run means the suite was covered.
-              if [ -n "$EXISTING" ] && [ "$COVERAGE" = "4" ]; then
-                gh issue comment "$EXISTING" --body "The full suite came back complete and clean: $RUN_URL. Closing. This is a mechanical re-run, not proof that the prose is accurate or that any site is up."
-                gh issue close "$EXISTING"
+              if [ "$NONVOLATILE_REVIEW_ITEMS" -gt 0 ]; then
+                # A concrete outstanding item (not routine volatile drift) stays
+                # visible even if the audits themselves did not call it a finding.
+                if [ -n "$EXISTING" ]; then
+                  gh issue edit "$EXISTING" --body-file .work/scheduled-audit/issue-body.md
+                else
+                  gh issue create --title 'Scheduled audit layer: review items' \
+                    --label audit-schedule --body-file .work/scheduled-audit/issue-body.md
+                fi
+              elif [ -n "$EXISTING" ]; then
+                # Refresh the open issue with the latest per-item evidence. A clean
+                # subset cannot close it; only a clean four-audit run can.
+                gh issue edit "$EXISTING" --body-file .work/scheduled-audit/issue-body.md
+                if [ "$COVERAGE" = "4" ]; then
+                  gh issue comment "$EXISTING" --body "The full suite came back complete and clean: $RUN_URL. The issue body contains the final item-level report. Closing. This is a mechanical re-run, not proof that prose is accurate or that any site is up."
+                  gh issue close "$EXISTING"
+                else
+                  echo 'Clean subset: refreshed the open issue with this run report; it remains open until a clean full-suite pass.'
+                fi
               fi ;;
             *)
-              echo 'No issue write for this outcome: the report is in the summary, the PR comment and the artifact.' ;;
+              if [ "$NONVOLATILE_REVIEW_ITEMS" -gt 0 ]; then
+                if [ -n "$EXISTING" ]; then
+                  gh issue edit "$EXISTING" --body-file .work/scheduled-audit/issue-body.md
+                else
+                  gh issue create --title 'Scheduled audit layer: review items' \
+                    --label audit-schedule --body-file .work/scheduled-audit/issue-body.md
+                fi
+                echo 'PARTIAL with a nonvolatile item: opened/updated the issue; the run is still not a pass.'
+              elif [ -n "$EXISTING" ]; then
+                gh issue edit "$EXISTING" --body-file .work/scheduled-audit/issue-body.md
+                echo 'PARTIAL: refreshed existing issue with the per-item report; no pass is claimed.'
+              else
+                echo 'No issue write: PARTIAL details are in the summary and artifact; no new issue was opened.'
+              fi ;;
           esac
 
       - name: Fail visibly when this run was not clean
