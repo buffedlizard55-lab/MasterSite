@@ -61,44 +61,72 @@ python3 -m unittest discover -s tests -p 'test_*.py' -v
 python3 tools/smoke_pages.py --output-dir .work/pages-smoke
 ```
 
-## Current audit status — API snapshot `2026-10-12T00:11:29Z` (UTC)
+## Current audit status — API snapshot `2026-10-12T02:09:11Z` (UTC)
 
-> **Snapshot by session `a4aed282` (task `T-034`).** **155 sites**, 140 apps / 15 stubs, 154 `built` / 1 `errored`
-> (`GEMSDOE53` only), 11,674 commits across the listed repositories, **54 prose-stale**, **144 irregularities**.
-> The account grew **146 → 156** public repositories between the `19:28:51Z` snapshot and this one, and **all ten new
-> repositories (`GEMSDOE63`–`GEMSDOE72`, created `2026-10-11T19:38Z`) were read at their heads and are published here** —
-> four are DOE GEMS Prize lanes with committed sites and six are README-only placeholders. Census balances exactly
-> (156 public = 155 listed + 1 `ProjX` excluded); `kanlerxz87-cyber` reports 0. `scripts/validate` **PASS**;
-> `census_guard.py` **PASS**. The API fields come from one full `build_data.py` run; the narrative fields were folded in
-> with `--overlay-only` after `62GEMSDOE` and `GEMSDOE66` were re-read (see the audit rows and `HANDOFF.md`).
+> **Snapshot by session `arena-973e4afd` (task `T-035`).** **155 sites**, 142 apps / 13 stubs, 153 `built` / 2 `errored`
+> (`GEMSDOE53` stalled and `GEMSDOE68` a fresh transition), 11,797 commits across the listed repositories, **56
+> prose-stale**, **147 irregularities**. The account held **156** public repositories since the `00:11:29Z` census (no
+> new sites to publish), and **three repositories that had been published as placeholders grew into real projects inside
+> the 80 minutes before this census** — `GEMSDOE67`, `GEMSDOE68`, `GEMSDOE69` were re-read at their heads and rewritten
+> from their own files (`IRR-145`/`IRR-146`/`IRR-147`), two of them re-classified `stub → app` on `audit_kind.py`'s own
+> evidence. Census balances exactly (156 public = 155 listed + 1 `ProjX` excluded); `kanlerxz87-cyber` reports 0.
+> `scripts/validate` **PASS**; `census_guard.py` **PASS**. The API fields come from one full `build_data.py` run; the
+> narrative fields were folded in with `--overlay-only` after the three re-reads (see the audit rows and `HANDOFF.md`).
 
 | Metric | Snapshot result |
 |---|---|
-| Sites listed | **155** — every public repository of `buffedlizard55-lab` is either listed (155) or permanently excluded (`ProjX`). This pass found **ten new public repositories** since the `19:28:51Z` snapshot and published all ten |
-| HTML entry points / README-documentation stubs | **140 / 15**; determined only from `index.html` at the configured Pages source path. One classification changed in this pass: `62GEMSDOE` moved **stub → app** when `audit_kind.py` caught it (`IRR-144`) |
-| Pages API status | **154 `built`, 1 `errored`** (`GEMSDOE53` — `IRR-132`, `FL-05`); API status is not uptime or browser behaviour, and it changes under you |
-| Pages build health (T-005) | **`GEMSDOE53` is still `errored`, and its `pushed_at` is still `2026-10-09T02:00:53Z`** — re-read by hand at `2026-10-12T00:12:25Z`, the fourth consecutive read with the same value, so this is a stalled build that only an owner push or rebuild clears. No other entry is non-`built` |
-| Default-branch commits | **11,674** across the 155 listed repositories — up **631** from 11,043 at the `16:58:53Z` snapshot (the account and its lanes are being pushed to continuously) |
+| Sites listed | **155** — every public repository of `buffedlizard55-lab` is either listed (155) or permanently excluded (`ProjX`). This pass found **no new public repositories** since the `00:11:29Z` snapshot (the account held at 156) and re-verified the whole list line by line at a new API timestamp |
+| HTML entry points / README-documentation stubs | **142 / 13**; determined only from `index.html` at the configured Pages source path. Two classifications changed in this pass: `GEMSDOE67` and `GEMSDOE69` moved **stub → app** when `audit_kind.py` caught them growing root `index.html` files after being published as placeholders (`IRR-145`, `IRR-147`); `GEMSDOE68` also grew a project tree but still has no root entry file, so it stays `stub` (`IRR-146`) |
+| Pages API status | **153 `built`, 2 `errored`** (`GEMSDOE53` — `IRR-132`, `FL-05`; **`GEMSDOE68` — new this pass**, `FL-21`, `IRR-146`, a `built → errored` transition whose build history shows two consecutive `Page build failed.` builds after its placeholder-era build succeeded); API status is not uptime or browser behaviour, and it changes under you |
+| Pages build health (T-005) | **`GEMSDOE53` is still `errored`, and its `pushed_at` is still `2026-10-09T02:00:53Z`** — re-read by hand at `2026-10-12T01:24:02Z`, the fifth consecutive read with the same value, so this is a stalled build that only an owner push or rebuild clears. `GEMSDOE68`'s `errored` is different in kind: it is a live transition on an actively pushed repository and may recover on its own as `NFLInjuryReport` did (`FL-17`) |
+| Default-branch commits | **11,797** across the 155 listed repositories — up **123** from 11,674 at the `00:11:29Z` snapshot (the account and its lanes are being pushed to continuously) |
 | `buffedlizard55-lab` public repositories / Pages-enabled repositories | **156 / 156**; 155 are listed and `ProjX` remains excluded by owner instruction |
-| `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** (re-verified by `census_guard.py` in this pass) |
-| Description provenance | **155 / 155** entries carry a source commit SHA and a pass stamp; **54** are behind their snapshot heads. The queue is the 53 that were already behind at `19:28:51Z` plus `62GEMSDOE` (pushed to again in the interval); **nothing cleared, and the ten newly published entries are not in it** — nine were read at their snapshot heads and `GEMSDOE66` was re-read after it advanced within minutes. One entry in the count is a snapshot-lag artifact rather than a stale description: `62GEMSDOE` was re-read at a commit *newer* than the head this snapshot recorded, and its own flags say so. A changed SHA is not proof the prose is false; it means the text has not been re-read at the new head (`FL-10`, `T-002`) |
-| Latest prose pass | The newest prose read anywhere in the data is `2026-10-12T00:41:00Z` (`62GEMSDOE`, re-classified) and `2026-10-12T00:17:30Z` (`GEMSDOE66`); the ten new entries share the `2026-10-11T23:56:10Z` pass stamp. This census re-read prose for the new repositories and those two re-classifications only — it rewrote nothing else |
-| `verify_live.py` | **complete: 2,035 checks; 0 hard mismatches; 18 volatile drifts** against the live API. Every drift is a field GitHub recomputes asynchronously (`size`) or a repository pushed to while the audit ran (`62GEMSDOE`, `MALTASUPPLEMENTAL`, `MasterSite`). `listedNotInApi` and `unlistedInApi` are both **empty**: the published set and the live API set agree exactly |
-| `audit_kind.py` | the first run checked **155 / 155, found 1 disagreement and 0 unresolved** — `62GEMSDOE`, overlay `stub` vs live `app` — and that entry was re-read and re-classified; the **re-run then reached 94 / 155 with 0 disagreements before an HTTP 403 secondary rate limit stopped it, so the re-run is INCOMPLETE, not clean** (`tools/last_kind_audit.json` records `complete: false`). The 61 unchecked entries are unreported, not passing** — `62GEMSDOE` was the one disagreement of the first run (overlay `stub` vs live `app`); its entry was re-read and re-classified, and the re-run reached **94 / 155 with 0 disagreements** before an HTTP 403 secondary rate limit stopped it, so the re-run is reported **INCOMPLETE**, not clean. `tools/last_kind_audit.json` records the exact state |
-| `audit_descriptions.py` | **complete: 155 / 155 checked, 1 entry needing review, 42 documented numeric-token exceptions.** `60GEMSDOE` still cites `0.00420` and `0.08623`, which do not occur in its README at the snapshot head (`FL-19`, `T-002`); `58GEMSDOE`'s `695` now occurs there, which clears the lint but is **not** a prose re-read. This is a lint, not semantic proof |
-| `audit_provenance.py` (T-014) | **complete: 155 / 155 entries audited; 1,118 reproduced checks; 0 hard findings** — every recorded `verifiedAtSha` / `firstCommitSha` / `lastCommitSha` / head SHA resolved to a real commit and every `api.github.com` URL each entry's `verifiedBasis` cites reproduced at the recorded ref (9 documented-negative citations checked against the status their own prose states; `FL-18`'s `{path}` templates stay registered). Per-entry evidence: [`reports/provenance/2026-10-12T005943Z.md`](reports/provenance/2026-10-12T005943Z.md) |
-| Live HTTP smoke (T-003, separate from `pagesStatus`) | **145 of 145 published URLs returned HTTP 200 at `2026-10-11T05:03:31Z`** from the GitHub-hosted runner; 144 pages yielded a complete HTML `<title>`, `SABERENGY` is a meta-refresh landing page with none (`FL-15`). A later run ([`38190805771`](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38190805771), revision `c88690d`, `2026-10-12T01:09:59Z`) observed all **155** published URLs — **154** 2xx with a complete title, **0** HTTP errors, **0** transport errors, `SABERENGY` still the single `FL-15` review item, so the ten new sites are covered as well. It is a one-GET observation, not uptime, rendering or functionality proof |
+| `kanlerxz87-cyber` public repositories / Pages-enabled repositories | **0 / 0** (re-verified by `census_guard.py` and again inside `verify_live.py` in this pass) |
+| Description provenance | **155 / 155** entries carry a source commit SHA and a pass stamp; **56** are behind their snapshot heads. The queue grew from 54 as repositories kept moving (53 carried, `62GEMSDOE` a snapshot-lag artifact, and this census's own interval added movement) while **three entries were re-read and left it** — `GEMSDOE67`, `GEMSDOE68`, `GEMSDOE69`. One of the 56 (`GEMSDOE67`) is the same snapshot-lag artifact class as `62GEMSDOE`: its description was read at a commit *newer* than the head this snapshot recorded, and its own flags say so. A changed SHA is not proof the prose is false; it means the text has not been re-read at the new head (`FL-10`, `T-002`) |
+| Latest prose pass | The newest prose read anywhere in the data is `2026-10-12T02:21:00Z` (`GEMSDOE67`, `GEMSDOE68`, `GEMSDOE69`, re-read because `audit_kind.py` showed the published placeholder prose was structurally wrong). This census rewrote nothing else |
+| `verify_live.py` | **complete: 2,057 checks; 0 hard mismatches; 106 volatile drifts** against the live API. Every drift is a repository pushed to after the snapshot read it (`GEMSDOE67`–`GEMSDOE69`, `KalshiPaperSim`, `MALTASUPPLEMENTAL`, `MLBSCORINGCHANGE`, `NFLInjuryReport`, `NFLPARLAYCOMP`, `ScoringDiscrepNBA`, `ScoringDiscrepNHL`) — expected on this account, not defects. `listedNotInApi` and `unlistedInApi` are both **empty**: the published set and the live API set agree exactly |
+| `audit_kind.py` | **complete, and T-034's incomplete run is closed.** The first run checked **155 / 155, found 2 disagreements and 0 unresolved** (`GEMSDOE67`, `GEMSDOE69`: overlay `stub` vs live `app`); both were re-read at their heads and re-classified (`IRR-145`, `IRR-147`), and the **re-run checked 155 / 155 with 0 disagreements and 0 unresolved** — `tools/last_kind_audit.json` records a complete run for this snapshot |
+| `audit_descriptions.py` | **complete: 155 / 155 checked, 1 entry needing review, 42 documented numeric-token exceptions.** `60GEMSDOE` still cites `0.00420` and `0.08623`, which do not occur in its README at the snapshot head (`FL-19`, `T-002`); the three re-read entries pass. This is a lint, not semantic proof |
+| `audit_provenance.py` (T-014) | **complete: 155 / 155 entries audited; 1,118 reproduced checks; 0 hard findings** — every recorded `verifiedAtSha` / `firstCommitSha` / `lastCommitSha` / head SHA resolved to a real commit and every `api.github.com` URL each entry's `verifiedBasis` cites reproduced at the recorded ref (6 documented-negative citations checked against the status their own prose states; `FL-18`'s `{path}` templates stay registered). The **first attempt of this pass was access-blocked at 85/155** by an exhausted shared rate-limit window (0 findings in the checked entries, reported `INCOMPLETE`, never as a pass) and the retry completed in the next window. Per-entry evidence: [`reports/provenance/2026-10-12T035609Z.md`](reports/provenance/2026-10-12T035609Z.md) |
+| Live HTTP smoke (T-003, separate from `pagesStatus`) | The recorded 155-URL pass (revision `c88690d`, `2026-10-12T01:09:59Z`) observed **154** 2xx with a complete title, **0** HTTP errors, `SABERENGY` the single `FL-15` review item. The PR's own `pages-smoke` run covers this revision's URLs (check the CI comment; `*.github.io` is unreachable from the sandbox, so CI is the execution environment of record). It is a one-GET observation, not uptime, rendering or functionality proof |
 | Scheduled audit layer (`T-022`) | **Wired, budget-limited by design.** `.github/workflows/audit-schedule.yml` (daily 07:23 UTC, plus manual dispatch) runs the weekday subset through [`tools/scheduled_audit.py`](tools/scheduled_audit.py). GitHub documents the built-in Actions `GITHUB_TOKEN` at **1,000 requests/hour/repository** and the measured per-tool costs are in [`reports/scheduled-audit/`](reports/scheduled-audit/); a single full pass costs more than that, so the schedule covers the suite across the week and reports `NOT-RUN`/`PARTIAL` rather than truncating silently. A `NOT-RUN` audit is **not** checked; a `PARTIAL` run is **never** a pass |
-| Pipeline durability (`T-013`) | `build_data.py` **serializes the snapshot first and writes it with `os.replace()` only after every integrity assert passes**, so an aborted run can no longer publish a truncated or partial directory; a rate-limit block that survives five attempts aborts the run instead of recording 403s as answers; each repository's Pages endpoint is read once instead of twice; warnings print as they occur. `--overlay-only` re-renders narrative fields against the same snapshot and stamps itself as such in the generated file's banner |
-| Local code checks | `npm run check`, Python syntax compilation, the census-guard self-test and the Python unit suite pass locally. **The Playwright suite cannot run in this sandbox** (browser binaries are not downloadable, `ECONNRESET`), so CI is the execution environment of record for layout and keyboard behaviour — check the run attached to this PR rather than assuming it |
-| Irregularities / description notes | **144 / 32** (`IRR-01` … `IRR-144`; `IRR-142`/`IRR-143` register the served-page-vs-README conflicts found while publishing `GEMSDOE64`/`GEMSDOE65`, `IRR-144` the `62GEMSDOE` placeholder→lane change) |
-| Categories | **12** — Science & ML Research (64), Sports Data & Scoreboards (37), Markets & Trading Research (13), Travel & Korea Trip (12), Unclassified & Placeholder (12), SF Local Guides (8), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Health & Personal Guides (1), Reference & Archives (1), Social & Creator Data (1). The six new placeholders were filed in `Unclassified & Placeholder` following the directory's own precedent (`IRR-128`, `FL-13`) rather than inferred from their names |
+| Pipeline durability (`T-013`) | `build_data.py` **serializes the snapshot first and writes it with `os.replace()` only after every integrity assert passes** — proven again this pass: the first census attempt hit an exhausted rate-limit window at `MLBComp`, retried five times, then **aborted without publishing anything** and the second attempt succeeded in the next window. A rate-limit block is never recorded as an answer; each repository's Pages endpoint is read once; warnings print as they occur. `--overlay-only` re-renders narrative fields against the same snapshot and stamps itself as such |
+| Local code checks | `npm run check`, Python syntax compilation, the census-guard self-test and the Python unit suite (**127 tests**) pass locally. **The Playwright suite cannot run in this sandbox** (browser binaries are not downloadable), so CI is the execution environment of record for layout and keyboard behaviour — check the run attached to this PR rather than assuming it |
+| Irregularities / description notes | **147 / 32** (`IRR-01` … `IRR-147`; `IRR-145`/`IRR-146`/`IRR-147` register the three placeholder→project re-reads of this pass, including `GEMSDOE68`'s `built → errored` Pages transition) |
+| Categories | **12** — Science & ML Research (67), Sports Data & Scoreboards (37), Markets & Trading Research (13), Travel & Korea Trip (12), Unclassified & Placeholder (9), SF Local Guides (8), Gaming & Guides (3), Directory & Meta (2), Elections & Civic Data (1), Health & Personal Guides (1), Reference & Archives (1), Social & Creator Data (1). The three re-read entries moved to `Science & ML Research` on their own documented purposes (the `62GEMSDOE` precedent); `GEMSDOE70`–`GEMSDOE72` remain `Unclassified & Placeholder` because their READMEs still document no purpose |
 | Pages source paths | **154** from `main /`; **1** (`GOLD`) from `main /docs` |
-| Family grouping | **67** of 155 sites are in the curated `gems-prize-lanes` family (the six new placeholders are deliberately ungrouped — `tools/families.json` → `ungroupedByDesign`); membership is curated per repository and never inferred from a name |
-| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all four were re-checked by hand on 2026-10-11: `GET /repos/buffedlizard55-lab/{repo}` returns HTTP **404** for each and none appears in the 156-repository public list. They remain frozen with their last verified values (`FL-03`, `T-004` record) |
-| Validator | `scripts/validate` **PASS, 6,466 checks** — the mechanical gate for the rules in [`TASKS.md`](TASKS.md): source links present, no unverified values, overlay and published records in 1:1 agreement, curated family membership matching `data/sites.js`, and the README headline numbers agreeing with the snapshot |
+| Family grouping | **70** of 155 sites are in the curated `gems-prize-lanes` family (`GEMSDOE67`–`GEMSDOE69` joined when their re-reads documented competition lanes; `GEMSDOE70`–`GEMSDOE72` stay deliberately ungrouped in `tools/families.json` → `ungroupedByDesign`); membership is curated per repository and never inferred from a name |
+| Previously listed but unreachable | **4** (`JobSearchSF`, `MALTA`, `MALTA-LAWS`, `MALTA2`); all four were re-checked by hand twice on 2026-10-12 (`01:24:02Z` and inside `verify_live.py`): `GET /repos/buffedlizard55-lab/{repo}` returns HTTP **404** for each and none appears in the 156-repository public list. They remain frozen with their last verified values (`FL-03`, `T-004` record) |
+| Validator | `scripts/validate` **PASS, 6,472 checks** — the mechanical gate for the rules in [`TASKS.md`](TASKS.md): source links present, no unverified values, overlay and published records in 1:1 agreement, curated family membership matching `data/sites.js`, and the README headline numbers agreeing with the snapshot |
 
-### What this pass found — 2026-10-12, session `a4aed282`, task `T-034`
+### What this pass found — 2026-10-12, session `arena-973e4afd`, task `T-035`
+
+- **No new sites, but three of last night's placeholders became real projects before the census even ran.** The
+  account held at **156** public repositories (census balances exactly), yet `GEMSDOE67`, `GEMSDOE68` and `GEMSDOE69` —
+  published 80 minutes earlier as README-only placeholders — had all grown full project trees. `audit_kind.py` caught
+  the structural change mechanically (two `stub vs app` disagreements), each entry was **re-read at its current head from
+  the official API and rewritten from its own files** (`IRR-145`/`IRR-146`/`IRR-147`): `GEMSDOE67` is now a three-lane
+  orientation/OVTR repository with per-lane verdicts, `GEMSDOE68` an auto-context stacked-refinement lane whose download
+  its own README labels `UNSCORED`, and `GEMSDOE69` a static workbench with a `NEGATIVE / NOT READY` release banner. Two
+  moved `stub → app`; `GEMSDOE68` stays `stub` (no root `index.html`) — the kind is about the configured entry path, not
+  the project's size.
+- **A Pages build transition, recorded as a transition.** `GEMSDOE68` flipped `built → errored` in the same interval;
+  its build history shows two consecutive `Page build failed.` builds after its placeholder-era build succeeded. Unlike
+  `GEMSDOE53` (stalled four days with `pushed_at` frozen — `FL-05`), this is a live state on an actively pushed
+  repository, so the daily `pages_status_guard.py` watch owns the follow-up (`FL-21`).
+- **The audit layer is complete for this snapshot, including T-034's gap.** `verify_live.py` **2,057 checks / 0 hard
+  mismatches** (106 volatile commit drifts, all explained by post-snapshot pushes), `audit_kind.py` **155/155 clean on
+  re-run after the two re-classifications** (the previous snapshot's run had died at 94/155 on a rate-limit block),
+  `audit_descriptions.py` **155/155 with the one known `FL-19` finding**, and `audit_provenance.py` [run state in the row
+  above]. `census_guard.py` PASS. Everything recorded comes from official API reads at recorded SHAs; fields that could
+  not be sourced stayed out rather than being guessed.
+- **The rate-limit wall is now a first-class documented constraint.** Two full build attempts and one provenance run
+  were consumed by the shared 5,000/hour token pool this pass; the fail-closed pipeline correctly published **nothing**
+  on the aborted runs. A new AGENTS.md note records the trap that wasted the first two attempts: `GET /rate_limit`
+  reports a *different, unexhausted* pool (it answered `remaining: 5000` while real endpoints returned
+  `x-ratelimit-remaining: 0`), so automation must gate on the `x-ratelimit-*` headers of a real request instead.
+
+### What the previous pass found — 2026-10-12, session `a4aed282`, task `T-034`
 
 - **The account grew again, and the directory would have fallen ten sites behind silently again.** `buffedlizard55-lab`
   went from **146 to 156 public repositories** between the `19:28:51Z` snapshot and this census. The ten new repositories
@@ -544,7 +572,7 @@ For each listed site, the directory shows:
 | [`index.html`](index.html) | Accessible directory markup, filters, cards, table, panels, and inspector |
 | [`styles.css`](styles.css) | Responsive visual styles |
 | [`app.js`](app.js) | Search, filtering, sorting, exports, inspector, and status copy |
-| [`data/sites.js`](data/sites.js) | **Generated** 155-site snapshot (each record carries its curated readability `family`), four unreachable records, 144 irregularities, family metadata, account totals, and methodology. API fields come from a full network census at `2026-10-12T00:11:29Z`; narrative fields, families and per-site grouping are re-rendered from the curated files by `tools/build_data.py` |
+| [`data/sites.js`](data/sites.js) | **Generated** 155-site snapshot (each record carries its curated readability `family`), four unreachable records, 147 irregularities, family metadata, account totals, and methodology. API fields come from a full network census at `2026-10-12T02:09:11Z`; narrative fields, families and per-site grouping are re-rendered from the curated files by `tools/build_data.py` |
 | [`data/sites/`](data/sites/) | **Generated** one record per public repository (`<owner>__<repo>.json`, 155 files) for the multi-session file-per-site protocol: `verified` is a mechanical flag, `unverifiedFields` names anything left `null`, `sourceLinks` lists the official endpoints, `family` carries the curated grouping. Regenerated by the exporter below; never hand-edited |
 | [`SITES.md`](SITES.md) | **Generated** plain master list — one row per public Pages site with its live URL, sourced description, creation date, last default-branch commit, description-verification state and the official endpoints for hand review. Rendered by `tools/build_sites_md.py`; `scripts/validate` §L fails if it drifts from `data/sites.js` |
 | [`master-list.html`](master-list.html) | **Generated** static master list with **no JavaScript at all** — one block per public Pages site (live link, repository, category, sourced description, created, last default-branch commit, recorded Pages build status, description stamp) plus that row's official endpoints. This is the copy that survives JavaScript being off: crawlers, print, archive, `curl`. Rendered by `tools/build_master_list.py`; `scripts/validate` §M fails if it drifts from the snapshot, loses a row, or gains a script |
@@ -701,10 +729,11 @@ the deletion or privacy change.
 
 ## Known Limitations
 
-1. **Fifty-four descriptions are behind their recorded repository head** (54 of 155 at the
-   `2026-10-12T00:11:29Z` snapshot; the fifty-three already behind at `19:28:51Z` plus `62GEMSDOE`, which
-   was pushed to again in the interval, with none cleared and the ten newly published entries not in the
-   queue). The
+1. **Fifty-six descriptions are behind their recorded repository head** (56 of 155 at the
+   `2026-10-12T02:09:11Z` snapshot; the queue moves in both directions as repositories are pushed to — this
+   pass re-read three entries (`GEMSDOE67`–`GEMSDOE69`) out of it while the moving account added others, and
+   one of the 56 (`GEMSDOE67`) is a snapshot-lag artifact whose description is *newer* than the recorded
+   head, not older). The
    UI and ledger mark these entries as a re-read queue. A new commit does not by
    itself prove a description is false, but this status is not a current-head
    semantic verification. Review the cited repository files before carrying or
@@ -759,6 +788,12 @@ the deletion or privacy change.
    Python syntax checks pass, but Playwright browser binaries could not be
    downloaded because the browser CDN connection reset. CI is configured to
    install Chromium, Firefox, and WebKit and run the full suite.
+9. **The API token pool is shared and finite.** Full refreshes and the heavier audits compete for the same
+   5,000 requests/hour pool with every other parallel session and workflow; this pass lost two build attempts and
+   part of a provenance run to exhausted windows (each aborted fail-closed and published nothing). `GET
+   /rate_limit` does **not** reflect the real pool — it answered `remaining: 5000` while real endpoints returned
+   `x-ratelimit-remaining: 0` — so gate on the `x-ratelimit-*` headers of a real request (AGENTS.md §4), and
+   expect a complete pass to need either a quiet window or the owner's larger token (T-023/T-029).
 
 ---
 
@@ -766,7 +801,7 @@ the deletion or privacy change.
 
 | Priority | Follow-up | Why |
 |---|---|---|
-| High | Re-read the **54 stale descriptions** (at the `2026-10-12T00:11:29Z` snapshot) against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review (`T-002`, the largest open queue — it moves in both directions as repositories are pushed to; `FL-19` names two entries whose quoted numbers no longer appear in their READMEs) | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
+| High | Re-read the **56 stale descriptions** (at the `2026-10-12T02:09:11Z` snapshot) against current repository-owned files, prioritize the newest/moving repositories, and update `verifiedAtSha` only after review (`T-002`, the largest open queue — it moves in both directions as repositories are pushed to; `FL-19` names one entry whose quoted numbers no longer appear in its READMEs) | Removes the largest remaining provenance gap without treating commit movement alone as proof of an error |
 | Owner review | **Decide which page is authoritative when a repository's served landing page and its README disagree** (`GEMSDOE64`, `GEMSDOE65` — `IRR-142`, `IRR-143`, `FL-20`) | The directory can publish both readings and flag the conflict, but it cannot choose a winner for the owner; `GEMSDOE67`–`GEMSDOE72` also still need an owner-preferred category for future placeholders (`FL-13`, `T-028`) |
 | High | **Keep the refresh cadence short and run the audit tools serially.** The census is refreshed, but the account moves by ~180 commits in two hours and the tools exceed the API's burst allowance if a background verifier overlaps foreground audits — which is what triggered the `16:10Z` access block (`IRR-140`) | A blocked read is not a verification, and a fresh snapshot is only as good as its timestamp |
 | High → **done (`T-026`)** | **`pagesStatus` is now watched daily:** the census workflow also runs [`tools/pages_status_guard.py`](tools/pages_status_guard.py), which re-reads every listed entry's `GET /repos/{owner}/{repo}/pages`, diffs it against the published `pagesStatus`, fails on any entry that is not live `built`, and opens/updates a `pages-status` issue carrying each finding's exact endpoint and UTC read time (closing it only on a fully-`built` pass). Offline gates: `--self-test` (6 verdict paths) + 14 unit tests in `tests/test_pages_status_guard.py` | Turns a manual discovery (`NFLInjuryReport` `built` → `errored`, `FL-17`) into an alert; the watch is expected to stay red while `GEMSDOE53` (`FL-05`) remains `errored` |

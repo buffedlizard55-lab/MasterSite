@@ -1,15 +1,15 @@
 {
   "tool": "tools/audit_provenance.py",
-  "startedAt": "2026-10-12T00:59:43Z",
-  "finishedAt": "2026-10-12T01:07:14Z",
-  "snapshotGenerated": "2026-10-12T00:11:29Z",
+  "startedAt": "2026-10-12T03:56:09Z",
+  "finishedAt": "2026-10-12T04:03:07Z",
+  "snapshotGenerated": "2026-10-12T02:09:11Z",
   "entriesAudited": 155,
   "entriesTotal": 155,
   "complete": true,
   "accessBlocked": false,
   "accessBlockReason": null,
   "checksPerformed": 1118,
-  "documentedNegativeCitations": 9,
+  "documentedNegativeCitations": 7,
   "templateCitations": [
     {
       "repo": "Commodities",
@@ -45,9 +45,7 @@
   "entriesWithDocumentedNegativeCitation": [
     "GEMSDOE42",
     "GEMSDOE44",
-    "GEMSDOE67",
     "GEMSDOE68",
-    "GEMSDOE69",
     "GEMSDOE70",
     "GEMSDOE71",
     "GEMSDOE72",
@@ -376,8 +374,8 @@
       "stampsResolved": {
         "verifiedAtSha": "a4761f4a770c3741239735495246149045a664a3",
         "firstCommitSha": "97305e3c8b843fe875324a98f886efe7e2758137",
-        "lastCommitSha": "802e683a07de510c83bd4d3ee15c67fed25eda59",
-        "headSha": "802e683a07de510c83bd4d3ee15c67fed25eda59"
+        "lastCommitSha": "96eb61e3b6011e9efa5a2f1ed504597d04c0b718",
+        "headSha": "96eb61e3b6011e9efa5a2f1ed504597d04c0b718"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -589,8 +587,8 @@
       "stampsResolved": {
         "verifiedAtSha": "57817024d81cb8c7f1d01ca16b312886bf01e4a9",
         "firstCommitSha": "0a08cdf43d7553978e3d6f40b923b9bfdbaad540",
-        "lastCommitSha": "1b19e33abae08f15d495bccc3613614e0034d627",
-        "headSha": "1b19e33abae08f15d495bccc3613614e0034d627"
+        "lastCommitSha": "c4000a90e69d3c3fa6d64323bdb0919454f5a927",
+        "headSha": "c4000a90e69d3c3fa6d64323bdb0919454f5a927"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -619,8 +617,8 @@
       "stampsResolved": {
         "verifiedAtSha": "5389b9ade1a298ef39d2a30ff1a2d764490c7c6b",
         "firstCommitSha": "c3f3158d4a1eea098a5bd5ecb62eedd17354478f",
-        "lastCommitSha": "0811f1409ab56ed1f4679f6cac2daae13f2aabdd",
-        "headSha": "0811f1409ab56ed1f4679f6cac2daae13f2aabdd"
+        "lastCommitSha": "6b10454a2907729ef8595dfb809c80bf26f3f135",
+        "headSha": "6b10454a2907729ef8595dfb809c80bf26f3f135"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1278,8 +1276,8 @@
       "stampsResolved": {
         "verifiedAtSha": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765",
         "firstCommitSha": "f1db23cc88d15699aa926a96eb5614f8668ccdff",
-        "lastCommitSha": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765",
-        "headSha": "b1a6662fdd07ab80fdb1a32a66edfacfdb917765"
+        "lastCommitSha": "8516a4c18de7241ec811ac4f337b44dcf7e74d17",
+        "headSha": "8516a4c18de7241ec811ac4f337b44dcf7e74d17"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -1288,43 +1286,36 @@
     },
     {
       "repo": "GEMSDOE67",
-      "kind": "stub",
-      "stamp": "8a64f734670f21139506c019ed1b1040b8e66464",
+      "kind": "app",
+      "stamp": "ddbe9a50ed53bca61512ab40401cedcbe7e1b02f",
       "stampsResolved": {
-        "verifiedAtSha": "8a64f734670f21139506c019ed1b1040b8e66464",
+        "verifiedAtSha": "ddbe9a50ed53bca61512ab40401cedcbe7e1b02f",
         "firstCommitSha": "8a64f734670f21139506c019ed1b1040b8e66464",
-        "lastCommitSha": "8a64f734670f21139506c019ed1b1040b8e66464",
-        "headSha": "8a64f734670f21139506c019ed1b1040b8e66464"
+        "lastCommitSha": "bc68cfad5b8fca84eb44bbf6b944a7ee465528df",
+        "headSha": "bc68cfad5b8fca84eb44bbf6b944a7ee465528df"
       },
       "citationsChecked": 6,
       "readmeTokens": "all tokens present",
-      "negativeCitations": [
-        {
-          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/contents/index.html?ref=8a64f734670f21139506c019ed1b1040b8e66464",
-          "status": 404,
-          "documentedStatus": null,
-          "kind": "contents"
-        }
-      ],
+      "negativeCitations": [],
       "templateCitations": []
     },
     {
       "repo": "GEMSDOE68",
       "kind": "stub",
-      "stamp": "a0ab16358c3b364b4f22544955472c9869497fc2",
+      "stamp": "208f3bf7428c3184e5e7bbbf2ed3d5e4f3b1bb58",
       "stampsResolved": {
-        "verifiedAtSha": "a0ab16358c3b364b4f22544955472c9869497fc2",
+        "verifiedAtSha": "208f3bf7428c3184e5e7bbbf2ed3d5e4f3b1bb58",
         "firstCommitSha": "a0ab16358c3b364b4f22544955472c9869497fc2",
-        "lastCommitSha": "a0ab16358c3b364b4f22544955472c9869497fc2",
-        "headSha": "a0ab16358c3b364b4f22544955472c9869497fc2"
+        "lastCommitSha": "208f3bf7428c3184e5e7bbbf2ed3d5e4f3b1bb58",
+        "headSha": "208f3bf7428c3184e5e7bbbf2ed3d5e4f3b1bb58"
       },
       "citationsChecked": 6,
       "readmeTokens": "all tokens present",
       "negativeCitations": [
         {
-          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/contents/index.html?ref=a0ab16358c3b364b4f22544955472c9869497fc2",
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/contents/index.html?ref=208f3bf7428c3184e5e7bbbf2ed3d5e4f3b1bb58",
           "status": 404,
-          "documentedStatus": null,
+          "documentedStatus": 404,
           "kind": "contents"
         }
       ],
@@ -1332,24 +1323,17 @@
     },
     {
       "repo": "GEMSDOE69",
-      "kind": "stub",
-      "stamp": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+      "kind": "app",
+      "stamp": "2fe0d9b3f8fd8e6c9d4b41b538d07f60516166ff",
       "stampsResolved": {
-        "verifiedAtSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
+        "verifiedAtSha": "2fe0d9b3f8fd8e6c9d4b41b538d07f60516166ff",
         "firstCommitSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
-        "lastCommitSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
-        "headSha": "dfa2bb9aea774e3a5c6035c2a7ea524147938d0f"
+        "lastCommitSha": "2fe0d9b3f8fd8e6c9d4b41b538d07f60516166ff",
+        "headSha": "2fe0d9b3f8fd8e6c9d4b41b538d07f60516166ff"
       },
-      "citationsChecked": 6,
+      "citationsChecked": 5,
       "readmeTokens": "all tokens present",
-      "negativeCitations": [
-        {
-          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/contents/index.html?ref=dfa2bb9aea774e3a5c6035c2a7ea524147938d0f",
-          "status": 404,
-          "documentedStatus": null,
-          "kind": "contents"
-        }
-      ],
+      "negativeCitations": [],
       "templateCitations": []
     },
     {
@@ -1545,8 +1529,8 @@
       "stampsResolved": {
         "verifiedAtSha": "8a359bdec61d21c5cb505f9962bfa0e009963487",
         "firstCommitSha": "120e2d6b2986322a176e605b9b0fe7dab3f8a658",
-        "lastCommitSha": "9a8a0d217db21ef374481633467dcabdee4283cc",
-        "headSha": "9a8a0d217db21ef374481633467dcabdee4283cc"
+        "lastCommitSha": "26d4a3e77c9abef1f93566de61b39d7510aac4af",
+        "headSha": "26d4a3e77c9abef1f93566de61b39d7510aac4af"
       },
       "citationsChecked": 4,
       "readmeTokens": "accepted exception",
@@ -1650,8 +1634,8 @@
       "stampsResolved": {
         "verifiedAtSha": "de3303fbfecdf8176afb32002f02be58692d0405",
         "firstCommitSha": "29c7c48e1385e28c9a4c6af094732379f7417617",
-        "lastCommitSha": "47251307260446c05bef89fb48227310f8d71461",
-        "headSha": "47251307260446c05bef89fb48227310f8d71461"
+        "lastCommitSha": "8354d3a5639e4f21040a6377029c413682abf5ba",
+        "headSha": "8354d3a5639e4f21040a6377029c413682abf5ba"
       },
       "citationsChecked": 3,
       "readmeTokens": "all tokens present",
@@ -1680,8 +1664,8 @@
       "stampsResolved": {
         "verifiedAtSha": "3cda9250f12b3cd48ef85687bf4405591633a4c2",
         "firstCommitSha": "f724b59c9c360d5d70b4e48ecfae6e1722e4f751",
-        "lastCommitSha": "66fb138e77579c7ccc474888ed5da70a221007f8",
-        "headSha": "66fb138e77579c7ccc474888ed5da70a221007f8"
+        "lastCommitSha": "58e06ea4076453bc0f416348f5f976dffef7e294",
+        "headSha": "58e06ea4076453bc0f416348f5f976dffef7e294"
       },
       "citationsChecked": 5,
       "readmeTokens": "all tokens present",
@@ -1776,8 +1760,8 @@
       "stampsResolved": {
         "verifiedAtSha": "7b74d7b49afb2b88d65b36c0e7597df41cdaa956",
         "firstCommitSha": "510f396ad7c3f5a6d71aaa864442fb654b651ed7",
-        "lastCommitSha": "1f9959928801686558af297ab8c9358c6aa9edaf",
-        "headSha": "1f9959928801686558af297ab8c9358c6aa9edaf"
+        "lastCommitSha": "1be0f4539a991e3207ff6890daa15ab5ba46a830",
+        "headSha": "1be0f4539a991e3207ff6890daa15ab5ba46a830"
       },
       "citationsChecked": 4,
       "readmeTokens": "all tokens present",
@@ -1836,8 +1820,8 @@
       "stampsResolved": {
         "verifiedAtSha": "c3b1fb5013f99c0a0d2e3a69f098460e9f672e54",
         "firstCommitSha": "0ca53258d725bb70e4801a6dd6b2c0dfa4b9bc71",
-        "lastCommitSha": "d51f46617e474fd5257c87c483bcf350bf4b4e0f",
-        "headSha": "d51f46617e474fd5257c87c483bcf350bf4b4e0f"
+        "lastCommitSha": "cbc7fdab530fa8199d15c3f4f743dffc7c3dc62c",
+        "headSha": "cbc7fdab530fa8199d15c3f4f743dffc7c3dc62c"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1911,8 +1895,8 @@
       "stampsResolved": {
         "verifiedAtSha": "26367c3953e9ba07f52e32a796b128464131dd43",
         "firstCommitSha": "5d8a07f454b7c24c7009c6553d3045bfdd88498f",
-        "lastCommitSha": "58b405acec8870d822458ce30eed56a63419483c",
-        "headSha": "58b405acec8870d822458ce30eed56a63419483c"
+        "lastCommitSha": "b910d10da6e9a35fa561b27f050209143e4647ee",
+        "headSha": "b910d10da6e9a35fa561b27f050209143e4647ee"
       },
       "citationsChecked": 1,
       "readmeTokens": "accepted exception",
@@ -1926,8 +1910,8 @@
       "stampsResolved": {
         "verifiedAtSha": "84d054e29ae33070478d4edbbb58feee63912918",
         "firstCommitSha": "5b05a4bc5668e1682c71a8b8e69ff5c9856b114f",
-        "lastCommitSha": "d3905716a86b1e529b30ca25165f06e4c9a80df6",
-        "headSha": "d3905716a86b1e529b30ca25165f06e4c9a80df6"
+        "lastCommitSha": "bffd38c8cd811a31303a5dbcc4b2d2f73ebed60c",
+        "headSha": "bffd38c8cd811a31303a5dbcc4b2d2f73ebed60c"
       },
       "citationsChecked": 2,
       "readmeTokens": "accepted exception",
@@ -1971,8 +1955,8 @@
       "stampsResolved": {
         "verifiedAtSha": "7389443a6da437c44ecf993b79ef26bc7fdb1708",
         "firstCommitSha": "6b888c2e36b3f7f31b2e5a41c97abb3cae9cc413",
-        "lastCommitSha": "d4f65205aba11f5229ca6ad515c843c3807cddc6",
-        "headSha": "d4f65205aba11f5229ca6ad515c843c3807cddc6"
+        "lastCommitSha": "8537a681c969cb88ac233dad24bd7eca5887f116",
+        "headSha": "8537a681c969cb88ac233dad24bd7eca5887f116"
       },
       "citationsChecked": 2,
       "readmeTokens": "all tokens present",
