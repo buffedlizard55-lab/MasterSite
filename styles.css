@@ -590,6 +590,79 @@ a:hover {
 /* ==========================================================================
    Sites Grid (Cards View)
    ========================================================================== */
+/* ==========================================================================
+   Jump bar — one destination per rendered group (T-035)
+   --------------------------------------------------------------------------
+   155 entries on one page need a table of contents, not a scroll bar. The chips
+   are generated from the filtered list, so a group that is not on the page is
+   never offered. `hidden` is set by app.js when fewer than two groups exist, and
+   the rule below has to win over `display: flex`, or a single-group result would
+   still paint an empty bar.
+   ========================================================================== */
+.jump-nav {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.jump-nav[hidden] {
+  display: none;
+}
+.jump-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+.jump-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.jump-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--bg-subtle);
+  color: var(--ink-secondary);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.jump-chip:hover,
+.jump-chip:focus-visible {
+  background: var(--primary-soft);
+  border-color: var(--primary-border);
+  color: var(--primary-hover);
+}
+.jump-chip-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--card);
+  border-radius: var(--radius-pill);
+  padding: 0 6px;
+}
+.jump-chip:hover .jump-chip-count,
+.jump-chip:focus-visible .jump-chip-count {
+  color: var(--primary-hover);
+}
+
 .sites-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -665,6 +738,26 @@ a:hover {
 }
 .copy-icon-btn:hover {
   color: var(--ink);
+}
+
+/* The live Pages address, printed rather than hidden behind a button: a reader
+   comparing two cards, or printing the page, needs to see where each link goes. */
+.card-url {
+  margin: -6px 0 0;
+  line-height: 1.3;
+}
+.card-url a {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--line-strong);
+  word-break: break-all;
+}
+.card-url a:hover,
+.card-url a:focus-visible {
+  color: var(--primary-hover);
+  border-bottom-color: var(--primary);
 }
 
 .card-badges {

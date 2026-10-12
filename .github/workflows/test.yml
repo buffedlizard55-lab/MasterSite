@@ -40,6 +40,11 @@ jobs:
       # T-029: offline quota/checkpoint/publication tests, including the real
       # builder + all four audits against synthetic official-API fixtures.
       - run: python3 -m unittest tests.test_refresh tests.test_api_evidence -v
+      # Offline rendering tests for index.html / app.js (T-035). The directory page's
+      # only browser suite needs binaries this sandbox cannot fetch, so these run the
+      # real app.js against the real data/sites.js in a Node DOM stub: card anchors,
+      # the printed live Pages address, and the jump bar's targets and counts.
+      - run: python3 -m unittest tests.test_directory_app -v
       # Mechanical validator: every published record carries official source
       # links and no unverified values (see scripts/validate).
       - run: python3 scripts/validate

@@ -1,0 +1,335 @@
+=== audit_kind ===
+kind audit — re-deriving 'app' vs 'stub' from the published path for all 155 entries
+------------------------------------------------------------------------------------------------
+  ok       11GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       12GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       13GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       14GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       15GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       16GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       17GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       18GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       19GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       20GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       55GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       56GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       57GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       58GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       59GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       5GEMSDOE                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       60GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       61GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       62GEMSDOE                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       6GEMSDOE                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       7GEMSDOE                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       8GEMSDOE                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       AirPremia                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       based-loaded-MLB-alert-system      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       BathTubOverflowSF                  pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       BusanL7HaeundaeLotteHotelStay      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Commodities                        pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Coupons                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       CruiseDeals                        pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       DrugAnalysis                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Elections                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       ErrorsLive                         pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       FLABSENGY                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       FUTURESCOMMODITIES                 pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE10                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE2                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE21                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE22                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE23                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE24                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE25                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE26                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE27                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE28                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE29                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE3                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE30                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE31                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE32                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE33                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE34                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE35                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE36                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE37                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE38                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE39                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE4                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE40                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE41                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE42                          pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       GEMSDOE43                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE44                          pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       GEMSDOE45                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE46                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE47                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE48                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE49                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE50                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE51                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE52                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE53                          pages=errored source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE54                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE63                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE64                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE65                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE66                          pages=building source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE67                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE68                          pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       GEMSDOE69                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GEMSDOE70                          pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       GEMSDOE71                          pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       GEMSDOE72                          pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       GEMSDOE9                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       GOLD                               pages=built   source=main /docs   published path `/docs/index.html` -> HTTP 200
+  ok       GRANTWRITING                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       HongdaeStay                        pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       HotelSeoulRoughdraft1              pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       InjuryAlerTNFL                     pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Insider-trades                     pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Itinerary-Korea                    pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       KalshiPaperSim                     pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Korea                              pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Korea-emergency                    pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       KoreaHotels                        pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       LEARNGEMSDOE                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Leg3SeoulTrip                      pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       LSTARENGY                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MALTASUPPLEMENTAL                  pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MasterSelfLearn                    pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MasterSite                         pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MLB-Live-PBP                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MLB-PBP                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MLB-Prediction-model-backtest      pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       MLBComp                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MLBRainDelay                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       MLBSCORINGCHANGE                   pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NBAComp                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NBAInjScoreboard                   pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NBAInjuryReport                    pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NBASCOREBOARD                      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Ncaa-football-alerts               pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NFL-PLAYER-PROP-SIM                pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       NFL-scoreboard                     pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NFLComp                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NFLInjuryReport                    pages=errored source=main /       published path `/index.html` -> HTTP 200
+  ok       NFLMAIN                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NFLPARLAYCOMP                      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NFLPRED                            pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       NHL-SCOREBOARD                     pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NHLComp                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       NOBEL-PRIZE                        pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       OLBG-Competition                   pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       ParlaySports                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       PFFNFL                             pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       PlumbingSF                         pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       POSTSEASONMLBALERTS                pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       PriceKalshiHistorical              pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       PRICINGEXPERT                      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       RADIOSF                            pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       RGENGY                             pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       SABERENGY                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       ScheduleFreeTime                   pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       ScoringDiscrepNBA                  pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SCORINGDISCREPNFL                  pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       ScoringDiscrepNHL                  pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SelfLearn                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SFLateNight                        pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SFWeather                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       ShoulderPain                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SIM-COMP-NOBEL-PRIZE               pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SocialMediaComp                    pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       SportsPred                         pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       StanfordStay                       pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       StockPaperSim                      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       StokEngineer                       pages=built   source=main /       published path `/index.html` -> HTTP 404
+  ok       TAXKALSHI                          pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       THUNDERPICK-WC-2026                pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       THUNDERPICKCOMP                    pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       TinoLunchSpecial                   pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       Tradingview-pinescript-editor      pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       TradingViewTheLeap                 pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       VacationSchedule                   pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       VapePods                           pages=built   source=main /       published path `/index.html` -> HTTP 200
+  ok       WoWForever                         pages=built   source=main /       published path `/index.html` -> HTTP 200
+------------------------------------------------------------------------------------------------
+checked: 155 / 155   derived (no hardcoded kind): 0   disagreements: 0   unresolved: 0
+wrote tools/last_kind_audit.json
+=== audit_descriptions ===
+description audit — numeric-token lint against README at each recorded snapshot head
+This does not prove semantic accuracy; see each entry's verifiedBasis and the audit caveats.
+--------------------------------------------------------------------------------------------------------
+  ok   11GEMSDOE                          ref=7d8133c    readme= 11037 chars  unmatched-tokens=-
+  ok   12GEMSDOE                          ref=c9252e1    readme= 30177 chars  unmatched-tokens=-
+  ok   13GEMSDOE                          ref=92ee6f0    readme= 18466 chars  unmatched-tokens=-
+  ok   14GEMSDOE                          ref=88dd365    readme= 24602 chars  unmatched-tokens=-
+  ok   15GEMSDOE                          ref=8c94b0f    readme= 17811 chars  unmatched-tokens=-
+  ok   16GEMSDOE                          ref=2565805    readme= 37237 chars  unmatched-tokens=-
+  ok   17GEMSDOE                          ref=6fc71d1    readme= 20836 chars  unmatched-tokens=-
+  ok   18GEMSDOE                          ref=809482f    readme= 18137 chars  unmatched-tokens=-
+  ok   19GEMSDOE                          ref=a3aca62    readme= 31516 chars  unmatched-tokens=-
+  ok   20GEMSDOE                          ref=50edbba    readme= 37712 chars  unmatched-tokens=-
+  ok   55GEMSDOE                          ref=d145969    readme= 19080 chars  unmatched-tokens=-
+  ok   56GEMSDOE                          ref=1da1ba0    readme= 34831 chars  unmatched-tokens=-
+  ok   57GEMSDOE                          ref=822a0ce    readme= 67963 chars  unmatched-tokens=-
+  ok   58GEMSDOE                          ref=4e5f978    readme= 79243 chars  unmatched-tokens=-
+  ok   59GEMSDOE                          ref=37dc3d4    readme=  6414 chars  unmatched-tokens=-
+  ok   5GEMSDOE                           ref=f0dd347    readme= 35998 chars  unmatched-tokens=-
+  CHECK 60GEMSDOE                          ref=3202471    readme= 49555 chars  unmatched-tokens=['0.00420', '0.08623']
+  ok   61GEMSDOE                          ref=225b53a    readme= 72252 chars  unmatched-tokens=-
+  ok   62GEMSDOE                          ref=b5b22e0    readme= 50508 chars  unmatched-tokens=-
+  exc  6GEMSDOE                           ref=e2fe3f4    readme=  5811 chars  unmatched-tokens=['44']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   7GEMSDOE                           ref=9d8b5d5    readme= 22490 chars  unmatched-tokens=-
+  ok   8GEMSDOE                           ref=e24abef    readme= 27939 chars  unmatched-tokens=-
+  ok   AirPremia                          ref=af7f167    readme=  6316 chars  unmatched-tokens=-
+  ok   based-loaded-MLB-alert-system      ref=d665f20    readme=102954 chars  unmatched-tokens=-
+  ok   BathTubOverflowSF                  ref=835419b    readme= 48606 chars  unmatched-tokens=-
+  ok   BusanL7HaeundaeLotteHotelStay      ref=a3545e6    readme=  9969 chars  unmatched-tokens=-
+  exc  Commodities                        ref=ace5e8e    readme= 57587 chars  unmatched-tokens=['2,736']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   Coupons                            ref=7a130e1    readme= 15190 chars  unmatched-tokens=-
+  ok   CruiseDeals                        ref=8b6fad8    readme= 37319 chars  unmatched-tokens=-
+  ok   DrugAnalysis                       ref=6c03bbc    readme=196136 chars  unmatched-tokens=-
+  exc  Elections                          ref=344eeb7    readme= 30717 chars  unmatched-tokens=['258', '209', '229', '24,141', '4,226', '4,226']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   ErrorsLive                         ref=c4000a9    readme= 46810 chars  unmatched-tokens=-
+  exc  FLABSENGY                          ref=f927bab    readme=  4785 chars  unmatched-tokens=['49']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  FUTURESCOMMODITIES                 ref=6b10454    readme=  8069 chars  unmatched-tokens=['130', '0.001', '52', '1,900', '107', '181', '100,000.00', '99,839.83', '0.16', '13', '132', '98', '34', '28', '107', '45', '94', '38', '817', '674', '9.4448', '143', '4.5481', '84.72']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  GEMSDOE                            ref=dcbbb19    readme= 23907 chars  unmatched-tokens=['50,000', '250,000', '532,174', '259,549', '17', '418,912,844', '425,830', '1,599,597', '17', '0.0114', '0.0070', '0.0139', '0.0093', '0.006904', '0.020935', '0.099859', '0.0806', '0.1841', '0.1036', '0.999', '0.2113', '0.1239', '0.0874', '0.0677', '0.1079', '0.036', '0.0313', '0.0313', '0.0375', '0.95', '0.916', '122,652', '60,988', '61,664,', '0.197183', '0.1972', '467', '0.2854']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   GEMSDOE10                          ref=4d08f51    readme= 26304 chars  unmatched-tokens=-
+  ok   GEMSDOE2                           ref=d11f111    readme= 23912 chars  unmatched-tokens=-
+  ok   GEMSDOE21                          ref=43e8510    readme= 49279 chars  unmatched-tokens=-
+  ok   GEMSDOE22                          ref=9648109    readme= 84645 chars  unmatched-tokens=-
+  ok   GEMSDOE23                          ref=a5bcbbc    readme= 28048 chars  unmatched-tokens=-
+  ok   GEMSDOE24                          ref=07345ea    readme= 42781 chars  unmatched-tokens=-
+  ok   GEMSDOE25                          ref=33cd1d9    readme= 70774 chars  unmatched-tokens=-
+  ok   GEMSDOE26                          ref=ba071a3    readme= 50330 chars  unmatched-tokens=-
+  ok   GEMSDOE27                          ref=b92b1e8    readme= 38408 chars  unmatched-tokens=-
+  ok   GEMSDOE28                          ref=0075e22    readme= 96017 chars  unmatched-tokens=-
+  ok   GEMSDOE29                          ref=bbf6d0e    readme=104491 chars  unmatched-tokens=-
+  ok   GEMSDOE3                           ref=512371d    readme= 45813 chars  unmatched-tokens=-
+  ok   GEMSDOE30                          ref=1f9ac11    readme= 75386 chars  unmatched-tokens=-
+  ok   GEMSDOE31                          ref=cf13282    readme= 13093 chars  unmatched-tokens=-
+  ok   GEMSDOE32                          ref=b39e16e    readme= 70812 chars  unmatched-tokens=-
+  ok   GEMSDOE33                          ref=f525331    readme= 24378 chars  unmatched-tokens=-
+  ok   GEMSDOE34                          ref=cfa8f6b    readme= 20332 chars  unmatched-tokens=-
+  ok   GEMSDOE35                          ref=cd4f9f6    readme= 14353 chars  unmatched-tokens=-
+  ok   GEMSDOE36                          ref=c9ad59e    readme= 24437 chars  unmatched-tokens=-
+  ok   GEMSDOE37                          ref=8d07e2a    readme= 40744 chars  unmatched-tokens=-
+  ok   GEMSDOE38                          ref=526d65a    readme= 31350 chars  unmatched-tokens=-
+  ok   GEMSDOE39                          ref=381c6a9    readme= 44732 chars  unmatched-tokens=-
+  exc  GEMSDOE4                           ref=5dc28f6    readme= 39726 chars  unmatched-tokens=['0.1897', '0.1747', '0.957', '0.0999']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   GEMSDOE40                          ref=0d2ab31    readme= 51942 chars  unmatched-tokens=-
+  ok   GEMSDOE41                          ref=aee9fc5    readme= 50937 chars  unmatched-tokens=-
+  ok   GEMSDOE42                          ref=13de50d    readme=  8390 chars  unmatched-tokens=-
+  ok   GEMSDOE43                          ref=e641e0c    readme= 25236 chars  unmatched-tokens=-
+  ok   GEMSDOE44                          ref=c1019c4    readme= 33703 chars  unmatched-tokens=-
+  ok   GEMSDOE45                          ref=f90a332    readme= 47170 chars  unmatched-tokens=-
+  ok   GEMSDOE46                          ref=5377009    readme= 31082 chars  unmatched-tokens=-
+  ok   GEMSDOE47                          ref=5558d6d    readme= 61171 chars  unmatched-tokens=-
+  ok   GEMSDOE48                          ref=268ec59    readme=119598 chars  unmatched-tokens=-
+  ok   GEMSDOE49                          ref=8ab48f2    readme= 25392 chars  unmatched-tokens=-
+  ok   GEMSDOE50                          ref=7466897    readme= 64974 chars  unmatched-tokens=-
+  ok   GEMSDOE51                          ref=51028ff    readme= 89948 chars  unmatched-tokens=-
+  ok   GEMSDOE52                          ref=ed9b987    readme=737784 chars  unmatched-tokens=-
+  ok   GEMSDOE53                          ref=609cb00    readme= 89837 chars  unmatched-tokens=-
+  ok   GEMSDOE54                          ref=ba2a5ba    readme= 60858 chars  unmatched-tokens=-
+  ok   GEMSDOE63                          ref=4195d91    readme= 14880 chars  unmatched-tokens=-
+  ok   GEMSDOE64                          ref=4791ebc    readme= 39347 chars  unmatched-tokens=-
+  ok   GEMSDOE65                          ref=5caea45    readme= 30229 chars  unmatched-tokens=-
+  ok   GEMSDOE66                          ref=3168cd9    readme= 58189 chars  unmatched-tokens=-
+  ok   GEMSDOE67                          ref=22d9034    readme= 45032 chars  unmatched-tokens=-
+  ok   GEMSDOE68                          ref=e848bd1    readme=  7453 chars  unmatched-tokens=-
+  ok   GEMSDOE69                          ref=691d010    readme= 16425 chars  unmatched-tokens=-
+  ok   GEMSDOE70                          ref=a9bfaa7    readme=    11 chars  unmatched-tokens=-
+  ok   GEMSDOE71                          ref=1b58115    readme=    11 chars  unmatched-tokens=-
+  ok   GEMSDOE72                          ref=a344081    readme=    11 chars  unmatched-tokens=-
+  ok   GEMSDOE9                           ref=1fdfddc    readme= 46079 chars  unmatched-tokens=-
+  ok   GOLD                               ref=3e6f149    readme= 19664 chars  unmatched-tokens=-
+  ok   GRANTWRITING                       ref=a16dbc2    readme= 33231 chars  unmatched-tokens=-
+  ok   HongdaeStay                        ref=72e1225    readme= 32426 chars  unmatched-tokens=-
+  ok   HotelSeoulRoughdraft1              ref=765c2ca    readme= 14354 chars  unmatched-tokens=-
+  exc  InjuryAlerTNFL                     ref=bf0c0a3    readme= 28516 chars  unmatched-tokens=['154']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   Insider-trades                     ref=34c3ac2    readme=  6167 chars  unmatched-tokens=-
+  ok   Itinerary-Korea                    ref=7f4a6b7    readme= 12705 chars  unmatched-tokens=-
+  exc  KalshiPaperSim                     ref=95f86b8    readme=107135 chars  unmatched-tokens=['13,228', '13,092', '38.22', '1,568', '2,347.59448', '2,307', '1,106']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   Korea                              ref=bfabd46    readme= 37698 chars  unmatched-tokens=-
+  ok   Korea-emergency                    ref=ac15af6    readme= 20647 chars  unmatched-tokens=-
+  ok   KoreaHotels                        ref=a42e222    readme=233903 chars  unmatched-tokens=-
+  ok   LEARNGEMSDOE                       ref=032abc1    readme=  7802 chars  unmatched-tokens=-
+  ok   Leg3SeoulTrip                      ref=e325587    readme=    15 chars  unmatched-tokens=-
+  exc  LSTARENGY                          ref=66d9c9b    readme= 10578 chars  unmatched-tokens=['72', '72', '217,302']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   MALTASUPPLEMENTAL                  ref=851e3e2    readme= 31115 chars  unmatched-tokens=-
+  exc  MasterSelfLearn                    ref=276dfdf    readme= 13891 chars  unmatched-tokens=['22,070', '6,963', '14,570', '7,477', '2,294', '416', '1,110', '655', '3,346', '2,155,278']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   MasterSite                         ref=58e06ea    readme=118750 chars  unmatched-tokens=-
+  ok   MLB-Live-PBP                       ref=7eac371    readme= 28083 chars  unmatched-tokens=-
+  exc  MLB-PBP                            ref=0f12bdb    readme=  9082 chars  unmatched-tokens=['15', '15']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   MLB-Prediction-model-backtest      ref=0e36573    readme= 12825 chars  unmatched-tokens=-
+  exc  MLBComp                            ref=c6332b9    readme=  9694 chars  unmatched-tokens=['28,072', '27,972', '91', '154,688', '33,143', '20,000', '48,336', '221,538', '33,143', '96,903.05', '33,143', '22', '98']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  MLBRainDelay                       ref=364b250    readme= 19793 chars  unmatched-tokens=['66', '103', '13']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   MLBSCORINGCHANGE                   ref=22338b6    readme= 60323 chars  unmatched-tokens=-
+  ok   NBAComp                            ref=91e8ae5    readme= 16844 chars  unmatched-tokens=-
+  exc  NBAInjScoreboard                   ref=c83fe36    readme=  8994 chars  unmatched-tokens=['403']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  NBAInjuryReport                    ref=98c75ea    readme= 22466 chars  unmatched-tokens=['167']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  NBASCOREBOARD                      ref=cbc7fda    readme= 16719 chars  unmatched-tokens=['14']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   Ncaa-football-alerts               ref=a41566c    readme= 61042 chars  unmatched-tokens=-
+  exc  NFL-PLAYER-PROP-SIM                ref=0807ee5    readme=    21 chars  unmatched-tokens=['09', '52', '21', '404', '0 KB', '71']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   NFL-scoreboard                     ref=fce4afc    readme= 10699 chars  unmatched-tokens=-
+  exc  NFLComp                            ref=af4b853    readme= 41989 chars  unmatched-tokens=['646', '145,992.37']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  NFLInjuryReport                    ref=765fc49    readme= 50735 chars  unmatched-tokens=['848', '4,054,931', '1,16,31,46,', '2,17,32,47,', '3,18,33,48']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  NFLMAIN                            ref=bffd38c    readme= 25134 chars  unmatched-tokens=['7,548', '5,662', '121']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  NFLPARLAYCOMP                      ref=8bc2e7f    readme= 15652 chars  unmatched-tokens=['10,001,606.66', '9,919,682.37', '81,924.29', '0.82', '89', '09', '577', '1,057', '6.44 MB']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   NFLPRED                            ref=44b7961    readme=     9 chars  unmatched-tokens=-
+  ok   NHL-SCOREBOARD                     ref=8537a68    readme= 17418 chars  unmatched-tokens=-
+  exc  NHLComp                            ref=2a1f9e3    readme= 24304 chars  unmatched-tokens=['1,000', '100', '100', '66', '03', '3,921', '3,921', '1,846', '2,075', '1,012.43', '122,873.96', '0.82', '47.08', '127', '53.26', '99', '66', '167', '30', '3456621', '5,248', '7,968']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   NOBEL-PRIZE                        ref=dfd8253    readme= 11879 chars  unmatched-tokens=-
+  exc  OLBG-Competition                   ref=a3d33d5    readme= 27699 chars  unmatched-tokens=['499']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  ParlaySports                       ref=ee8ee1d    readme= 12822 chars  unmatched-tokens=['29,056', '7,014', '20,570', '20,570', '8,267', '60,504', '54,296']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   PFFNFL                             ref=0f00b26    readme=  3186 chars  unmatched-tokens=-
+  ok   PlumbingSF                         ref=bae59fe    readme= 22854 chars  unmatched-tokens=-
+  ok   POSTSEASONMLBALERTS                ref=2a78bca    readme= 13006 chars  unmatched-tokens=-
+  ok   PriceKalshiHistorical              ref=96ff13c    readme= 10816 chars  unmatched-tokens=-
+  exc  PRICINGEXPERT                      ref=6b28fab    readme= 16320 chars  unmatched-tokens=['84', '17,505,797', '10,000.00', '1198,', '39', '0.99']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   RADIOSF                            ref=e4ae599    readme= 34809 chars  unmatched-tokens=-
+  ok   RGENGY                             ref=7333ab3    readme=  9809 chars  unmatched-tokens=-
+  exc  SABERENGY                          ref=098615a    readme=  3665 chars  unmatched-tokens=['89', '19', '15', '10', '29', '97,', '197', '297', '18', '146', '16,189']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   ScheduleFreeTime                   ref=8d111f9    readme= 18799 chars  unmatched-tokens=-
+  ok   ScoringDiscrepNBA                  ref=3de2b8d    readme= 21803 chars  unmatched-tokens=-
+  ok   SCORINGDISCREPNFL                  ref=8957a77    readme= 52804 chars  unmatched-tokens=-
+  ok   ScoringDiscrepNHL                  ref=c10d0ea    readme= 43551 chars  unmatched-tokens=-
+  exc  SelfLearn                          ref=4b998c3    readme= 13665 chars  unmatched-tokens=['300', '222', '960', '147', '102', '28', '46', '23', '42', '300', '252', '0.5166', '39.67', '2.3', '126', '106', '20', '159', '189']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   SFLateNight                        ref=509a1ad    readme=  4248 chars  unmatched-tokens=-
+  exc  SFWeather                          ref=3b3d3aa    readme= 39485 chars  unmatched-tokens=['55.0', '17.0', '14.97', '14.9']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  ShoulderPain                       ref=6fa7824    readme=  7335 chars  unmatched-tokens=['90', '54.49', '25.50', '700', '350', '75', '125', '5,000', '320,', '390,', '768']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   SIM-COMP-NOBEL-PRIZE               ref=8fd3294    readme=  6663 chars  unmatched-tokens=-
+  exc  SocialMediaComp                    ref=f0ee63a    readme=  1735 chars  unmatched-tokens=['19', '7', '36,', '51,', '189', '156', '15']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   SportsPred                         ref=aa3b1fe    readme= 29330 chars  unmatched-tokens=-
+  ok   StanfordStay                       ref=499fb0a    readme= 12189 chars  unmatched-tokens=-
+  exc  StockPaperSim                      ref=61e704f    readme= 53075 chars  unmatched-tokens=['1,374']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  exc  StokEngineer                       ref=7dedfea    readme=  9455 chars  unmatched-tokens=['89', '19', '29', '13', '84', '100', '38', '155', '71,004']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   TAXKALSHI                          ref=90ac077    readme= 11818 chars  unmatched-tokens=-
+  ok   THUNDERPICK-WC-2026                ref=a346df8    readme= 11410 chars  unmatched-tokens=-
+  ok   THUNDERPICKCOMP                    ref=d573b81    readme= 63236 chars  unmatched-tokens=-
+  ok   TinoLunchSpecial                   ref=60a33cd    readme= 33674 chars  unmatched-tokens=-
+  ok   Tradingview-pinescript-editor      ref=834312c    readme= 14221 chars  unmatched-tokens=-
+  exc  TradingViewTheLeap                 ref=6ba5117    readme= 68281 chars  unmatched-tokens=['196']  (accepted: see overlay.json acceptedDescriptionExceptions)
+  ok   VacationSchedule                   ref=342fc5c    readme=  9835 chars  unmatched-tokens=-
+  ok   VapePods                           ref=b545ce7    readme=  6407 chars  unmatched-tokens=-
+  ok   WoWForever                         ref=0264b0e    readme= 14738 chars  unmatched-tokens=-
+--------------------------------------------------------------------------------------------------------
+snapshot entries checked: 155 / 155
+accepted numeric-token exceptions (documented in overlay.json): 42
+entries needing source/numeric review: 1
+  60GEMSDOE                          numeric tokens not found in README ['0.00420', '0.08623']
+wrote tools/last_description_audit.json
+=== verify_live ===
+verify_live.py — re-reading data/sites.js against api.github.com
+dataset generated at: 2026-10-12T03:08:41Z
+----------------------------------------------------------------------------------------
+  accounts/buffedlizard55-lab   publicRepos=156 pagesSites=156
+GitHub API access blocked (HTTP 403); audit stopped without treating it as data drift.
+Rerun tools/verify_live.py after the API rate limit resets or authorization is restored.
+wrote tools/last_live_verify.json
+=== AUDITS DONE ===

@@ -1,0 +1,230 @@
+MasterSite data refresh — reading api.github.com
+------------------------------------------------------------------------
+  buffedlizard55-lab     public_repos=156 pages_enabled=156
+  kanlerxz87-cyber       public_repos=0 pages_enabled=0
+  ok   11GEMSDOE                              commits=5     pages=built    source=main /
+  ok   12GEMSDOE                              commits=72    pages=built    source=main /
+  ok   13GEMSDOE                              commits=44    pages=built    source=main /
+  ok   14GEMSDOE                              commits=38    pages=built    source=main /
+  ok   15GEMSDOE                              commits=8     pages=built    source=main /
+  ok   16GEMSDOE                              commits=33    pages=built    source=main /
+  ok   17GEMSDOE                              commits=12    pages=built    source=main /
+  ok   18GEMSDOE                              commits=10    pages=built    source=main /
+  ok   19GEMSDOE                              commits=5     pages=built    source=main /
+  ok   20GEMSDOE                              commits=18    pages=built    source=main /
+  ok   55GEMSDOE                              commits=50    pages=built    source=main /
+  ok   56GEMSDOE                              commits=41    pages=built    source=main /
+  ok   57GEMSDOE                              commits=118   pages=built    source=main /
+  ok   58GEMSDOE                              commits=113   pages=built    source=main /
+  ok   59GEMSDOE                              commits=34    pages=built    source=main /
+  ok   5GEMSDOE                               commits=44    pages=built    source=main /
+  ok   60GEMSDOE                              commits=107   pages=built    source=main /
+  ok   61GEMSDOE                              commits=86    pages=built    source=main /
+  ok   62GEMSDOE                              commits=93    pages=built    source=main /
+  ok   6GEMSDOE                               commits=15    pages=built    source=main /
+  ok   7GEMSDOE                               commits=45    pages=built    source=main /
+  ok   8GEMSDOE                               commits=21    pages=built    source=main /
+  ok   AirPremia                              commits=7     pages=built    source=main /
+  ok   BathTubOverflowSF                      commits=58    pages=built    source=main /
+  ok   BusanL7HaeundaeLotteHotelStay          commits=17    pages=built    source=main /
+  ok   Commodities                            commits=269   pages=built    source=main /
+  ok   Coupons                                commits=24    pages=built    source=main /
+  ok   CruiseDeals                            commits=33    pages=built    source=main /
+  ok   DrugAnalysis                           commits=161   pages=built    source=main /
+  ok   Elections                              commits=116   pages=built    source=main /
+  ok   ErrorsLive                             commits=205   pages=built    source=main /
+  ok   FLABSENGY                              commits=7     pages=built    source=main /
+  ok   FUTURESCOMMODITIES                     commits=104   pages=built    source=main /
+  ok   GEMSDOE                                commits=233   pages=built    source=main /
+  ok   GEMSDOE10                              commits=45    pages=built    source=main /
+  ok   GEMSDOE2                               commits=24    pages=built    source=main /
+  ok   GEMSDOE21                              commits=34    pages=built    source=main /
+  ok   GEMSDOE22                              commits=21    pages=built    source=main /
+  ok   GEMSDOE23                              commits=49    pages=built    source=main /
+  ok   GEMSDOE24                              commits=51    pages=built    source=main /
+  ok   GEMSDOE25                              commits=65    pages=built    source=main /
+  ok   GEMSDOE26                              commits=20    pages=built    source=main /
+  ok   GEMSDOE27                              commits=83    pages=built    source=main /
+  ok   GEMSDOE28                              commits=113   pages=built    source=main /
+  ok   GEMSDOE29                              commits=83    pages=built    source=main /
+  ok   GEMSDOE3                               commits=25    pages=built    source=main /
+  ok   GEMSDOE30                              commits=77    pages=built    source=main /
+  ok   GEMSDOE31                              commits=14    pages=built    source=main /
+  ok   GEMSDOE32                              commits=39    pages=built    source=main /
+  ok   GEMSDOE33                              commits=17    pages=built    source=main /
+  ok   GEMSDOE34                              commits=23    pages=built    source=main /
+  ok   GEMSDOE35                              commits=11    pages=built    source=main /
+  ok   GEMSDOE36                              commits=11    pages=built    source=main /
+  ok   GEMSDOE37                              commits=21    pages=built    source=main /
+  ok   GEMSDOE38                              commits=8     pages=built    source=main /
+  ok   GEMSDOE39                              commits=34    pages=built    source=main /
+  ok   GEMSDOE4                               commits=47    pages=built    source=main /
+  ok   GEMSDOE40                              commits=55    pages=built    source=main /
+  ok   GEMSDOE41                              commits=73    pages=built    source=main /
+  ok   GEMSDOE42                              commits=10    pages=built    source=main /
+  ok   GEMSDOE43                              commits=9     pages=built    source=main /
+  ok   GEMSDOE44                              commits=25    pages=built    source=main /
+  ok   GEMSDOE45                              commits=22    pages=built    source=main /
+  ok   GEMSDOE46                              commits=44    pages=built    source=main /
+  ok   GEMSDOE47                              commits=91    pages=built    source=main /
+  ok   GEMSDOE48                              commits=101   pages=built    source=main /
+  ok   GEMSDOE49                              commits=16    pages=built    source=main /
+  ok   GEMSDOE50                              commits=99    pages=built    source=main /
+  ok   GEMSDOE51                              commits=61    pages=built    source=main /
+  ok   GEMSDOE52                              commits=502   pages=built    source=main /
+  ...  GEMSDOE53                              Pages status re-read 4 time(s), now 'errored'
+  WARNING: GEMSDOE53: Pages status is 'errored' after re-reading, not 'built' — recorded as-is
+  ok   GEMSDOE53                              commits=55    pages=errored  source=main /
+  ok   GEMSDOE54                              commits=47    pages=built    source=main /
+  ok   GEMSDOE63                              commits=24    pages=built    source=main /
+  ok   GEMSDOE64                              commits=45    pages=built    source=main /
+  ok   GEMSDOE65                              commits=55    pages=built    source=main /
+  ok   GEMSDOE66                              commits=63    pages=built    source=main /
+  ok   GEMSDOE67                              commits=37    pages=built    source=main /
+  ok   GEMSDOE68                              commits=10    pages=built    source=main /
+  ok   GEMSDOE69                              commits=14    pages=built    source=main /
+  ok   GEMSDOE70                              commits=1     pages=built    source=main /
+  ok   GEMSDOE71                              commits=1     pages=built    source=main /
+  ok   GEMSDOE72                              commits=1     pages=built    source=main /
+  ok   GEMSDOE9                               commits=9     pages=built    source=main /
+  ok   GOLD                                   commits=52    pages=built    source=main /docs
+  ok   GRANTWRITING                           commits=55    pages=built    source=main /
+  ok   HongdaeStay                            commits=15    pages=built    source=main /
+  ok   HotelSeoulRoughdraft1                  commits=17    pages=built    source=main /
+  ok   InjuryAlerTNFL                         commits=47    pages=built    source=main /
+  ok   Insider-trades                         commits=17    pages=built    source=main /
+  ok   Itinerary-Korea                        commits=9     pages=built    source=main /
+  ok   KalshiPaperSim                         commits=626   pages=built    source=main /
+  ok   Korea                                  commits=65    pages=built    source=main /
+  ok   Korea-emergency                        commits=20    pages=built    source=main /
+  ok   KoreaHotels                            commits=89    pages=built    source=main /
+  ok   LEARNGEMSDOE                           commits=36    pages=built    source=main /
+  ok   LSTARENGY                              commits=6     pages=built    source=main /
+  ok   Leg3SeoulTrip                          commits=1     pages=built    source=main /
+  ok   MALTASUPPLEMENTAL                      commits=258   pages=built    source=main /
+  ok   MLB-Live-PBP                           commits=70    pages=built    source=main /
+  ok   MLB-PBP                                commits=9     pages=built    source=main /
+  ok   MLB-Prediction-model-backtest          commits=73    pages=built    source=main /
+  ok   MLBComp                                commits=23    pages=built    source=main /
+  ok   MLBRainDelay                           commits=24    pages=built    source=main /
+  ok   MLBSCORINGCHANGE                       commits=184   pages=built    source=main /
+  ok   MasterSelfLearn                        commits=76    pages=built    source=main /
+  ok   MasterSite                             commits=186   pages=built    source=main /
+  ok   NBAComp                                commits=232   pages=built    source=main /
+  ok   NBAInjScoreboard                       commits=20    pages=built    source=main /
+  ok   NBAInjuryReport                        commits=296   pages=built    source=main /
+  ok   NBASCOREBOARD                          commits=208   pages=built    source=main /
+  ok   NFL-PLAYER-PROP-SIM                    commits=1     pages=built    source=main /
+  ok   NFL-scoreboard                         commits=40    pages=built    source=main /
+  ok   NFLComp                                commits=29    pages=built    source=main /
+  ...  NFLInjuryReport                        Pages status re-read 4 time(s), now 'errored'
+  WARNING: NFLInjuryReport: Pages status is 'errored' after re-reading, not 'built' — recorded as-is
+  ok   NFLInjuryReport                        commits=2161  pages=errored  source=main /
+  ok   NFLMAIN                                commits=82    pages=built    source=main /
+  ok   NFLPARLAYCOMP                          commits=54    pages=built    source=main /
+  ok   NFLPRED                                commits=1     pages=built    source=main /
+  ok   NHL-SCOREBOARD                         commits=98    pages=built    source=main /
+  ok   NHLComp                                commits=48    pages=built    source=main /
+  ok   NOBEL-PRIZE                            commits=12    pages=built    source=main /
+  ok   Ncaa-football-alerts                   commits=42    pages=built    source=main /
+  ok   OLBG-Competition                       commits=70    pages=built    source=main /
+  ok   PFFNFL                                 commits=3     pages=built    source=main /
+  ok   POSTSEASONMLBALERTS                    commits=20    pages=built    source=main /
+  ok   PRICINGEXPERT                          commits=124   pages=built    source=main /
+  ok   ParlaySports                           commits=29    pages=built    source=main /
+  ok   PlumbingSF                             commits=19    pages=built    source=main /
+  ok   PriceKalshiHistorical                  commits=5     pages=built    source=main /
+  skip ProjX                                  (permanently excluded — see AGENTS.md)
+  ok   RADIOSF                                commits=43    pages=built    source=main /
+  ok   RGENGY                                 commits=8     pages=built    source=main /
+  ok   SABERENGY                              commits=9     pages=built    source=main /
+  ok   SCORINGDISCREPNFL                      commits=46    pages=built    source=main /
+  ok   SFLateNight                            commits=30    pages=built    source=main /
+  ok   SFWeather                              commits=206   pages=built    source=main /
+  ok   SIM-COMP-NOBEL-PRIZE                   commits=33    pages=built    source=main /
+  ok   ScheduleFreeTime                       commits=31    pages=built    source=main /
+  ok   ScoringDiscrepNBA                      commits=55    pages=built    source=main /
+  ok   ScoringDiscrepNHL                      commits=127   pages=built    source=main /
+  ok   SelfLearn                              commits=140   pages=built    source=main /
+  ok   ShoulderPain                           commits=31    pages=built    source=main /
+  ok   SocialMediaComp                        commits=12    pages=built    source=main /
+  ok   SportsPred                             commits=189   pages=built    source=main /
+  ok   StanfordStay                           commits=18    pages=built    source=main /
+  ok   StockPaperSim                          commits=126   pages=built    source=main /
+  ok   StokEngineer                           commits=17    pages=built    source=main /
+  ok   TAXKALSHI                              commits=7     pages=built    source=main /
+  ok   THUNDERPICK-WC-2026                    commits=18    pages=built    source=main /
+  ok   THUNDERPICKCOMP                        commits=66    pages=built    source=main /
+  ok   TinoLunchSpecial                       commits=64    pages=built    source=main /
+  ok   TradingViewTheLeap                     commits=264   pages=built    source=main /
+  ok   Tradingview-pinescript-editor          commits=13    pages=built    source=main /
+  ok   VacationSchedule                       commits=44    pages=built    source=main /
+  ok   VapePods                               commits=12    pages=built    source=main /
+  ok   WoWForever                             commits=54    pages=built    source=main /
+  ok   based-loaded-MLB-alert-system          commits=56    pages=built    source=main /
+------------------------------------------------------------------------
+  sites=155 (apps=142 stubs=13) built=153 commits=11902
+  categories={"Science & ML Research": 67, "Travel & Korea Trip": 12, "Sports Data & Scoreboards": 37, "SF Local Guides": 8, "Markets & Trading Research": 13, "Elections & Civic Data": 1, "Unclassified & Placeholder": 9, "Directory & Meta": 2, "Reference & Archives": 1, "Health & Personal Guides": 1, "Social & Creator Data": 1, "Gaming & Guides": 3}
+  unreachable=4 excluded=['ProjX']
+  unlisted=ProjX (permanently excluded by owner request)
+  prose: 3 re-read this pass, 152 carried, 155 stamped with a SHA, 57 provably behind their repo
+  PROSE-STALE 12GEMSDOE                    description read at c98d77b, repository is now at c9252e1
+  PROSE-STALE 16GEMSDOE                    description read at 962587af0d16a50d45e32a80a3c90436435cb9d8, repository is now at 2565805
+  PROSE-STALE 58GEMSDOE                    description read at 3302a91ab36a50b59cd52fd900097c5fcfd29f74, repository is now at 4e5f978
+  PROSE-STALE 5GEMSDOE                     description read at 0c0b785, repository is now at f0dd347
+  PROSE-STALE 60GEMSDOE                    description read at 6f76b119d25f085add6e1ec031233293e13bf2d5, repository is now at 3202471
+  PROSE-STALE 61GEMSDOE                    description read at 8ffc2dbe9697a4de3748840b249b292a12530b0c, repository is now at 225b53a
+  PROSE-STALE 62GEMSDOE                    description read at a4761f4a770c3741239735495246149045a664a3, repository is now at b5b22e0
+  PROSE-STALE 6GEMSDOE                     description read at d67dd19, repository is now at e2fe3f4
+  PROSE-STALE based-loaded-MLB-alert-system description read at d06dc4886ad1426075478ce734df77959a02f283, repository is now at d665f20
+  PROSE-STALE Commodities                  description read at b284d69, repository is now at ace5e8e
+  PROSE-STALE Elections                    description read at dae1427, repository is now at 344eeb7
+  PROSE-STALE ErrorsLive                   description read at 57817024d81cb8c7f1d01ca16b312886bf01e4a9, repository is now at c4000a9
+  PROSE-STALE FUTURESCOMMODITIES           description read at 5389b9a, repository is now at 6b10454
+  PROSE-STALE GEMSDOE                      description read at cf20e1b, repository is now at dcbbb19
+  PROSE-STALE GEMSDOE2                     description read at 9d1aea9, repository is now at d11f111
+  PROSE-STALE GEMSDOE23                    description read at ebf8fb20ccd1b57edeb0d4677c6a3ed777154072, repository is now at a5bcbbc
+  PROSE-STALE GEMSDOE25                    description read at cc90c1aa28d2525667fb3dffdcab7877895f5e79, repository is now at 33cd1d9
+  PROSE-STALE GEMSDOE27                    description read at 3dc3a6b00d85dfb3b221812a10d6e4f060147792, repository is now at b92b1e8
+  PROSE-STALE GEMSDOE28                    description read at fa0edf3fd3b55e9dc0725b6013167b30ddf5e464, repository is now at 0075e22
+  PROSE-STALE GEMSDOE3                     description read at 9d7c47f, repository is now at 512371d
+  PROSE-STALE GEMSDOE32                    description read at 3ae286af599fdf86dbb0f333591f8273efcee806, repository is now at b39e16e
+  PROSE-STALE GEMSDOE4                     description read at a514859, repository is now at 5dc28f6
+  PROSE-STALE GEMSDOE52                    description read at 388140ce166a951dd4c00e6d8fa18e6ce4f19ad2, repository is now at ed9b987
+  PROSE-STALE GEMSDOE66                    description read at b1a6662fdd07ab80fdb1a32a66edfacfdb917765, repository is now at 3168cd9
+  PROSE-STALE GEMSDOE67                    description read at ddbe9a50ed53bca61512ab40401cedcbe7e1b02f, repository is now at 22d9034
+  PROSE-STALE GEMSDOE69                    description read at 2fe0d9b3f8fd8e6c9d4b41b538d07f60516166ff, repository is now at 691d010
+  PROSE-STALE GRANTWRITING                 description read at 450833a, repository is now at a16dbc2
+  PROSE-STALE InjuryAlerTNFL               description read at 6a4067a, repository is now at bf0c0a3
+  PROSE-STALE KalshiPaperSim               description read at 8a359bd, repository is now at 95f86b8
+  PROSE-STALE MALTASUPPLEMENTAL            description read at de3303f, repository is now at 851e3e2
+  PROSE-STALE MasterSelfLearn              description read at 86cb822, repository is now at 276dfdf
+  PROSE-STALE MasterSite                   description read at 3cda9250f12b3cd48ef85687bf4405591633a4c2, repository is now at 58e06ea
+  PROSE-STALE MLB-Live-PBP                 description read at 859e958, repository is now at 7eac371
+  PROSE-STALE MLBSCORINGCHANGE             description read at 7b74d7b, repository is now at 22338b6
+  PROSE-STALE NBAComp                      description read at 48592a1, repository is now at 91e8ae5
+  PROSE-STALE NBAInjScoreboard             description read at 231392d, repository is now at c83fe36
+  PROSE-STALE NBAInjuryReport              description read at df9a36a, repository is now at 98c75ea
+  PROSE-STALE NBASCOREBOARD                description read at c3b1fb5, repository is now at cbc7fda
+  PROSE-STALE NFLComp                      description read at 7ec80df, repository is now at af4b853
+  PROSE-STALE NFLInjuryReport              description read at 26367c3, repository is now at 765fc49
+  PROSE-STALE NFLMAIN                      description read at 84d054e, repository is now at bffd38c
+  PROSE-STALE NFLPARLAYCOMP                description read at fef877f, repository is now at 8bc2e7f
+  PROSE-STALE NHL-SCOREBOARD               description read at 7389443, repository is now at 8537a68
+  PROSE-STALE ParlaySports                 description read at f939267, repository is now at ee8ee1d
+  PROSE-STALE POSTSEASONMLBALERTS          description read at b8b5497, repository is now at 2a78bca
+  PROSE-STALE PRICINGEXPERT                description read at 8567a31, repository is now at 6b28fab
+  PROSE-STALE ScoringDiscrepNBA            description read at 1976ed7a39acfba5fc3268d4874a0071a0d8100a, repository is now at 3de2b8d
+  PROSE-STALE SCORINGDISCREPNFL            description read at 52a99f9d14bf80406bd5d38c8bfe9d63b3697ab0, repository is now at 8957a77
+  PROSE-STALE ScoringDiscrepNHL            description read at a93911af439fd4e91e1b84a96e4e519b20453b16, repository is now at c10d0ea
+  PROSE-STALE SelfLearn                    description read at c492159, repository is now at 4b998c3
+  PROSE-STALE SFWeather                    description read at bd93ed2, repository is now at 3b3d3aa
+  PROSE-STALE SIM-COMP-NOBEL-PRIZE         description read at 4724a64, repository is now at 8fd3294
+  PROSE-STALE THUNDERPICK-WC-2026          description read at 6179973, repository is now at a346df8
+  PROSE-STALE THUNDERPICKCOMP              description read at e0f4ecc, repository is now at d573b81
+  PROSE-STALE TradingViewTheLeap           description read at d09a594, repository is now at 6ba5117
+  PROSE-STALE VacationSchedule             description read at d6436dd, repository is now at 342fc5c
+  PROSE-STALE WoWForever                   description read at f7c83bc, repository is now at 0264b0e
+wrote data/sites.js (full API refresh)
+  audit timestamp 2026-10-12T03:08:41Z
+  2 warning(s) were printed above as they occurred

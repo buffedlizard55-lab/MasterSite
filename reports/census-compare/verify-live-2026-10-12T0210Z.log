@@ -1,0 +1,77 @@
+verify_live.py — re-reading data/sites.js against api.github.com
+dataset generated at: 2026-10-12T02:08:52Z
+----------------------------------------------------------------------------------------
+  accounts/buffedlizard55-lab   publicRepos=156 pagesSites=156
+  accounts/kanlerxz87-cyber     publicRepos=0 pagesSites=0
+  unreachable JobSearchSF              GET /repos -> HTTP 404 (recorded: 404)
+  unreachable MALTA                    GET /repos -> HTTP 404 (recorded: 404)
+  unreachable MALTA-LAWS               GET /repos -> HTTP 404 (recorded: 404)
+  unreachable MALTA2                   GET /repos -> HTTP 404 (recorded: 404)
+----------------------------------------------------------------------------------------
+checks: 2051   ok: 2002   mismatched: 49  (hard: 0, drift: 49)
+  pushed to since this snapshot read them (their differences are drift, not defects):
+    - 62GEMSDOE
+    - Commodities
+    - GEMSDOE67
+    - GEMSDOE68
+    - GEMSDOE69
+    - KalshiPaperSim
+    - MALTASUPPLEMENTAL
+    - NFLInjuryReport
+    - NFLPARLAYCOMP
+    - ScoringDiscrepNBA
+    - ScoringDiscrepNHL
+  DRIFT     sites[]/62GEMSDOE                      pushedAt           committed='2026-10-12T01:58:18Z'  live='2026-10-12T02:10:48Z'
+  DRIFT     sites[]/GEMSDOE67                      pushedAt           committed='2026-10-12T01:58:20Z'  live='2026-10-12T02:16:39Z'
+  DRIFT     sites[]/GEMSDOE67                      updatedAt          committed='2026-10-12T01:58:24Z'  live='2026-10-12T02:16:43Z'
+  DRIFT     sites[]/GEMSDOE67                      commits            committed=15  live=22
+  DRIFT     sites[]/GEMSDOE67                      lastCommit         committed='2026-10-12T01:58:20Z'  live='2026-10-12T02:16:39Z'
+  DRIFT     sites[]/GEMSDOE67                      lastCommitSha      committed='bc68cfa'  live='ddbe9a5'
+  DRIFT     sites[]/KalshiPaperSim                 pushedAt           committed='2026-10-12T01:19:30Z'  live='2026-10-12T02:13:53Z'
+  DRIFT     sites[]/KalshiPaperSim                 updatedAt          committed='2026-10-12T01:19:34Z'  live='2026-10-12T02:13:59Z'
+  DRIFT     sites[]/KalshiPaperSim                 sizeKb             committed=301245  live=312187
+  DRIFT     sites[]/KalshiPaperSim                 commits            committed=623  live=624
+  DRIFT     sites[]/KalshiPaperSim                 lastCommit         committed='2026-10-12T01:19:29Z'  live='2026-10-12T02:13:47Z'
+  DRIFT     sites[]/KalshiPaperSim                 lastCommitSha      committed='26d4a3e'  live='b712aa0'
+  DRIFT     sites[]/MALTASUPPLEMENTAL              pushedAt           committed='2026-10-12T02:04:32Z'  live='2026-10-12T02:06:49Z'
+  DRIFT     sites[]/MALTASUPPLEMENTAL              updatedAt          committed='2026-10-12T01:55:09Z'  live='2026-10-12T02:06:53Z'
+  DRIFT     sites[]/MALTASUPPLEMENTAL              commits            committed=249  live=251
+  DRIFT     sites[]/MALTASUPPLEMENTAL              lastCommit         committed='2026-10-12T01:55:03Z'  live='2026-10-12T02:06:49Z'
+  DRIFT     sites[]/MALTASUPPLEMENTAL              lastCommitSha      committed='8354d3a'  live='096b659'
+  DRIFT     sites[]/MasterSite                     sizeKb             committed=2357  live=3893
+  DRIFT     sites[]/NFLInjuryReport                pushedAt           committed='2026-10-12T02:05:36Z'  live='2026-10-12T02:20:58Z'
+  DRIFT     sites[]/NFLInjuryReport                updatedAt          committed='2026-10-12T02:05:40Z'  live='2026-10-12T02:21:02Z'
+  DRIFT     sites[]/NFLInjuryReport                pagesStatus        committed='built'  live='errored'
+  DRIFT     sites[]/NFLInjuryReport                commits            committed=2122  live=2133
+  DRIFT     sites[]/NFLInjuryReport                lastCommit         committed='2026-10-12T02:05:34Z'  live='2026-10-12T02:20:56Z'
+  DRIFT     sites[]/NFLInjuryReport                lastCommitSha      committed='b910d10'  live='760cb90'
+  DRIFT     sites[]/ScoringDiscrepNHL              pushedAt           committed='2026-10-11T23:12:49Z'  live='2026-10-12T02:18:44Z'
+  DRIFT     sites[]/ScoringDiscrepNHL              updatedAt          committed='2026-10-11T23:12:53Z'  live='2026-10-12T02:18:49Z'
+  DRIFT     sites[]/ScoringDiscrepNHL              commits            committed=125  live=126
+  DRIFT     sites[]/ScoringDiscrepNHL              lastCommit         committed='2026-10-11T23:12:49Z'  live='2026-10-12T02:18:40Z'
+  DRIFT     sites[]/ScoringDiscrepNHL              lastCommitSha      committed='5d3b253'  live='e4836ec'
+  DRIFT     sites[]/62GEMSDOE                      finalHeadSha       committed='96eb61e'  live='ee04a85'
+  DRIFT     sites[]/62GEMSDOE                      finalLastCommit    committed='2026-10-12T01:58:18Z'  live='2026-10-12T02:23:07Z'
+  DRIFT     sites[]/Commodities                    finalHeadSha       committed='b08b0bc'  live='5475f99'
+  DRIFT     sites[]/Commodities                    finalLastCommit    committed='2026-10-11T23:36:30Z'  live='2026-10-12T02:17:27Z'
+  DRIFT     sites[]/GEMSDOE67                      finalHeadSha       committed='bc68cfa'  live='ddbe9a5'
+  DRIFT     sites[]/GEMSDOE67                      finalLastCommit    committed='2026-10-12T01:58:20Z'  live='2026-10-12T02:16:39Z'
+  DRIFT     sites[]/GEMSDOE68                      finalHeadSha       committed='208f3bf'  live='e848bd1'
+  DRIFT     sites[]/GEMSDOE68                      finalLastCommit    committed='2026-10-12T01:46:25Z'  live='2026-10-12T02:26:19Z'
+  DRIFT     sites[]/KalshiPaperSim                 finalHeadSha       committed='26d4a3e'  live='b712aa0'
+  DRIFT     sites[]/KalshiPaperSim                 finalLastCommit    committed='2026-10-12T01:19:29Z'  live='2026-10-12T02:13:47Z'
+  DRIFT     sites[]/MALTASUPPLEMENTAL              finalHeadSha       committed='8354d3a'  live='096b659'
+  DRIFT     sites[]/MALTASUPPLEMENTAL              finalLastCommit    committed='2026-10-12T01:55:03Z'  live='2026-10-12T02:06:49Z'
+  DRIFT     sites[]/NFLInjuryReport                finalHeadSha       committed='b910d10'  live='ec6866a'
+  DRIFT     sites[]/NFLInjuryReport                finalLastCommit    committed='2026-10-12T02:05:34Z'  live='2026-10-12T02:27:03Z'
+  DRIFT     sites[]/NFLPARLAYCOMP                  finalHeadSha       committed='41db092'  live='8bc2e7f'
+  DRIFT     sites[]/NFLPARLAYCOMP                  finalLastCommit    committed='2026-10-11T22:41:55Z'  live='2026-10-12T02:25:18Z'
+  DRIFT     sites[]/ScoringDiscrepNBA              finalHeadSha       committed='cca65c1'  live='3de2b8d'
+  DRIFT     sites[]/ScoringDiscrepNBA              finalLastCommit    committed='2026-10-11T23:09:28Z'  live='2026-10-12T02:24:17Z'
+  DRIFT     sites[]/ScoringDiscrepNHL              finalHeadSha       committed='5d3b253'  live='c10d0ea'
+  DRIFT     sites[]/ScoringDiscrepNHL              finalLastCommit    committed='2026-10-11T23:12:49Z'  live='2026-10-12T02:28:20Z'
+
+  No hard mismatches: every API-derived field matches the snapshot except for fields GitHub
+  recomputes asynchronously and repositories that were pushed to after this snapshot read
+  them. Re-run tools/build_data.py to fold in a fresher read; the drift is expected, not a defect.
+wrote tools/last_live_verify.json

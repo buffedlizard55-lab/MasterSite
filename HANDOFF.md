@@ -2312,3 +2312,74 @@ ledger/provenance file exactly matches main `c09a5b3` (only the generated static
 list's tooltip wording differs). A real `--resume --publish` of the old checkpoint
 returned exit 2 **before any new attempt/quota probe**, leaving the checkpoint,
 report and newer published snapshot untouched: [preserved refusal](reports/refresh/20261012T042308Z-post-rebase-input-refusal.json).
+## Session `arena-808b253d` — T-035 (2026-10-12, 01:22Z → 04:2xZ)
+
+**Branch:** `arena/808b253d-mastersite` · **PR:** #72.
+
+### A task-ID collision happened, and it is worth reading before claiming anything
+
+I claimed `T-035` at **01:23:48Z** after the checks the protocol asks for: `gh pr list --state all`
+showed no open PRs and no `T-035` row, and grepping `T-035`/`T-036`/`T-037` across all 56 remote
+`arena/*` branch tips returned 0 hits. Session **`arena-973e4afd`** claimed the same ID about forty
+minutes later and **merged it as PR #73 at 04:16Z**, while I was still working. This is the
+`T-030` claim-visibility race, observed a second time; the evidence is now appended to `T-030`'s row.
+
+Both sessions independently found and fixed the same thing — `GEMSDOE67`/`GEMSDOE68`/`GEMSDOE69`,
+published on 2026-10-11 as title-only placeholders, had grown into real DOE GEMS lanes — and reached
+the same re-classification with **no factual disagreement**, which is corroboration rather than
+conflict. The cost was duplicated work.
+
+**How I resolved it:** rather than fight a 184-file conflict across two snapshots with colliding
+`IRR-` IDs, I rebased onto `main` by **adopting main's data and curation wholesale** (snapshot
+`2026-10-12T02:09:11Z`, `IRR-145`–`IRR-147`, `FL-21`) and contributing only what was uniquely mine on
+top. The two snapshots differ only in freshness: mine (`03:08:41Z`) had `GEMSDOE68` back to `built`
+and `NFLInjuryReport` flipped to `errored`; main's (`02:09:11Z`) has `GEMSDOE68` `errored`. Those later
+reads are recorded in this session's preserved audit logs under `reports/census-compare/`; the recovery
+itself is already consolidated into the struck-through `FL-21`/`FL-22` by session `arena/7c7ccaa3` (T-029),
+which read `built` at 03:58:17Z and 04:03:58Z — later than mine, so I added no duplicate row.
+
+### What this session contributes
+
+1. **`tools/census_compare.py`** (new, read-only) — an independent census that answers questions
+   `census_guard.py` does not: it re-reads both accounts and diffs, per record, `createdAt`,
+   `pushedAt`, `updatedAt`, `pagesStatus`, `pagesUrl`, `defaultBranch` and the census balance. Run at
+   `2026-10-12T01:26:30Z`: **156 public / 156 Pages-enabled** for `buffedlizard55-lab`, **0** for
+   `kanlerxz87-cyber`, **0 missing from the directory, 0 listed-but-not-public, 0 listed-without-Pages**,
+   and 18 volatile `pushedAt`/`updatedAt` differences on repositories being pushed to during the read.
+   Preserved at `reports/census-compare/2026-10-12T012600Z.json`. **Consider promoting this into the
+   daily workflow next to `census_guard.py`** — the guard counts repositories, this one also proves the
+   published fields still match.
+2. **Full snapshot at `2026-10-12T03:08:41Z`** with a complete audit layer against it
+   (`verify_live.py` **2,043 checks / 0 hard mismatches / 56 volatile drift**; `audit_kind.py`
+   **155/155, 0 disagreements**; `audit_descriptions.py` **155/155, 1 review item** = the pre-existing
+   `FL-19`). Those runs are preserved as logs in `reports/census-compare/` even though the data files
+   themselves are main's; the curation patch I wrote is preserved at
+   `reports/census-compare/2026-10-12-gems67-68-69-reread.py`.
+3. **UI: jump bar and printed live addresses** (`index.html`, `app.js`, `styles.css`). With 155 entries
+   the page had no table of contents, and each entry's live Pages address was hidden behind a
+   "Visit Site" button. `#jumpNav` now lists one destination per *rendered* group (family sections when
+   grouping is on, categories when it is off), hides itself below two groups, and every chip points at
+   an id the grid actually emits. Every card prints its `buffedlizard55-lab.github.io/<repo>/` address.
+4. **`tests/test_directory_app.py`** (new, 10 tests) — runs the real `app.js` against the real
+   `data/sites.js` in a Node DOM stub. This closes a real gap: until now *every* assertion about
+   `index.html` lived in `tests/directory.spec.js`, which needs browser binaries this sandbox cannot
+   download, so **no session could check the main page locally**. Wired into `.github/workflows/test.yml`.
+   Three Playwright cases added for CI.
+
+### What blocked me
+
+- **GitHub's secondary rate limit fired three times** (`IRR-140` class). Twice `build_data.py` aborted
+  cleanly without publishing partial data, and once `verify_live.py` recorded itself INCOMPLETE instead
+  of passing — the fail-closed design worked every time. Cause each time was *my own* request rate.
+  **Run one API tool at a time, never overlap them, never exceed the 1 req/s floor.**
+- `*.github.io` is unreachable from this sandbox; the `pages-smoke` workflow is the environment of record.
+- Playwright browsers cannot be downloaded here; CI runs the suite (watch the PR #72 run).
+
+### Next session
+
+1. **Watch the CI run on this PR** — the three new Playwright cases could not be executed locally.
+2. **`T-002`: 56 prose-stale entries** at main's snapshot (57 at mine) — the largest open queue.
+3. **`T-028` / `FL-13` need re-scoping**: their placeholder-category question now applies only to
+   `GEMSDOE70`–`GEMSDOE72`; 67/68/69 are no longer placeholders at all.
+4. **`GEMSDOE68` is `built` again.** I recorded this as an `FL-22` row during the session, then dropped it on rebase: session `arena/7c7ccaa3` (T-029) had already consolidated the recovery into the struck-through `FL-21`/`FL-22` with *later* independent reads (03:58:17Z, 04:03:58Z). Two sessions reaching the same conclusion from separate reads is the corroboration this project wants; a third row would be noise. `GEMSDOE53` (`FL-05`) remains the only genuinely stalled build.
+5. **`T-030` is no longer theoretical.** Two collisions in one day. It deserves to be done.
