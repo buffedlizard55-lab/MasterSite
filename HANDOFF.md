@@ -2305,3 +2305,10 @@ kind FL-21 was moved to historical closed FL-23 (resolved by T-035 curation).
 The original full-run counts/read times/block verdict remain unchanged evidence;
 new input fingerprints must refuse that old checkpoint. No source prose or
 published metadata was overwritten by this session.
+
+Post-rebase gates passed: **193 Python tests, validator 6,472 checks, JavaScript
+syntax**, and a Git comparison confirms every canonical data/overlay/family/audit/
+ledger/provenance file exactly matches main `c09a5b3` (only the generated static
+list's tooltip wording differs). A real `--resume --publish` of the old checkpoint
+returned exit 2 **before any new attempt/quota probe**, leaving the checkpoint,
+report and newer published snapshot untouched: [preserved refusal](reports/refresh/20261012T042308Z-post-rebase-input-refusal.json).

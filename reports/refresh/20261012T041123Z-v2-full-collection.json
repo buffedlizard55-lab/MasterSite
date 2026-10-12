@@ -3318,6 +3318,15 @@
         "path": "tools/last_provenance_audit.json",
         "sha256": "5a2b27ef4540c4dd5da1c6fd0ca6c5e4931a071bc0c62a9698fde9d552eb33b2"
       }
-    ]
+    ],
+    "asOf": "2026-10-12T04:11:23Z",
+    "comparisonBasis": "Pre-rebase execution against main 58e06ea; later T-035 publication was retained, not rolled back."
+  },
+  "integration": {
+    "baseCommit": "c09a5b3",
+    "adoptedPublishedSnapshot": "2026-10-12T02:09:11Z",
+    "oldInputKindFindingsResolvedBy": "PR #73 / T-035",
+    "oldCheckpointResumeRefusal": "reports/refresh/20261012T042308Z-post-rebase-input-refusal.json",
+    "scope": "Git integration note, not a relabeled API observation."
   }
 }

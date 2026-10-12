@@ -118,7 +118,7 @@ If GitHub API access is unavailable, `python3 tools/build_data.py --overlay-only
 
 **Pages build-health re-check cadence (T-005).** On every refresh or health pass, re-read
 `GET /repos/{owner}/{repo}/pages` for each entry whose `pagesStatus` is not `built` (currently
-`GEMSDOE53` and `NFLInjuryReport`) and record the timestamped result in `FLAGGED.md` (FL-05,
+`GEMSDOE53` and `GEMSDOE68` in the published snapshot; recheck later recovery rather than treating that snapshot as current) and record the timestamped result in `FLAGGED.md` (FL-05,
 FL-17) with the repository's
 `pushed_at` beside it — a status that is unchanged with no new push needs no data regeneration,
 and FL-05 must not be cleared while the API still reports `errored`. A recovery to `built`
