@@ -2197,3 +2197,111 @@ PR #48, so it was not touched).
 3. **T-029 (quota-aware resumable refresh)** is now the highest-value infrastructure fix: this session lost ~2,200
    requests to aborted passes that could not resume. T-030 (claim-visibility race) and T-027/T-028 remain open.
 4. **Owner decisions:** `FL-20`, `T-028`, `T-006`, the frozen 404s, `GEMSDOE53` rebuild, and T-023's larger token.
+
+---
+
+## Session `arena-7c7ccaa3` — 2026-10-12 (T-029: quota-aware, resumable full refresh)
+
+**Single owned task:** T-029, now done. **Branch:** `arena/7c7ccaa3-mastersite`
+(platform-fixed). **Delivery PR:** [#71](https://github.com/buffedlizard55-lab/MasterSite/pull/71).
+Claim committed alone and immediately pushed at `2026-10-12T01:19:28Z` after
+reading the protocol/flags and checking PR history plus all 54 remote Arena tips.
+Rebased on main `58e06ea` before opening the PR, then onto `c09a5b3` after PR #73 merged while finishing. No direct-main commit, T-002 prose
+edit, exclusion change, frozen-record deletion, or dependency/lockfile change.
+
+### What was done
+
+- Added **`tools/refresh.py`** and [continuation/promotion guide](tools/REFRESH.md):
+  builder → kind → numeric lint → provenance → live fields → final both-account
+  public census. Default **900 − 60 = 840 actual HTTP requests** per invocation,
+  including probes/failures/redirects; smaller actual response quotas shrink it.
+  Access/transport/server blocks remain failures, never missing-file/repository
+  findings. Pauses retain work without replacing publication.
+- Compressed/checksummed original observations, independent phase namespaces,
+  original UTC read times on replay, pinned commit pagination, process locks,
+  input fingerprints, invocation-start age checks, sealed outputs and explicit
+  fail-closed promotion. Per-record exports validate/preserve exact source URLs,
+  statuses and original times; UI/lists/ledger distinguish completion from reads.
+  Historical snapshots remain supported without invented timestamps.
+- A real official rename (`LiveScoringErrors` → `/repositories/1394107287`)
+  exposed a version-1 replay defect. Version 2 separates logical/initial-wire/final
+  URLs; regressions and real zero-request/original-time replay passed. Obsolete
+  version-1 work remains INCOMPLETE; caches were never relabeled/transplanted.
+- **Real version-2 collection completed all six stages:** `02:31:05Z` to
+  **`04:11:23Z`** on 2026-10-12, seven invocations (7, 7, 438, 840, 692, 840, 114)
+  = **2,938 HTTP requests**, including seven probes and one redirect hop. Two
+  live-reserve pauses waited for stored actual resets (`02:55:20Z`, `03:55:22Z`);
+  two 840-request ceilings also resumed without losing work. Durable evidence:
+  [readable report](reports/refresh/20261012T041123Z-v2-full-collection.md) /
+  [original facts and checksums](reports/refresh/20261012T041123Z-v2-full-collection.json).
+- **Staged, not published:** completion `02:57:48Z`, 155 entries, 11,851 commits,
+  58 mechanically prose-stale. Final census at `04:11:19Z`–`04:11:23Z`:
+  **156 primary public repositories = 155 listed + excluded ProjX; secondary 0;
+  no coverage gaps.** Independent audits:
+  - Kind **155/155**, two disagreements: `GEMSDOE67`/`GEMSDOE69` now have HTML
+    entry points but remain curated as stubs (**historical FL-23**, resolved by T-035 after this collection).
+  - Numeric lint **155/155**, one unresolved entry: `60GEMSDOE`'s
+    `0.00420`/`0.08623` absent from its pinned README (**FL-19**); 42 exceptions.
+  - Provenance **155/155, 1,118 checks, 0 hard findings**; five `{path}` citation
+    templates remain disclosed (FL-18). This is not semantic verification.
+  - Live fields **2,049 checks, 0 hard mismatches, 80 volatile drifts**, no set
+    differences. Drift is disclosed, not rewritten into an older observation.
+- Final verdict **BLOCKED_FINDINGS, exit 1**: kind disagreements correctly
+  prevented `--publish`. All **162 published data/export/audit/ledger hashes
+  match main `58e06ea`**. During the pre-rebase run the branch snapshot remained **`00:11:29Z`**, with its
+  historical audit states intact. The static master list changed only tooltip
+  wording, not its dataset. Do not present staged audits as a new published ledger.
+- `GEMSDOE68` later reported `built`, last at `04:03:58Z` (**FL-21 recovery / FL-22 consolidated**, not uptime). `GEMSDOE53` still reported `errored` at
+  `04:03:37Z`; repository `pushed_at` remained `2026-10-09T02:00:53Z` at
+  `04:09:47Z` (**FL-05 retained**). `NFLInjuryReport` was `building` in some
+  builder reads and `built` in the later verifier: a timestamped volatile drift.
+
+### Validation and integration
+
+**193 offline Python tests passed** (45 coordinator + 21 evidence tests included),
+`scripts/validate` PASS, JavaScript checks/Python compilation PASS. Construction
+of all 155 real staged exports retained valid exact-source/window evidence
+without writing publication. **52 local desktop/mobile Chromium tests passed**
+with an ignored temporary browser/runtime. Full Chromium/Firefox/WebKit workflow
+**passed on implementation revision `b0d1ecc`** ([official CI run](https://github.com/buffedlizard55-lab/MasterSite/actions/runs/38198039418)).
+Require the latest PR revision's actual green check before merge as usual. These
+are directory regressions, not upstream runtime/uptime/semantic-prose proof.
+
+### Blockers and next session
+
+1. Respect the claimed **T-002** owner and work the **56 published stale
+   descriptions**, numeric tokens and exact citation paths. T-035 already source-
+   reread/reclassified GEMSDOE67/GEMSDOE69; retain those changes rather than
+   duplicating the resolved old-input kind work.
+2. After curation changes, **start a new checkpoint** per `tools/REFRESH.md`;
+   input changes intentionally invalidate `.work/refresh-v2`. Do not edit
+   fingerprints/timestamps to force promotion. Rebuild exports/lists/ledger and
+   validate after an eligible explicit promotion, never by hand-editing records.
+3. Carry FL-18 citation templates, `GEMSDOE64`/`GEMSDOE65` served-page/README
+   conflicts, SABERENGY's HTTP-title/redirect limitation, owner decisions, ProjX
+   exclusion and all four frozen unreachable records. This task does not resolve
+   those separate source/ownership/runtime questions.
+4. **Future pipeline work:** checkpoints are local/ignored, not uploaded/restored
+   across scheduled Actions jobs; the schedule remains a budget-limited subset
+   runner. The ceiling is per invocation, not a global quota reservation. Age is
+   checked at invocation start, not continuously while running. Promotion is
+   atomic per file, not one multi-file transaction. No used API supplies visits,
+   last use or continuous uptime.
+
+The session-only supervisor exited after completion; no continuation requests
+remain running. Raw checkpoints are local/ignored; compact review artifacts are
+the durable evidence on the branch/PR.
+
+### Integration note — main advanced during PR review
+
+PR #73/T-035 merged while this session was finalizing. Rebase retained its
+`2026-10-12T02:09:11Z` published snapshot (155 sites, 11,797 commits, 56 stale,
+147 irregularities), all source rereads, family membership and complete audit
+reports. The earlier 162 unchanged hashes describe T-029's pre-rebase execution
+against main `58e06ea`, not a rollback promise against the later publication.
+Main's existing FL-21 (`GEMSDOE68`) was preserved and annotated with the later
+recorded API recovery; duplicate T-029 FL-22 was consolidated, and its former
+kind FL-21 was moved to historical closed FL-23 (resolved by T-035 curation).
+The original full-run counts/read times/block verdict remain unchanged evidence;
+new input fingerprints must refuse that old checkpoint. No source prose or
+published metadata was overwritten by this session.

@@ -69,10 +69,12 @@ it remains a finding, must stay disclosed, and does not renew any prose stamp.
   SHA, including on resume. A moving branch cannot change the later pages of that
   particular history read.
 - Input-code and curated-input fingerprints, a per-checkpoint process lock, a
-  default **24-hour maximum collection age** (`--max-age` in seconds), cached
-  metadata/body consistency, and sealed completed outputs prevent mixed-version,
-  corrupt, concurrent, or relabeled collections. Inputs are rechecked before each
-  phase and before promotion. A changed/expired collection needs a new checkpoint.
+  default **24-hour collection-age check at invocation start** (`--max-age` in
+  seconds), cached metadata/body consistency, and sealed completed outputs prevent
+  mixed-version, corrupt, concurrent, or relabeled collections. The age gate is
+  checked when starting/resuming, not continuously during an already-running
+  invocation. Inputs are rechecked before each phase and before promotion. A
+  changed/expired collection needs a new checkpoint.
 
 ## Review artifacts and publication gates
 

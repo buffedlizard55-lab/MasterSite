@@ -1,0 +1,267 @@
+{
+  "checkpointVersion": 2,
+  "summary": {
+    "startedAt": "2026-10-12T02:31:05Z",
+    "finishedAt": null,
+    "status": "INCOMPLETE",
+    "publishedAt": null,
+    "pause": {
+      "reason": "live primary quota has reached the unspent reserve",
+      "source": "https://api.github.com/repos/buffedlizard55-lab/SocialMediaComp/contents/README.md?ref=f0ee63a",
+      "httpStatus": null,
+      "retrySuggestedAt": null,
+      "pausedAt": "2026-10-12T03:21:55Z"
+    },
+    "attempts": [
+      {
+        "startedAt": "2026-10-12T02:31:05Z",
+        "budget": 8,
+        "reserve": 1,
+        "finishedAt": "2026-10-12T02:31:11Z",
+        "requests": 7,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:31:05Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791775865
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791775865",
+            "date": "Mon, 12 Oct 2026 02:31:05 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T02:31:11Z",
+        "budget": 8,
+        "reserve": 1,
+        "finishedAt": "2026-10-12T02:31:17Z",
+        "requests": 7,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:31:11Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791775871
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791775871",
+            "date": "Mon, 12 Oct 2026 02:31:11 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T02:33:46Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T02:41:45Z",
+        "requests": 438,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:33:46Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791776026
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791776026",
+            "date": "Mon, 12 Oct 2026 02:33:46 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T02:55:25Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T03:10:20Z",
+        "requests": 840,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:55:25Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791777325
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791777325",
+            "date": "Mon, 12 Oct 2026 02:55:25 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T03:10:20Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T03:21:55Z",
+        "requests": 692,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T03:10:20Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791778220
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791778220",
+            "date": "Mon, 12 Oct 2026 03:10:20 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      }
+    ],
+    "stages": [
+      {
+        "stage": "build_data",
+        "verdict": "PASS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T02:31:05Z",
+          "completedAt": "2026-10-12T02:57:48Z",
+          "oldestReadAt": "2026-10-12T02:31:06Z",
+          "newestReadAt": "2026-10-12T02:57:48Z",
+          "requests": 544,
+          "responses": 544,
+          "checkpointReplaysThisInvocation": 449,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 544,
+        "report": null,
+        "review": {}
+      },
+      {
+        "stage": "audit_kind",
+        "verdict": "FINDINGS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T02:57:48Z",
+          "completedAt": "2026-10-12T03:02:58Z",
+          "oldestReadAt": "2026-10-12T02:57:49Z",
+          "newestReadAt": "2026-10-12T03:02:58Z",
+          "requests": 310,
+          "responses": 310,
+          "checkpointReplaysThisInvocation": 0,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 310,
+        "report": "tools/last_kind_audit.json",
+        "review": {
+          "disagreements": [
+            {
+              "repo": "GEMSDOE67",
+              "overlayKind": "stub",
+              "derivedKind": "app",
+              "httpStatus": 200,
+              "pagesSource": "main /"
+            },
+            {
+              "repo": "GEMSDOE69",
+              "overlayKind": "stub",
+              "derivedKind": "app",
+              "httpStatus": 200,
+              "pagesSource": "main /"
+            }
+          ]
+        }
+      },
+      {
+        "stage": "audit_descriptions",
+        "verdict": "FINDINGS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T03:02:58Z",
+          "completedAt": "2026-10-12T03:05:33Z",
+          "oldestReadAt": "2026-10-12T03:02:59Z",
+          "newestReadAt": "2026-10-12T03:05:33Z",
+          "requests": 155,
+          "responses": 155,
+          "checkpointReplaysThisInvocation": 0,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 155,
+        "report": "tools/last_description_audit.json",
+        "review": {
+          "unresolved": [
+            {
+              "repo": "60GEMSDOE",
+              "why": "numeric tokens not found in README",
+              "tokens": [
+                "0.00420",
+                "0.08623"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "stage": "audit_provenance",
+        "verdict": "INCOMPLETE",
+        "apiCollection": {
+          "oldestReadAt": "2026-10-12T03:05:34Z",
+          "newestReadAt": "2026-10-12T03:21:55Z"
+        },
+        "requests": 970,
+        "report": "tools/last_provenance_audit.json",
+        "review": {}
+      },
+      {
+        "stage": "verify_live",
+        "verdict": "NOT-RUN",
+        "apiCollection": null,
+        "requests": 0,
+        "report": "tools/last_live_verify.json",
+        "review": {}
+      },
+      {
+        "stage": "coverage",
+        "verdict": "NOT-RUN",
+        "apiCollection": null,
+        "requests": 0,
+        "report": null,
+        "review": {}
+      }
+    ],
+    "publicationBlockers": [
+      "audit_kind: kind disagreements require source review",
+      "audit_provenance: collection incomplete",
+      "verify_live: collection incomplete",
+      "coverage: collection incomplete"
+    ],
+    "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+  },
+  "pauseObservation": {
+    "url": "https://api.github.com/repos/buffedlizard55-lab/SocialMediaComp/contents/data/master-list.json?ref=f0ee63a",
+    "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/SocialMediaComp/contents/data/master-list.json?ref=f0ee63a",
+    "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/SocialMediaComp/contents/data/master-list.json?ref=f0ee63a",
+    "status": 200,
+    "readAt": "2026-10-12T03:21:55Z",
+    "headers": {
+      "x-ratelimit-limit": "5000",
+      "x-ratelimit-remaining": "60",
+      "x-ratelimit-reset": "1791777322",
+      "date": "Mon, 12 Oct 2026 03:21:55 GMT"
+    }
+  },
+  "scope": "Real version-2 collection paused before its next request at the 60-request live quota reserve. No API requests are sent while waiting for the stored original-response reset. Provenance is INCOMPLETE, not a zero-findings verdict. No partial publication."
+}

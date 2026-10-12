@@ -1,0 +1,3323 @@
+{
+  "scope": "Completed real version-2 full API collection; staged data was NOT published. T-029 implementation evidence, not semantic prose, live-site uptime, functionality, or usage proof.",
+  "checkpointVersion": 2,
+  "inputFingerprints": {
+    "tools/overlay.json": "d0a7cdd1ccbb8d76ed15d59bc0eb548be0a18c5b486cc1bdcbfe1d6b236bb726",
+    "tools/families.json": "49d8819ebcb914a501d84d7d3a5a4963c9844f84066fd97b247b07e0847f2fbf",
+    "tools/refresh.py": "7f45ce97706e62c8918d4256c7f9a46a03a17cb4cbbf48760f49a4e24d0d2b4a",
+    "tools/build_data.py": "1f870267651f4dcfeb6fedc0ac78ef509633d443ea6e8652eeaa1c04c8d83121",
+    "tools/audit_kind.py": "5a62757c3123de784e9cd62c379c5843cd8d9ff0e018e709c1e3efe2ce54c442",
+    "tools/audit_descriptions.py": "51c1eafcb37ef8d221e951680b638f01595feae36c96691fd206c18d7449236e",
+    "tools/audit_provenance.py": "850b5710a3cd6000389f9fbb49e3d91fb7e5183fd0486b79b823f65cc523c207",
+    "tools/verify_live.py": "34744719c6ee5dd01360b4c7e1693759f5337ab5c2dab9b649ae0420292f756d"
+  },
+  "summary": {
+    "startedAt": "2026-10-12T02:31:05Z",
+    "finishedAt": "2026-10-12T04:11:23Z",
+    "status": "BLOCKED_FINDINGS",
+    "publishedAt": null,
+    "pause": null,
+    "attempts": [
+      {
+        "startedAt": "2026-10-12T02:31:05Z",
+        "budget": 8,
+        "reserve": 1,
+        "finishedAt": "2026-10-12T02:31:11Z",
+        "requests": 7,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:31:05Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791775865
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791775865",
+            "date": "Mon, 12 Oct 2026 02:31:05 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T02:31:11Z",
+        "budget": 8,
+        "reserve": 1,
+        "finishedAt": "2026-10-12T02:31:17Z",
+        "requests": 7,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:31:11Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791775871
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791775871",
+            "date": "Mon, 12 Oct 2026 02:31:11 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T02:33:46Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T02:41:45Z",
+        "requests": 438,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:33:46Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791776026
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791776026",
+            "date": "Mon, 12 Oct 2026 02:33:46 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T02:55:25Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T03:10:20Z",
+        "requests": 840,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T02:55:25Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791777325
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791777325",
+            "date": "Mon, 12 Oct 2026 02:55:25 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T03:10:20Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T03:21:55Z",
+        "requests": 692,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T03:10:20Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791778220
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791778220",
+            "date": "Mon, 12 Oct 2026 03:10:20 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T03:55:27Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T04:09:30Z",
+        "requests": 840,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T03:55:27Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791780927
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791780927",
+            "date": "Mon, 12 Oct 2026 03:55:27 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      },
+      {
+        "startedAt": "2026-10-12T04:09:30Z",
+        "budget": 900,
+        "reserve": 60,
+        "finishedAt": "2026-10-12T04:11:23Z",
+        "requests": 114,
+        "quota": {
+          "source": "https://api.github.com/rate_limit",
+          "readAt": "2026-10-12T04:09:30Z",
+          "core": {
+            "limit": 5000,
+            "used": 0,
+            "remaining": 5000,
+            "reset": 1791781770
+          },
+          "headers": {
+            "x-ratelimit-limit": "5000",
+            "x-ratelimit-remaining": "5000",
+            "x-ratelimit-reset": "1791781770",
+            "date": "Mon, 12 Oct 2026 04:09:30 GMT"
+          },
+          "effectiveRemaining": 5000
+        }
+      }
+    ],
+    "stages": [
+      {
+        "stage": "build_data",
+        "verdict": "PASS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T02:31:05Z",
+          "completedAt": "2026-10-12T02:57:48Z",
+          "oldestReadAt": "2026-10-12T02:31:06Z",
+          "newestReadAt": "2026-10-12T02:57:48Z",
+          "requests": 544,
+          "responses": 544,
+          "checkpointReplaysThisInvocation": 449,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 544,
+        "report": null,
+        "review": {}
+      },
+      {
+        "stage": "audit_kind",
+        "verdict": "FINDINGS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T02:57:48Z",
+          "completedAt": "2026-10-12T03:02:58Z",
+          "oldestReadAt": "2026-10-12T02:57:49Z",
+          "newestReadAt": "2026-10-12T03:02:58Z",
+          "requests": 310,
+          "responses": 310,
+          "checkpointReplaysThisInvocation": 0,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 310,
+        "report": "tools/last_kind_audit.json",
+        "review": {
+          "disagreements": [
+            {
+              "repo": "GEMSDOE67",
+              "overlayKind": "stub",
+              "derivedKind": "app",
+              "httpStatus": 200,
+              "pagesSource": "main /"
+            },
+            {
+              "repo": "GEMSDOE69",
+              "overlayKind": "stub",
+              "derivedKind": "app",
+              "httpStatus": 200,
+              "pagesSource": "main /"
+            }
+          ]
+        }
+      },
+      {
+        "stage": "audit_descriptions",
+        "verdict": "FINDINGS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T03:02:58Z",
+          "completedAt": "2026-10-12T03:05:33Z",
+          "oldestReadAt": "2026-10-12T03:02:59Z",
+          "newestReadAt": "2026-10-12T03:05:33Z",
+          "requests": 155,
+          "responses": 155,
+          "checkpointReplaysThisInvocation": 0,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 155,
+        "report": "tools/last_description_audit.json",
+        "review": {
+          "unresolved": [
+            {
+              "repo": "60GEMSDOE",
+              "why": "numeric tokens not found in README",
+              "tokens": [
+                "0.00420",
+                "0.08623"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "stage": "audit_provenance",
+        "verdict": "PASS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T03:05:33Z",
+          "completedAt": "2026-10-12T03:56:55Z",
+          "oldestReadAt": "2026-10-12T03:05:34Z",
+          "newestReadAt": "2026-10-12T03:56:55Z",
+          "requests": 1055,
+          "responses": 1054,
+          "checkpointReplaysThisInvocation": 969,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 1055,
+        "report": "tools/last_provenance_audit.json",
+        "review": {}
+      },
+      {
+        "stage": "verify_live",
+        "verdict": "PASS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T03:56:55Z",
+          "completedAt": "2026-10-12T04:11:18Z",
+          "oldestReadAt": "2026-10-12T03:56:56Z",
+          "newestReadAt": "2026-10-12T04:11:18Z",
+          "requests": 862,
+          "responses": 862,
+          "checkpointReplaysThisInvocation": 754,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 862,
+        "report": "tools/last_live_verify.json",
+        "review": {}
+      },
+      {
+        "stage": "coverage",
+        "verdict": "PASS",
+        "apiCollection": {
+          "startedAt": "2026-10-12T04:11:18Z",
+          "completedAt": "2026-10-12T04:11:23Z",
+          "oldestReadAt": "2026-10-12T04:11:19Z",
+          "newestReadAt": "2026-10-12T04:11:23Z",
+          "requests": 5,
+          "responses": 5,
+          "checkpointReplaysThisInvocation": 0,
+          "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+        },
+        "requests": 5,
+        "report": null,
+        "review": {}
+      }
+    ],
+    "publicationBlockers": [
+      "audit_kind: kind disagreements require source review"
+    ],
+    "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+  },
+  "stagedSnapshot": {
+    "generated": "2026-10-12T02:57:48Z",
+    "apiCollection": {
+      "startedAt": "2026-10-12T02:31:05Z",
+      "completedAt": "2026-10-12T02:57:48Z",
+      "oldestReadAt": "2026-10-12T02:31:06Z",
+      "newestReadAt": "2026-10-12T02:57:48Z",
+      "requests": 544,
+      "responses": 544,
+      "checkpointReplaysThisInvocation": 449,
+      "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+    },
+    "counts": {
+      "sites": 155,
+      "apps": 140,
+      "stubs": 15,
+      "pagesBuilt": 153,
+      "commits": 11851,
+      "categories": {
+        "Science & ML Research": 64,
+        "Travel & Korea Trip": 12,
+        "Sports Data & Scoreboards": 37,
+        "SF Local Guides": 8,
+        "Markets & Trading Research": 13,
+        "Elections & Civic Data": 1,
+        "Unclassified & Placeholder": 12,
+        "Directory & Meta": 2,
+        "Reference & Archives": 1,
+        "Health & Personal Guides": 1,
+        "Social & Creator Data": 1,
+        "Gaming & Guides": 3
+      },
+      "families": {
+        "gems-prize-lanes": 67
+      },
+      "publicRepos": 156,
+      "pagesSites": 156,
+      "excluded": [
+        "ProjX"
+      ],
+      "unlisted": [
+        {
+          "repo": "ProjX",
+          "reason": "permanently excluded by owner request"
+        }
+      ],
+      "unreachable": 4,
+      "proseStamped": 155,
+      "proseUnstamped": 0,
+      "proseLatestPass": "2026-10-12T00:41:00Z",
+      "proseReReadLatestPass": 1,
+      "proseStale": 58,
+      "proseStaleRepos": [
+        "12GEMSDOE",
+        "16GEMSDOE",
+        "58GEMSDOE",
+        "5GEMSDOE",
+        "60GEMSDOE",
+        "61GEMSDOE",
+        "62GEMSDOE",
+        "6GEMSDOE",
+        "Commodities",
+        "Elections",
+        "ErrorsLive",
+        "FUTURESCOMMODITIES",
+        "GEMSDOE",
+        "GEMSDOE2",
+        "GEMSDOE23",
+        "GEMSDOE25",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE3",
+        "GEMSDOE32",
+        "GEMSDOE4",
+        "GEMSDOE52",
+        "GEMSDOE66",
+        "GEMSDOE67",
+        "GEMSDOE68",
+        "GEMSDOE69",
+        "GRANTWRITING",
+        "InjuryAlerTNFL",
+        "KalshiPaperSim",
+        "MALTASUPPLEMENTAL",
+        "MLB-Live-PBP",
+        "MLBSCORINGCHANGE",
+        "MasterSelfLearn",
+        "MasterSite",
+        "NBAComp",
+        "NBAInjScoreboard",
+        "NBAInjuryReport",
+        "NBASCOREBOARD",
+        "NFLComp",
+        "NFLInjuryReport",
+        "NFLMAIN",
+        "NFLPARLAYCOMP",
+        "NHL-SCOREBOARD",
+        "POSTSEASONMLBALERTS",
+        "PRICINGEXPERT",
+        "ParlaySports",
+        "SCORINGDISCREPNFL",
+        "SFWeather",
+        "SIM-COMP-NOBEL-PRIZE",
+        "ScoringDiscrepNBA",
+        "ScoringDiscrepNHL",
+        "SelfLearn",
+        "THUNDERPICK-WC-2026",
+        "THUNDERPICKCOMP",
+        "TradingViewTheLeap",
+        "VacationSchedule",
+        "WoWForever",
+        "based-loaded-MLB-alert-system"
+      ],
+      "proseShaStamped": 155
+    },
+    "accountsChecked": [
+      {
+        "login": "buffedlizard55-lab",
+        "profile": "https://github.com/buffedlizard55-lab",
+        "apiRepos": "https://api.github.com/users/buffedlizard55-lab/repos",
+        "publicRepos": 156,
+        "accountCreated": "2026-07-27T01:05:09Z",
+        "pagesSites": 156,
+        "note": "156 of 156 public repositories have GitHub Pages enabled (verified per-repo via GET /repos/buffedlizard55-lab/{repo}/pages). Repositories without a curated source entry are reported as unlisted rather than described; 1 repository/repositories are permanently excluded by owner request and must never be added back (see AGENTS.md)."
+      },
+      {
+        "login": "kanlerxz87-cyber",
+        "profile": "https://github.com/kanlerxz87-cyber",
+        "apiRepos": "https://api.github.com/users/kanlerxz87-cyber/repos",
+        "publicRepos": 0,
+        "accountCreated": "2026-08-03T20:56:16Z",
+        "pagesSites": 0,
+        "note": "Account exists (type: User) but has 0 public repositories, therefore zero GitHub Pages sites. Verified via the official GitHub API."
+      }
+    ]
+  },
+  "independentAudits": {
+    "audit_kind": {
+      "snapshotGenerated": "2026-10-12T02:57:48Z",
+      "totalEntries": 155,
+      "checkedEntries": 155,
+      "derivedEntries": 0,
+      "complete": true,
+      "disagreements": [
+        {
+          "repo": "GEMSDOE67",
+          "overlayKind": "stub",
+          "derivedKind": "app",
+          "httpStatus": 200,
+          "pagesSource": "main /"
+        },
+        {
+          "repo": "GEMSDOE69",
+          "overlayKind": "stub",
+          "derivedKind": "app",
+          "httpStatus": 200,
+          "pagesSource": "main /"
+        }
+      ],
+      "unresolved": [],
+      "apiCollection": {
+        "startedAt": "2026-10-12T02:57:48Z",
+        "completedAt": "2026-10-12T03:02:58Z",
+        "oldestReadAt": "2026-10-12T02:57:49Z",
+        "newestReadAt": "2026-10-12T03:02:58Z",
+        "requests": 310,
+        "responses": 310,
+        "checkpointReplaysThisInvocation": 0,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      }
+    },
+    "audit_descriptions": {
+      "snapshotGenerated": "2026-10-12T02:57:48Z",
+      "checkedEntries": 155,
+      "totalEntries": 155,
+      "complete": true,
+      "numericTokenLintOnly": true,
+      "unresolved": [
+        {
+          "repo": "60GEMSDOE",
+          "why": "numeric tokens not found in README",
+          "tokens": [
+            "0.00420",
+            "0.08623"
+          ]
+        }
+      ],
+      "apiErrors": [],
+      "apiCollection": {
+        "startedAt": "2026-10-12T03:02:58Z",
+        "completedAt": "2026-10-12T03:05:33Z",
+        "oldestReadAt": "2026-10-12T03:02:59Z",
+        "newestReadAt": "2026-10-12T03:05:33Z",
+        "requests": 155,
+        "responses": 155,
+        "checkpointReplaysThisInvocation": 0,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      },
+      "documentedNumericTokenExceptions": 42
+    },
+    "audit_provenance": {
+      "tool": "tools/audit_provenance.py",
+      "startedAt": "2026-10-12T03:55:27Z",
+      "finishedAt": "2026-10-12T03:56:55Z",
+      "snapshotGenerated": "2026-10-12T02:57:48Z",
+      "entriesAudited": 155,
+      "entriesTotal": 155,
+      "complete": true,
+      "accessBlocked": false,
+      "accessBlockReason": null,
+      "checksPerformed": 1118,
+      "documentedNegativeCitations": 9,
+      "templateCitations": [
+        {
+          "repo": "Commodities",
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/Commodities/contents/{path}?ref=b284d69",
+          "status": 404,
+          "documentedStatus": null
+        },
+        {
+          "repo": "Coupons",
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/Coupons/contents/{path}?ref=7a130e1",
+          "status": 404,
+          "documentedStatus": null
+        },
+        {
+          "repo": "Elections",
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/Elections/contents/{path}?ref=dae1427",
+          "status": 404,
+          "documentedStatus": null
+        },
+        {
+          "repo": "MLBComp",
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/MLBComp/contents/{path}?ref=c6332b9",
+          "status": 404,
+          "documentedStatus": null
+        },
+        {
+          "repo": "SABERENGY",
+          "endpoint": "https://api.github.com/repos/buffedlizard55-lab/SABERENGY/contents/{path}?ref=098615a",
+          "status": 404,
+          "documentedStatus": null
+        }
+      ],
+      "entriesWithDocumentedNegativeCitation": [
+        "GEMSDOE42",
+        "GEMSDOE44",
+        "GEMSDOE67",
+        "GEMSDOE68",
+        "GEMSDOE69",
+        "GEMSDOE70",
+        "GEMSDOE71",
+        "GEMSDOE72",
+        "SocialMediaComp"
+      ],
+      "findings": [],
+      "caveat": "Citations are re-opened mechanically at the SHA the record names. This proves the cited endpoints reproduce; it does not prove the prose is accurate or current, and it makes no uptime, rendering or usage claim.",
+      "apiCollection": {
+        "startedAt": "2026-10-12T03:05:33Z",
+        "completedAt": "2026-10-12T03:56:55Z",
+        "oldestReadAt": "2026-10-12T03:05:34Z",
+        "newestReadAt": "2026-10-12T03:56:55Z",
+        "requests": 1055,
+        "responses": 1054,
+        "checkpointReplaysThisInvocation": 969,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      }
+    },
+    "verify_live": {
+      "snapshotGenerated": "2026-10-12T02:57:48Z",
+      "generatedOffsetVsLive": "2026-10-12T02:57:48Z",
+      "status": "complete",
+      "complete": true,
+      "checks": 2049,
+      "okCount": 1969,
+      "driftCount": 80,
+      "hardMismatchCount": 0,
+      "mismatches": [
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:34:31Z",
+          "live": "2026-10-12T03:09:19Z"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:34:37Z",
+          "live": "2026-10-12T03:09:26Z"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "sizeKb",
+          "committed": 72669,
+          "live": 72938
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "commits",
+          "committed": 88,
+          "live": 98
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:34:30Z",
+          "live": "2026-10-12T03:09:19Z"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "lastCommitSha",
+          "committed": "39a4f6b",
+          "live": "38c521b"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:17:29Z",
+          "live": "2026-10-12T02:39:55Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:17:33Z",
+          "live": "2026-10-12T02:40:00Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "sizeKb",
+          "committed": 43773,
+          "live": 44369
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "commits",
+          "committed": 268,
+          "live": 269
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:17:27Z",
+          "live": "2026-10-12T02:39:52Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "lastCommitSha",
+          "committed": "5475f99",
+          "live": "ace5e8e"
+        },
+        {
+          "entry": "sites[]/FUTURESCOMMODITIES",
+          "field": "sizeKb",
+          "committed": 23047,
+          "live": 23153
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:38:33Z",
+          "live": "2026-10-12T03:37:33Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "updatedAt",
+          "committed": "2026-10-12T01:34:29Z",
+          "live": "2026-10-12T03:37:39Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "sizeKb",
+          "committed": 13839,
+          "live": 16098
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "commits",
+          "committed": 60,
+          "live": 75
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "lastCommit",
+          "committed": "2026-10-12T01:34:23Z",
+          "live": "2026-10-12T03:37:33Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "lastCommitSha",
+          "committed": "8516a4c",
+          "live": "b538905"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:35:09Z",
+          "live": "2026-10-12T03:00:40Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:16:43Z",
+          "live": "2026-10-12T03:00:45Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "sizeKb",
+          "committed": 17976,
+          "live": 18981
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "commits",
+          "committed": 22,
+          "live": 37
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:16:39Z",
+          "live": "2026-10-12T03:00:39Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "lastCommitSha",
+          "committed": "ddbe9a5",
+          "live": "22d9034"
+        },
+        {
+          "entry": "sites[]/GEMSDOE68",
+          "field": "sizeKb",
+          "committed": 0,
+          "live": 15482
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:39:05Z",
+          "live": "2026-10-12T03:14:24Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "updatedAt",
+          "committed": "2026-10-12T01:50:41Z",
+          "live": "2026-10-12T03:14:29Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "sizeKb",
+          "committed": 989,
+          "live": 2320
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "commits",
+          "committed": 10,
+          "live": 22
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "lastCommit",
+          "committed": "2026-10-12T01:50:36Z",
+          "live": "2026-10-12T03:14:24Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "lastCommitSha",
+          "committed": "2fe0d9b",
+          "live": "1911954"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:31:47Z",
+          "live": "2026-10-12T03:32:57Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:31:53Z",
+          "live": "2026-10-12T03:33:02Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "sizeKb",
+          "committed": 312187,
+          "live": 301767
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "commits",
+          "committed": 626,
+          "live": 628
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:31:43Z",
+          "live": "2026-10-12T03:32:52Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "lastCommitSha",
+          "committed": "95f86b8",
+          "live": "804173b"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:30:35Z",
+          "live": "2026-10-12T02:56:59Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:06:53Z",
+          "live": "2026-10-12T02:57:03Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "sizeKb",
+          "committed": 5189,
+          "live": 5239
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "commits",
+          "committed": 251,
+          "live": 258
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:06:49Z",
+          "live": "2026-10-12T02:56:59Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "lastCommitSha",
+          "committed": "096b659",
+          "live": "851e3e2"
+        },
+        {
+          "entry": "sites[]/MasterSite",
+          "field": "pushedAt",
+          "committed": "2026-10-12T01:24:23Z",
+          "live": "2026-10-12T03:53:30Z"
+        },
+        {
+          "entry": "sites[]/MasterSite",
+          "field": "sizeKb",
+          "committed": 3893,
+          "live": 4045
+        },
+        {
+          "entry": "sites[]/MLBSCORINGCHANGE",
+          "field": "sizeKb",
+          "committed": 20774,
+          "live": 20773
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:40:46Z",
+          "live": "2026-10-12T03:47:54Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:40:50Z",
+          "live": "2026-10-12T03:47:58Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "sizeKb",
+          "committed": 276716,
+          "live": 290516
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "pagesStatus",
+          "committed": "building",
+          "live": "built"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "commits",
+          "committed": 2145,
+          "live": 2188
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:40:44Z",
+          "live": "2026-10-12T03:47:52Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "lastCommitSha",
+          "committed": "e6388d0",
+          "live": "ff8c095"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "pushedAt",
+          "committed": "2026-10-12T00:35:06Z",
+          "live": "2026-10-12T03:34:27Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "updatedAt",
+          "committed": "2026-10-12T00:35:10Z",
+          "live": "2026-10-12T03:34:31Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "commits",
+          "committed": 82,
+          "live": 83
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "lastCommit",
+          "committed": "2026-10-12T00:35:04Z",
+          "live": "2026-10-12T03:34:25Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "lastCommitSha",
+          "committed": "bffd38c",
+          "live": "88d9ee2"
+        },
+        {
+          "entry": "sites[]/NFLPARLAYCOMP",
+          "field": "sizeKb",
+          "committed": 77417,
+          "live": 84561
+        },
+        {
+          "entry": "sites[]/ScoringDiscrepNBA",
+          "field": "sizeKb",
+          "committed": 507,
+          "live": 511
+        },
+        {
+          "entry": "sites[]/ScoringDiscrepNHL",
+          "field": "sizeKb",
+          "committed": 19217,
+          "live": 19309
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "finalHeadSha",
+          "committed": "39a4f6b",
+          "live": "38c521b"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:34:30Z",
+          "live": "2026-10-12T03:09:19Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "finalHeadSha",
+          "committed": "5475f99",
+          "live": "ace5e8e"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:17:27Z",
+          "live": "2026-10-12T02:39:52Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "finalHeadSha",
+          "committed": "8516a4c",
+          "live": "b538905"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T01:34:23Z",
+          "live": "2026-10-12T03:37:33Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "finalHeadSha",
+          "committed": "ddbe9a5",
+          "live": "22d9034"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:16:39Z",
+          "live": "2026-10-12T03:00:39Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "finalHeadSha",
+          "committed": "2fe0d9b",
+          "live": "1911954"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T01:50:36Z",
+          "live": "2026-10-12T03:14:24Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "finalHeadSha",
+          "committed": "95f86b8",
+          "live": "804173b"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:31:43Z",
+          "live": "2026-10-12T03:32:52Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "finalHeadSha",
+          "committed": "096b659",
+          "live": "851e3e2"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:06:49Z",
+          "live": "2026-10-12T02:56:59Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "finalHeadSha",
+          "committed": "e6388d0",
+          "live": "ff8c095"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:40:44Z",
+          "live": "2026-10-12T03:47:52Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "finalHeadSha",
+          "committed": "bffd38c",
+          "live": "88d9ee2"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T00:35:04Z",
+          "live": "2026-10-12T03:34:25Z"
+        }
+      ],
+      "unlistedInApi": [],
+      "listedNotInApi": [],
+      "volatileDrift": [
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:34:31Z",
+          "live": "2026-10-12T03:09:19Z"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:34:37Z",
+          "live": "2026-10-12T03:09:26Z"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "sizeKb",
+          "committed": 72669,
+          "live": 72938
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "commits",
+          "committed": 88,
+          "live": 98
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:34:30Z",
+          "live": "2026-10-12T03:09:19Z"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "lastCommitSha",
+          "committed": "39a4f6b",
+          "live": "38c521b"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:17:29Z",
+          "live": "2026-10-12T02:39:55Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:17:33Z",
+          "live": "2026-10-12T02:40:00Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "sizeKb",
+          "committed": 43773,
+          "live": 44369
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "commits",
+          "committed": 268,
+          "live": 269
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:17:27Z",
+          "live": "2026-10-12T02:39:52Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "lastCommitSha",
+          "committed": "5475f99",
+          "live": "ace5e8e"
+        },
+        {
+          "entry": "sites[]/FUTURESCOMMODITIES",
+          "field": "sizeKb",
+          "committed": 23047,
+          "live": 23153
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:38:33Z",
+          "live": "2026-10-12T03:37:33Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "updatedAt",
+          "committed": "2026-10-12T01:34:29Z",
+          "live": "2026-10-12T03:37:39Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "sizeKb",
+          "committed": 13839,
+          "live": 16098
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "commits",
+          "committed": 60,
+          "live": 75
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "lastCommit",
+          "committed": "2026-10-12T01:34:23Z",
+          "live": "2026-10-12T03:37:33Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "lastCommitSha",
+          "committed": "8516a4c",
+          "live": "b538905"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:35:09Z",
+          "live": "2026-10-12T03:00:40Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:16:43Z",
+          "live": "2026-10-12T03:00:45Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "sizeKb",
+          "committed": 17976,
+          "live": 18981
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "commits",
+          "committed": 22,
+          "live": 37
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:16:39Z",
+          "live": "2026-10-12T03:00:39Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "lastCommitSha",
+          "committed": "ddbe9a5",
+          "live": "22d9034"
+        },
+        {
+          "entry": "sites[]/GEMSDOE68",
+          "field": "sizeKb",
+          "committed": 0,
+          "live": 15482
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:39:05Z",
+          "live": "2026-10-12T03:14:24Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "updatedAt",
+          "committed": "2026-10-12T01:50:41Z",
+          "live": "2026-10-12T03:14:29Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "sizeKb",
+          "committed": 989,
+          "live": 2320
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "commits",
+          "committed": 10,
+          "live": 22
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "lastCommit",
+          "committed": "2026-10-12T01:50:36Z",
+          "live": "2026-10-12T03:14:24Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "lastCommitSha",
+          "committed": "2fe0d9b",
+          "live": "1911954"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:31:47Z",
+          "live": "2026-10-12T03:32:57Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:31:53Z",
+          "live": "2026-10-12T03:33:02Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "sizeKb",
+          "committed": 312187,
+          "live": 301767
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "commits",
+          "committed": 626,
+          "live": 628
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:31:43Z",
+          "live": "2026-10-12T03:32:52Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "lastCommitSha",
+          "committed": "95f86b8",
+          "live": "804173b"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:30:35Z",
+          "live": "2026-10-12T02:56:59Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:06:53Z",
+          "live": "2026-10-12T02:57:03Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "sizeKb",
+          "committed": 5189,
+          "live": 5239
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "commits",
+          "committed": 251,
+          "live": 258
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:06:49Z",
+          "live": "2026-10-12T02:56:59Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "lastCommitSha",
+          "committed": "096b659",
+          "live": "851e3e2"
+        },
+        {
+          "entry": "sites[]/MasterSite",
+          "field": "pushedAt",
+          "committed": "2026-10-12T01:24:23Z",
+          "live": "2026-10-12T03:53:30Z"
+        },
+        {
+          "entry": "sites[]/MasterSite",
+          "field": "sizeKb",
+          "committed": 3893,
+          "live": 4045
+        },
+        {
+          "entry": "sites[]/MLBSCORINGCHANGE",
+          "field": "sizeKb",
+          "committed": 20774,
+          "live": 20773
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "pushedAt",
+          "committed": "2026-10-12T02:40:46Z",
+          "live": "2026-10-12T03:47:54Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "updatedAt",
+          "committed": "2026-10-12T02:40:50Z",
+          "live": "2026-10-12T03:47:58Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "sizeKb",
+          "committed": 276716,
+          "live": 290516
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "pagesStatus",
+          "committed": "building",
+          "live": "built"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "commits",
+          "committed": 2145,
+          "live": 2188
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "lastCommit",
+          "committed": "2026-10-12T02:40:44Z",
+          "live": "2026-10-12T03:47:52Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "lastCommitSha",
+          "committed": "e6388d0",
+          "live": "ff8c095"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "pushedAt",
+          "committed": "2026-10-12T00:35:06Z",
+          "live": "2026-10-12T03:34:27Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "updatedAt",
+          "committed": "2026-10-12T00:35:10Z",
+          "live": "2026-10-12T03:34:31Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "commits",
+          "committed": 82,
+          "live": 83
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "lastCommit",
+          "committed": "2026-10-12T00:35:04Z",
+          "live": "2026-10-12T03:34:25Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "lastCommitSha",
+          "committed": "bffd38c",
+          "live": "88d9ee2"
+        },
+        {
+          "entry": "sites[]/NFLPARLAYCOMP",
+          "field": "sizeKb",
+          "committed": 77417,
+          "live": 84561
+        },
+        {
+          "entry": "sites[]/ScoringDiscrepNBA",
+          "field": "sizeKb",
+          "committed": 507,
+          "live": 511
+        },
+        {
+          "entry": "sites[]/ScoringDiscrepNHL",
+          "field": "sizeKb",
+          "committed": 19217,
+          "live": 19309
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "finalHeadSha",
+          "committed": "39a4f6b",
+          "live": "38c521b"
+        },
+        {
+          "entry": "sites[]/62GEMSDOE",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:34:30Z",
+          "live": "2026-10-12T03:09:19Z"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "finalHeadSha",
+          "committed": "5475f99",
+          "live": "ace5e8e"
+        },
+        {
+          "entry": "sites[]/Commodities",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:17:27Z",
+          "live": "2026-10-12T02:39:52Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "finalHeadSha",
+          "committed": "8516a4c",
+          "live": "b538905"
+        },
+        {
+          "entry": "sites[]/GEMSDOE66",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T01:34:23Z",
+          "live": "2026-10-12T03:37:33Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "finalHeadSha",
+          "committed": "ddbe9a5",
+          "live": "22d9034"
+        },
+        {
+          "entry": "sites[]/GEMSDOE67",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:16:39Z",
+          "live": "2026-10-12T03:00:39Z"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "finalHeadSha",
+          "committed": "2fe0d9b",
+          "live": "1911954"
+        },
+        {
+          "entry": "sites[]/GEMSDOE69",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T01:50:36Z",
+          "live": "2026-10-12T03:14:24Z"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "finalHeadSha",
+          "committed": "95f86b8",
+          "live": "804173b"
+        },
+        {
+          "entry": "sites[]/KalshiPaperSim",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:31:43Z",
+          "live": "2026-10-12T03:32:52Z"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "finalHeadSha",
+          "committed": "096b659",
+          "live": "851e3e2"
+        },
+        {
+          "entry": "sites[]/MALTASUPPLEMENTAL",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:06:49Z",
+          "live": "2026-10-12T02:56:59Z"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "finalHeadSha",
+          "committed": "e6388d0",
+          "live": "ff8c095"
+        },
+        {
+          "entry": "sites[]/NFLInjuryReport",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T02:40:44Z",
+          "live": "2026-10-12T03:47:52Z"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "finalHeadSha",
+          "committed": "bffd38c",
+          "live": "88d9ee2"
+        },
+        {
+          "entry": "sites[]/NFLMAIN",
+          "field": "finalLastCommit",
+          "committed": "2026-10-12T00:35:04Z",
+          "live": "2026-10-12T03:34:25Z"
+        }
+      ],
+      "hardMismatches": [],
+      "apiCollection": {
+        "startedAt": "2026-10-12T03:56:55Z",
+        "completedAt": "2026-10-12T04:11:18Z",
+        "oldestReadAt": "2026-10-12T03:56:56Z",
+        "newestReadAt": "2026-10-12T04:11:18Z",
+        "requests": 862,
+        "responses": 862,
+        "checkpointReplaysThisInvocation": 754,
+        "caveat": "A completed collection is a sequence of timestamped public API reads, not a simultaneous snapshot. Checkpoint replay retains the original read time. These checks do not establish semantic correctness, live-site uptime, browser functionality, visits, or last use."
+      }
+    },
+    "coverage": {
+      "accounts": [
+        {
+          "owner": "buffedlizard55-lab",
+          "publicRepos": 156,
+          "source": "https://api.github.com/users/buffedlizard55-lab/repos?type=public"
+        },
+        {
+          "owner": "kanlerxz87-cyber",
+          "publicRepos": 0,
+          "source": "https://api.github.com/users/kanlerxz87-cyber/repos?type=public"
+        }
+      ],
+      "gaps": []
+    }
+  },
+  "selectedOriginalObservations": [
+    {
+      "phase": "build_data",
+      "responseSha256": "9e50eadd76ae7e73bc5f5441628c334e120045e9a6ea7cca5017fa2812a84f2f",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:34:49Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "7af485e3f3e82ef039226eb5d36343914f4adbb155f6cf0269a9398c5e926aeb",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:34:55Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE67/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "f66f1352eaf6a234a753fc64697502fd542e38c254e641f532c2d49217fb776f",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:34:56Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE68/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "d8f7d750cf5d278cbb47b2a281c960ad4261dba87c16acaefb93398a3fd55a95",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:34:57Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE69/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "bdf5ead210f94a822b3fefd57864df328ed19cb2145ec8108b833f4ef472d2c9",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:35:33Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "6a84f3cdcd3912db5ea427027f182d6b0ca0a16d50256b7866fceb7c5a50627e",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "status": 200,
+      "readAt": "2026-10-12T02:38:55Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE53",
+        "size": 21236,
+        "name": "GEMSDOE53",
+        "full_name": "buffedlizard55-lab/GEMSDOE53",
+        "created_at": "2026-10-05T22:51:21Z",
+        "pushed_at": "2026-10-09T02:00:53Z",
+        "updated_at": "2026-10-09T02:01:00Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "45e18588d352f4738efadcbd446473fb458dc30b19d66d9f504a7ee30448bf5b",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:01Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "16f66388cbd4171bacc163e5dfefdd874174070bd1d55222d00cbf21dd400af3",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:08Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "b0b7dc7820823a6423cac3af391737098ea3d7aac0cc1281374e60390f43f973",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:14Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "bbc15159ed2c60500a7633538ca089b3863d44bcbff126f931b3324594610ec0",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:20Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "ac6ab91344e836f970fa161b0b421d419bd1687f892394f8a975834f93650434",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:32Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE67",
+        "size": 17976,
+        "name": "GEMSDOE67",
+        "full_name": "buffedlizard55-lab/GEMSDOE67",
+        "created_at": "2026-10-11T19:38:18Z",
+        "pushed_at": "2026-10-12T02:35:09Z",
+        "updated_at": "2026-10-12T02:16:43Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "bb2c20ecd6f7dfb2409098512273b3a84f58ed93462bf3626ee7cdd467702441",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:34Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE68",
+        "size": 0,
+        "name": "GEMSDOE68",
+        "full_name": "buffedlizard55-lab/GEMSDOE68",
+        "created_at": "2026-10-11T19:38:22Z",
+        "pushed_at": "2026-10-12T02:26:19Z",
+        "updated_at": "2026-10-12T02:26:24Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "d8a027d2861042fce69c6a0167e19419f61eec5e780c98f4906b767e599745ed",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "status": 200,
+      "readAt": "2026-10-12T02:39:36Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE69",
+        "size": 989,
+        "name": "GEMSDOE69",
+        "full_name": "buffedlizard55-lab/GEMSDOE69",
+        "created_at": "2026-10-11T19:38:26Z",
+        "pushed_at": "2026-10-12T02:39:05Z",
+        "updated_at": "2026-10-12T01:50:41Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "e962e5db64a9b6f2788275677744ee65d6fc1cb9cab50135a54c0deca412877c",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "status": 200,
+      "readAt": "2026-10-12T02:41:02Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/NFLInjuryReport",
+        "size": 276716,
+        "name": "NFLInjuryReport",
+        "full_name": "buffedlizard55-lab/NFLInjuryReport",
+        "created_at": "2026-09-10T21:59:35Z",
+        "pushed_at": "2026-10-12T02:40:46Z",
+        "updated_at": "2026-10-12T02:40:50Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "0d4ccce516a73ecc31c96d5aef63aae23a4127ed7e9c63786ab9f302715634f8",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:41:08Z",
+      "officialResponseFacts": {
+        "status": "building",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "9ac7bd60ef8930c8a90cc380a6bec4ba748301f977ce6cb11d4aec0c253039a9",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:41:15Z",
+      "officialResponseFacts": {
+        "status": "building",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "ce9a3580b2f19ebb4f85c4ae807b0b4b0245781c90a7b3195859c188b81f5f1f",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:41:21Z",
+      "officialResponseFacts": {
+        "status": "building",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "build_data",
+      "responseSha256": "697b0d9961dd88da332a59ca63f61af1d6dc9053ac5fb5f5dc1eebd093e5c6d7",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T02:41:27Z",
+      "officialResponseFacts": {
+        "status": "building",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "ff011322c2e9e65d45c73f8f8ca8d52f6e6534843023f1ea442b3dc9b84cb793",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:11Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "2f3863467f15b432df61bb88a21ea0326a468a08fedb20a0275a16b591065345",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/contents/index.html?ref=main",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/contents/index.html?ref=main",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/contents/index.html?ref=main",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:12Z"
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "66d771eada2767e4124643ec8f8e9f7a00b0b5b66b723c04ce8581428a467b9e",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:23Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE67/"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "ce0bb9f6f8876477b851b8c9404f7bbd4493346ae0d588ca0c3c39a10728fff8",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/contents/index.html?ref=main",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/contents/index.html?ref=main",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/contents/index.html?ref=main",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:24Z"
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "e1112af8732b747a7fce8021d21cc2fcd776f2c5dba73e11f91fd332c124c47a",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:25Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE68/"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "ab359956772db073c1ce58b5b04daee36077640145c7c8883e061ea2290c6125",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/contents/index.html?ref=main",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/contents/index.html?ref=main",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/contents/index.html?ref=main",
+      "status": 404,
+      "readAt": "2026-10-12T03:00:26Z",
+      "officialResponseFacts": {
+        "status": "404"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "96be38cb584c687054745b3ac20ead1a088ad4abc1e0b97c6f5d34e482f46d2d",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:27Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE69/"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "06ffe2b1d5c236d70defcf913e6768da2bd2ef69654a06d443f7c83634646400",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/contents/index.html?ref=main",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/contents/index.html?ref=main",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/contents/index.html?ref=main",
+      "status": 200,
+      "readAt": "2026-10-12T03:00:28Z"
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "6da5f99f4b4d90a3363195338e5fef5c0bea17d76baf32193de3e03a099cc521",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:01:39Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "audit_kind",
+      "responseSha256": "9be709e3845e4bfcb9ad8ee85e4db7bf9f170c967dcd66332f4de47bf282a36a",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/contents/index.html?ref=main",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/contents/index.html?ref=main",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/contents/index.html?ref=main",
+      "status": 200,
+      "readAt": "2026-10-12T03:01:40Z"
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "cc87c38e4cb187cb1351dfc92a4c80f317ee9c6fd24ed66a1a36dd8efb6a84d1",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:58:10Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "fb5bed1d4e0f418778a69a34a91afb1d3389cffcea18cc86c2c97070efd5c7ed",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:58:16Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE67/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "a4e81d9139267724643c643d23438ae1091500f841c6b7e69099e92123e07c29",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:58:17Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE68/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "408545e1f17a74e5239f7e5adc03bc667e41f624f9af12bf993bc6d431d59e64",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:58:18Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE69/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "2eefed7e1bb81c8c170ca242f611ebf8af08c0d0eb9347c086040bd97aefba0c",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T03:58:54Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "e5d69c1bdcc17c7944b7adcd27084c5ce6f8f0cb725ba9d6c8679a29b4295d91",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "status": 200,
+      "readAt": "2026-10-12T04:03:36Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE53",
+        "size": 21236,
+        "name": "GEMSDOE53",
+        "full_name": "buffedlizard55-lab/GEMSDOE53",
+        "created_at": "2026-10-05T22:51:21Z",
+        "pushed_at": "2026-10-09T02:00:53Z",
+        "updated_at": "2026-10-09T02:01:00Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "04315dc0461082932ee038e11c67b38df77181296971a36ca94ed6c9090a1ebd",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53/pages",
+      "status": 200,
+      "readAt": "2026-10-12T04:03:37Z",
+      "officialResponseFacts": {
+        "status": "errored",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE53/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "9ae91a46b6389b893ed82a2392ad96e9d804bc9d3bd0d54860a6ef16aea81f0f",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "status": 200,
+      "readAt": "2026-10-12T04:03:54Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE67",
+        "size": 18981,
+        "name": "GEMSDOE67",
+        "full_name": "buffedlizard55-lab/GEMSDOE67",
+        "created_at": "2026-10-11T19:38:18Z",
+        "pushed_at": "2026-10-12T03:00:40Z",
+        "updated_at": "2026-10-12T03:00:45Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "be14329d6bcba1451853266f57d1db8d9050879b140a10a520668db61a78ef37",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67/pages",
+      "status": 200,
+      "readAt": "2026-10-12T04:03:55Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE67/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "eb72a7d46d20856904b90b803f2829a91f59ca854d86b20a11526916c84dd5a1",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "status": 200,
+      "readAt": "2026-10-12T04:03:57Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE68",
+        "size": 15482,
+        "name": "GEMSDOE68",
+        "full_name": "buffedlizard55-lab/GEMSDOE68",
+        "created_at": "2026-10-11T19:38:22Z",
+        "pushed_at": "2026-10-12T02:26:19Z",
+        "updated_at": "2026-10-12T02:26:24Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "28a2e9b0541c9d568564ac9c6a61925d3610d5a79ad3e7e20f6340c03cac300e",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68/pages",
+      "status": 200,
+      "readAt": "2026-10-12T04:03:58Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE68/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "e75eeec900d9d2c81ada9c99d7b4f9b6d0ccbccb2bd1856049b753636304619c",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "status": 200,
+      "readAt": "2026-10-12T04:04:00Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE69",
+        "size": 2320,
+        "name": "GEMSDOE69",
+        "full_name": "buffedlizard55-lab/GEMSDOE69",
+        "created_at": "2026-10-11T19:38:26Z",
+        "pushed_at": "2026-10-12T03:14:24Z",
+        "updated_at": "2026-10-12T03:14:29Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "6d78a9bc9d5570ccbd511b92182990a92d589004cb56ccb66297465e620631ad",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69/pages",
+      "status": 200,
+      "readAt": "2026-10-12T04:04:01Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/GEMSDOE69/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "9f67d598442bc618b3b6b77033491b01e11032c12d359aa86f1d2e79a9ab018d",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "status": 200,
+      "readAt": "2026-10-12T04:06:04Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/NFLInjuryReport",
+        "size": 290516,
+        "name": "NFLInjuryReport",
+        "full_name": "buffedlizard55-lab/NFLInjuryReport",
+        "created_at": "2026-09-10T21:59:35Z",
+        "pushed_at": "2026-10-12T03:47:54Z",
+        "updated_at": "2026-10-12T03:47:58Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "a93b3cc83918bda84d347496cb689770104c99a27795a055efc85073ecac154a",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport/pages",
+      "status": 200,
+      "readAt": "2026-10-12T04:06:05Z",
+      "officialResponseFacts": {
+        "status": "built",
+        "source": {
+          "branch": "main",
+          "path": "/"
+        },
+        "build_type": "legacy",
+        "html_url": "https://buffedlizard55-lab.github.io/NFLInjuryReport/"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "b8b03a290aa8f21eca05ae551955c4a6cd1a1a01ddce452718bff7acc959ffa1",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE53",
+      "status": 200,
+      "readAt": "2026-10-12T04:09:47Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE53",
+        "size": 21236,
+        "name": "GEMSDOE53",
+        "full_name": "buffedlizard55-lab/GEMSDOE53",
+        "created_at": "2026-10-05T22:51:21Z",
+        "pushed_at": "2026-10-09T02:00:53Z",
+        "updated_at": "2026-10-09T02:01:00Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "c240dbd29abea404addcfcc4a8a06f940d600efb4ebf3cce90f76c9b3e056c4a",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE67",
+      "status": 200,
+      "readAt": "2026-10-12T04:09:54Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE67",
+        "size": 18981,
+        "name": "GEMSDOE67",
+        "full_name": "buffedlizard55-lab/GEMSDOE67",
+        "created_at": "2026-10-11T19:38:18Z",
+        "pushed_at": "2026-10-12T03:00:40Z",
+        "updated_at": "2026-10-12T03:00:45Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "2a8869d411b4474dc4917ae5eea9c2bd8b4be0d55a45becce76894615acfbaae",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE68",
+      "status": 200,
+      "readAt": "2026-10-12T04:09:56Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE68",
+        "size": 15482,
+        "name": "GEMSDOE68",
+        "full_name": "buffedlizard55-lab/GEMSDOE68",
+        "created_at": "2026-10-11T19:38:22Z",
+        "pushed_at": "2026-10-12T02:26:19Z",
+        "updated_at": "2026-10-12T02:26:24Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "c964d1b82c2ff6af852bca4c5bf83cd8aa51040db3ec4043b84c70a9dbde2771",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/GEMSDOE69",
+      "status": 200,
+      "readAt": "2026-10-12T04:09:57Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/GEMSDOE69",
+        "size": 2320,
+        "name": "GEMSDOE69",
+        "full_name": "buffedlizard55-lab/GEMSDOE69",
+        "created_at": "2026-10-11T19:38:26Z",
+        "pushed_at": "2026-10-12T03:14:24Z",
+        "updated_at": "2026-10-12T03:14:29Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "verify_live",
+      "responseSha256": "b13fc085e790f1bb52c0dd14e51af5e1f452b59cd3e2860d06dcd6279c07e5c4",
+      "url": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "requestedUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "requestUrl": "https://api.github.com/repos/buffedlizard55-lab/NFLInjuryReport",
+      "status": 200,
+      "readAt": "2026-10-12T04:10:37Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab/NFLInjuryReport",
+        "size": 290516,
+        "name": "NFLInjuryReport",
+        "full_name": "buffedlizard55-lab/NFLInjuryReport",
+        "created_at": "2026-09-10T21:59:35Z",
+        "pushed_at": "2026-10-12T03:47:54Z",
+        "updated_at": "2026-10-12T03:47:58Z",
+        "default_branch": "main"
+      }
+    },
+    {
+      "phase": "coverage",
+      "responseSha256": "344a4e17f06b36ca0312c156ffbff5c829fd1c9e284f5f1b4480e3a56bef38c0",
+      "url": "https://api.github.com/users/buffedlizard55-lab",
+      "requestedUrl": "https://api.github.com/users/buffedlizard55-lab",
+      "requestUrl": "https://api.github.com/users/buffedlizard55-lab",
+      "status": 200,
+      "readAt": "2026-10-12T04:11:19Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/buffedlizard55-lab",
+        "public_repos": 156,
+        "login": "buffedlizard55-lab",
+        "type": "User",
+        "name": null,
+        "created_at": "2026-07-27T01:05:09Z",
+        "updated_at": "2026-08-19T17:07:30Z"
+      }
+    },
+    {
+      "phase": "coverage",
+      "responseSha256": "267b7260caf87fda5fa5ef458319da7030b5aacd2836a2f9e2907ce10679fc59",
+      "url": "https://api.github.com/users/buffedlizard55-lab/repos?type=public&per_page=100&page=1",
+      "requestedUrl": "https://api.github.com/users/buffedlizard55-lab/repos?type=public&per_page=100&page=1",
+      "requestUrl": "https://api.github.com/users/buffedlizard55-lab/repos?type=public&per_page=100&page=1",
+      "status": 200,
+      "readAt": "2026-10-12T04:11:21Z",
+      "publicRepositoryNames": [
+        "11GEMSDOE",
+        "12GEMSDOE",
+        "13GEMSDOE",
+        "14GEMSDOE",
+        "15GEMSDOE",
+        "16GEMSDOE",
+        "17GEMSDOE",
+        "18GEMSDOE",
+        "19GEMSDOE",
+        "20GEMSDOE",
+        "55GEMSDOE",
+        "56GEMSDOE",
+        "57GEMSDOE",
+        "58GEMSDOE",
+        "59GEMSDOE",
+        "5GEMSDOE",
+        "60GEMSDOE",
+        "61GEMSDOE",
+        "62GEMSDOE",
+        "6GEMSDOE",
+        "7GEMSDOE",
+        "8GEMSDOE",
+        "AirPremia",
+        "based-loaded-MLB-alert-system",
+        "BathTubOverflowSF",
+        "BusanL7HaeundaeLotteHotelStay",
+        "Commodities",
+        "Coupons",
+        "CruiseDeals",
+        "DrugAnalysis",
+        "Elections",
+        "ErrorsLive",
+        "FLABSENGY",
+        "FUTURESCOMMODITIES",
+        "GEMSDOE",
+        "GEMSDOE10",
+        "GEMSDOE2",
+        "GEMSDOE21",
+        "GEMSDOE22",
+        "GEMSDOE23",
+        "GEMSDOE24",
+        "GEMSDOE25",
+        "GEMSDOE26",
+        "GEMSDOE27",
+        "GEMSDOE28",
+        "GEMSDOE29",
+        "GEMSDOE3",
+        "GEMSDOE30",
+        "GEMSDOE31",
+        "GEMSDOE32",
+        "GEMSDOE33",
+        "GEMSDOE34",
+        "GEMSDOE35",
+        "GEMSDOE36",
+        "GEMSDOE37",
+        "GEMSDOE38",
+        "GEMSDOE39",
+        "GEMSDOE4",
+        "GEMSDOE40",
+        "GEMSDOE41",
+        "GEMSDOE42",
+        "GEMSDOE43",
+        "GEMSDOE44",
+        "GEMSDOE45",
+        "GEMSDOE46",
+        "GEMSDOE47",
+        "GEMSDOE48",
+        "GEMSDOE49",
+        "GEMSDOE50",
+        "GEMSDOE51",
+        "GEMSDOE52",
+        "GEMSDOE53",
+        "GEMSDOE54",
+        "GEMSDOE63",
+        "GEMSDOE64",
+        "GEMSDOE65",
+        "GEMSDOE66",
+        "GEMSDOE67",
+        "GEMSDOE68",
+        "GEMSDOE69",
+        "GEMSDOE70",
+        "GEMSDOE71",
+        "GEMSDOE72",
+        "GEMSDOE9",
+        "GOLD",
+        "GRANTWRITING",
+        "HongdaeStay",
+        "HotelSeoulRoughdraft1",
+        "InjuryAlerTNFL",
+        "Insider-trades",
+        "Itinerary-Korea",
+        "KalshiPaperSim",
+        "Korea",
+        "Korea-emergency",
+        "KoreaHotels",
+        "LEARNGEMSDOE",
+        "Leg3SeoulTrip",
+        "LSTARENGY",
+        "MALTASUPPLEMENTAL",
+        "MasterSelfLearn"
+      ]
+    },
+    {
+      "phase": "coverage",
+      "responseSha256": "67f92e76a07833dba6dee459e5907c531c05f6cb5f7528842020dc99868fc9d4",
+      "url": "https://api.github.com/users/buffedlizard55-lab/repos?type=public&per_page=100&page=2",
+      "requestedUrl": "https://api.github.com/users/buffedlizard55-lab/repos?type=public&per_page=100&page=2",
+      "requestUrl": "https://api.github.com/users/buffedlizard55-lab/repos?type=public&per_page=100&page=2",
+      "status": 200,
+      "readAt": "2026-10-12T04:11:22Z",
+      "publicRepositoryNames": [
+        "MasterSite",
+        "MLB-Live-PBP",
+        "MLB-PBP",
+        "MLB-Prediction-model-backtest",
+        "MLBComp",
+        "MLBRainDelay",
+        "MLBSCORINGCHANGE",
+        "NBAComp",
+        "NBAInjScoreboard",
+        "NBAInjuryReport",
+        "NBASCOREBOARD",
+        "Ncaa-football-alerts",
+        "NFL-PLAYER-PROP-SIM",
+        "NFL-scoreboard",
+        "NFLComp",
+        "NFLInjuryReport",
+        "NFLMAIN",
+        "NFLPARLAYCOMP",
+        "NFLPRED",
+        "NHL-SCOREBOARD",
+        "NHLComp",
+        "NOBEL-PRIZE",
+        "OLBG-Competition",
+        "ParlaySports",
+        "PFFNFL",
+        "PlumbingSF",
+        "POSTSEASONMLBALERTS",
+        "PriceKalshiHistorical",
+        "PRICINGEXPERT",
+        "ProjX",
+        "RADIOSF",
+        "RGENGY",
+        "SABERENGY",
+        "ScheduleFreeTime",
+        "ScoringDiscrepNBA",
+        "SCORINGDISCREPNFL",
+        "ScoringDiscrepNHL",
+        "SelfLearn",
+        "SFLateNight",
+        "SFWeather",
+        "ShoulderPain",
+        "SIM-COMP-NOBEL-PRIZE",
+        "SocialMediaComp",
+        "SportsPred",
+        "StanfordStay",
+        "StockPaperSim",
+        "StokEngineer",
+        "TAXKALSHI",
+        "THUNDERPICK-WC-2026",
+        "THUNDERPICKCOMP",
+        "TinoLunchSpecial",
+        "Tradingview-pinescript-editor",
+        "TradingViewTheLeap",
+        "VacationSchedule",
+        "VapePods",
+        "WoWForever"
+      ]
+    },
+    {
+      "phase": "coverage",
+      "responseSha256": "2426f81544d8441edd23ea821c564bd175f13029680fde2e74bab4fd56a6a7f9",
+      "url": "https://api.github.com/users/kanlerxz87-cyber",
+      "requestedUrl": "https://api.github.com/users/kanlerxz87-cyber",
+      "requestUrl": "https://api.github.com/users/kanlerxz87-cyber",
+      "status": 200,
+      "readAt": "2026-10-12T04:11:22Z",
+      "officialResponseFacts": {
+        "html_url": "https://github.com/kanlerxz87-cyber",
+        "public_repos": 0,
+        "login": "kanlerxz87-cyber",
+        "type": "User",
+        "name": null,
+        "created_at": "2026-08-03T20:56:16Z",
+        "updated_at": "2026-08-03T20:56:16Z"
+      }
+    },
+    {
+      "phase": "coverage",
+      "responseSha256": "a3bceef653fd9fb61fb98e80efc8cf65cc510bc32d1acf8fd97caa456e59baa8",
+      "url": "https://api.github.com/users/kanlerxz87-cyber/repos?type=public&per_page=100&page=1",
+      "requestedUrl": "https://api.github.com/users/kanlerxz87-cyber/repos?type=public&per_page=100&page=1",
+      "requestUrl": "https://api.github.com/users/kanlerxz87-cyber/repos?type=public&per_page=100&page=1",
+      "status": 200,
+      "readAt": "2026-10-12T04:11:23Z",
+      "publicRepositoryNames": []
+    }
+  ],
+  "sealedStagedOutputs": {
+    "data/sites.js": "b18d0e661cf966a7c2efe4cc416ed323df48a01cd772cf8337c0c34f099a38a6",
+    "tools/last_kind_audit.json": "d04067300485dc6dd24ca93658c717290606032a0f4c0f1b5a95f3afcc5090df",
+    "tools/last_description_audit.json": "a99e993daa3603781a9f8810246aa1a6d17de900a89f87f584b242ff76187126",
+    "tools/last_provenance_audit.json": "d7a45df95a9adf97149630d3df7c39f1152d8042f2a5cdabc0084dc280924c70",
+    "reports/provenance/2026-10-12T035527Z.md": "789712cdc7ba02db62b06632c69bc25b70a7df4c491c90addfb627b800cc262c",
+    "tools/last_live_verify.json": "581362c95b36e3990551cfd789488e4c1cf796c0fb1b86b9b54100f74f48fca7"
+  },
+  "publication": {
+    "baselineCommit": "58e06ea4076453bc0f416348f5f976dffef7e294",
+    "generatedRemains": "2026-10-12T00:11:29Z",
+    "publishedAt": null,
+    "unchangedPublishedFiles": [
+      {
+        "path": "data/sites.js",
+        "sha256": "ef9cb8229a5caadb8f5ddc70626b1f13e9c0359c461df7458bbcadb035107d5a"
+      },
+      {
+        "path": "SITES.md",
+        "sha256": "77d53f57927e21034f1a3a8fb10ea8388827c35f1c706a00aac05bdc835d8d78"
+      },
+      {
+        "path": "VERIFICATION.md",
+        "sha256": "b70278c5f8896159619634b64064b603643588720e231aa93334b6d2ee7fc219"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__11GEMSDOE.json",
+        "sha256": "3b1fa99b7db0b5a7ab1076940394fbd9406172fcc1cd4eb2e037f67563c7e687"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__12GEMSDOE.json",
+        "sha256": "5ff63b129d5e14cdb00aa557e0019d8b3cc00e60438ed78ab8e690784d1987a2"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__13GEMSDOE.json",
+        "sha256": "b005c9c04d2a9eaa886c38c359b26e87b389726468f8372b9c06470c39ff1d50"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__14GEMSDOE.json",
+        "sha256": "4173e8b2d544a8b476e6a0dfd13e842f83618fc466f0881795e014bb5d079905"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__15GEMSDOE.json",
+        "sha256": "7c1cb346ef10bd0dcd58ba815146cc6f4611821d70d471d46bf8619570902ff2"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__16GEMSDOE.json",
+        "sha256": "16982c663ed5bdcf061ef31630d3420b904f19084aab806415a88babbc39850e"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__17GEMSDOE.json",
+        "sha256": "e8e1bd3a04dcd94a0307f819d244aada135aa78e852003fadf69cbb3524ff83d"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__18GEMSDOE.json",
+        "sha256": "73cb18a1a8cbbf45e7d3a994436cf80ecbc820b4e3a1e56b3760a031e4232ade"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__19GEMSDOE.json",
+        "sha256": "f225d82f869be5cde76dec0992d6c858c2cf6e3a71979a9dbc8f60d73ef2bc70"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__20GEMSDOE.json",
+        "sha256": "085920c1613436810c702c9dbc2c29e8dcb619446fb10d0aa61ef019a6b39c15"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__55GEMSDOE.json",
+        "sha256": "6fc450f9fd2bb4e472019cabfb1e5639aabe1e05e2ba487ef66a8a9b63b90a44"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__56GEMSDOE.json",
+        "sha256": "b2eb30203023ace0299024a58737782c0a9cf8bca0288a25d1ab4e5a4b3cedae"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__57GEMSDOE.json",
+        "sha256": "67979a24df38ec4f051ad2396300f57f6e6298943d2e9da7b53fb1da4a0ae581"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__58GEMSDOE.json",
+        "sha256": "568c2c0cc17a54584febd653bb238633cf4251150adb05d9442d5aa0854ff361"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__59GEMSDOE.json",
+        "sha256": "38f533ce1261b2207098749e4c89cdb05148a2ad199a3280cfe28334d9f07d1c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__5GEMSDOE.json",
+        "sha256": "fc6e6badbfd3ed8b9754a4046710d8e69e4c4ccdff704acbb4334943916a2c00"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__60GEMSDOE.json",
+        "sha256": "82cecbb92ca1efcf5204547ac6d30f374dda3bfd940b144733b5ea39bebbe818"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__61GEMSDOE.json",
+        "sha256": "6653b94679ef7dc513761b713dfe8876eb8c68c6c123e9cd998f4c5badc5972e"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__62GEMSDOE.json",
+        "sha256": "5262690b456182a0f42e76aa22e429d93f9ce277bbad156826a07a3418497f7a"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__6GEMSDOE.json",
+        "sha256": "d5de40b3f52297e20a36ba76f30772112450d4919707a376f1d859cae6793640"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__7GEMSDOE.json",
+        "sha256": "0d0d5ef8e685d8ea618646cbb61b1baab42a686460564d92c9a2bc1e8cde3c5c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__8GEMSDOE.json",
+        "sha256": "e93362eeef879728e193b2640ee9f4143707214b1a7692267317a38db78adae5"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__AirPremia.json",
+        "sha256": "b2957068606707b19b1a6dc1498d7e15db126b038678f31f488308608ac90ff4"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__BathTubOverflowSF.json",
+        "sha256": "7a2cb4968c89ebde160915da852b817294993feaa88d4b828e2eb52f5a6b5902"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__BusanL7HaeundaeLotteHotelStay.json",
+        "sha256": "d0d05a0759ec16c26cf32ccd5b0d2957cb103a738d2fff98fd0dfd0645dedcd1"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Commodities.json",
+        "sha256": "6361cdd0343d89f4a1df20e12780640c37fed8c73e6ba9969224d9197054cf43"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Coupons.json",
+        "sha256": "49b9ca53a649979c0e4e5faf634d1a9d33b5499c18cf741def3f5e106a065d52"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__CruiseDeals.json",
+        "sha256": "cac0173a0d4a2c82fc40a22973e356087a42324f4bfe2746503e5fc0a72dfa29"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__DrugAnalysis.json",
+        "sha256": "ddecaf2cbbce8cb726a0342503a9068316a5b2da8858cad3db6a59dc6a4dab3c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Elections.json",
+        "sha256": "0271c953728f7793a3f3697923ade425584eecb9d155b5cc0a153fe0bf051cbb"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__ErrorsLive.json",
+        "sha256": "8c17fab00fb0961b69de04addc6d9a6994c3152f4a40eabca231fb123f7fa5af"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__FLABSENGY.json",
+        "sha256": "949db31dff30174c2c54e7fed7d59202d9ba254311c2d423742f7b227cf23328"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__FUTURESCOMMODITIES.json",
+        "sha256": "5ef3dda2d2748014a5ea31dfd302b7d76eafcaa3524cf242ef47c20a31103948"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE.json",
+        "sha256": "92979b3f2203fbd9ea8401b6e6a748d7ce10c482ed1ce19d0d3e99cea2ed5f71"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE10.json",
+        "sha256": "705380aae5f786de20efd1cde3605e79d23b91e03fe9e94ee585fec19f485d54"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE2.json",
+        "sha256": "cc476632105438dd80c8fee095288fa7c5b072584c4c0e69607a5fbeb6032b41"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE21.json",
+        "sha256": "fa06696ac30aeb6e1365eea95154047adda41b634d6c2d6ec838ad481f47f036"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE22.json",
+        "sha256": "86afc6c950b28001b151dac3589066c16478811383e93520e57ea8982a24a83a"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE23.json",
+        "sha256": "7b1d450968a9170bc5f2fad6493ef77dd0e687f91a2ca4dfb09abea1eb216bdf"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE24.json",
+        "sha256": "cd06ebe2a18ec86f1337d322c12a48ba729bf58666a00daa627dbc2244df147b"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE25.json",
+        "sha256": "3eaf4bd3bba7ba165621e6bf505ba701447bbc3629387553aad3250f346d3190"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE26.json",
+        "sha256": "0a2424319d17ff03dc4d8a65e9b7dd9235b66b90ddb1951e6f76ce46f93e2b6f"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE27.json",
+        "sha256": "3a8e7ab14ded0d48d1203caf946ad5b9b8d0afb20ce66ccf677ec17487605b68"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE28.json",
+        "sha256": "14425aec2f2138b970be052227abab0b2d7fb13c4d6d21cb50320164faef3442"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE29.json",
+        "sha256": "3b00cee325e6b2b92d12cb0ebaf88793522a4877ec28d78563588c43b7124a19"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE3.json",
+        "sha256": "c96e30356195d4c85f75a7261cdc020e291c436cea1cd551ede99f74cd0baae9"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE30.json",
+        "sha256": "87d321b921b050e60c16687f7b351fbb678953a135d2bcaf88e7860b32fae97f"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE31.json",
+        "sha256": "73164fc19150731af399160a19e274939355865eb30ed9e8c15b60becd6dfca4"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE32.json",
+        "sha256": "fbf53f8e69e5707abdbcf694aa432483938964f3e2b9aeb7d4ce5b2ae1ac3a0d"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE33.json",
+        "sha256": "2f7b91765ddcdced1788c1955da668ab7a621ae7800d16c8422afbda824bffe8"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE34.json",
+        "sha256": "782051337f142e6ef4839d1fb23311d170f8899078523fec6c1a1477b6b1c310"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE35.json",
+        "sha256": "b94e480797793f9c36d9784a6ce903ced73430fb71784bf6a841594cb884e6fd"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE36.json",
+        "sha256": "0970c7f6093225590ac6835403dcfd6510e224822e85b29d9bd5889571fa5d27"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE37.json",
+        "sha256": "59013ae3a8935028bd3269ad3e8d97dd9cc6d5a37430f441316b5c79f41d9f48"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE38.json",
+        "sha256": "069de8a5d364816eeec9dd38ce563c1b4b4c0b7bab9936c6060e0c21e237365b"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE39.json",
+        "sha256": "338ebe7260bcc366fed194e15a2ed80be6c9f572ca4e9e1adb0ed95f6dfa2971"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE4.json",
+        "sha256": "2a8158ca41b5610313a7185b559d9ff6fc239ce876bfdc4a021c9863b0296cc2"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE40.json",
+        "sha256": "625a2d660819c85a725d10d978aa55aa0768670ce83f982342b8c400a3d97220"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE41.json",
+        "sha256": "c00babe1a5a7989aae7b46335a09412d12e04dd33231b4209363e8636b598027"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE42.json",
+        "sha256": "9acfe0c8399d04822dbbeedd723dfe40241217a569404cfbc175d082ade834a3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE43.json",
+        "sha256": "32a2add5c8dba263814f60519cbe412eb8b2ccebb7b8c27cc4403f2a94fdedff"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE44.json",
+        "sha256": "76abb24fc8f00e5814c816f7bf28838aaac50f5ac4dd9e999de85d8bdad459a1"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE45.json",
+        "sha256": "a842f77e8f086915be3d2702f160dda032eb769840b405ed540cb843f3c01887"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE46.json",
+        "sha256": "1523d8234aacd317d2a3262c51bd053f6e39414e261e0fa5b2154d66a843d844"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE47.json",
+        "sha256": "7d224a6d3020392162ea999af606909f9ece996daa9c1845ba0477ff7112ac0f"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE48.json",
+        "sha256": "5ad3e95206f103959d6519685f84f1f2c791a875a564d28c080ffe9f5caa67c2"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE49.json",
+        "sha256": "09c5e7e3bb0ed385a5c928c11fd73210d89f20065a4bd951fc44551b777cd80c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE50.json",
+        "sha256": "1a76ecf610284bbaaccb1069a854bb905dffee2e1fc5c1e0de374a2f92a804b7"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE51.json",
+        "sha256": "a903323734bc11fbf6958053fe90c337c1a80287eb6367d266f84694422c9d7b"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE52.json",
+        "sha256": "06f6e3e02f97897a8cb0b7ee890b1da7e629aaa8a2c7c63c85c61655729ef2bd"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE53.json",
+        "sha256": "d8ee40dd6fb70a76340809d0670e1708eadd34e8a88677c8e4a335a082ecf934"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE54.json",
+        "sha256": "f6ece0f05255bb9cf78121bbb952e7876eafd2938f4d033ac5ac12cce4242f7b"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE63.json",
+        "sha256": "0c323008a77da27ec53ebe5db86836b6ddf998945ade6caf5d05f6973a28eb97"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE64.json",
+        "sha256": "a15d2516e54d3050c95cbfd133f31f5b3302aafb2e325bd40aa90e48034e5bd2"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE65.json",
+        "sha256": "7288424a5545e16b6d37740f5617392b76c588aa3952c81cd0cd8e8636ca7692"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE66.json",
+        "sha256": "2478ec758d0b02be879d785aec59774422ad9715e75a1c08418029b80af430a3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE67.json",
+        "sha256": "0cd297577f28e9fbaf6bf0cf2f8f13524381a81d0f639f12545c12ff2045ad19"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE68.json",
+        "sha256": "eee915571b2f9328d8fffdf561f3cb984a5c3eb15a5c0c6fe1fa883e4b5dba5f"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE69.json",
+        "sha256": "05ba2cf029c3017ad9f8ba7f2c5a8d2cc2afa31410db20ea0a342e40d3584e97"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE70.json",
+        "sha256": "1bda865c512724a377c4ca46c83d161385aa28c84661730c944bd1edf6868f92"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE71.json",
+        "sha256": "4af871dc1fba7875ccb7d0aed8645647ed877b22b40de8797ec4be68ea660298"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE72.json",
+        "sha256": "2efdc712cdc6ba657ab05320121958ec11eca84a34a8bde978d499fa7e5bbef9"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GEMSDOE9.json",
+        "sha256": "7d09b08e0aa491eb8da7a28f794db731cf3524e38671640a0757406c852a51e5"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GOLD.json",
+        "sha256": "fcf157c67ed7d210359291a313cdb8e4333965d3016e118ad3535a63686fd377"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__GRANTWRITING.json",
+        "sha256": "fa5b7639018427be66c3afee67cc01c2a3347f5654da06bbef8706ad44dba64e"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__HongdaeStay.json",
+        "sha256": "3c11b60b86d7103d90489d81c3f75437e384d038fca55f1a50a34f1520d1cd9c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__HotelSeoulRoughdraft1.json",
+        "sha256": "90215dc2cc9871d49c88dd1e0751c5b8dd6f1f09791ebc4d8516af6df8e592aa"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__InjuryAlerTNFL.json",
+        "sha256": "ba3c60f1e3f1986df180528dac9d6d83d55b56d85166f59ac333db37c3420ea1"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Insider-trades.json",
+        "sha256": "f1a284df7e7bd3c0d342884dc6260ce1ef115a41648a5b761e99de9fa8210ef5"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Itinerary-Korea.json",
+        "sha256": "7abebd5198b4650f24ecaefc9a318e00fd57a6c877fafb3e628c9e4a2c1162a3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__KalshiPaperSim.json",
+        "sha256": "dac63f77bd092cd23632277cb419569c6873d2b1e103b75ae2e090c3444f7e39"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Korea-emergency.json",
+        "sha256": "c31c5a49c57fb48b6fd271518cd942189db22daa53fde6d82f408b96997ea353"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Korea.json",
+        "sha256": "e19fcf348dd83836c4fb1173f34d9d88d2db9b1fa323d4ef2591943603c97608"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__KoreaHotels.json",
+        "sha256": "850fd13a6dfd76c8f2265484c00fd11cd514de4f44c55d3342cbaaa280b7fe1a"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__LEARNGEMSDOE.json",
+        "sha256": "0f39e91a36ec4f5c8014e078afc2db52935c43288317c0433116c28219b46704"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__LSTARENGY.json",
+        "sha256": "3d88a7bd7d78458b1c1de85092b373876494eed2808c4a9f27076fde90094035"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Leg3SeoulTrip.json",
+        "sha256": "680b10772b3e266e6bc0d3674a3ec1da664d3002f5dbaf0d674ef89615b9cf2a"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MALTASUPPLEMENTAL.json",
+        "sha256": "c05be80af797eab3e5f1ea3dbcb03afecf6c760e03a5cab0d49338088ca829ce"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MLB-Live-PBP.json",
+        "sha256": "941992e2bedf2a30a233324e914a705a3f0d5ead5ef756862969f45070f29762"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MLB-PBP.json",
+        "sha256": "cd5adbcb857bcc03bae6e201e2cfafc7629860e012e8fabaedba07f6c1084c9d"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MLB-Prediction-model-backtest.json",
+        "sha256": "7a1e479c82381c5e452542b2b398cae1d8ca502098f9321996bab7e3d914f115"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MLBComp.json",
+        "sha256": "74ed48d6bffb56858c7b5c830ffebc1c4ead69e54a12346bada9d1a90a2ca168"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MLBRainDelay.json",
+        "sha256": "233963f76aad878a8ae078c129b785fd739402f1a02e1f05c7755ebfa1dfd8f3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MLBSCORINGCHANGE.json",
+        "sha256": "13e561d010a282d7905c33259a6152e5f81ec4b04c83a232d210684ddfa66071"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MasterSelfLearn.json",
+        "sha256": "8d2fbf6f2d077bfd30d101ea14d3fce5be0e6dd6e5567f6dbb59fc11fb37227d"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__MasterSite.json",
+        "sha256": "3d5da7008ec9db6c147f1e1f179655b00ec48147a3c143f0daecd2387015f90a"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NBAComp.json",
+        "sha256": "0cf15a091f1e370052b78322c227aa5f95e0eae1b42b9639bc290dbd1222e237"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NBAInjScoreboard.json",
+        "sha256": "bf0cb48642f32f6cba473a7c2f01611c779ab02a4c1251a9b4908c64b1580940"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NBAInjuryReport.json",
+        "sha256": "f4bd6ba997dab1bfc90292072059e89fa8ad9a455b441553a11908008e3f64c9"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NBASCOREBOARD.json",
+        "sha256": "fbb1715eafad6ad7b57c31041c9edeb7144a045783d0543c3eaf2c8fcbdfddfa"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFL-PLAYER-PROP-SIM.json",
+        "sha256": "b308ebcd5ebd02f7a6630c130f40c32eaa14a088904db46a6aff44e2f9309bdc"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFL-scoreboard.json",
+        "sha256": "53d62a45d204607ce0c05286e0df06c359bf6bbb5dbdf8afbb9b57a9294dd95c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFLComp.json",
+        "sha256": "0d4234582989fba6f614cd98d731f0a55d3468835c017f6e843e3b0df0bb2406"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFLInjuryReport.json",
+        "sha256": "84da2bd19ad57a6533ecfff9f17593308876af9e36487500f756c59f7c243e1b"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFLMAIN.json",
+        "sha256": "e00c5e00fd4ed7f219699ec41a80a6bf395c95bd01eb2aef41f3f8c54b125bcf"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFLPARLAYCOMP.json",
+        "sha256": "01d5d921c40431c587e8a9cac294ecec1b831c76a7fa83baa93245c718fae3df"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NFLPRED.json",
+        "sha256": "cf2b62e6a4d91c3c33a3c71f459a76f03dfbfd513ac76bda5f10434bf7cb5318"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NHL-SCOREBOARD.json",
+        "sha256": "6d0d7873dbfd716f2abc9f1905cfa782dbe0e7cf9f452d8562946f6ad2b81994"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NHLComp.json",
+        "sha256": "7cab863df877d5b8d8b0255c8d57a510440df480568e96c23b9d09703b0b6178"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__NOBEL-PRIZE.json",
+        "sha256": "d5cc99ad92535e1ae7a7437dfbe89670eaf6e2837fc99a34f44f147b0f1409f7"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Ncaa-football-alerts.json",
+        "sha256": "eee6978e01686496ff99df65a9795bbaa982a8ad7ba8adca1ecee553e4933615"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__OLBG-Competition.json",
+        "sha256": "512ddebf89f6594766b4262ffcc54de35e6e7a8fc3ee21740ec28653fd0d28fd"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__PFFNFL.json",
+        "sha256": "6053d788faef489584dda5f21a94f35d17f25b730afbe525c48bd0eaad6181d8"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__POSTSEASONMLBALERTS.json",
+        "sha256": "1f66a070fc557388686cd14a9edce2fbf584f69f020c8a299b9122b674e631dd"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__PRICINGEXPERT.json",
+        "sha256": "79ab319c20d90f7b0711311206df7267119833275976c76f84dd8fc17c0e4b2f"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__ParlaySports.json",
+        "sha256": "0645c59feef2f1a8d6cc497a69eefb477c38d27890420c6cb0ba53d8ee9c9385"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__PlumbingSF.json",
+        "sha256": "19e89b189eaac09d7e8acf5f15758c79d053db6b6611396f6ad2bec4ff3ef306"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__PriceKalshiHistorical.json",
+        "sha256": "fd9e114f4244be32a1fff095e242c91ab229fa533daaa17aa520108a5e3a07dc"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__RADIOSF.json",
+        "sha256": "6d5ed7a811fa609f3cda8d365b4bf952b28404817177192ea084e6fce1c35f05"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__RGENGY.json",
+        "sha256": "94032bc96d689d2ed525833e9d5d2cdecf13fbb775ea280c4d8224208c6457d3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SABERENGY.json",
+        "sha256": "29872c20ee61fc0ff7bcc936aa582d32203cba31f82a57b8b66ad669bf04cb40"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SCORINGDISCREPNFL.json",
+        "sha256": "0cf767f6816fff35d0408ffd6db7481462e2c8011f6c5cc2a6d90bde6fc3ec1c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SFLateNight.json",
+        "sha256": "c12e62b1097cdd742224911c925c9f671be078ac7a25495c8bdee66e39c4c024"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SFWeather.json",
+        "sha256": "02c370e9bed8273d408a6524231d86885e30581e36bbc53a12750e7864063cac"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SIM-COMP-NOBEL-PRIZE.json",
+        "sha256": "68dfab55c7ecd5d5ef4a34037b8482509f68d4228f84dd28685c56c9007ffc2b"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__ScheduleFreeTime.json",
+        "sha256": "8bb7e652e51caac0874f0f0a8c02e355faaa5692623dea65834f2d4eb4a50b5c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__ScoringDiscrepNBA.json",
+        "sha256": "f129c69ca17f497be38ccdb65e0af799bf52283b3021c70b38067a3591ec6580"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__ScoringDiscrepNHL.json",
+        "sha256": "fd69bc6307286ad5a7c87084ab024a22ae4f32f1f6b3b13a73690cf7d6515ec8"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SelfLearn.json",
+        "sha256": "f533b46f4f5bc7fae29101a712e490a9877e4a8417b565d63d59eea47b7dd1b0"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__ShoulderPain.json",
+        "sha256": "97368f5f7c2f8c798f4cfdf2e1cb8ca22e06b8d70894782319849071929850ed"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SocialMediaComp.json",
+        "sha256": "0ed0fd66bf207013382016f5390d5f7f421dadf9d465fdd87ffb00e8da5d0ab6"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__SportsPred.json",
+        "sha256": "9719bed7c6fd90388869e6004a5552432b713c9b73af66bc9fa699cd0c3229a7"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__StanfordStay.json",
+        "sha256": "8b58ddff55244167a86c845e211fa6fbfa025748ca118e791756de752317555c"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__StockPaperSim.json",
+        "sha256": "b28716b3d7663a7e87230b4bfeff9847c11961ab8c556e3bf28d1ad89f2fa987"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__StokEngineer.json",
+        "sha256": "2869721d4f35a7e8c1c57be7ef0e0b89c4c65d42db6b45dd0ba1142ebdb7a62a"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__TAXKALSHI.json",
+        "sha256": "a6203da75e4f56f7a50b2461b9b9d2057c1407a22d68c30beb8a6cc4eba21fc3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__THUNDERPICK-WC-2026.json",
+        "sha256": "1dea69a58692f690efa652e853ae68d352a2c975b1f84a3baf5ec5536e06721d"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__THUNDERPICKCOMP.json",
+        "sha256": "c6d311237c79d1afe3f725b513b4f217e3fb31f41d9edeaec92c8a0fed72cd2e"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__TinoLunchSpecial.json",
+        "sha256": "5fb2ecba18ca6cd80f80a7c2c58708254fe40560e56fbd4da6886070fa01be10"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__TradingViewTheLeap.json",
+        "sha256": "58abb5bc3f5f7603fb3efe061b750b26750035e1cab767c335ba1bcec9a4ffec"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__Tradingview-pinescript-editor.json",
+        "sha256": "1d172172d49ee584a544ed67be4daf3476061f0eda35beda2be981682697cdf7"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__VacationSchedule.json",
+        "sha256": "df122916c61d6ac1055fb3114aee1706fdcc5f00b1e08aa495c152d75b5c9416"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__VapePods.json",
+        "sha256": "5d291643fa28eecff2821c01e5cb0a08751efa3bf15616bf892a7d9f65d19ba3"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__WoWForever.json",
+        "sha256": "c526c5b0ca90c51f595b70cee91b39e679158bd07e43879adadcce285e7d42b6"
+      },
+      {
+        "path": "data/sites/buffedlizard55-lab__based-loaded-MLB-alert-system.json",
+        "sha256": "7bc17fc6ad43b80326db59fc8f3d074db7f7736448d6b796769fd0725e992c41"
+      },
+      {
+        "path": "tools/last_description_audit.json",
+        "sha256": "938c5ceae90e27aaff6040c10514eaaf5bc721b22e9713948fb3f9e38cde9c6a"
+      },
+      {
+        "path": "tools/last_kind_audit.json",
+        "sha256": "a9c1b7b25797f0177ec3f39d285688fad4d4600d9e07e819f8058d2e54f5c8d7"
+      },
+      {
+        "path": "tools/last_live_verify.json",
+        "sha256": "71a2090042e50f7df0994be24c302fd8f053a5fb0e734ffb1942f8499d18bd90"
+      },
+      {
+        "path": "tools/last_provenance_audit.json",
+        "sha256": "5a2b27ef4540c4dd5da1c6fd0ca6c5e4931a071bc0c62a9698fde9d552eb33b2"
+      }
+    ]
+  }
+}
